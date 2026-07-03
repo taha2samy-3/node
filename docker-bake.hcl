@@ -6,6 +6,10 @@ variable "OWNER" {
   default = "taha2samy-3"
 }
 
+variable "BASE_IMAGE" {
+  default = "cgr.dev/chainguard/wolfi-base:latest"
+}
+
 variable "REPO" {
   default = "node"
 }
