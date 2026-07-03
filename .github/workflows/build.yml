@@ -35,6 +35,9 @@ jobs:
 
       - name: Build and Push with Bake
         uses: docker/bake-action@v7
+        env:
+          DOCKER_BUILD_RECORD_RETENTION_DAYS: 2
+          DOCKER_BUILD_RECORD_UPLOAD: false
         with:
           source: .
           files: |
@@ -105,6 +108,7 @@ jobs:
           subject-name: ghcr.io/taha2samy-3/node
           subject-digest: ${{ steps.get-digests.outputs.dev_digest }}
           push-to-registry: true
+          show-summary: false
 
       - name: Attest SBOM for Dev Image
         uses: actions/attest@v4
@@ -114,6 +118,7 @@ jobs:
           predicate-path: dev.cyclonedx.json
           predicate-type: https://cyclonedx.org/bom
           push-to-registry: true
+          show-summary: false
 
       - name: Generate SBOM for Prod Image
         uses: anchore/sbom-action@v0
@@ -122,6 +127,7 @@ jobs:
           format: cyclonedx-json
           output-file: prod.cyclonedx.json
           upload-artifact: false
+          show-summary: false
 
       - name: Attest Provenance for Prod Image
         uses: actions/attest-build-provenance@v4
@@ -129,6 +135,7 @@ jobs:
           subject-name: ghcr.io/taha2samy-3/node
           subject-digest: ${{ steps.get-digests.outputs.prod_digest }}
           push-to-registry: true
+          show-summary: false
 
       - name: Attest SBOM for Prod Image
         uses: actions/attest@v4
@@ -138,3 +145,4 @@ jobs:
           predicate-path: prod.cyclonedx.json
           predicate-type: https://cyclonedx.org/bom
           push-to-registry: true
+          show-summary: false
