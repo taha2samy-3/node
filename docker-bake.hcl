@@ -42,6 +42,7 @@ target "dev" {
     NODE_FULL_VERSION = item.full_version
     BASE_IMAGE = BASE_IMAGE
   }
+  platforms = ["linux/amd64", "linux/arm64"]
   tags = [
     "${REGISTRY}/${OWNER}/${REPO}:${item.version}-dev",
     "${REGISTRY}/${OWNER}/${REPO}:v${item.version}-dev"
@@ -68,6 +69,7 @@ target "prod" {
       { version = "24", full_version = NODE_24_FULL_VERSION }
     ]
   }
+  platforms = ["linux/amd64", "linux/arm64"]
   context = "."
   dockerfile = "Dockerfile"
   target = "minimal"
