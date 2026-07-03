@@ -37,7 +37,7 @@ def get_wolfi_package_version(runner_image, package_name):
         sys.exit(1)
 
 def create_pull_request(file_path, updates):
-    branch_name = f"chore/security-updates-{int(time.time())}"
+    branch_name = f"chore/security-updates-images-packages"
     title = "chore(deps): lock base images and package versions to latest secure releases"
     
     body = "### 🛡️ Automated Dependency & Security Update\n\n"
