@@ -1,0 +1,37 @@
+{
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "config:best-practices"
+    ],
+    "dependencyDashboard": true,
+    "schedule": [
+        "before 5am on monday"
+    ],
+    "packageRules": [
+        {
+            "matchManagers": [
+                "github-actions"
+            ],
+            "groupName": "github-actions-dependencies",
+            "matchUpdateTypes": [
+                "minor",
+                "patch"
+            ],
+            "automerge": true
+        },
+        {
+            "matchManagers": [
+                "pipenv"
+            ],
+            "groupName": "mkdocs-dependencies",
+            "matchUpdateTypes": [
+                "minor",
+                "patch"
+            ],
+            "automerge": true
+        }
+    ],
+    "postUpdateOptions": [
+        "pipenvKeepVar"
+    ]
+}
