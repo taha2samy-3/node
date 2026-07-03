@@ -11,13 +11,15 @@ variable "REPO" {
 }
 
 variable "BASE_IMAGE" {
-  default = "cgr.dev/chainguard/wolfi-base@sha256:2f7a5c164eafbdbe46fe1d91bd1ab4c8cb5c2bdbd10641c3d61bd39962384cdb"
+  default = "cgr.dev/chainguard/wolfi-base:latest"
 }
 
-R.23.1-r1"
+variable "NODE_22_FULL_VERSION" {
+  default = "22.14.0-r0"
 }
 
-T.18.0-r2"
+variable "NODE_24_FULL_VERSION" {
+  default = "24.0.0_alpha1-r0"
 }
 
 group "default" {

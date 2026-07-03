@@ -9,7 +9,7 @@ def get_image_digest(image_name):
         subprocess.run(["docker", "pull", "-q", image_name], check=True, stdout=subprocess.DEVNULL)
         inspect_cmd = ["docker", "inspect", "--format={{index .RepoDigests 0}}", image_name]
         result = subprocess.run(inspect_cmd, capture_output=True, text=True, check=True)
-        digest = result.stdout.strip()
+        digest = result.stdout.strip().split('\n')[-1].strip()
         if not digest or "@" not in digest:
             raise ValueError("No digest found")
         return digest
@@ -28,7 +28,7 @@ def get_wolfi_package_version(runner_image, package_name):
         for line in res.stdout.strip().split("\n"):
             line = line.strip()
             if line.startswith(prefix):
-                candidate = line[len(prefix):]
+                candidate = line[len(prefix):].strip()
                 if candidate and candidate[0].isdigit():
                     return candidate
         raise ValueError(f"Package {package_name} not found in search results")
@@ -37,7 +37,7 @@ def get_wolfi_package_version(runner_image, package_name):
         sys.exit(1)
 
 def create_pull_request(file_path, updates):
-    branch_name = f"chore/security-updates-images-packages"
+    branch_name = f"chore/security-updates-{int(time.time())}"
     title = "chore(deps): lock base images and package versions to latest secure releases"
     
     body = "### 🛡️ Automated Dependency & Security Update\n\n"
@@ -81,23 +81,25 @@ def lock_dependencies(file_path, images_map, packages_map, runner_image, enable_
         print(f"Resolving Docker Image: {image_tag}")
         locked_value = get_image_digest(image_tag)
         
-        pattern = r'(variable\s+"' + re.escape(var_name) + r'"\s*\{\s*default\s*=\s*")[^"]+("\s*\})'
+        pattern = r'(variable\s+"' + re.escape(var_name) + r'"\s*\{\s*default\s*=\s*")[^"\r\n]+(")'
         match = re.search(pattern, content)
-        if match and locked_value not in match.group(0):
-            print(f" -> Updating {var_name} to: {locked_value}")
-            content = re.sub(pattern, r'\1' + locked_value + r'\2', content)
-            updates_made[var_name] = {"type": "Docker Image", "target": image_tag, "value": locked_value}
+        if match:
+            if locked_value not in match.group(0):
+                print(f" -> Updating {var_name} to: {locked_value}")
+                content = re.sub(pattern, lambda m: m.group(1) + locked_value + m.group(2), content)
+                updates_made[var_name] = {"type": "Docker Image", "target": image_tag, "value": locked_value}
 
     for var_name, pkg_name in packages_map.items():
         print(f"Resolving Wolfi Package: {pkg_name}")
         locked_value = get_wolfi_package_version(runner_image, pkg_name)
         
-        pattern = r'(variable\s+"' + re.escape(var_name) + r'"\s*\{\s*default\s*=\s*")[^"]+("\s*\})'
+        pattern = r'(variable\s+"' + re.escape(var_name) + r'"\s*\{\s*default\s*=\s*")[^"\r\n]+(")'
         match = re.search(pattern, content)
-        if match and locked_value not in match.group(0):
-            print(f" -> Updating {var_name} to: {locked_value}")
-            content = re.sub(pattern, r'\1' + locked_value + r'\2', content)
-            updates_made[var_name] = {"type": "Wolfi Package", "target": pkg_name, "value": locked_value}
+        if match:
+            if locked_value not in match.group(0):
+                print(f" -> Updating {var_name} to: {locked_value}")
+                content = re.sub(pattern, lambda m: m.group(1) + locked_value + m.group(2), content)
+                updates_made[var_name] = {"type": "Wolfi Package", "target": pkg_name, "value": locked_value}
 
     if not updates_made:
         print("All dependencies are already locked to the latest versions. No changes detected.")
