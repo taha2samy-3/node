@@ -60,6 +60,7 @@ hide:
             {% endif %}
           {% endfor %}
         {% endif %}
+        {% set total_vulns = ns.vulns | length %}
 
         <div class="grid cards" markdown>
 
@@ -91,7 +92,7 @@ hide:
         #### :material-chart-donut: Severity Distribution
 
         ```vegalite
-                  {
+        {
           "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
           "data": {
             "values": [
@@ -136,7 +137,7 @@ hide:
             {% if 'Packages' in res and res['Packages'] -%}
               {% for p in res['Packages'] -%}
 
-        | **`{{ p['Name'] }}`** | `{{ p['Version'] }}` | {{ p['Licenses'] | join(', ') if p['Licenses'] is iterable and p['Licenses'] is not string else p['Licenses'] | default('N/A') }} | {% if res['Class'] == 'os-pkgs' %}:material-linux: System (Wolfi){% else %}:material-nodejs: Node.js Package{% endif %} |
+        | **`{{ p['Name'] }}`** | `{{ p['Version'] }}` | {{ p['Licenses'] | join(', ') if p['Licenses'] is iterable and p['Licenses'] is not string else p['Licenses'] | default('N/A') }} | {% if res['Class'] == 'os-pkgs' %}:material-linux: System (Wolfi){% else :material-nodejs: Node.js Package{% endif %} |
               {% endfor -%}
             {% endif -%}
           {% endfor -%}
