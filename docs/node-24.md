@@ -93,7 +93,7 @@ hide:
 
         ```vegalite
         {
-          "\$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+          "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
           "data": {
             "values": [
               {"category": "Critical", "value": {{ ns.critical }}, "color": "#d32f2f"},
