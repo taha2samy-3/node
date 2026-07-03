@@ -4,10 +4,18 @@
         "config:best-practices"
     ],
     "dependencyDashboard": true,
-    "schedule": [
-        "before 5am on monday"
-    ],
     "packageRules": [
+        {
+            "matchManagers": [
+                "dockerfile",
+                "docker-compose"
+            ],
+            "matchUpdateTypes": [
+                "minor",
+                "patch"
+            ],
+            "automerge": true
+        },
         {
             "matchManagers": [
                 "github-actions"
