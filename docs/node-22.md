@@ -92,7 +92,7 @@ hide:
         #### :material-chart-donut: Severity Distribution
 
         ```vegalite
-        {
+                {
           "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
           "data": {
             "values": [
@@ -116,6 +116,7 @@ hide:
           },
           "width": "container", "height": 250
         }
+
         ```
 
         #### :material-table-eye: Forensic Vulnerability Log
