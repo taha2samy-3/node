@@ -7,13 +7,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-push:
+  build:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-      id-token: write
-      attestations: write
+    strategy:
+      matrix:
+        version: [22, 24]
 
     steps:
       - name: Checkout Code
@@ -33,31 +34,67 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and Push with Bake
-        id: bake
         uses: docker/bake-action@v7
         with:
           source: .
           files: |
             ./docker-bake.hcl
+          targets: dev-${{ matrix.version }},prod-${{ matrix.version }}
           push: true
 
+  cleanup:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+
+    steps:
       - name: Cleanup Untagged Images
         uses: dataaxiom/ghcr-cleanup-action@v1
         with:
           delete-untagged: true
 
+  attest:
+    needs: cleanup
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+      attestations: write
+    strategy:
+      matrix:
+        version: [22, 24]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Extract Image Digests
         id: get-digests
         run: |
-          dev_digest=$(docker buildx imagetools inspect ghcr.io/taha2samy-3/node:22-dev --format '{{json .Manifest.Digest}}' | tr -d '"')
-          prod_digest=$(docker buildx imagetools inspect ghcr.io/taha2samy-3/node:22 --format '{{json .Manifest.Digest}}' | tr -d '"')
+          dev_digest=$(docker buildx imagetools inspect ghcr.io/taha2samy-3/node:${{ matrix.version }}-dev --format '{{json .Manifest.Digest}}' | tr -d '"')
+          prod_digest=$(docker buildx imagetools inspect ghcr.io/taha2samy-3/node:${{ matrix.version }} --format '{{json .Manifest.Digest}}' | tr -d '"')
           echo "dev_digest=$dev_digest" >> "$GITHUB_OUTPUT"
           echo "prod_digest=$prod_digest" >> "$GITHUB_OUTPUT"
 
       - name: Generate SBOM for Dev Image
         uses: anchore/sbom-action@v0
         with:
-          image: ghcr.io/taha2samy-3/node:22-dev
+          image: ghcr.io/taha2samy-3/node:${{ matrix.version }}-dev
           format: cyclonedx-json
           output-file: dev.cyclonedx.json
           upload-artifact: false
@@ -81,7 +118,7 @@ jobs:
       - name: Generate SBOM for Prod Image
         uses: anchore/sbom-action@v0
         with:
-          image: ghcr.io/taha2samy-3/node:22
+          image: ghcr.io/taha2samy-3/node:${{ matrix.version }}
           format: cyclonedx-json
           output-file: prod.cyclonedx.json
           upload-artifact: false
