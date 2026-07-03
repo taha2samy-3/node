@@ -51,7 +51,7 @@ hide:
             {% if 'Vulnerabilities' in res and res['Vulnerabilities'] %}
               {% set ns.vulns = ns.vulns + res['Vulnerabilities'] %}
               {% for v in res['Vulnerabilities'] %}
-                {% set sev = v['Severity'] if 'Severity' in v else 'UNKNOWN' %}
+                {% set sev = (v['Severity'] | upper) if 'Severity' in v else 'UNKNOWN' %}
                 {% if sev == "CRITICAL" %}{% set ns.critical = ns.critical + 1 %}{% endif %}
                 {% if sev == "HIGH" %}{% set ns.high = ns.high + 1 %}{% endif %}
                 {% if sev == "MEDIUM" %}{% set ns.medium = ns.medium + 1 %}{% endif %}
@@ -60,7 +60,6 @@ hide:
             {% endif %}
           {% endfor %}
         {% endif %}
-        {% set total_vulns = ns.vulns | length %}
 
         <div class="grid cards" markdown>
 
@@ -92,7 +91,7 @@ hide:
         #### :material-chart-donut: Severity Distribution
 
         ```vegalite
-                {
+                  {
           "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
           "data": {
             "values": [
@@ -114,9 +113,8 @@ hide:
               }
             }
           },
-          "width": "container", "height": 250
+          "width": 250, "height": 250
         }
-
         ```
 
         #### :material-table-eye: Forensic Vulnerability Log
