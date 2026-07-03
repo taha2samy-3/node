@@ -25,6 +25,7 @@ target "dev" {
   args = {
     NODE_VERSION = version
   }
+  platforms = ["linux/amd64", "linux/arm64"]
   tags = [
     "${REGISTRY}/${OWNER}/${REPO}:${version}-dev",
     "${REGISTRY}/${OWNER}/${REPO}:v${version}-dev"
@@ -54,6 +55,7 @@ target "prod" {
   args = {
     NODE_VERSION = version
   }
+  platforms = ["linux/amd64", "linux/arm64"]
   tags = [
     "${REGISTRY}/${OWNER}/${REPO}:${version}",
     "${REGISTRY}/${OWNER}/${REPO}:v${version}"
