@@ -74,7 +74,8 @@ jobs:
         with:
           subject-name: ghcr.io/taha2samy-3/node
           subject-digest: ${{ steps.get-digests.outputs.dev_digest }}
-          sbom-path: dev.cyclonedx.json
+          predicate-path: dev.cyclonedx.json
+          predicate-type: https://cyclonedx.org/bom
           push-to-registry: true
 
       - name: Generate SBOM for Prod Image
@@ -97,5 +98,6 @@ jobs:
         with:
           subject-name: ghcr.io/taha2samy-3/node
           subject-digest: ${{ steps.get-digests.outputs.prod_digest }}
-          sbom-path: prod.cyclonedx.json
+          predicate-path: prod.cyclonedx.json
+          predicate-type: https://cyclonedx.org/bom
           push-to-registry: true
