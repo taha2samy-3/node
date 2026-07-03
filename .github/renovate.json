@@ -5,23 +5,18 @@
     ],
     "dependencyDashboard": true,
     "pinDigests": true,
+    "recreateClosed": true,
+    "enabledManagers": [
+        "dockerfile",
+        "docker-compose",
+        "pipenv"
+    ],
     "packageRules": [
         {
             "matchManagers": [
                 "dockerfile",
                 "docker-compose"
             ],
-            "matchUpdateTypes": [
-                "minor",
-                "patch"
-            ],
-            "automerge": true
-        },
-        {
-            "matchManagers": [
-                "github-actions"
-            ],
-            "groupName": "github-actions-dependencies",
             "matchUpdateTypes": [
                 "minor",
                 "patch"
