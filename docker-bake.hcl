@@ -2,7 +2,7 @@ variable "REGISTRY" {
   default = "ghcr.io"
 }
 
-variable "USER" {
+variable "OWNER" {
   default = "taha2samy-3"
 }
 
@@ -19,8 +19,8 @@ target "dev" {
   dockerfile = "Dockerfile"
   target = "full-dev"
   tags = [
-    "${REGISTRY}/${USER}/${REPO}:22-dev",
-    "${REGISTRY}/${USER}/${REPO}:v22-dev"
+    "${REGISTRY}/${OWNER}/${REPO}:22-dev",
+    "${REGISTRY}/${OWNER}/${REPO}:v22-dev"
   ]
   cache-from = ["type=gha,scope=dev"]
   cache-to = ["type=gha,mode=max,scope=dev,compression=zstd,compression-level=3"]
@@ -41,8 +41,8 @@ target "prod" {
   dockerfile = "Dockerfile"
   target = "minimal"
   tags = [
-    "${REGISTRY}/${USER}/${REPO}:22",
-    "${REGISTRY}/${USER}/${REPO}:v22"
+    "${REGISTRY}/${OWNER}/${REPO}:22",
+    "${REGISTRY}/${OWNER}/${REPO}:v22"
   ]
   cache-from = ["type=gha,scope=prod"]
   cache-to = ["type=gha,mode=max,scope=prod,compression=zstd,compression-level=3"]
