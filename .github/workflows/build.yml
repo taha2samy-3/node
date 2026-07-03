@@ -107,7 +107,7 @@ jobs:
           push-to-registry: true
 
       - name: Attest SBOM for Dev Image
-        uses: actions/attest@v1
+        uses: actions/attest@v4
         with:
           subject-name: ghcr.io/taha2samy-3/node
           subject-digest: ${{ steps.get-digests.outputs.dev_digest }}
@@ -131,7 +131,7 @@ jobs:
           push-to-registry: true
 
       - name: Attest SBOM for Prod Image
-        uses: actions/attest@v1
+        uses: actions/attest@v4
         with:
           subject-name: ghcr.io/taha2samy-3/node
           subject-digest: ${{ steps.get-digests.outputs.prod_digest }}
