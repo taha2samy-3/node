@@ -13,6 +13,7 @@ jobs:
       contents: read
       packages: write
       id-token: write
+      attestations: write
 
     steps:
       - name: Checkout Code
@@ -32,16 +33,69 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and Push with Bake
+        id: bake
         uses: docker/bake-action@v7
         with:
           source: .
           files: |
             ./docker-bake.hcl
           push: true
-          provenance: true
-          sbom: true
 
-#      - name: Cleanup Untagged Images
-#        uses: dataaxiom/ghcr-cleanup-action@v1
-#        with:
-#          delete-untagged: true
+      - name: Cleanup Untagged Images
+        uses: dataaxiom/ghcr-cleanup-action@v1
+        with:
+          delete-untagged: true
+
+      - name: Extract Image Digests
+        id: get-digests
+        run: |
+          dev_digest=$(docker buildx imagetools inspect ghcr.io/taha2samy-3/node:22-dev --format '{{json .Manifest.Digest}}' | tr -d '"')
+          prod_digest=$(docker buildx imagetools inspect ghcr.io/taha2samy-3/node:22 --format '{{json .Manifest.Digest}}' | tr -d '"')
+          echo "dev_digest=$dev_digest" >> "$GITHUB_OUTPUT"
+          echo "prod_digest=$prod_digest" >> "$GITHUB_OUTPUT"
+
+      - name: Generate SBOM for Dev Image
+        uses: anchore/sbom-action@v0
+        with:
+          image: ghcr.io/taha2samy-3/node:22-dev
+          format: cyclonedx-json
+          output-file: dev.cyclonedx.json
+          upload-artifact: false
+
+      - name: Attest Provenance for Dev Image
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-name: ghcr.io/taha2samy-3/node
+          subject-digest: ${{ steps.get-digests.outputs.dev_digest }}
+          push-to-registry: true
+
+      - name: Attest SBOM for Dev Image
+        uses: actions/attest@v1
+        with:
+          subject-name: ghcr.io/taha2samy-3/node
+          subject-digest: ${{ steps.get-digests.outputs.dev_digest }}
+          sbom-path: dev.cyclonedx.json
+          push-to-registry: true
+
+      - name: Generate SBOM for Prod Image
+        uses: anchore/sbom-action@v0
+        with:
+          image: ghcr.io/taha2samy-3/node:22
+          format: cyclonedx-json
+          output-file: prod.cyclonedx.json
+          upload-artifact: false
+
+      - name: Attest Provenance for Prod Image
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-name: ghcr.io/taha2samy-3/node
+          subject-digest: ${{ steps.get-digests.outputs.prod_digest }}
+          push-to-registry: true
+
+      - name: Attest SBOM for Prod Image
+        uses: actions/attest@v1
+        with:
+          subject-name: ghcr.io/taha2samy-3/node
+          subject-digest: ${{ steps.get-digests.outputs.prod_digest }}
+          sbom-path: prod.cyclonedx.json
+          push-to-registry: true
