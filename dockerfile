@@ -1,6 +1,6 @@
 FROM cgr.dev/chainguard/wolfi-base AS full-dev
 
-USER root
+USER root 
 
 RUN apk update && apk add --no-cache \
     nodejs-22 \
