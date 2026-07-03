@@ -6,12 +6,20 @@ variable "OWNER" {
   default = "taha2samy-3"
 }
 
+variable "REPO" {
+  default = "node"
+}
+
 variable "BASE_IMAGE" {
   default = "cgr.dev/chainguard/wolfi-base:latest"
 }
 
-variable "REPO" {
-  default = "node"
+variable "NODE_22_FULL_VERSION" {
+  default = "22.14.0-r0"
+}
+
+variable "NODE_24_FULL_VERSION" {
+  default = "24.0.0_alpha1-r0"
 }
 
 group "default" {
@@ -19,61 +27,69 @@ group "default" {
 }
 
 target "dev" {
-  name = "dev-${version}"
+  name = "dev-${item.version}"
   matrix = {
-    version = ["22", "24"]
+    item = [
+      { version = "22", full_version = NODE_22_FULL_VERSION },
+      { version = "24", full_version = NODE_24_FULL_VERSION }
+    ]
   }
   context = "."
   dockerfile = "Dockerfile"
   target = "full-dev"
   args = {
-    NODE_VERSION = version
+    NODE_VERSION = item.version
+    NODE_FULL_VERSION = item.full_version
+    BASE_IMAGE = BASE_IMAGE
   }
-  platforms = ["linux/amd64", "linux/arm64"]
   tags = [
-    "${REGISTRY}/${OWNER}/${REPO}:${version}-dev",
-    "${REGISTRY}/${OWNER}/${REPO}:v${version}-dev"
+    "${REGISTRY}/${OWNER}/${REPO}:${item.version}-dev",
+    "${REGISTRY}/${OWNER}/${REPO}:v${item.version}-dev"
   ]
-  cache-from = ["type=gha,scope=dev-${version}"]
-  cache-to = ["type=gha,mode=max,scope=dev-${version},compression=zstd,compression-level=3"]
+  cache-from = ["type=gha,scope=dev-${item.version}"]
+  cache-to = ["type=gha,mode=max,scope=dev-${item.version},compression=zstd,compression-level=3"]
   labels = {
     "org.opencontainers.image.authors" = "Taha Samy"
     "org.opencontainers.image.source" = "https://github.com/${OWNER}/${REPO}"
     "org.opencontainers.image.licenses" = "MIT"
-    "org.opencontainers.image.description" = "Optimized Node.js ${version} development image with npm based on Chainguard Wolfi"
+    "org.opencontainers.image.description" = "Optimized Node.js ${item.version} (${item.full_version}) development image with npm based on Chainguard Wolfi"
   }
   annotations = [
-    "index,manifest:org.opencontainers.image.description=Optimized Node.js ${version} development image with npm based on Chainguard Wolfi",
+    "index,manifest:org.opencontainers.image.description=Optimized Node.js ${item.version} (${item.full_version}) development image with npm based on Chainguard Wolfi",
     "index,manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${REPO}"
   ]
 }
 
 target "prod" {
-  name = "prod-${version}"
+  name = "prod-${item.version}"
   matrix = {
-    version = ["22", "24"]
+    item = [
+      { version = "22", full_version = NODE_22_FULL_VERSION },
+      { version = "24", full_version = NODE_24_FULL_VERSION }
+    ]
   }
   context = "."
   dockerfile = "Dockerfile"
   target = "minimal"
   args = {
-    NODE_VERSION = version
+    NODE_VERSION = item.version
+    NODE_FULL_VERSION = item.full_version
+    BASE_IMAGE = BASE_IMAGE
   }
-  platforms = ["linux/amd64", "linux/arm64"]
   tags = [
-    "${REGISTRY}/${OWNER}/${REPO}:${version}",
-    "${REGISTRY}/${OWNER}/${REPO}:v${version}"
+    "${REGISTRY}/${OWNER}/${REPO}:${item.version}",
+    "${REGISTRY}/${OWNER}/${REPO}:v${item.version}"
   ]
-  cache-from = ["type=gha,scope=prod-${version}"]
-  cache-to = ["type=gha,mode=max,scope=prod-${version},compression=zstd,compression-level=3"]
+  cache-from = ["type=gha,scope=prod-${item.version}"]
+  cache-to = ["type=gha,mode=max,scope=prod-${item.version},compression=zstd,compression-level=3"]
   labels = {
     "org.opencontainers.image.authors" = "Taha Samy"
     "org.opencontainers.image.source" = "https://github.com/${OWNER}/${REPO}"
     "org.opencontainers.image.licenses" = "MIT"
-    "org.opencontainers.image.description" = "Ultra-secure minimal Node.js ${version} production runtime based on Chainguard Wolfi and scratch"
+    "org.opencontainers.image.description" = "Ultra-secure minimal Node.js ${item.version} (${item.full_version}) production runtime based on Chainguard Wolfi and scratch"
   }
   annotations = [
-    "index,manifest:org.opencontainers.image.description=Ultra-secure minimal Node.js ${version} production runtime based on Chainguard Wolfi and scratch",
+    "index,manifest:org.opencontainers.image.description=Ultra-secure minimal Node.js ${item.version} (${item.full_version}) production runtime based on Chainguard Wolfi and scratch",
     "index,manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${REPO}"
   ]
 }

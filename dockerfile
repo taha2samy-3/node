@@ -1,14 +1,16 @@
-ARG NODE_VERSION=22
 ARG BASE_IMAGE=cgr.dev/chainguard/wolfi-base:latest
+ARG NODE_VERSION=22
+ARG NODE_FULL_VERSION
 
 FROM ${BASE_IMAGE} AS full-dev
 
 ARG NODE_VERSION
+ARG NODE_FULL_VERSION
 
 USER root
 
 RUN apk update && apk add --no-cache \
-    nodejs-${NODE_VERSION} \
+    nodejs-${NODE_VERSION}=${NODE_FULL_VERSION} \
     npm
 
 RUN adduser -D -u 1000 node && \
@@ -26,11 +28,12 @@ CMD ["node"]
 FROM ${BASE_IMAGE} AS minimal-prep
 
 ARG NODE_VERSION
+ARG NODE_FULL_VERSION
 
 USER root
 
 RUN apk update && apk add --no-cache \
-    nodejs-${NODE_VERSION}-minimal-compat \
+    nodejs-${NODE_VERSION}-minimal-compat=${NODE_FULL_VERSION} \
     tini
 
 RUN adduser -D -u 1000 node && \
