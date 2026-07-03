@@ -26,13 +26,13 @@ target "dev" {
   cache-to = ["type=gha,mode=max,scope=dev,compression=zstd,compression-level=3"]
   labels = {
     "org.opencontainers.image.authors" = "Taha Samy"
-    "org.opencontainers.image.source" = "https://github.com/${USER}/${REPO}"
+    "org.opencontainers.image.source" = "https://github.com/${OWNER}/${REPO}"
     "org.opencontainers.image.licenses" = "MIT"
     "org.opencontainers.image.description" = "Optimized Node.js 22 development image with npm based on Chainguard Wolfi"
   }
   annotations = [
     "index,manifest:org.opencontainers.image.description=Optimized Node.js 22 development image with npm based on Chainguard Wolfi",
-    "index,manifest:org.opencontainers.image.source=https://github.com/${USER}/${REPO}"
+    "index,manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${REPO}"
   ]
 }
 
@@ -48,12 +48,12 @@ target "prod" {
   cache-to = ["type=gha,mode=max,scope=prod,compression=zstd,compression-level=3"]
   labels = {
     "org.opencontainers.image.authors" = "Taha Samy"
-    "org.opencontainers.image.source" = "https://github.com/${USER}/${REPO}"
+    "org.opencontainers.image.source" = "https://github.com/${OWNER}/${REPO}"
     "org.opencontainers.image.licenses" = "MIT"
     "org.opencontainers.image.description" = "Ultra-secure minimal Node.js 22 production runtime based on Chainguard Wolfi and scratch"
   }
   annotations = [
     "index,manifest:org.opencontainers.image.description=Ultra-secure minimal Node.js 22 production runtime based on Chainguard Wolfi and scratch",
-    "index,manifest:org.opencontainers.image.source=https://github.com/${USER}/${REPO}"
+    "index,manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${REPO}"
   ]
 }
