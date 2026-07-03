@@ -1,6 +1,7 @@
 ARG NODE_VERSION=22
+ARG BASE_IMAGE=cgr.dev/chainguard/wolfi-base:latest
 
-FROM cgr.dev/chainguard/wolfi-base@sha256:2f7a5c164eafbdbe46fe1d91bd1ab4c8cb5c2bdbd10641c3d61bd39962384cdb AS full-dev
+FROM ${BASE_IMAGE} AS full-dev
 
 ARG NODE_VERSION
 
@@ -22,7 +23,7 @@ USER node
 ENTRYPOINT ["/usr/bin/docker-entrypoint.sh"]
 CMD ["node"]
 
-FROM cgr.dev/chainguard/wolfi-base@sha256:2f7a5c164eafbdbe46fe1d91bd1ab4c8cb5c2bdbd10641c3d61bd39962384cdb AS minimal-prep
+FROM ${BASE_IMAGE} AS minimal-prep
 
 ARG NODE_VERSION
 
