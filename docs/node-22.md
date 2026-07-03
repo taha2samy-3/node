@@ -52,10 +52,15 @@ hide:
               {% set ns.vulns = ns.vulns + res['Vulnerabilities'] %}
               {% for v in res['Vulnerabilities'] %}
                 {% set sev = (v['Severity'] | upper) if 'Severity' in v else 'UNKNOWN' %}
-                {% if sev == "CRITICAL" %}{% set ns.critical = ns.critical + 1 %}{% endif %}
-                {% if sev == "HIGH" %}{% set ns.high = ns.high + 1 %}{% endif %}
-                {% if sev == "MEDIUM" %}{% set ns.medium = ns.medium + 1 %}{% endif %}
-                {% if sev == "LOW" %}{% set ns.low = ns.low + 1 %}{% endif %}
+                {% if sev == "CRITICAL" %}
+                  {% set ns.critical = ns.critical + 1 %}
+                {% elif sev == "HIGH" %}
+                  {% set ns.high = ns.high + 1 %}
+                {% elif sev == "MEDIUM" or sev == "MODERATE" %}
+                  {% set ns.medium = ns.medium + 1 %}
+                {% else %}
+                  {% set ns.low = ns.low + 1 %}
+                {% endif %}
               {% endfor %}
             {% endif %}
           {% endfor %}
