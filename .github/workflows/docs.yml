@@ -8,8 +8,12 @@ on:
       - 'docs/**'
       - 'mkdocs.yml'
       - 'main.py'
+    workflow_run:
+      workflows: ["Build and Push Images"] 
+      types:
+        - completed 
   workflow_dispatch:
-
+  
 jobs:
   deploy-docs:
     runs-on: ubuntu-latest
