@@ -100,7 +100,7 @@ jobs:
           upload-artifact: false
 
       - name: Attest Provenance for Dev Image
-        uses: actions/attest-build-provenance@v2
+        uses: actions/attest-build-provenance@v4
         with:
           subject-name: ghcr.io/taha2samy-3/node
           subject-digest: ${{ steps.get-digests.outputs.dev_digest }}
@@ -124,7 +124,7 @@ jobs:
           upload-artifact: false
 
       - name: Attest Provenance for Prod Image
-        uses: actions/attest-build-provenance@v2
+        uses: actions/attest-build-provenance@v4
         with:
           subject-name: ghcr.io/taha2samy-3/node
           subject-digest: ${{ steps.get-digests.outputs.prod_digest }}
