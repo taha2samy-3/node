@@ -40,3 +40,8 @@ jobs:
           push: true
           provenance: true
           sbom: true
+
+      - name: Cleanup Untagged Images
+        uses: dataaxiom/ghcr-cleanup-action@v1
+        with:
+          delete-untagged: true
