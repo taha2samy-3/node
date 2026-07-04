@@ -18,10 +18,16 @@ def get_image_digest(image_name):
         sys.exit(1)
 
 def get_wolfi_package_version(runner_image, package_name):
+    try:
+        subprocess.run(["docker", "pull", "-q", runner_image], check=True, stdout=subprocess.DEVNULL)
+    except Exception as e:
+        print(f"Error pulling runner image {runner_image}: {e}")
+        sys.exit(1)
+
     script = f"apk update > /dev/null && apk search -x {package_name}"
     try:
         res = subprocess.run(
-            ["docker", "run", "--rm", runner_image, "sh", "-c", script],
+            ["docker", "run", "--rm", "--pull", "always", runner_image, "sh", "-c", script],
             capture_output=True, text=True, check=True, timeout=120
         )
         prefix = f"{package_name}-"
@@ -39,7 +45,7 @@ def get_wolfi_package_version(runner_image, package_name):
 def create_pull_request(file_path, updates):
     branch_name = f"chore/security-updates-{int(time.time())}"
     title = "chore(deps): lock base images and package versions to latest secure releases"
-    
+
     body = "### 🛡️ Automated Dependency & Security Update\n\n"
     body += "This automated Pull Request updates the cryptographic digests of base images "
     body += "and pins Wolfi system package versions to their latest stable releases inside `docker-bake.hcl`.\n\n"
@@ -52,12 +58,12 @@ def create_pull_request(file_path, updates):
     try:
         subprocess.run(["git", "config", "user.name", "github-actions[bot]"], check=True)
         subprocess.run(["git", "config", "user.email", "github-actions[bot]@users.noreply.github.com"], check=True)
-        
+
         subprocess.run(["git", "checkout", "-b", branch_name], check=True)
         subprocess.run(["git", "add", file_path], check=True)
         subprocess.run(["git", "commit", "-m", title], check=True)
         subprocess.run(["git", "push", "origin", branch_name], check=True)
-        
+
         pr_cmd = [
             "gh", "pr", "create",
             "--title", title,
@@ -80,26 +86,30 @@ def lock_dependencies(file_path, images_map, packages_map, runner_image, enable_
     for var_name, image_tag in images_map.items():
         print(f"Resolving Docker Image: {image_tag}")
         locked_value = get_image_digest(image_tag)
-        
+
         pattern = r'(variable\s+"' + re.escape(var_name) + r'"\s*\{\s*default\s*=\s*")[^"\r\n]+(")'
         match = re.search(pattern, content)
-        if match:
-            if locked_value not in match.group(0):
-                print(f" -> Updating {var_name} to: {locked_value}")
-                content = re.sub(pattern, lambda m: m.group(1) + locked_value + m.group(2), content)
-                updates_made[var_name] = {"type": "Docker Image", "target": image_tag, "value": locked_value}
+        if not match:
+            print(f" -> WARNING: variable {var_name} not found in {file_path}, skipping.")
+            continue
+        if locked_value not in match.group(0):
+            print(f" -> Updating {var_name} to: {locked_value}")
+            content = re.sub(pattern, lambda m: m.group(1) + locked_value + m.group(2), content)
+            updates_made[var_name] = {"type": "Docker Image", "target": image_tag, "value": locked_value}
 
     for var_name, pkg_name in packages_map.items():
         print(f"Resolving Wolfi Package: {pkg_name}")
         locked_value = get_wolfi_package_version(runner_image, pkg_name)
-        
+
         pattern = r'(variable\s+"' + re.escape(var_name) + r'"\s*\{\s*default\s*=\s*")[^"\r\n]+(")'
         match = re.search(pattern, content)
-        if match:
-            if locked_value not in match.group(0):
-                print(f" -> Updating {var_name} to: {locked_value}")
-                content = re.sub(pattern, lambda m: m.group(1) + locked_value + m.group(2), content)
-                updates_made[var_name] = {"type": "Wolfi Package", "target": pkg_name, "value": locked_value}
+        if not match:
+            print(f" -> WARNING: variable {var_name} not found in {file_path}, skipping.")
+            continue
+        if locked_value not in match.group(0):
+            print(f" -> Updating {var_name} to: {locked_value}")
+            content = re.sub(pattern, lambda m: m.group(1) + locked_value + m.group(2), content)
+            updates_made[var_name] = {"type": "Wolfi Package", "target": pkg_name, "value": locked_value}
 
     if not updates_made:
         print("All dependencies are already locked to the latest versions. No changes detected.")
