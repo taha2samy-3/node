@@ -39,7 +39,7 @@ RUN apk update && apk add --no-cache \
 RUN adduser -D -u 1000 node && \
     mkdir /app && chown node:node /app
 
-COPY docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
+COPY nodejs/docker-entrypoint.sh /usr/bin/docker-entrypoint.sh
 RUN chmod +x /usr/bin/docker-entrypoint.sh
 
 FROM minimal-prep AS minimal-cleaner
