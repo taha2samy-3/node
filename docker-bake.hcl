@@ -35,7 +35,7 @@ target "dev" {
     ]
   }
   context = "."
-  dockerfile = "Dockerfile"
+  dockerfile = "nodejs/dockerfile"
   target = "full-dev"
   args = {
     NODE_VERSION = item.version
@@ -71,7 +71,7 @@ target "prod" {
   }
   platforms = ["linux/amd64", "linux/arm64"]
   context = "."
-  dockerfile = "Dockerfile"
+  dockerfile = "nodejs/dockerfile"
   target = "minimal"
   args = {
     NODE_VERSION = item.version
