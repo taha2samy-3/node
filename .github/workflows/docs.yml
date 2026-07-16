@@ -132,7 +132,7 @@ jobs:
 
       - name: Clean Up Pulled Image
         run: |
-          docker rmi ${{ matrix.image }}
+          docker rmi ${{ matrix.image }} || true
 
       - name: Upload Scan Report Artifacts
         uses: actions/upload-artifact@v4
