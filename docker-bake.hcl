@@ -1,3 +1,6 @@
+# ==========================================
+# Global Variables
+# ==========================================
 variable "REGISTRY" {
   default = "ghcr.io"
 }
@@ -6,19 +9,15 @@ variable "OWNER" {
   default = "taha2samy-3"
 }
 
-variable "BUN_REPO" {
-  default = "bun"
-}
-variable "BUN_1_FULL_VERSION" {
-  default = "1.3.14-r2"
-}
-
-variable "REPO" {
-  default = "node"
-}
-
 variable "BASE_IMAGE" {
   default = "cgr.dev/chainguard/wolfi-base@sha256:02dab76bd852a70556b5b2002195c8a5fdab77d323c433bf6642aab080489795"
+}
+
+# ==========================================
+# Node.js Versions
+# ==========================================
+variable "REPO" {
+  default = "node"
 }
 
 variable "NODE_22_FULL_VERSION" {
@@ -30,7 +29,7 @@ variable "NODE_24_FULL_VERSION" {
 }
 
 # ==========================================
-# python
+# Python Versions
 # ==========================================
 variable "PYTHON_REPO" {
   default = "python"
@@ -42,9 +41,22 @@ variable "PYTHON_3_12_FULL_VERSION" { default = "3.12.13-r10" }
 variable "PYTHON_3_13_FULL_VERSION" { default = "3.13.14-r2" }
 variable "PYTHON_3_14_FULL_VERSION" { default = "3.14.6-r3" }
 
+# ==========================================
+# Bun Versions
+# ==========================================
+variable "BUN_REPO" {
+  default = "bun"
+}
 
+variable "BUN_1_FULL_VERSION" {
+  default = "1.3.14-r2"
+}
+
+# ==========================================
+# Groups
+# ==========================================
 group "default" {
-  targets = ["dev", "prod", "python-dev", "python-prod","bun-dev", "bun-prod"]
+  targets = ["dev", "prod", "python-dev", "python-prod", "bun-dev", "bun-prod"]
 }
 
 # ==========================================
@@ -76,7 +88,6 @@ target "dev" {
   labels = {
     "org.opencontainers.image.authors" = "Taha Samy"
     "org.opencontainers.image.source" = "https://github.com/${OWNER}/${REPO}"
-    "org.opencontainers.image.licenses" = "MIT"
     "org.opencontainers.image.description" = "Optimized Node.js ${item.version} (${item.full_version}) development image with npm based on Chainguard Wolfi"
   }
   annotations = [
@@ -199,8 +210,9 @@ target "python-prod" {
   ]
 }
 
-
-
+# ==========================================
+# Bun Targets
+# ==========================================
 target "bun-dev" {
   name = "bun-dev-${item.id}"
   matrix = {
@@ -212,7 +224,6 @@ target "bun-dev" {
   dockerfile = "bun/dockerfile"
   target = "full-dev"
   args = {
-    BUN_VERSION = item.version
     BUN_FULL_VERSION = item.full_version
     BASE_IMAGE = BASE_IMAGE
   }
@@ -247,7 +258,6 @@ target "bun-prod" {
   dockerfile = "bun/dockerfile"
   target = "minimal"
   args = {
-    BUN_VERSION = item.version
     BUN_FULL_VERSION = item.full_version
     BASE_IMAGE = BASE_IMAGE
   }
