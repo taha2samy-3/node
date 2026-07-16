@@ -3,6 +3,7 @@ import os
 
 repo_of_registry = "ghcr.io/taha2samy-3/node"
 python_repo_of_registry = "ghcr.io/taha2samy-3/python"
+bun_repo_of_registry = "ghcr.io/taha2samy-3/bun"
 
 def loadjson(path):
     if not os.path.exists(path):
@@ -41,6 +42,20 @@ def load_python_version(version):
         }
     }
 
+def load_bun_version(version):
+    return {
+        "dev": {
+            "security": loadjson(f"reports/{version}-dev-vuln.json"),
+            "docker-csi": loadjson(f"reports/{version}-dev-cis.json"),
+            "tags": [f"{bun_repo_of_registry}:{version}-dev", f"{bun_repo_of_registry}:v{version}-dev"]
+        },
+        "prod": {
+            "security": loadjson(f"reports/{version}-prod-vuln.json"),
+            "docker-csi": loadjson(f"reports/{version}-prod-cis.json"),
+            "tags": [f"{bun_repo_of_registry}:{version}", f"{bun_repo_of_registry}:v{version}"]
+        }
+    }
+
 def define_env(env):
     env.variables.update({
         "repo_of_registry": repo_of_registry,
@@ -50,5 +65,6 @@ def define_env(env):
         "python_3_11": load_python_version("3.11"),
         "python_3_12": load_python_version("3.12"),
         "python_3_13": load_python_version("3.13"),
-        "python_3_14": load_python_version("3.14")
+        "python_3_14": load_python_version("3.14"),
+        "bun_1": load_bun_version("1")
     })
