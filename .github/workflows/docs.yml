@@ -13,11 +13,9 @@ on:
     workflows: ["Build and Push Images"]
     types:
       - completed
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true  
-
 jobs:
   scan-images:
     runs-on: ubuntu-latest
