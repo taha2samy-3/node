@@ -8,12 +8,14 @@ on:
       - 'docs/**'
       - 'mkdocs.yml'
       - 'main.py'
-      
+
   workflow_run:
     workflows: ["Build and Push Images"]
     types:
       - completed
-  
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true  
 jobs:
   # ==========================================
   # Job 1: Scan Images in Parallel (Matrix)
@@ -131,7 +133,7 @@ jobs:
 
       - name: Clean Up Pulled Image
         run: |
-          docker rmi ${{ matrix.image }}
+          docker rmi ${{ matrix.image }} || true
 
       - name: Upload Scan Report Artifacts
         uses: actions/upload-artifact@v4
