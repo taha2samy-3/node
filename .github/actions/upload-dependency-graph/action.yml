@@ -1,0 +1,29 @@
+name: Upload SBOM to Dependency Graph
+description: Uses a python script to upload CycloneDX SBOM to GitHub Dependency Graph API
+
+inputs:
+  sbom-path:
+    description: "Path to the CycloneDX JSON file"
+    required: true
+  target-name:
+    description: "Identifier for the target (e.g. node-22)"
+    required: true
+  repo:
+    description: "The GitHub repository (owner/repo)"
+    required: true
+  github-token:
+    description: "GitHub Token with write permissions"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Run Upload Script
+      shell: bash
+      env:
+        GH_TOKEN: ${{ inputs.github-token }}
+      run: |
+        python3 scripts/upload_sbom.py \
+          "${{ inputs.sbom-path }}" \
+          "${{ inputs.target-name }}" \
+          "${{ inputs.repo }}"
