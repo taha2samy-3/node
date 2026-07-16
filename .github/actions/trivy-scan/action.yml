@@ -1,0 +1,50 @@
+name: Trivy Security Scan
+description: Runs Vulnerability and CIS scans, cleans up image, and uploads reports.
+
+inputs:
+  image:
+    description: "The full image reference to scan"
+    required: true
+  vuln_out:
+    description: "Output filename for vulnerability report"
+    required: true
+  cis_out:
+    description: "Output filename for CIS report"
+    required: true
+  artifact_name:
+    description: "Unique name for the artifact"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Create Reports Directory
+      shell: bash
+      run: mkdir -p reports
+
+    - name: Run Trivy Vuln Scan
+      shell: bash
+      run: |
+        docker run --rm \
+          -v /var/run/docker.sock:/var/run/docker.sock \
+          -v "$(pwd)/reports:/reports" \
+          aquasec/trivy image --format json --output /reports/${{ inputs.vuln_out }} ${{ inputs.image }}
+
+    - name: Run Trivy CIS Compliance Scan
+      shell: bash
+      run: |
+        docker run --rm \
+          -v /var/run/docker.sock:/var/run/docker.sock \
+          -v "$(pwd)/reports:/reports" \
+          aquasec/trivy image --compliance docker-cis-1.6.0 --format json --output /reports/${{ inputs.cis_out }} ${{ inputs.image }}
+
+    - name: Clean Up Pulled Image
+      shell: bash
+      run: docker rmi ${{ inputs.image }} || true
+
+    - name: Upload Scan Report Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ inputs.artifact_name }}
+        path: reports/
+        retention-days: 1
