@@ -40,9 +40,7 @@ Every built version is subjected to rigorous automated scanning and security com
 
 ## Supported Runtime Environments
 
-Select your target language and version below to explore the detailed security, vulnerability, and compliance reports:
-
-### :fontawesome-brands-node-js: Node.js LTS
+Select your target language an### :fontawesome-brands-node-js: Node.js LTS
 *   [**Node.js 22 LTS Security Reports**](node-22.md)
 *   [**Node.js 24 LTS Security Reports**](node-24.md)
 
@@ -52,3 +50,6 @@ Select your target language and version below to explore the detailed security, 
 *   [**Python 3.12 Security Reports**](python-3.12.md)
 *   [**Python 3.13 Security Reports**](python-3.13.md)
 *   [**Python 3.14 Security Reports**](python-3.14.md)
+
+### :simple-bun: Bun
+*   [**Bun 1 Security Reports**](bun-1.md)d version below to explore the detailed security, vulnerability, and compliance reports:
