@@ -124,6 +124,7 @@ def lock_dependencies(file_path, images_map, packages_map, runner_image, enable_
         create_pull_request(file_path, updates_made)
 
 if __name__ == "__main__":
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--pull-request", action="store_true")
     args = parser.parse_args()
@@ -136,8 +137,16 @@ if __name__ == "__main__":
     }
 
     packages_to_lock = {
+        # Node.js Packages
         "NODE_22_FULL_VERSION": "nodejs-22",
-        "NODE_24_FULL_VERSION": "nodejs-24"
+        "NODE_24_FULL_VERSION": "nodejs-24",
+        
+        # Python Packages
+        "PYTHON_3_10_FULL_VERSION": "python-3.10",
+        "PYTHON_3_11_FULL_VERSION": "python-3.11",
+        "PYTHON_3_12_FULL_VERSION": "python-3.12",
+        "PYTHON_3_13_FULL_VERSION": "python-3.13",
+        "PYTHON_3_14_FULL_VERSION": "python-3.14"
     }
 
     lock_dependencies(hcl_file, images_to_lock, packages_to_lock, runner_image_ref, args.pull_request)

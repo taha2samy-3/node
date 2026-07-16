@@ -22,11 +22,27 @@ variable "NODE_24_FULL_VERSION" {
   default = "24.18.0-r2"
 }
 
+# ==========================================
+# python
+# ==========================================
+variable "PYTHON_REPO" {
+  default = "python"
+}
+
+variable "PYTHON_3_10_FULL_VERSION" { default = "3.10.20-r10" }
+variable "PYTHON_3_11_FULL_VERSION" { default = "3.11.15-r8" }
+variable "PYTHON_3_12_FULL_VERSION" { default = "3.12.13-r10" }
+variable "PYTHON_3_13_FULL_VERSION" { default = "3.13.14-r2" }
+variable "PYTHON_3_14_FULL_VERSION" { default = "3.14.6-r3" }
+
+
 group "default" {
   targets = ["dev", "prod", "python-dev", "python-prod"]
 }
 
-
+# ==========================================
+# Node.js Targets
+# ==========================================
 target "dev" {
   name = "dev-${item.version}"
   matrix = {
@@ -97,32 +113,18 @@ target "prod" {
   ]
 }
 
-
-
-
-
-
-
-
-variable "PYTHON_REPO" {
-  default = "python"
-}
-
-variable "PYTHON_3_10_FULL_VERSION" { default = "3.10.20-r10" }
-variable "PYTHON_3_11_FULL_VERSION" { default = "3.11.15-r8" }
-variable "PYTHON_3_12_FULL_VERSION" { default = "3.12.13-r10" }
-variable "PYTHON_3_13_FULL_VERSION" { default = "3.13.14-r2" }
-variable "PYTHON_3_14_FULL_VERSION" { default = "3.14.6-r3" }
-
+# ==========================================
+# Python Targets
+# ==========================================
 target "python-dev" {
-  name = "python-dev-${item.version}"
+  name = "python-dev-${item.id}"
   matrix = {
     item = [
-      { version = "3.10", full_version = PYTHON_3_10_FULL_VERSION },
-      { version = "3.11", full_version = PYTHON_3_11_FULL_VERSION },
-      { version = "3.12", full_version = PYTHON_3_12_FULL_VERSION },
-      { version = "3.13", full_version = PYTHON_3_13_FULL_VERSION },
-      { version = "3.14", full_version = PYTHON_3_14_FULL_VERSION }
+      { id = "3-10", version = "3.10", full_version = PYTHON_3_10_FULL_VERSION },
+      { id = "3-11", version = "3.11", full_version = PYTHON_3_11_FULL_VERSION },
+      { id = "3-12", version = "3.12", full_version = PYTHON_3_12_FULL_VERSION },
+      { id = "3-13", version = "3.13", full_version = PYTHON_3_13_FULL_VERSION },
+      { id = "3-14", version = "3.14", full_version = PYTHON_3_14_FULL_VERSION }
     ]
   }
   context = "."
@@ -138,8 +140,8 @@ target "python-dev" {
     "${REGISTRY}/${OWNER}/${PYTHON_REPO}:${item.version}-dev",
     "${REGISTRY}/${OWNER}/${PYTHON_REPO}:v${item.version}-dev"
   ]
-  cache-from = ["type=gha,scope=python-dev-${item.version}"]
-  cache-to = ["type=gha,mode=max,scope=python-dev-${item.version},compression=zstd,compression-level=3"]
+  cache-from = ["type=gha,scope=python-dev-${item.id}"]
+  cache-to = ["type=gha,mode=max,scope=python-dev-${item.id},compression=zstd,compression-level=3"]
   labels = {
     "org.opencontainers.image.authors" = "Taha Samy"
     "org.opencontainers.image.source" = "https://github.com/${OWNER}/${PYTHON_REPO}"
@@ -153,14 +155,14 @@ target "python-dev" {
 }
 
 target "python-prod" {
-  name = "python-prod-${item.version}"
+  name = "python-prod-${item.id}"
   matrix = {
     item = [
-      { version = "3.10", full_version = PYTHON_3_10_FULL_VERSION },
-      { version = "3.11", full_version = PYTHON_3_11_FULL_VERSION },
-      { version = "3.12", full_version = PYTHON_3_12_FULL_VERSION },
-      { version = "3.13", full_version = PYTHON_3_13_FULL_VERSION },
-      { version = "3.14", full_version = PYTHON_3_14_FULL_VERSION }
+      { id = "3-10", version = "3.10", full_version = PYTHON_3_10_FULL_VERSION },
+      { id = "3-11", version = "3.11", full_version = PYTHON_3_11_FULL_VERSION },
+      { id = "3-12", version = "3.12", full_version = PYTHON_3_12_FULL_VERSION },
+      { id = "3-13", version = "3.13", full_version = PYTHON_3_13_FULL_VERSION },
+      { id = "3-14", version = "3.14", full_version = PYTHON_3_14_FULL_VERSION }
     ]
   }
   platforms = ["linux/amd64", "linux/arm64"]
@@ -176,8 +178,8 @@ target "python-prod" {
     "${REGISTRY}/${OWNER}/${PYTHON_REPO}:${item.version}",
     "${REGISTRY}/${OWNER}/${PYTHON_REPO}:v${item.version}"
   ]
-  cache-from = ["type=gha,scope=python-prod-${item.version}"]
-  cache-to = ["type=gha,mode=max,scope=python-prod-${item.version},compression=zstd,compression-level=3"]
+  cache-from = ["type=gha,scope=python-prod-${item.id}"]
+  cache-to = ["type=gha,mode=max,scope=python-prod-${item.id},compression=zstd,compression-level=3"]
   labels = {
     "org.opencontainers.image.authors" = "Taha Samy"
     "org.opencontainers.image.source" = "https://github.com/${OWNER}/${PYTHON_REPO}"
