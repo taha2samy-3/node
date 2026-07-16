@@ -9,10 +9,6 @@ on:
       - 'docs/**'
       - 'mkdocs.yml'
       - 'main.py'
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
   workflow_run:
     workflows: ["Build and Push Images"]
     types:
