@@ -1,7 +1,6 @@
 name: Generate Security Docs and Deploy
 
 on:
-
   push:
     branches:
       - main
@@ -16,11 +15,91 @@ on:
       - completed
   
 jobs:
-  deploy-docs:
+  # ==========================================
+  # Job 1: Scan Images in Parallel (Matrix)
+  # ==========================================
+  scan-images:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
       packages: read
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # --- Node.js Images ---
+          - type: "node"
+            version: "22"
+            image: "ghcr.io/taha2samy-3/node:22-dev"
+            vuln_out: "22-dev-vuln.json"
+            cis_out: "22-dev-cis.json"
+          - type: "node"
+            version: "22"
+            image: "ghcr.io/taha2samy-3/node:22"
+            vuln_out: "22-prod-vuln.json"
+            cis_out: "22-prod-cis.json"
+          - type: "node"
+            version: "24"
+            image: "ghcr.io/taha2samy-3/node:24-dev"
+            vuln_out: "24-dev-vuln.json"
+            cis_out: "24-dev-cis.json"
+          - type: "node"
+            version: "24"
+            image: "ghcr.io/taha2samy-3/node:24"
+            vuln_out: "24-prod-vuln.json"
+            cis_out: "24-prod-cis.json"
+
+          # --- Python Images ---
+          - type: "python"
+            version: "3.10"
+            image: "ghcr.io/taha2samy-3/python:3.10-dev"
+            vuln_out: "3.10-dev-vuln.json"
+            cis_out: "3.10-dev-cis.json"
+          - type: "python"
+            version: "3.10"
+            image: "ghcr.io/taha2samy-3/python:3.10"
+            vuln_out: "3.10-prod-vuln.json"
+            cis_out: "3.10-prod-cis.json"
+          - type: "python"
+            version: "3.11"
+            image: "ghcr.io/taha2samy-3/python:3.11-dev"
+            vuln_out: "3.11-dev-vuln.json"
+            cis_out: "3.11-dev-cis.json"
+          - type: "python"
+            version: "3.11"
+            image: "ghcr.io/taha2samy-3/python:3.11"
+            vuln_out: "3.11-prod-vuln.json"
+            cis_out: "3.11-prod-cis.json"
+          - type: "python"
+            version: "3.12"
+            image: "ghcr.io/taha2samy-3/python:3.12-dev"
+            vuln_out: "3.12-dev-vuln.json"
+            cis_out: "3.12-dev-cis.json"
+          - type: "python"
+            version: "3.12"
+            image: "ghcr.io/taha2samy-3/python:3.12"
+            vuln_out: "3.12-prod-vuln.json"
+            cis_out: "3.12-prod-cis.json"
+          - type: "python"
+            version: "3.13"
+            image: "ghcr.io/taha2samy-3/python:3.13-dev"
+            vuln_out: "3.13-dev-vuln.json"
+            cis_out: "3.13-dev-cis.json"
+          - type: "python"
+            version: "3.13"
+            image: "ghcr.io/taha2samy-3/python:3.13"
+            vuln_out: "3.13-prod-vuln.json"
+            cis_out: "3.13-prod-cis.json"
+          - type: "python"
+            version: "3.14"
+            image: "ghcr.io/taha2samy-3/python:3.14-dev"
+            vuln_out: "3.14-dev-vuln.json"
+            cis_out: "3.14-dev-cis.json"
+          - type: "python"
+            version: "3.14"
+            image: "ghcr.io/taha2samy-3/python:3.14"
+            vuln_out: "3.14-prod-vuln.json"
+            cis_out: "3.14-prod-cis.json"
 
     steps:
       - name: Checkout Code
@@ -33,6 +112,54 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Create Reports Directory
+        run: mkdir -p reports
+
+      - name: Run Trivy Vuln Scan
+        run: |
+          docker run --rm \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            -v "$(pwd)/reports:/reports" \
+            aquasec/trivy image --format json --output /reports/${{ matrix.vuln_out }} ${{ matrix.image }}
+
+      - name: Run Trivy CIS Compliance Scan
+        run: |
+          docker run --rm \
+            -v /var/run/docker.sock:/var/run/docker.sock \
+            -v "$(pwd)/reports:/reports" \
+            aquasec/trivy image --compliance docker-cis-1.6.0 --format json --output /reports/${{ matrix.cis_out }} ${{ matrix.image }}
+
+      - name: Clean Up Pulled Image
+        run: |
+          docker rmi ${{ matrix.image }}
+
+      - name: Upload Scan Report Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: reports-${{ matrix.type }}-${{ matrix.version }}-${{ matrix.vuln_out }}
+          path: reports/
+          retention-days: 1
+
+
+  # ==========================================
+  # Job 2: Download Reports and Deploy Docs
+  # ==========================================
+  deploy-docs:
+    needs: scan-images
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+
+      - name: Download All Scan Reports
+        uses: actions/download-artifact@v4
+        with:
+          path: reports
+          merge-multiple: true
+
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
@@ -43,29 +170,6 @@ jobs:
 
       - name: Install Dependencies from Pipfile.lock
         run: pipenv sync
-
-      - name: Create Reports Directory
-        run: mkdir -p reports
-
-      - name: Scan Node 22 Dev
-        run: |
-          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$(pwd)/reports:/reports" aquasec/trivy image --format json --output /reports/22-dev-vuln.json ghcr.io/taha2samy-3/node:22-dev
-          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$(pwd)/reports:/reports" aquasec/trivy image --compliance docker-cis-1.6.0 --format json --output /reports/22-dev-cis.json ghcr.io/taha2samy-3/node:22-dev
-
-      - name: Scan Node 22 Prod
-        run: |
-          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$(pwd)/reports:/reports" aquasec/trivy image --format json --output /reports/22-prod-vuln.json ghcr.io/taha2samy-3/node:22
-          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$(pwd)/reports:/reports" aquasec/trivy image --compliance docker-cis-1.6.0 --format json --output /reports/22-prod-cis.json ghcr.io/taha2samy-3/node:22
-
-      - name: Scan Node 24 Dev
-        run: |
-          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$(pwd)/reports:/reports" aquasec/trivy image --format json --output /reports/24-dev-vuln.json ghcr.io/taha2samy-3/node:24-dev
-          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$(pwd)/reports:/reports" aquasec/trivy image --compliance docker-cis-1.6.0 --format json --output /reports/24-dev-cis.json ghcr.io/taha2samy-3/node:24-dev
-
-      - name: Scan Node 24 Prod
-        run: |
-          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$(pwd)/reports:/reports" aquasec/trivy image --format json --output /reports/24-prod-vuln.json ghcr.io/taha2samy-3/node:24
-          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v "$(pwd)/reports:/reports" aquasec/trivy image --compliance docker-cis-1.6.0 --format json --output /reports/24-prod-cis.json ghcr.io/taha2samy-3/node:24
 
       - name: Build MkDocs Site
         run: pipenv run mkdocs build --clean

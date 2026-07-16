@@ -7,7 +7,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  # ==========================================
+  # 1. Build Jobs
+  # ==========================================
+  build-node:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -45,8 +48,49 @@ jobs:
           targets: dev-${{ matrix.version }},prod-${{ matrix.version }}
           push: true
 
+  build-python:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      matrix:
+        id: ["3-10", "3-11", "3-12", "3-13", "3-14"]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Push with Bake
+        uses: docker/bake-action@v7
+        env:
+          DOCKER_BUILD_RECORD_RETENTION_DAYS: 2
+          DOCKER_BUILD_RECORD_UPLOAD: false
+        with:
+          source: .
+          files: |
+            ./docker-bake.hcl
+          targets: python-dev-${{ matrix.id }},python-prod-${{ matrix.id }}
+          push: true
+
+  # ==========================================
+  # 2. Cleanup Job
+  # ==========================================
   cleanup:
-    needs: build
+    needs: [build-node, build-python]
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -57,7 +101,10 @@ jobs:
         with:
           delete-untagged: true
 
-  attest:
+  # ==========================================
+  # 3. Attestation Jobs
+  # ==========================================
+  attest-node:
     needs: cleanup
     runs-on: ubuntu-latest
     permissions:
@@ -141,6 +188,96 @@ jobs:
         uses: actions/attest@v4
         with:
           subject-name: ghcr.io/taha2samy-3/node
+          subject-digest: ${{ steps.get-digests.outputs.prod_digest }}
+          predicate-path: prod.cyclonedx.json
+          predicate-type: https://cyclonedx.org/bom
+          push-to-registry: true
+          show-summary: false
+
+  attest-python:
+    needs: cleanup
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+      attestations: write
+    strategy:
+      matrix:
+        version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract Image Digests
+        id: get-digests
+        run: |
+          dev_digest=$(docker buildx imagetools inspect ghcr.io/taha2samy-3/python:${{ matrix.version }}-dev --format '{{json .Manifest.Digest}}' | tr -d '"')
+          prod_digest=$(docker buildx imagetools inspect ghcr.io/taha2samy-3/python:${{ matrix.version }} --format '{{json .Manifest.Digest}}' | tr -d '"')
+          echo "dev_digest=$dev_digest" >> "$GITHUB_OUTPUT"
+          echo "prod_digest=$prod_digest" >> "$GITHUB_OUTPUT"
+
+      - name: Generate SBOM for Dev Image
+        uses: anchore/sbom-action@v0
+        with:
+          image: ghcr.io/taha2samy-3/python:${{ matrix.version }}-dev
+          format: cyclonedx-json
+          output-file: dev.cyclonedx.json
+          upload-artifact: false
+
+      - name: Attest Provenance for Dev Image
+        uses: actions/attest-build-provenance@v4
+        with:
+          subject-name: ghcr.io/taha2samy-3/python
+          subject-digest: ${{ steps.get-digests.outputs.dev_digest }}
+          push-to-registry: true
+          show-summary: false
+
+      - name: Attest SBOM for Dev Image
+        uses: actions/attest@v4
+        with:
+          subject-name: ghcr.io/taha2samy-3/python
+          subject-digest: ${{ steps.get-digests.outputs.dev_digest }}
+          predicate-path: dev.cyclonedx.json
+          predicate-type: https://cyclonedx.org/bom
+          push-to-registry: true
+          show-summary: false
+
+      - name: Generate SBOM for Prod Image
+        uses: anchore/sbom-action@v0
+        with:
+          image: ghcr.io/taha2samy-3/python:${{ matrix.version }}
+          format: cyclonedx-json
+          output-file: prod.cyclonedx.json
+          upload-artifact: false
+          show-summary: false
+
+      - name: Attest Provenance for Prod Image
+        uses: actions/attest-build-provenance@v4
+        with:
+          subject-name: ghcr.io/taha2samy-3/python
+          subject-digest: ${{ steps.get-digests.outputs.prod_digest }}
+          push-to-registry: true
+          show-summary: false
+
+      - name: Attest SBOM for Prod Image
+        uses: actions/attest@v4
+        with:
+          subject-name: ghcr.io/taha2samy-3/python
           subject-digest: ${{ steps.get-digests.outputs.prod_digest }}
           predicate-path: prod.cyclonedx.json
           predicate-type: https://cyclonedx.org/bom
