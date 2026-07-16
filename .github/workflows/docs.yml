@@ -9,12 +9,17 @@ on:
       - 'docs/**'
       - 'mkdocs.yml'
       - 'main.py'
-      
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
   workflow_run:
     workflows: ["Build and Push Images"]
     types:
       - completed
-  
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true  
 jobs:
   # ==========================================
   # Job 1: Scan Images in Parallel (Matrix)
