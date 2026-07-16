@@ -1,0 +1,58 @@
+ARG BASE_IMAGE=cgr.dev/chainguard/wolfi-base:latest
+ARG BUN_VERSION=1
+ARG BUN_FULL_VERSION
+
+FROM ${BASE_IMAGE} AS full-dev
+
+ARG BUN_VERSION
+ARG BUN_FULL_VERSION
+
+USER root
+
+RUN apk update && apk add --no-cache \
+    bun-${BUN_VERSION}=${BUN_FULL_VERSION} \
+    tini
+
+RUN adduser -D -u 1000 bun && \
+    mkdir /app && chown bun:bun /app
+
+WORKDIR /app
+USER bun
+
+ENTRYPOINT ["/sbin/tini", "--"]
+CMD ["bun"]
+
+FROM ${BASE_IMAGE} AS minimal-prep
+
+ARG BUN_VERSION
+ARG BUN_FULL_VERSION
+
+USER root
+
+RUN apk update && apk add --no-cache \
+    bun-${BUN_VERSION}=${BUN_FULL_VERSION} \
+    tini
+
+RUN adduser -D -u 1000 bun && \
+    mkdir /app && chown bun:bun /app
+
+FROM minimal-prep AS minimal-cleaner
+
+RUN rm -rf \
+    /lib/apk/db \
+    /var/cache/apk \
+    /etc/apk \
+    /usr/share/apk \
+    /usr/share/man \
+    /usr/share/doc \
+    /tmp/*
+
+FROM scratch AS minimal
+
+COPY --from=minimal-cleaner / /
+
+WORKDIR /app
+USER bun
+
+ENTRYPOINT ["/sbin/tini", "--"]
+CMD ["bun"]

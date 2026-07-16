@@ -6,6 +6,13 @@ variable "OWNER" {
   default = "taha2samy-3"
 }
 
+variable "BUN_REPO" {
+  default = "bun"
+}
+variable "BUN_1_FULL_VERSION" {
+  default = "1.3.14-r2"
+}
+
 variable "REPO" {
   default = "node"
 }
@@ -37,7 +44,7 @@ variable "PYTHON_3_14_FULL_VERSION" { default = "3.14.6-r3" }
 
 
 group "default" {
-  targets = ["dev", "prod", "python-dev", "python-prod"]
+  targets = ["dev", "prod", "python-dev", "python-prod","bun-dev", "bun-prod"]
 }
 
 # ==========================================
@@ -189,5 +196,75 @@ target "python-prod" {
   annotations = [
     "index,manifest:org.opencontainers.image.description=Ultra-secure minimal Python ${item.version} (${item.full_version}) production runtime based on Chainguard Wolfi and scratch",
     "index,manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${PYTHON_REPO}"
+  ]
+}
+
+
+
+target "bun-dev" {
+  name = "bun-dev-${item.id}"
+  matrix = {
+    item = [
+      { id = "1", version = "1", full_version = BUN_1_FULL_VERSION }
+    ]
+  }
+  context = "."
+  dockerfile = "bun/dockerfile"
+  target = "full-dev"
+  args = {
+    BUN_VERSION = item.version
+    BUN_FULL_VERSION = item.full_version
+    BASE_IMAGE = BASE_IMAGE
+  }
+  platforms = ["linux/amd64", "linux/arm64"]
+  tags = [
+    "${REGISTRY}/${OWNER}/${BUN_REPO}:${item.version}-dev",
+    "${REGISTRY}/${OWNER}/${BUN_REPO}:v${item.version}-dev"
+  ]
+  cache-from = ["type=gha,scope=bun-dev-${item.id}"]
+  cache-to = ["type=gha,mode=max,scope=bun-dev-${item.id},compression=zstd,compression-level=3"]
+  labels = {
+    "org.opencontainers.image.authors" = "Taha Samy"
+    "org.opencontainers.image.source" = "https://github.com/${OWNER}/${BUN_REPO}"
+    "org.opencontainers.image.licenses" = "MIT"
+    "org.opencontainers.image.description" = "Optimized Bun ${item.version} (${item.full_version}) development image based on Chainguard Wolfi"
+  }
+  annotations = [
+    "index,manifest:org.opencontainers.image.description=Optimized Bun ${item.version} (${item.full_version}) development image based on Chainguard Wolfi",
+    "index,manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${BUN_REPO}"
+  ]
+}
+
+target "bun-prod" {
+  name = "bun-prod-${item.id}"
+  matrix = {
+    item = [
+      { id = "1", version = "1", full_version = BUN_1_FULL_VERSION }
+    ]
+  }
+  platforms = ["linux/amd64", "linux/arm64"]
+  context = "."
+  dockerfile = "bun/dockerfile"
+  target = "minimal"
+  args = {
+    BUN_VERSION = item.version
+    BUN_FULL_VERSION = item.full_version
+    BASE_IMAGE = BASE_IMAGE
+  }
+  tags = [
+    "${REGISTRY}/${OWNER}/${BUN_REPO}:${item.version}",
+    "${REGISTRY}/${OWNER}/${BUN_REPO}:v${item.version}"
+  ]
+  cache-from = ["type=gha,scope=bun-prod-${item.id}"]
+  cache-to = ["type=gha,mode=max,scope=bun-prod-${item.id},compression=zstd,compression-level=3"]
+  labels = {
+    "org.opencontainers.image.authors" = "Taha Samy"
+    "org.opencontainers.image.source" = "https://github.com/${OWNER}/${BUN_REPO}"
+    "org.opencontainers.image.licenses" = "MIT"
+    "org.opencontainers.image.description" = "Ultra-secure minimal Bun ${item.version} (${item.full_version}) production runtime based on Chainguard Wolfi and scratch"
+  }
+  annotations = [
+    "index,manifest:org.opencontainers.image.description=Ultra-secure minimal Bun ${item.version} (${item.full_version}) production runtime based on Chainguard Wolfi and scratch",
+    "index,manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${BUN_REPO}"
   ]
 }

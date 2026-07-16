@@ -17,9 +17,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true  
 jobs:
-  # ==========================================
-  # Job 1: Scan Images in Parallel (Matrix)
-  # ==========================================
   scan-images:
     runs-on: ubuntu-latest
     permissions:
@@ -29,123 +26,45 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # --- Node.js Images ---
-          - type: "node"
-            version: "22"
-            image: "ghcr.io/taha2samy-3/node:22-dev"
-            vuln_out: "22-dev-vuln.json"
-            cis_out: "22-dev-cis.json"
-          - type: "node"
-            version: "22"
-            image: "ghcr.io/taha2samy-3/node:22"
-            vuln_out: "22-prod-vuln.json"
-            cis_out: "22-prod-cis.json"
-          - type: "node"
-            version: "24"
-            image: "ghcr.io/taha2samy-3/node:24-dev"
-            vuln_out: "24-dev-vuln.json"
-            cis_out: "24-dev-cis.json"
-          - type: "node"
-            version: "24"
-            image: "ghcr.io/taha2samy-3/node:24"
-            vuln_out: "24-prod-vuln.json"
-            cis_out: "24-prod-cis.json"
-
-          # --- Python Images ---
-          - type: "python"
-            version: "3.10"
-            image: "ghcr.io/taha2samy-3/python:3.10-dev"
-            vuln_out: "3.10-dev-vuln.json"
-            cis_out: "3.10-dev-cis.json"
-          - type: "python"
-            version: "3.10"
-            image: "ghcr.io/taha2samy-3/python:3.10"
-            vuln_out: "3.10-prod-vuln.json"
-            cis_out: "3.10-prod-cis.json"
-          - type: "python"
-            version: "3.11"
-            image: "ghcr.io/taha2samy-3/python:3.11-dev"
-            vuln_out: "3.11-dev-vuln.json"
-            cis_out: "3.11-dev-cis.json"
-          - type: "python"
-            version: "3.11"
-            image: "ghcr.io/taha2samy-3/python:3.11"
-            vuln_out: "3.11-prod-vuln.json"
-            cis_out: "3.11-prod-cis.json"
-          - type: "python"
-            version: "3.12"
-            image: "ghcr.io/taha2samy-3/python:3.12-dev"
-            vuln_out: "3.12-dev-vuln.json"
-            cis_out: "3.12-dev-cis.json"
-          - type: "python"
-            version: "3.12"
-            image: "ghcr.io/taha2samy-3/python:3.12"
-            vuln_out: "3.12-prod-vuln.json"
-            cis_out: "3.12-prod-cis.json"
-          - type: "python"
-            version: "3.13"
-            image: "ghcr.io/taha2samy-3/python:3.13-dev"
-            vuln_out: "3.13-dev-vuln.json"
-            cis_out: "3.13-dev-cis.json"
-          - type: "python"
-            version: "3.13"
-            image: "ghcr.io/taha2samy-3/python:3.13"
-            vuln_out: "3.13-prod-vuln.json"
-            cis_out: "3.13-prod-cis.json"
-          - type: "python"
-            version: "3.14"
-            image: "ghcr.io/taha2samy-3/python:3.14-dev"
-            vuln_out: "3.14-dev-vuln.json"
-            cis_out: "3.14-dev-cis.json"
-          - type: "python"
-            version: "3.14"
-            image: "ghcr.io/taha2samy-3/python:3.14"
-            vuln_out: "3.14-prod-vuln.json"
-            cis_out: "3.14-prod-cis.json"
+          # --- Node.js ---
+          - { type: "node", version: "22", image: "ghcr.io/taha2samy-3/node:22-dev", v_out: "22-dev-vuln.json", c_out: "22-dev-cis.json" }
+          - { type: "node", version: "22", image: "ghcr.io/taha2samy-3/node:22", v_out: "22-prod-vuln.json", c_out: "22-prod-cis.json" }
+          - { type: "node", version: "24", image: "ghcr.io/taha2samy-3/node:24-dev", v_out: "24-dev-vuln.json", c_out: "24-dev-cis.json" }
+          - { type: "node", version: "24", image: "ghcr.io/taha2samy-3/node:24", v_out: "24-prod-vuln.json", c_out: "24-prod-cis.json" }
+          # --- Python ---
+          - { type: "python", version: "3.10", image: "ghcr.io/taha2samy-3/python:3.10-dev", v_out: "3.10-dev-vuln.json", c_out: "3.10-dev-cis.json" }
+          - { type: "python", version: "3.10", image: "ghcr.io/taha2samy-3/python:3.10", v_out: "3.10-prod-vuln.json", c_out: "3.10-prod-cis.json" }
+          - { type: "python", version: "3.11", image: "ghcr.io/taha2samy-3/python:3.11-dev", v_out: "3.11-dev-vuln.json", c_out: "3.11-dev-cis.json" }
+          - { type: "python", version: "3.11", image: "ghcr.io/taha2samy-3/python:3.11", v_out: "3.11-prod-vuln.json", c_out: "3.11-prod-cis.json" }
+          - { type: "python", version: "3.12", image: "ghcr.io/taha2samy-3/python:3.12-dev", v_out: "3.12-dev-vuln.json", c_out: "3.12-dev-cis.json" }
+          - { type: "python", version: "3.12", image: "ghcr.io/taha2samy-3/python:3.12", v_out: "3.12-prod-vuln.json", c_out: "3.12-prod-cis.json" }
+          - { type: "python", version: "3.13", image: "ghcr.io/taha2samy-3/python:3.13-dev", v_out: "3.13-dev-vuln.json", c_out: "3.13-dev-cis.json" }
+          - { type: "python", version: "3.13", image: "ghcr.io/taha2samy-3/python:3.13", v_out: "3.13-prod-vuln.json", c_out: "3.13-prod-cis.json" }
+          - { type: "python", version: "3.14", image: "ghcr.io/taha2samy-3/python:3.14-dev", v_out: "3.14-dev-vuln.json", c_out: "3.14-dev-cis.json" }
+          - { type: "python", version: "3.14", image: "ghcr.io/taha2samy-3/python:3.14", v_out: "3.14-prod-vuln.json", c_out: "3.14-prod-cis.json" }
+          # --- Bun ---
+          - { type: "bun", version: "1", image: "ghcr.io/taha2samy-3/bun:1-dev", v_out: "1-dev-vuln.json", c_out: "1-dev-cis.json" }
+          - { type: "bun", version: "1", image: "ghcr.io/taha2samy-3/bun:1", v_out: "1-prod-vuln.json", c_out: "1-prod-cis.json" }
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v7
 
-      - name: Log in to GitHub Container Registry
+      - name: Log in to GHCR
         uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create Reports Directory
-        run: mkdir -p reports
-
-      - name: Run Trivy Vuln Scan
-        run: |
-          docker run --rm \
-            -v /var/run/docker.sock:/var/run/docker.sock \
-            -v "$(pwd)/reports:/reports" \
-            aquasec/trivy image --format json --output /reports/${{ matrix.vuln_out }} ${{ matrix.image }}
-
-      - name: Run Trivy CIS Compliance Scan
-        run: |
-          docker run --rm \
-            -v /var/run/docker.sock:/var/run/docker.sock \
-            -v "$(pwd)/reports:/reports" \
-            aquasec/trivy image --compliance docker-cis-1.6.0 --format json --output /reports/${{ matrix.cis_out }} ${{ matrix.image }}
-
-      - name: Clean Up Pulled Image
-        run: |
-          docker rmi ${{ matrix.image }} || true
-
-      - name: Upload Scan Report Artifacts
-        uses: actions/upload-artifact@v4
+      - name: Execute Security Scan
+        uses: ./.github/actions/trivy-scan
         with:
-          name: reports-${{ matrix.type }}-${{ matrix.version }}-${{ matrix.vuln_out }}
-          path: reports/
-          retention-days: 1
+          image: ${{ matrix.image }}
+          vuln_out: ${{ matrix.v_out }}
+          cis_out: ${{ matrix.c_out }}
+          artifact_name: "reports-${{ matrix.type }}-${{ matrix.version }}-${{ matrix.v_out }}"
 
-
-  # ==========================================
-  # Job 2: Download Reports and Deploy Docs
-  # ==========================================
   deploy-docs:
     needs: scan-images
     runs-on: ubuntu-latest
@@ -156,7 +75,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v7
 
-      - name: Download All Scan Reports
+      - name: Download and Merge Reports
         uses: actions/download-artifact@v4
         with:
           path: reports
@@ -167,16 +86,15 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install Pipenv
-        run: pip install pipenv
+      - name: Install Pipenv and Sync
+        run: |
+          pip install pipenv
+          pipenv sync
 
-      - name: Install Dependencies from Pipfile.lock
-        run: pipenv sync
-
-      - name: Build MkDocs Site
+      - name: Build and Deploy MkDocs
         run: pipenv run mkdocs build --clean
 
-      - name: Deploy to GitHub Pages
+      - name: Push to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
