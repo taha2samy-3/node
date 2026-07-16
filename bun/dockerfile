@@ -1,16 +1,18 @@
 ARG BASE_IMAGE=cgr.dev/chainguard/wolfi-base:latest
-ARG BUN_VERSION=1
 ARG BUN_FULL_VERSION
 
+# ==========================================
+# Stage 1: Development Image
+# ==========================================
 FROM ${BASE_IMAGE} AS full-dev
 
-ARG BUN_VERSION
 ARG BUN_FULL_VERSION
 
 USER root
 
+# هنا استعملنا اسم الحزمة bun مباشرة
 RUN apk update && apk add --no-cache \
-    bun-${BUN_VERSION}=${BUN_FULL_VERSION} \
+    bun=${BUN_FULL_VERSION} \
     tini
 
 RUN adduser -D -u 1000 bun && \
@@ -22,15 +24,17 @@ USER bun
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["bun"]
 
+# ==========================================
+# Stage 2: Minimal Production
+# ==========================================
 FROM ${BASE_IMAGE} AS minimal-prep
 
-ARG BUN_VERSION
 ARG BUN_FULL_VERSION
 
 USER root
 
 RUN apk update && apk add --no-cache \
-    bun-${BUN_VERSION}=${BUN_FULL_VERSION} \
+    bun=${BUN_FULL_VERSION} \
     tini
 
 RUN adduser -D -u 1000 bun && \
