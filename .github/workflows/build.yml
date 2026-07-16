@@ -63,7 +63,7 @@ jobs:
     needs: cleanup
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
       id-token: write
       attestations: write
@@ -131,3 +131,12 @@ jobs:
           artifact-suffix: ${{ matrix.suffix }}
           registry-username: ${{ github.actor }}
           registry-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload SBOM to GitHub Dependency Graph
+        uses: ./.github/actions/upload-dependency-graph
+        with:
+          sbom-path: "${{ matrix.suffix }}.cyclonedx.json"
+          target-name: ${{ matrix.suffix }}
+          repo: ${{ github.repository }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
