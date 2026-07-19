@@ -19,6 +19,10 @@ variable "BASE_IMAGE" {
 variable "REPO" {
   default = "node"
 }
+variable "NODE_20_FULL_VERSION" {
+  default = "20.20.2-r7"
+}
+
 
 variable "NODE_22_FULL_VERSION" {
   default = "22.23.1-r1"
@@ -66,6 +70,7 @@ target "dev" {
   name = "dev-${item.version}"
   matrix = {
     item = [
+      { version = "20", full_version = NODE_20_FULL_VERSION },
       { version = "22", full_version = NODE_22_FULL_VERSION },
       { version = "24", full_version = NODE_24_FULL_VERSION }
     ]
@@ -100,6 +105,7 @@ target "prod" {
   name = "prod-${item.version}"
   matrix = {
     item = [
+      { version = "20", full_version = NODE_20_FULL_VERSION },
       { version = "22", full_version = NODE_22_FULL_VERSION },
       { version = "24", full_version = NODE_24_FULL_VERSION }
     ]
