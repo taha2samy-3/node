@@ -19,6 +19,8 @@ jobs:
     strategy:
       matrix:
         include:
+          - runtime: "node-20"
+            targets: "dev-20,prod-20"
           - runtime: "node-22"
             targets: "dev-22,prod-22"
           - runtime: "node-24"
@@ -70,6 +72,10 @@ jobs:
     strategy:
       matrix:
         include:
+          - image: "ghcr.io/taha2samy-3/node"
+            tag: "20-dev"
+          - image: "ghcr.io/taha2samy-3/node"
+            tag: "20"
           - image: "ghcr.io/taha2samy-3/node"
             tag: "22-dev"
             suffix: "node-22-dev"
