@@ -191,13 +191,16 @@ def main():
     }
 
     packages_to_lock = {
+        "NODE_20_FULL_VERSION": "nodejs-20",
         "NODE_22_FULL_VERSION": "nodejs-22",
         "NODE_24_FULL_VERSION": "nodejs-24",
         "PYTHON_3_10_FULL_VERSION": "python-3.10",
         "PYTHON_3_11_FULL_VERSION": "python-3.11",
         "PYTHON_3_12_FULL_VERSION": "python-3.12",
         "PYTHON_3_13_FULL_VERSION": "python-3.13",
-        "PYTHON_3_14_FULL_VERSION": "python-3.14"
+        "PYTHON_3_14_FULL_VERSION": "python-3.14",
+        "PYTHON_3_15_FULL_VERSION": "python-3.15",
+        "BUN_1_FULL_VERSION": "bun"
     }
 
     lock_dependencies(hcl_file, images_to_lock, packages_to_lock, runner_image_ref, args.pull_request)
