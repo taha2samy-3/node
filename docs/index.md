@@ -39,6 +39,7 @@ Every built version is subjected to rigorous automated scanning and security com
 ---
 
 ### :fontawesome-brands-node-js: Node.js LTS
+*   [**Node.js 20 LTS Security Reports**](node-20.md)
 *   [**Node.js 22 LTS Security Reports**](node-22.md)
 *   [**Node.js 24 LTS Security Reports**](node-24.md)
 
