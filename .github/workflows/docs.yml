@@ -27,6 +27,9 @@ jobs:
       matrix:
         include:
           # --- Node.js ---
+          - { type: "node", version: "20", image: "ghcr.io/taha2samy-3/node:20-dev", v_out: "20-dev-vuln.json", c_out: "20-dev-cis.json" }
+          - { type: "node", version: "20", image: "ghcr.io/taha2samy-3/node:20", v_out: "20-prod-vuln.json", c_out: "20-prod-cis.json" }
+
           - { type: "node", version: "22", image: "ghcr.io/taha2samy-3/node:22-dev", v_out: "22-dev-vuln.json", c_out: "22-dev-cis.json" }
           - { type: "node", version: "22", image: "ghcr.io/taha2samy-3/node:22", v_out: "22-prod-vuln.json", c_out: "22-prod-cis.json" }
           - { type: "node", version: "24", image: "ghcr.io/taha2samy-3/node:24-dev", v_out: "24-dev-vuln.json", c_out: "24-dev-cis.json" }
