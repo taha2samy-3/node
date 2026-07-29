@@ -199,7 +199,6 @@ def main():
         "PYTHON_3_12_FULL_VERSION": "python-3.12",
         "PYTHON_3_13_FULL_VERSION": "python-3.13",
         "PYTHON_3_14_FULL_VERSION": "python-3.14",
-        "PYTHON_3_15_FULL_VERSION": "python-3.15",
         "BUN_1_FULL_VERSION": "bun"
     }
 
