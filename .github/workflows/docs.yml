@@ -112,7 +112,8 @@ jobs:
       - name: Build Dynamic Dashboard (Static Production Build)
         working-directory: web
         run: npm run build
-
+      - name: tree all infra
+        run: tree -a 
       - name: Push to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
