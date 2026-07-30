@@ -1,0 +1,255 @@
+runtimes:
+  # ==========================================
+  # Node.js Runtimes
+  # ==========================================
+  - id: "node"
+    title: "Node.js LTS"
+    icon: "https://cdn.simpleicons.org/nodedotjs/339933"
+    architectures:
+      - "linux/amd64"
+      - "linux/arm64"
+    versions:
+      - version: "24"
+        flavors:
+          - id: "dev"
+            name: "Development Builder (with NPM)"
+            policy_header: "Full Developer Suite (Node 24)"
+            policy_text: "Contains Node.js 24 and NPM for building packages and running tests. Built on Wolfi OS with non-root user execution."
+            tags:
+              - "ghcr.io/taha2samy-3/node:24-dev"
+              - "ghcr.io/taha2samy-3/node:v24-dev"
+            reports:
+              vuln: "./../reports/24-dev-vuln.json"
+              cis: ".reports/24-dev-cis.json"
+              sbom: "./../reports/24-dev-sbom.json"
+          - id: "prod"
+            name: "Production Runtime (Scratch)"
+            policy_header: "Hardened Minimal Runtime (Node 24)"
+            policy_text: "Minimal, secure, minimal-compat runtime directly from scratch with no extra tools, no shell, no package manager."
+            tags:
+              - "ghcr.io/taha2samy-3/node:24"
+              - "ghcr.io/taha2samy-3/node:v24"
+            reports:
+              vuln: "./../reports/24-prod-vuln.json"
+              cis: "./../reports/24-prod-cis.json"
+              sbom: "./../reports/24-prod-sbom.json"
+
+      - version: "22"
+        flavors:
+          - id: "dev"
+            name: "Development Builder (with NPM)"
+            policy_header: "Full Developer Suite (Node 22)"
+            policy_text: "Contains Node.js 22 and NPM for building packages and running tests. Built on Wolfi OS with non-root user execution."
+            tags:
+              - "ghcr.io/taha2samy-3/node:22-dev"
+              - "ghcr.io/taha2samy-3/node:v22-dev"
+            reports:
+              vuln: "./../reports/22-dev-vuln.json"
+              cis: "./../reports/22-dev-cis.json"
+              sbom: "./../reports/22-dev-sbom.json"
+          - id: "prod"
+            name: "Production Runtime (Scratch)"
+            policy_header: "Hardened Minimal Runtime (Node 22)"
+            policy_text: "Minimal, secure, minimal-compat runtime directly from scratch with no extra tools, no shell, no package manager."
+            tags:
+              - "ghcr.io/taha2samy-3/node:22"
+              - "ghcr.io/taha2samy-3/node:v22"
+            reports:
+              vuln: "./../reports/22-prod-vuln.json"
+              cis: "./../reports/22-prod-cis.json"
+              sbom: "./../reports/22-prod-sbom.json"
+
+      - version: "20"
+        flavors:
+          - id: "dev"
+            name: "Development Builder (with NPM)"
+            policy_header: "Full Developer Suite (Node 20)"
+            policy_text: "Contains Node.js 20 and NPM for building packages and running tests. Built on Wolfi OS with non-root user execution."
+            tags:
+              - "ghcr.io/taha2samy-3/node:20-dev"
+              - "ghcr.io/taha2samy-3/node:v20-dev"
+            reports:
+              vuln: "./../reports/20-dev-vuln.json"
+              cis: "./../reports/20-dev-cis.json"
+              sbom: "./../reports/20-dev-sbom.json"
+          - id: "prod"
+            name: "Production Runtime (Scratch)"
+            policy_header: "Hardened Minimal Runtime (Node 20)"
+            policy_text: "Minimal, secure, minimal-compat runtime directly from scratch with no extra tools, no shell, no package manager."
+            tags:
+              - "ghcr.io/taha2samy-3/node:20"
+              - "ghcr.io/taha2samy-3/node:v20"
+            reports:
+              vuln: "./../reports/20-prod-vuln.json"
+              cis: "./../reports/20-prod-cis.json"
+              sbom: "./../reports/20-prod-sbom.json"
+
+  # ==========================================
+  # Python Runtimes
+  # ==========================================
+  - id: "python"
+    title: "Python Runtimes"
+    icon: "https://cdn.simpleicons.org/python/3776AB"
+    architectures:
+      - "linux/amd64"
+      - "linux/arm64"
+    versions:
+      - version: "3.14"
+        flavors:
+          - id: "dev"
+            name: "Development Builder (with Pip)"
+            policy_header: "Full Developer Suite (Python 3.14)"
+            policy_text: "Contains bleeding-edge Python 3.14, Pip, Pipenv, and essential build utilities for experimentation and testing."
+            tags:
+              - "ghcr.io/taha2samy-3/python:3.14-dev"
+              - "ghcr.io/taha2samy-3/python:v3.14-dev"
+            reports:
+              vuln: "./../reports/3.14-dev-vuln.json"
+              cis: "./../reports/3.14-dev-cis.json"
+              sbom: "./../reports/3.14-dev-sbom.json"
+          - id: "prod"
+            name: "Production Runtime (Scratch)"
+            policy_header: "Hardened Minimal Runtime (Python 3.14)"
+            policy_text: "Stripped Python 3.14 interpreter running on Wolfi minimal-compat base built directly from scratch."
+            tags:
+              - "ghcr.io/taha2samy-3/python:3.14"
+              - "ghcr.io/taha2samy-3/python:v3.14"
+            reports:
+              vuln: "./../reports/3.14-prod-vuln.json"
+              cis: "./../reports/3.14-prod-cis.json"
+              sbom: "./../reports/3.14-prod-sbom.json"
+
+      - version: "3.13"
+        flavors:
+          - id: "dev"
+            name: "Development Builder (with Pip)"
+            policy_header: "Full Developer Suite (Python 3.13)"
+            policy_text: "Contains Python 3.13, Pip, and build tools built on high-assurance Wolfi base with non-root privileges."
+            tags:
+              - "ghcr.io/taha2samy-3/python:3.13-dev"
+              - "ghcr.io/taha2samy-3/python:v3.13-dev"
+            reports:
+              vuln: "./../reports/3.13-dev-vuln.json"
+              cis: "./../reports/3.13-dev-cis.json"
+              sbom: "./../reports/3.13-dev-sbom.json"
+          - id: "prod"
+            name: "Production Runtime (Scratch)"
+            policy_header: "Hardened Minimal Runtime (Python 3.13)"
+            policy_text: "Hardened, stripped Python 3.13 runtime with absolutely zero shell commands or package managers."
+            tags:
+              - "ghcr.io/taha2samy-3/python:3.13"
+              - "ghcr.io/taha2samy-3/python:v3.13"
+            reports:
+              vuln: "./../reports/3.13-prod-vuln.json"
+              cis: "./../reports/3.13-prod-cis.json"
+              sbom: "./../reports/3.13-prod-sbom.json"
+
+      - version: "3.12"
+        flavors:
+          - id: "dev"
+            name: "Development Builder (with Pip)"
+            policy_header: "Full Developer Suite (Python 3.12)"
+            policy_text: "Contains standard enterprise Python 3.12, Pip, and Pipenv for core server execution and local tooling."
+            tags:
+              - "ghcr.io/taha2samy-3/python:3.12-dev"
+              - "ghcr.io/taha2samy-3/python:v3.12-dev"
+            reports:
+              vuln: "./../reports/3.12-dev-vuln.json"
+              cis: "./../reports/3.12-dev-cis.json"
+              sbom: "./../reports/3.12-dev-sbom.json"
+          - id: "prod"
+            name: "Production Runtime (Scratch)"
+            policy_header: "Hardened Minimal Runtime (Python 3.12)"
+            policy_text: "Stripped Python 3.12 interpreter optimized for high-assurance, Zero-CVE deployments."
+            tags:
+              - "ghcr.io/taha2samy-3/python:3.12"
+              - "ghcr.io/taha2samy-3/python:v3.12"
+            reports:
+              vuln: "./../reports/3.12-prod-vuln.json"
+              cis: "./../reports/3.12-prod-cis.json"
+              sbom: "./../reports/3.12-prod-sbom.json"
+
+      - version: "3.11"
+        flavors:
+          - id: "dev"
+            name: "Development Builder (with Pip)"
+            policy_header: "Full Developer Suite (Python 3.11)"
+            policy_text: "Contains standard enterprise Python 3.11, Pip, and Pipenv for core server execution."
+            tags:
+              - "ghcr.io/taha2samy-3/python:3.11-dev"
+              - "ghcr.io/taha2samy-3/python:v3.11-dev"
+            reports:
+              vuln: "./../reports/3.11-dev-vuln.json"
+              cis: "./../reports/3.11-dev-cis.json"
+              sbom: "./../reports/3.11-dev-sbom.json"
+          - id: "prod"
+            name: "Production Runtime (Scratch)"
+            policy_header: "Hardened Minimal Runtime (Python 3.11)"
+            policy_text: "Stripped Python 3.11 interpreter optimized for high-assurance deployments."
+            tags:
+              - "ghcr.io/taha2samy-3/python:3.11"
+              - "ghcr.io/taha2samy-3/python:v3.11"
+            reports:
+              vuln: "./../reports/3.11-prod-vuln.json"
+              cis: "./../reports/3.11-prod-cis.json"
+              sbom: "./../reports/3.11-prod-sbom.json"
+
+      - version: "3.10"
+        flavors:
+          - id: "dev"
+            name: "Development Builder (with Pip)"
+            policy_header: "Full Developer Suite (Python 3.10)"
+            policy_text: "Contains legacy enterprise Python 3.10, Pip, and build configurations."
+            tags:
+              - "ghcr.io/taha2samy-3/python:3.10-dev"
+              - "ghcr.io/taha2samy-3/python:v3.10-dev"
+            reports:
+              vuln: "./../reports/3.10-dev-vuln.json"
+              cis: "./../reports/3.10-dev-cis.json"
+              sbom: "./../reports/3.10-dev-sbom.json"
+          - id: "prod"
+            name: "Production Runtime (Scratch)"
+            policy_header: "Hardened Minimal Runtime (Python 3.10)"
+            policy_text: "Stripped Python 3.10 interpreter optimized for legacy microservice deployments."
+            tags:
+              - "ghcr.io/taha2samy-3/python:3.10"
+              - "ghcr.io/taha2samy-3/python:v3.10"
+            reports:
+              vuln: "./../reports/3.10-prod-vuln.json"
+              cis: "./../reports/3.10-prod-cis.json"
+              sbom: "./../reports/3.10-prod-sbom.json"
+
+  # ==========================================
+  # Bun Runtimes
+  # ==========================================
+  - id: "bun"
+    title: "Bun Runtime"
+    icon: "https://cdn.simpleicons.org/bun/FBF0DF"
+    architectures:
+      - "linux/amd64"
+      - "linux/arm64"
+    versions:
+      - version: "1"
+        flavors:
+          - id: "dev"
+            name: "Development Builder"
+            policy_header: "Full Developer Suite (Bun 1)"
+            policy_text: "Contains the full high-performance Bun 1.x package, test execution suite, and building dependencies."
+            tags:
+              - "ghcr.io/taha2samy-3/bun:1-dev"
+              - "ghcr.io/taha2samy-3/bun:v1-dev"
+            reports:
+              vuln: "./../reports/1-dev-vuln.json"
+              cis: "./../reports/1-dev-cis.json"
+              sbom: "./../reports/1-dev-sbom.json"
+          - id: "prod"
+            name: "Production Runtime (Scratch)"
+            policy_header: "Hardened Minimal Runtime (Bun 1)"
+            policy_text: "Minimal hardened Bun 1.x runtime running directly from scratch with verified Zero-CVE posture."
+            tags:
+              - "ghcr.io/taha2samy-3/bun:1"
+              - "ghcr.io/taha2samy-3/bun:v1"
+            reports:
+              vuln: "./../reports/1-prod-vuln.json"
+              cis: "./../reports/1-prod-cis.json"
+              sbom: "./../reports/1-prod-sbom.json"
