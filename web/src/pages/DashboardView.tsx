@@ -266,13 +266,10 @@ export default function DashboardView() {
 
     if (activeSubTab === 'sbom') {
       const components = [];
-      const activeSbom = sbomData || vulnData;
-
-      if (activeSbom?.components) {
-        const filtered = activeSbom.components.filter((c: any) => c.type !== 'file');
-        components.push(...filtered);
-      } else if (activeSbom?.Results) {
-        activeSbom.Results.forEach((res: any) => {
+      if (sbomData?.components) {
+        components.push(...sbomData.components);
+      } else if (sbomData?.Results) {
+        sbomData.Results.forEach((res: any) => {
           if (res.Packages) components.push(...res.Packages);
         });
       }
