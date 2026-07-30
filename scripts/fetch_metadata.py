@@ -24,10 +24,37 @@ def get_gh_token():
         print("ℹ️ GitHub CLI Token not found. Using anonymous request.")
         return None
 
-def get_compressed_image_size(tag_url, gh_token=None):
+def get_gh_package_version_url(registry, repo, tag, root_digest, gh_token=None):
+    try:
+        parts = repo.split('/')
+        if len(parts) < 2:
+            return f"https://github.com/{repo}"
+        owner, package_name = parts[0], parts[1]
+        
+        url = f"https://api.github.com/users/{owner}/packages/container/{package_name}/versions?per_page=100"
+        req = urllib.request.Request(url)
+        req.add_header("Accept", "application/vnd.github+json")
+        req.add_header("X-GitHub-Api-Version", "2022-11-28")
+        if gh_token:
+            req.add_header("Authorization", f"Bearer {gh_token}")
+            
+        with urllib.request.urlopen(req) as resp:
+            versions = json.loads(resp.read().decode())
+        
+        for v in versions:
+            v_name = v.get("name", "")
+            tags = v.get("metadata", {}).get("container", {}).get("tags", [])
+            
+            if (root_digest and root_digest == v_name) or (tag in tags):
+                return v.get("html_url")
+    except Exception:
+        pass
+    return f"https://github.com/{repo}/pkgs/container/{package_name}"
+
+def get_image_metadata(tag_url, gh_token=None):
     match = re.match(r'^(?:https://)?([^/]+)/([^:]+):(.+)$', tag_url)
     if not match:
-        return None
+        return "N/A", "N/A", "N/A"
     registry, repo, tag = match.groups()
     try:
         token_url = f"https://{registry}/token?service={registry}&scope=repository:{repo}:pull"
@@ -54,6 +81,7 @@ def get_compressed_image_size(tag_url, gh_token=None):
         manifest_url = f"https://{registry}/v2/{repo}/manifests/{tag}"
         req = urllib.request.Request(manifest_url, headers=headers)
         with urllib.request.urlopen(req) as resp:
+            root_digest = resp.headers.get("Docker-Content-Digest", "N/A")
             manifest = json.loads(resp.read().decode())
         
         if "manifests" in manifest:
@@ -65,13 +93,16 @@ def get_compressed_image_size(tag_url, gh_token=None):
                 
         layers = manifest.get("layers", [])
         total_bytes = sum(layer.get("size", 0) for layer in layers)
+        
+        provenance_url = get_gh_package_version_url(registry, repo, tag, root_digest, gh_token)
+        
         if total_bytes == 0:
-            return "N/A"
+            return "N/A", root_digest, provenance_url
         size_mb = total_bytes / (1024 * 1024)
-        return f"{size_mb:.1f} MB"
+        return f"{size_mb:.1f} MB", root_digest, provenance_url
     except Exception as e:
-        print(f"⚠️ Error fetching size for {tag_url}: {e}")
-        return "N/A"
+        print(f"⚠️ Error fetching metadata for {tag_url}: {e}")
+        return "N/A", "N/A", "N/A"
 
 def main():
     parser = argparse.ArgumentParser()
@@ -98,13 +129,15 @@ def main():
                 for tag in flavor.get("tags", []):
                     if tag not in metadata_map:
                         print(f"   ↳ ⏳ Fetching metadata for: {tag} ...", end="", flush=True)
-                        size_str = get_compressed_image_size(tag, gh_token) or "N/A"
+                        size_str, root_digest, provenance_url = get_image_metadata(tag, gh_token)
                         metadata_map[tag] = {
                             "size": size_str,
+                            "digest": root_digest,
+                            "provenance_url": provenance_url,
                             "compression": "zstd",
                             "compression_level": 3
                         }
-                        print(f"\r   ↳ ✅ Done: {tag} ({size_str})")
+                        print(f"\r   ↳ ✅ Done: {tag} ({size_str} | {root_digest[:18]}... | {provenance_url[:30]}...)")
 
     os.makedirs(args.output_dir, exist_ok=True)
     output_path = os.path.join(args.output_dir, "config.json")
