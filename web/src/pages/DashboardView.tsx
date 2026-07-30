@@ -1,13 +1,12 @@
 import { useState, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
-import { ShieldCheck, Package, Zap, Info, CheckCircle2, AlertCircle, XCircle, Copy, Check, ShieldAlert, Cpu, HardDrive } from 'lucide-react';
+import { ShieldCheck, Package, Zap, Info, CheckCircle2, AlertCircle, XCircle, Copy, Check, ShieldAlert, Cpu, HardDrive, Lock } from 'lucide-react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 import runtimesData from '../../runtimes.yaml';
-import configData from '../../../reports/config.json';
+import configData from '../../reports/config.json';
 import { RuntimesData } from '../types';
 import { cn } from '../utils';
 import RuntimeIcon from '../components/RuntimeIcon';
-
 import { reportsMap } from '../reports';
 
 
@@ -21,10 +20,10 @@ const COLORS: Record<string, string> = {
 export default function DashboardView() {
   const { runtimeId, version } = useParams<{ runtimeId: string; version: string }>();
   const data = runtimesData as RuntimesData;
-  
+
   const runtime = useMemo(() => data.runtimes.find(r => r.id === runtimeId), [data, runtimeId]);
   const runtimeVersion = useMemo(() => runtime?.versions.find(v => v.version === version), [runtime, version]);
-  
+
   const [activeFlavorId, setActiveFlavorId] = useState<string>('dev');
   const [activeSubTab, setActiveSubTab] = useState<'vuln' | 'cis' | 'sbom'>('vuln');
   const [copiedTag, setCopiedTag] = useState<string | null>(null);
@@ -38,11 +37,11 @@ export default function DashboardView() {
   const primaryTag = activeFlavor.tags[0];
   const tagEntry = (configData as Record<string, { size?: string; digest?: string } | string>)[primaryTag];
   const imageSize = typeof tagEntry === 'object' ? (tagEntry?.size || 'N/A') : (tagEntry || 'N/A');
-  
+
   const vulnData = reportsMap[version || '']?.[activeFlavor.id]?.['vuln'];
   const cisData = reportsMap[version || '']?.[activeFlavor.id]?.['cis'];
   const sbomData = reportsMap[version || '']?.[activeFlavor.id]?.['sbom'];
-  
+
   const handleCopy = (tag: string) => {
     navigator.clipboard.writeText(`docker pull ${tag}`);
     setCopiedTag(tag);
@@ -79,7 +78,7 @@ export default function DashboardView() {
 
       const totalVulns = vulns.length;
       const hasVulns = totalVulns > 0;
-      
+
       const chartData = [
         { name: 'Critical', value: critical, color: COLORS.Critical },
         { name: 'High', value: high, color: COLORS.High },
@@ -164,7 +163,7 @@ export default function DashboardView() {
                           <Cell key={`cell-${index}`} fill={entry.color} />
                         ))}
                       </Pie>
-                      <Tooltip 
+                      <Tooltip
                         contentStyle={{ backgroundColor: '#111827', borderColor: '#334155', borderRadius: '8px', color: '#fff' }}
                         itemStyle={{ color: '#fff' }}
                       />
@@ -220,9 +219,9 @@ export default function DashboardView() {
           if (res.Vulnerabilities) cisVulns.push(...res.Vulnerabilities);
         }
       }
-      
+
       const totalChecks = cisVulns.length;
-      
+
       return (
         <div className="space-y-6">
           {totalChecks === 0 ? (
@@ -243,35 +242,35 @@ export default function DashboardView() {
                 </div>
               </div>
               <div className="bg-white dark:bg-card-dark border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden">
-                 <div className="overflow-x-auto">
-                   <table className="w-full text-left text-sm">
-                     <thead className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
-                       <tr>
-                         <th className="px-5 py-4 font-semibold text-center w-16 text-slate-600 dark:text-slate-300">Status</th>
-                         <th className="px-5 py-4 font-semibold text-slate-600 dark:text-slate-300">ID</th>
-                         <th className="px-5 py-4 font-semibold text-slate-600 dark:text-slate-300">Control Description</th>
-                         <th className="px-5 py-4 font-semibold text-slate-600 dark:text-slate-300">Severity</th>
-                       </tr>
-                     </thead>
-                     <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                       {cisVulns.map((v, i) => (
-                         <tr key={i} className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-                           <td className="px-5 py-4 text-center"><XCircle className="w-5 h-5 text-red-500 mx-auto" /></td>
-                           <td className="px-5 py-4 font-mono font-bold text-slate-700 dark:text-slate-200 whitespace-nowrap">{v.VulnerabilityID}</td>
-                           <td className="px-5 py-4 text-slate-600 dark:text-slate-400">{v.Title}</td>
-                           <td className="px-5 py-4"><span className="px-2.5 py-1 bg-red-100 dark:bg-red-500/10 text-red-800 dark:text-red-400 border border-red-200 dark:border-red-500/20 rounded-full text-xs font-bold">{v.Severity}</span></td>
-                         </tr>
-                       ))}
-                     </tbody>
-                   </table>
-                 </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-left text-sm">
+                    <thead className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
+                      <tr>
+                        <th className="px-5 py-4 font-semibold text-center w-16 text-slate-600 dark:text-slate-300">Status</th>
+                        <th className="px-5 py-4 font-semibold text-slate-600 dark:text-slate-300">ID</th>
+                        <th className="px-5 py-4 font-semibold text-slate-600 dark:text-slate-300">Control Description</th>
+                        <th className="px-5 py-4 font-semibold text-slate-600 dark:text-slate-300">Severity</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                      {cisVulns.map((v, i) => (
+                        <tr key={i} className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                          <td className="px-5 py-4 text-center"><XCircle className="w-5 h-5 text-red-500 mx-auto" /></td>
+                          <td className="px-5 py-4 font-mono font-bold text-slate-700 dark:text-slate-200 whitespace-nowrap">{v.VulnerabilityID}</td>
+                          <td className="px-5 py-4 text-slate-600 dark:text-slate-400">{v.Title}</td>
+                          <td className="px-5 py-4"><span className="px-2.5 py-1 bg-red-100 dark:bg-red-500/10 text-red-800 dark:text-red-400 border border-red-200 dark:border-red-500/20 rounded-full text-xs font-bold">{v.Severity}</span></td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </>
           )}
         </div>
       );
     }
-    
+
     if (activeSubTab === 'sbom') {
       const components = [];
       if (sbomData?.components) {
@@ -283,54 +282,54 @@ export default function DashboardView() {
       }
       return (
         <div className="bg-white dark:bg-card-dark border border-slate-200 dark:border-slate-800 rounded-xl shadow-sm overflow-hidden flex flex-col">
-           <div className="p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 font-bold text-slate-800 dark:text-white flex items-center gap-2">
-             <Package className="w-5 h-5 text-brand-mint" /> Software Bill of Materials (SBOM)
-           </div>
-           <div className="overflow-auto flex-1 max-h-[600px] custom-scrollbar">
-             <table className="w-full text-left text-sm whitespace-nowrap">
-               <thead className="bg-slate-50 dark:bg-slate-800/50 sticky top-0 border-b border-slate-200 dark:border-slate-800 shadow-sm z-10 backdrop-blur-sm">
-                 <tr>
-                   <th className="px-5 py-3 font-semibold text-slate-600 dark:text-slate-300">Component Name</th>
-                   <th className="px-5 py-3 font-semibold text-slate-600 dark:text-slate-300">Version</th>
-                   <th className="px-5 py-3 font-semibold text-slate-600 dark:text-slate-300">License</th>
-                   <th className="px-5 py-3 font-semibold text-slate-600 dark:text-slate-300">Classification</th>
-                 </tr>
-               </thead>
-               <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-                 {components.map((p: any, i: number) => {
-                   let name = p.name || p.Name;
-                   let version = p.version || p.Version;
-                   let license = "N/A";
-                   if (p.licenses) {
-                     license = p.licenses.map((l:any) => l.license?.id || l.license?.name).filter(Boolean).join(', ');
-                   } else if (p.Licenses) {
-                     license = Array.isArray(p.Licenses) ? p.Licenses.join(', ') : p.Licenses;
-                   }
-                   let type = p.type || (p.Layer ? 'System (Wolfi)' : 'Application Package');
-                   return (
-                     <tr key={i} className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
-                       <td className="px-5 py-3 font-mono font-bold text-slate-800 dark:text-slate-200">{name}</td>
-                       <td className="px-5 py-3 font-mono text-slate-500 dark:text-slate-400">{version}</td>
-                       <td className="px-5 py-3">
-                         <span className="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full text-xs font-semibold font-mono border border-slate-200 dark:border-slate-700">
-                           {license || 'N/A'}
-                         </span>
-                       </td>
-                       <td className="px-5 py-3 capitalize text-slate-600 dark:text-slate-400">
-                         <span className={cn("px-2.5 py-1 rounded-md text-xs font-medium", type.includes('System') ? "bg-blue-50 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400" : "bg-purple-50 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400")}>
-                           {type}
-                         </span>
-                       </td>
-                     </tr>
-                   );
-                 })}
-               </tbody>
-             </table>
-           </div>
+          <div className="p-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 font-bold text-slate-800 dark:text-white flex items-center gap-2">
+            <Package className="w-5 h-5 text-brand-mint" /> Software Bill of Materials (SBOM)
+          </div>
+          <div className="overflow-auto flex-1 max-h-[600px] custom-scrollbar">
+            <table className="w-full text-left text-sm whitespace-nowrap">
+              <thead className="bg-slate-50 dark:bg-slate-800/50 sticky top-0 border-b border-slate-200 dark:border-slate-800 shadow-sm z-10 backdrop-blur-sm">
+                <tr>
+                  <th className="px-5 py-3 font-semibold text-slate-600 dark:text-slate-300">Component Name</th>
+                  <th className="px-5 py-3 font-semibold text-slate-600 dark:text-slate-300">Version</th>
+                  <th className="px-5 py-3 font-semibold text-slate-600 dark:text-slate-300">License</th>
+                  <th className="px-5 py-3 font-semibold text-slate-600 dark:text-slate-300">Classification</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                {components.map((p: any, i: number) => {
+                  let name = p.name || p.Name;
+                  let version = p.version || p.Version;
+                  let license = "N/A";
+                  if (p.licenses) {
+                    license = p.licenses.map((l: any) => l.license?.id || l.license?.name).filter(Boolean).join(', ');
+                  } else if (p.Licenses) {
+                    license = Array.isArray(p.Licenses) ? p.Licenses.join(', ') : p.Licenses;
+                  }
+                  let type = p.type || (p.Layer ? 'System (Wolfi)' : 'Application Package');
+                  return (
+                    <tr key={i} className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                      <td className="px-5 py-3 font-mono font-bold text-slate-800 dark:text-slate-200">{name}</td>
+                      <td className="px-5 py-3 font-mono text-slate-500 dark:text-slate-400">{version}</td>
+                      <td className="px-5 py-3">
+                        <span className="px-2.5 py-1 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full text-xs font-semibold font-mono border border-slate-200 dark:border-slate-700">
+                          {license || 'N/A'}
+                        </span>
+                      </td>
+                      <td className="px-5 py-3 capitalize text-slate-600 dark:text-slate-400">
+                        <span className={cn("px-2.5 py-1 rounded-md text-xs font-medium", type.includes('System') ? "bg-blue-50 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400" : "bg-purple-50 text-purple-700 dark:bg-purple-500/10 dark:text-purple-400")}>
+                          {type}
+                        </span>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </div>
       );
     }
-    
+
     return null;
   };
 
@@ -363,13 +362,13 @@ export default function DashboardView() {
 
       <div className="flex border-b border-slate-200 dark:border-slate-800 mb-8 space-x-2">
         {runtimeVersion.flavors.map(flavor => (
-          <button 
+          <button
             key={flavor.id}
             onClick={() => { setActiveFlavorId(flavor.id); setActiveSubTab('vuln'); }}
             className={cn(
-              "px-5 py-3 text-sm font-bold border-b-2 transition-all duration-200 tracking-wide", 
-              activeFlavorId === flavor.id 
-                ? "border-brand-mint text-brand-mint" 
+              "px-5 py-3 text-sm font-bold border-b-2 transition-all duration-200 tracking-wide",
+              activeFlavorId === flavor.id
+                ? "border-brand-mint text-brand-mint"
                 : "border-transparent text-slate-500 hover:text-slate-800 dark:hover:text-slate-300"
             )}
           >
@@ -377,7 +376,7 @@ export default function DashboardView() {
           </button>
         ))}
       </div>
-      
+
       <div className="p-5 bg-brand-mint/10 border border-brand-mint/20 rounded-xl mb-10 shadow-[0_0_15px_rgba(0,245,160,0.05)]">
         <strong className="text-slate-900 dark:text-white flex items-center gap-2 mb-2 text-lg">
           <ShieldCheck className="w-6 h-6 text-brand-mint drop-shadow-[0_0_5px_rgba(0,245,160,0.5)]" />
@@ -396,7 +395,7 @@ export default function DashboardView() {
           {activeFlavor.tags.map((tag, idx) => {
             const currentConfig = (configData as Record<string, { digest?: string } | string>)[tag];
             const digest = typeof currentConfig === 'object' ? currentConfig?.digest : undefined;
-            
+
             return (
               <div key={tag} className="group relative">
                 <div className="text-sm font-bold text-slate-600 dark:text-slate-400 mb-2 uppercase tracking-wider text-xs">
@@ -406,7 +405,7 @@ export default function DashboardView() {
                   <code className="block p-4 bg-slate-50 dark:bg-[#0D1117] text-slate-800 dark:text-slate-300 font-mono text-sm select-all flex-1">
                     <span className="text-brand-cyan select-none mr-2">$</span> docker pull {tag}
                   </code>
-                  <button 
+                  <button
                     onClick={() => handleCopy(tag)}
                     className="bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 p-4 flex items-center justify-center transition-colors border-l border-slate-300 dark:border-slate-700 w-14 shrink-0"
                     title="Copy command"
@@ -452,21 +451,21 @@ export default function DashboardView() {
           <ShieldCheck className="w-5 h-5 text-brand-mint" />
           Security & Compliance Reports
         </h2>
-        
+
         <div className="flex flex-wrap gap-3 mb-8">
-          <button 
+          <button
             onClick={() => setActiveSubTab('vuln')}
             className={cn("px-4 py-2 rounded-lg text-sm font-bold transition-all border", activeSubTab === 'vuln' ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-slate-900 dark:border-white shadow-md" : "bg-white dark:bg-card-dark text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/50")}
           >
             Vulnerability Scan
           </button>
-          <button 
+          <button
             onClick={() => setActiveSubTab('cis')}
             className={cn("px-4 py-2 rounded-lg text-sm font-bold transition-all border", activeSubTab === 'cis' ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-slate-900 dark:border-white shadow-md" : "bg-white dark:bg-card-dark text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/50")}
           >
             Docker CIS
           </button>
-          <button 
+          <button
             onClick={() => setActiveSubTab('sbom')}
             className={cn("px-4 py-2 rounded-lg text-sm font-bold transition-all border", activeSubTab === 'sbom' ? "bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-slate-900 dark:border-white shadow-md" : "bg-white dark:bg-card-dark text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/50")}
           >
