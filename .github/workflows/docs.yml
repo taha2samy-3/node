@@ -28,27 +28,28 @@ jobs:
       matrix:
         include:
           # --- Node.js ---
-          - { type: "node", version: "20", image: "ghcr.io/taha2samy-3/node:20-dev", v_out: "20-dev-vuln.json", c_out: "20-dev-cis.json" }
-          - { type: "node", version: "20", image: "ghcr.io/taha2samy-3/node:20", v_out: "20-prod-vuln.json", c_out: "20-prod-cis.json" }
+          - { type: "node", version: "20", image: "ghcr.io/taha2samy-3/node:20-dev", v_out: "20-dev-vuln.json", c_out: "20-dev-cis.json", s_out: "20-dev-sbom.json" }
+          - { type: "node", version: "20", image: "ghcr.io/taha2samy-3/node:20", v_out: "20-prod-vuln.json", c_out: "20-prod-cis.json", s_out: "20-prod-sbom.json" }
 
-          - { type: "node", version: "22", image: "ghcr.io/taha2samy-3/node:22-dev", v_out: "22-dev-vuln.json", c_out: "22-dev-cis.json" }
-          - { type: "node", version: "22", image: "ghcr.io/taha2samy-3/node:22", v_out: "22-prod-vuln.json", c_out: "22-prod-cis.json" }
-          - { type: "node", version: "24", image: "ghcr.io/taha2samy-3/node:24-dev", v_out: "24-dev-vuln.json", c_out: "24-dev-cis.json" }
-          - { type: "node", version: "24", image: "ghcr.io/taha2samy-3/node:24", v_out: "24-prod-vuln.json", c_out: "24-prod-cis.json" }
+          - { type: "node", version: "22", image: "ghcr.io/taha2samy-3/node:22-dev", v_out: "22-dev-vuln.json", c_out: "22-dev-cis.json", s_out: "22-dev-sbom.json" }
+          - { type: "node", version: "22", image: "ghcr.io/taha2samy-3/node:22", v_out: "22-prod-vuln.json", c_out: "22-prod-cis.json", s_out: "22-prod-sbom.json" }
+          
+          - { type: "node", version: "24", image: "ghcr.io/taha2samy-3/node:24-dev", v_out: "24-dev-vuln.json", c_out: "24-dev-cis.json", s_out: "24-dev-sbom.json" }
+          - { type: "node", version: "24", image: "ghcr.io/taha2samy-3/node:24", v_out: "24-prod-vuln.json", c_out: "24-prod-cis.json", s_out: "24-prod-sbom.json" }
           # --- Python ---
-          - { type: "python", version: "3.10", image: "ghcr.io/taha2samy-3/python:3.10-dev", v_out: "3.10-dev-vuln.json", c_out: "3.10-dev-cis.json" }
-          - { type: "python", version: "3.10", image: "ghcr.io/taha2samy-3/python:3.10", v_out: "3.10-prod-vuln.json", c_out: "3.10-prod-cis.json" }
-          - { type: "python", version: "3.11", image: "ghcr.io/taha2samy-3/python:3.11-dev", v_out: "3.11-dev-vuln.json", c_out: "3.11-dev-cis.json" }
-          - { type: "python", version: "3.11", image: "ghcr.io/taha2samy-3/python:3.11", v_out: "3.11-prod-vuln.json", c_out: "3.11-prod-cis.json" }
-          - { type: "python", version: "3.12", image: "ghcr.io/taha2samy-3/python:3.12-dev", v_out: "3.12-dev-vuln.json", c_out: "3.12-dev-cis.json" }
-          - { type: "python", version: "3.12", image: "ghcr.io/taha2samy-3/python:3.12", v_out: "3.12-prod-vuln.json", c_out: "3.12-prod-cis.json" }
-          - { type: "python", version: "3.13", image: "ghcr.io/taha2samy-3/python:3.13-dev", v_out: "3.13-dev-vuln.json", c_out: "3.13-dev-cis.json" }
-          - { type: "python", version: "3.13", image: "ghcr.io/taha2samy-3/python:3.13", v_out: "3.13-prod-vuln.json", c_out: "3.13-prod-cis.json" }
-          - { type: "python", version: "3.14", image: "ghcr.io/taha2samy-3/python:3.14-dev", v_out: "3.14-dev-vuln.json", c_out: "3.14-dev-cis.json" }
-          - { type: "python", version: "3.14", image: "ghcr.io/taha2samy-3/python:3.14", v_out: "3.14-prod-vuln.json", c_out: "3.14-prod-cis.json" }
+          - { type: "python", version: "3.10", image: "ghcr.io/taha2samy-3/python:3.10-dev", v_out: "3.10-dev-vuln.json", c_out: "3.10-dev-cis.json", s_out: "3.10-dev-sbom.json" }
+          - { type: "python", version: "3.10", image: "ghcr.io/taha2samy-3/python:3.10", v_out: "3.10-prod-vuln.json", c_out: "3.10-prod-cis.json", s_out: "3.10-prod-sbom.json" }
+          - { type: "python", version: "3.11", image: "ghcr.io/taha2samy-3/python:3.11-dev", v_out: "3.11-dev-vuln.json", c_out: "3.11-dev-cis.json", s_out: "3.11-dev-sbom.json" }
+          - { type: "python", version: "3.11", image: "ghcr.io/taha2samy-3/python:3.11", v_out: "3.11-prod-vuln.json", c_out: "3.11-prod-cis.json", s_out: "3.11-prod-sbom.json" }
+          - { type: "python", version: "3.12", image: "ghcr.io/taha2samy-3/python:3.12-dev", v_out: "3.12-dev-vuln.json", c_out: "3.12-dev-cis.json", s_out: "3.12-dev-sbom.json" }
+          - { type: "python", version: "3.12", image: "ghcr.io/taha2samy-3/python:3.12", v_out: "3.12-prod-vuln.json", c_out: "3.12-prod-cis.json", s_out: "3.12-prod-sbom.json" }
+          - { type: "python", version: "3.13", image: "ghcr.io/taha2samy-3/python:3.13-dev", v_out: "3.13-dev-vuln.json", c_out: "3.13-dev-cis.json", s_out: "3.13-dev-sbom.json" }
+          - { type: "python", version: "3.13", image: "ghcr.io/taha2samy-3/python:3.13", v_out: "3.13-prod-vuln.json", c_out: "3.13-prod-cis.json", s_out: "3.13-prod-sbom.json" }
+          - { type: "python", version: "3.14", image: "ghcr.io/taha2samy-3/python:3.14-dev", v_out: "3.14-dev-vuln.json", c_out: "3.14-dev-cis.json", s_out: "3.14-dev-sbom.json" }
+          - { type: "python", version: "3.14", image: "ghcr.io/taha2samy-3/python:3.14", v_out: "3.14-prod-vuln.json", c_out: "3.14-prod-cis.json", s_out: "3.14-prod-sbom.json" }
           # --- Bun ---
-          - { type: "bun", version: "1", image: "ghcr.io/taha2samy-3/bun:1-dev", v_out: "1-dev-vuln.json", c_out: "1-dev-cis.json" }
-          - { type: "bun", version: "1", image: "ghcr.io/taha2samy-3/bun:1", v_out: "1-prod-vuln.json", c_out: "1-prod-cis.json" }
+          - { type: "bun", version: "1", image: "ghcr.io/taha2samy-3/bun:1-dev", v_out: "1-dev-vuln.json", c_out: "1-dev-cis.json", s_out: "1-dev-sbom.json" }
+          - { type: "bun", version: "1", image: "ghcr.io/taha2samy-3/bun:1", v_out: "1-prod-vuln.json", c_out: "1-prod-cis.json", s_out: "1-prod-sbom.json" }
 
     steps:
       - name: Checkout Code
@@ -67,6 +68,7 @@ jobs:
           image: ${{ matrix.image }}
           vuln_out: ${{ matrix.v_out }}
           cis_out: ${{ matrix.c_out }}
+          sbom_out: ${{ matrix.s_out }}
           artifact_name: "reports-${{ matrix.type }}-${{ matrix.version }}-${{ matrix.v_out }}"
 
   deploy-web:
