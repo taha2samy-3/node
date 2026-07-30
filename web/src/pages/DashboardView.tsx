@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { ShieldCheck, Package, Zap, Info, CheckCircle2, AlertCircle, XCircle, Copy, Check, ShieldAlert, Cpu, HardDrive, Lock } from 'lucide-react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 import runtimesData from '../../runtimes.yaml';
-import configData from '../../reports/config.json';
+import configData from '../reports/config.json';
 import { RuntimesData } from '../types';
 import { cn } from '../utils';
 import RuntimeIcon from '../components/RuntimeIcon';
