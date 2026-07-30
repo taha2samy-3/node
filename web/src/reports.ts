@@ -1,8 +1,5 @@
-// Eagerly load all JSON reports
-const allReports = import.meta.glob('./../reports/*.json', { eager: true });
+const allReports = import.meta.glob('../../reports/*.json', { eager: true });
 
-// Map them out
-// We expect paths like `/reports/24-dev-vuln.json`
 export const reportsMap: Record<string, Record<string, Record<string, any>>> = {};
 
 Object.entries(allReports).forEach(([path, data]) => {

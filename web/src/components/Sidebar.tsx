@@ -23,10 +23,10 @@ export default function Sidebar({ isDark, toggleTheme }: SidebarProps) {
         <Link to="/" className="flex items-center gap-2 overflow-hidden hover:opacity-90 transition-opacity">
           <ProjectLogo isDark={true} className="h-7 w-auto" />
         </Link>
-        <motion.button 
+        <motion.button
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.92 }}
-          onClick={(e) => toggleTheme(e)} 
+          onClick={(e) => toggleTheme(e)}
           className="relative p-2 rounded-lg bg-slate-800/60 hover:bg-slate-800 text-slate-300 hover:text-amber-400 dark:hover:text-amber-300 transition-colors shrink-0 overflow-hidden border border-slate-700/50 shadow-sm"
           title="Toggle Theme"
         >
@@ -62,7 +62,7 @@ export default function Sidebar({ isDark, toggleTheme }: SidebarProps) {
             Dashboard Home
           </Link>
         </div>
-        
+
         {data.runtimes.map((runtime) => (
           <div key={runtime.id} className="space-y-1">
             <div className="px-3 py-2 text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
@@ -72,10 +72,10 @@ export default function Sidebar({ isDark, toggleTheme }: SidebarProps) {
             {runtime.versions.map((v) => {
               const path = `/runtime/${runtime.id}/${v.version}`;
               const active = location.pathname === path;
-              
+
               let hasZeroCve = false;
               const prodVulnData = reportsMap[v.version]?.['prod']?.['vuln'];
-              
+
               if (prodVulnData?.Results) {
                 let totalVulns = 0;
                 for (const res of prodVulnData.Results) {
