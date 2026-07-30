@@ -7,7 +7,7 @@ import configData from '../../../reports/config.json';
 import { RuntimesData } from '../types';
 import { cn } from '../utils';
 import RuntimeIcon from '../components/RuntimeIcon';
-import { reportsMap } from './../reports';
+import { reportsMap } from './../../reports';
 const COLORS: Record<string, string> = {
   Critical: '#ef4444', // Chainguard Crimson
   High: '#f97316',     // Chainguard Orange
