@@ -12,7 +12,7 @@ export default function Home() {
           Secure Runtimes Environment Dashboard
         </h1>
         <p className="text-xl text-brand-mint font-medium">
-          High-Assurance Cryptographic Foundation & Vulnerability Tracking
+          Vulnerability Tracking
         </p>
         <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-lg">
           Welcome to the Secure Runtimes Environment Dashboard. This platform tracks the vulnerability status, compliance standards, and continuous hardening reports of our golden base images across the organization.
