@@ -20,7 +20,7 @@ variable "REPO" {
   default = "node"
 }
 variable "NODE_20_FULL_VERSION" {
-  default = "20.20.2-r7"
+  default = "20.20.2-r8"
 }
 
 
