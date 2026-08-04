@@ -20,16 +20,16 @@ variable "REPO" {
   default = "node"
 }
 variable "NODE_20_FULL_VERSION" {
-  default = "20.20.2-r8"
+  default = "20.20.2-r9"
 }
 
 
 variable "NODE_22_FULL_VERSION" {
-  default = "22.23.1-r1"
+  default = "22.23.2-r0"
 }
 
 variable "NODE_24_FULL_VERSION" {
-  default = "24.18.1-r1"
+  default = "24.19.0-r0"
 }
 
 # ==========================================
