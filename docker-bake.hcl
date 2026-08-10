@@ -10,7 +10,7 @@ variable "OWNER" {
 }
 
 variable "BASE_IMAGE" {
-  default = "cgr.dev/chainguard/wolfi-base@sha256:c0534ee75e0a6bc74bdfef07155049ec435b9e03a706d3545be3130d1a7cd00f"
+  default = "cgr.dev/chainguard/wolfi-base@sha256:30f03343947c7ae3581fda727a6e2aa7b8ce7009b7bfc2ab8d5c9483ace5812f"
 }
 
 # ==========================================
