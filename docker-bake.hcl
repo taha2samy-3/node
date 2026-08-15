@@ -39,11 +39,11 @@ variable "PYTHON_REPO" {
   default = "python"
 }
 
-variable "PYTHON_3_10_FULL_VERSION" { default = "3.10.20-r11" }
-variable "PYTHON_3_11_FULL_VERSION" { default = "3.11.15-r9" }
-variable "PYTHON_3_12_FULL_VERSION" { default = "3.12.13-r10" }
-variable "PYTHON_3_13_FULL_VERSION" { default = "3.13.15-r0" }
-variable "PYTHON_3_14_FULL_VERSION" { default = "3.14.7-r0" }
+variable "PYTHON_3_10_FULL_VERSION" { default = "3.10.21-r0" }
+variable "PYTHON_3_11_FULL_VERSION" { default = "3.11.16-r1" }
+variable "PYTHON_3_12_FULL_VERSION" { default = "3.12.14-r1" }
+variable "PYTHON_3_13_FULL_VERSION" { default = "3.13.15-r1" }
+variable "PYTHON_3_14_FULL_VERSION" { default = "3.14.7-r1" }
 
 # ==========================================
 # Bun Versions
