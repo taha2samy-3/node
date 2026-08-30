@@ -29,7 +29,7 @@ variable "NODE_22_FULL_VERSION" {
 }
 
 variable "NODE_24_FULL_VERSION" {
-  default = "24.20.0-r0"
+  default = "24.20.0-r1"
 }
 
 # ==========================================
@@ -39,10 +39,10 @@ variable "PYTHON_REPO" {
   default = "python"
 }
 
-variable "PYTHON_3_10_FULL_VERSION" { default = "3.10.21-r1" }
+variable "PYTHON_3_10_FULL_VERSION" { default = "3.10.21-r2" }
 variable "PYTHON_3_11_FULL_VERSION" { default = "3.11.16-r2" }
 variable "PYTHON_3_12_FULL_VERSION" { default = "3.12.14-r3" }
-variable "PYTHON_3_13_FULL_VERSION" { default = "3.13.15-r2" }
+variable "PYTHON_3_13_FULL_VERSION" { default = "3.13.15-r3" }
 variable "PYTHON_3_14_FULL_VERSION" { default = "3.14.7-r4" }
 
 # ==========================================
