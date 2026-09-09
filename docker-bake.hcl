@@ -29,7 +29,7 @@ variable "NODE_22_FULL_VERSION" {
 }
 
 variable "NODE_24_FULL_VERSION" {
-  default = "24.20.0-r2"
+  default = "24.21.0-r0"
 }
 
 # ==========================================
