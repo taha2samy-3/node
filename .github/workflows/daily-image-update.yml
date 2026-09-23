@@ -9,13 +9,20 @@ permissions:
   contents: write
   pull-requests: write
 
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
 jobs:
   update-images:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.repository.default_branch }}
 
       - name: Set up Python
         uses: actions/setup-python@v7
@@ -24,6 +31,6 @@ jobs:
 
       - name: Run image lock update
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          python .github/scripts/update_images.py --pull-request
+          python .github/scripts/update_images.py --pull-request --base "${{ github.event.repository.default_branch }}"
