@@ -57,6 +57,29 @@ variable "BUN_1_FULL_VERSION" {
 }
 
 # ==========================================
+# envoke (secrets-entrypoint) Binary
+# ==========================================
+variable "ENVOKE_VERSION" {
+  default = "v1.0.0"
+}
+
+variable "ENVOKE_SHA256_AMD64" {
+  default = "055461cbf952f723ef981c5ce218ceac3a436ac231a7f1011fc266347c651459"
+}
+
+variable "ENVOKE_SHA256_ARM64" {
+  default = "c6546bd81301779bf1e298c1c3f35abec548d03f62576c54b1a5b7c98949afe8"
+}
+
+target "_envoke" {
+  args = {
+    ENVOKE_VERSION = ENVOKE_VERSION
+    ENVOKE_SHA256_AMD64 = ENVOKE_SHA256_AMD64
+    ENVOKE_SHA256_ARM64 = ENVOKE_SHA256_ARM64
+  }
+}
+
+# ==========================================
 # Groups
 # ==========================================
 group "default" {
@@ -67,6 +90,7 @@ group "default" {
 # Node.js Targets
 # ==========================================
 target "dev" {
+  inherits = ["_envoke"]
   name = "dev-${item.version}"
   matrix = {
     item = [
@@ -102,6 +126,7 @@ target "dev" {
 }
 
 target "prod" {
+  inherits = ["_envoke"]
   name = "prod-${item.version}"
   matrix = {
     item = [
@@ -141,6 +166,7 @@ target "prod" {
 # Python Targets
 # ==========================================
 target "python-dev" {
+  inherits = ["_envoke"]
   name = "python-dev-${item.id}"
   matrix = {
     item = [
@@ -179,6 +205,7 @@ target "python-dev" {
 }
 
 target "python-prod" {
+  inherits = ["_envoke"]
   name = "python-prod-${item.id}"
   matrix = {
     item = [
@@ -220,6 +247,7 @@ target "python-prod" {
 # Bun Targets
 # ==========================================
 target "bun-dev" {
+  inherits = ["_envoke"]
   name = "bun-dev-${item.id}"
   matrix = {
     item = [
@@ -253,6 +281,7 @@ target "bun-dev" {
 }
 
 target "bun-prod" {
+  inherits = ["_envoke"]
   name = "bun-prod-${item.id}"
   matrix = {
     item = [

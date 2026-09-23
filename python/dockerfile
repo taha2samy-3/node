@@ -3,6 +3,30 @@ ARG PYTHON_VERSION=3.12
 ARG PYTHON_FULL_VERSION
 
 # ==========================================
+# envoke (secrets-entrypoint) binary
+# ==========================================
+FROM ${BASE_IMAGE} AS envoke
+
+ARG TARGETARCH
+ARG ENVOKE_VERSION
+ARG ENVOKE_SHA256_AMD64
+ARG ENVOKE_SHA256_ARM64
+
+ADD https://github.com/taha2samy-3/envoke/releases/download/${ENVOKE_VERSION}/secrets-entrypoint_linux_${TARGETARCH} /out/secrets-entrypoint
+
+# Verify the downloaded binary against the pinned release checksum
+RUN set -e; \
+    case "${TARGETARCH}" in \
+      amd64) sum="${ENVOKE_SHA256_AMD64}" ;; \
+      arm64) sum="${ENVOKE_SHA256_ARM64}" ;; \
+      *) echo "envoke: unsupported architecture ${TARGETARCH}" >&2; exit 1 ;; \
+    esac; \
+    if [ -z "${sum}" ]; then echo "envoke: missing checksum for ${TARGETARCH}" >&2; exit 1; fi; \
+    echo "${sum}  /out/secrets-entrypoint" | sha256sum -c -; \
+    chmod 0755 /out/secrets-entrypoint; \
+    ln -s secrets-entrypoint /out/envoke
+
+# ==========================================
 # Stage 1: Development Image (full-dev)
 # ==========================================
 FROM ${BASE_IMAGE} AS full-dev
@@ -20,6 +44,8 @@ RUN apk update && apk add --no-cache \
     tini
 
 # Create non-root user, setup app dir, and create symlinks
+COPY --from=envoke /out/ /usr/bin/
+
 RUN adduser -D -u 1000 python && \
     mkdir /app && chown python:python /app && \
     ln -sf /usr/bin/python${PYTHON_VERSION} /usr/bin/python && \
@@ -51,6 +77,8 @@ USER root
 RUN apk update && apk add --no-cache \
     python-${PYTHON_VERSION}-base=${PYTHON_FULL_VERSION} \
     tini
+
+COPY --from=envoke /out/ /usr/bin/
 
 RUN adduser -D -u 1000 python && \
     mkdir /app && chown python:python /app && \
