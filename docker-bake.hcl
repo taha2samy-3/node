@@ -10,7 +10,7 @@ variable "OWNER" {
 }
 
 variable "BASE_IMAGE" {
-  default = "cgr.dev/chainguard/wolfi-base@sha256:fac38d12efdb4bf43ac9e599a31db10a27ad5dd71e5f1618790962eda8d66180"
+  default = "cgr.dev/chainguard/wolfi-base@sha256:08df5982c3d27e70a4ce1607e3bb9af09d746f8722cf135a7694afef879fc5a2"
 }
 
 # ==========================================
@@ -42,7 +42,7 @@ variable "PYTHON_REPO" {
 variable "PYTHON_3_10_FULL_VERSION" { default = "3.10.21-r7" }
 variable "PYTHON_3_11_FULL_VERSION" { default = "3.11.16-r8" }
 variable "PYTHON_3_12_FULL_VERSION" { default = "3.12.14-r9" }
-variable "PYTHON_3_13_FULL_VERSION" { default = "3.13.15_git20260918-r2" }
+variable "PYTHON_3_13_FULL_VERSION" { default = "3.13.15_git20260925-r0" }
 variable "PYTHON_3_14_FULL_VERSION" { default = "3.14.7_git20260925-r0" }
 
 # ==========================================
