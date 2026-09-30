@@ -63,7 +63,7 @@ USER root
 
 # Note: intentionally omitting JAVA_FULL_VERSION strict pin for jre-base as versioning differs slightly
 RUN apk update && apk add --no-cache \
-    openjdk-${JAVA_VERSION}-jre-base \
+    openjdk-${JAVA_VERSION} \
     tini
 
 COPY --from=envoke /out/ /usr/bin/
