@@ -1,0 +1,100 @@
+ARG BASE_IMAGE=cgr.dev/chainguard/wolfi-base:latest
+ARG GO_VERSION=1.23
+
+# ==========================================
+# envoke (secrets-entrypoint) binary
+# ==========================================
+FROM ${BASE_IMAGE} AS envoke
+
+ARG TARGETARCH
+ARG ENVOKE_VERSION
+ARG ENVOKE_SHA256_AMD64
+ARG ENVOKE_SHA256_ARM64
+
+ADD https://github.com/taha2samy-3/envoke/releases/download/${ENVOKE_VERSION}/secrets-entrypoint_linux_${TARGETARCH} /out/secrets-entrypoint
+
+RUN set -e; \
+    case "${TARGETARCH}" in \
+      amd64) sum="${ENVOKE_SHA256_AMD64}" ;; \
+      arm64) sum="${ENVOKE_SHA256_ARM64}" ;; \
+      *) echo "envoke: unsupported architecture ${TARGETARCH}" >&2; exit 1 ;; \
+    esac; \
+    if [ -z "${sum}" ]; then echo "envoke: missing checksum for ${TARGETARCH}" >&2; exit 1; fi; \
+    echo "${sum}  /out/secrets-entrypoint" | sha256sum -c -; \
+    chmod 0755 /out/secrets-entrypoint; \
+    ln -s secrets-entrypoint /out/envoke
+
+# ==========================================
+# Stage 1: Development Image (full-dev)
+# ==========================================
+FROM ${BASE_IMAGE} AS full-dev
+
+ARG GO_VERSION
+
+USER root
+
+RUN apk update && apk add --no-cache \
+    go-${GO_VERSION} \
+    build-base \
+    git \
+    tini
+
+COPY --from=envoke /out/ /usr/bin/
+
+RUN adduser -D -u 1000 go && \
+    mkdir /app && chown go:go /app
+
+WORKDIR /app
+USER go
+ENV GOPATH=/app/go
+ENV PATH=$PATH:/app/go/bin
+
+ENTRYPOINT ["/sbin/tini", "--"]
+CMD ["go", "version"]
+
+
+# ==========================================
+# Stage 2: Minimal Production Prep
+# ==========================================
+FROM ${BASE_IMAGE} AS minimal-prep
+
+ARG GO_VERSION
+
+USER root
+
+RUN apk update && apk add --no-cache \
+    ca-certificates \
+    tzdata \
+    tini
+
+COPY --from=envoke /out/ /usr/bin/
+
+RUN adduser -D -u 1000 go && \
+    mkdir /app && chown go:go /app
+
+# ==========================================
+# Stage 3: Minimal Cleaner
+# ==========================================
+FROM minimal-prep AS minimal-cleaner
+
+RUN rm -rf \
+    /lib/apk/db \
+    /var/cache/apk \
+    /etc/apk \
+    /usr/share/apk \
+    /usr/share/man \
+    /usr/share/doc \
+    /tmp/*
+
+# ==========================================
+# Stage 4: Final Production Image (minimal)
+# ==========================================
+FROM scratch AS minimal
+
+COPY --from=minimal-cleaner / /
+
+WORKDIR /app
+USER go
+
+ENTRYPOINT ["/sbin/tini", "--"]
+CMD ["/bin/sh"]

@@ -9,6 +9,31 @@ runtimes:
       - "linux/amd64"
       - "linux/arm64"
     versions:
+      - version: "26"
+        flavors:
+          - id: "dev"
+            name: "Development Builder (with NPM)"
+            policy_header: "Full Developer Suite (Node 26)"
+            policy_text: "Contains Node.js 26 and NPM for building packages and running tests. Built on Wolfi OS with non-root user execution."
+            tags:
+              - "ghcr.io/taha2samy-3/node:26-dev"
+              - "ghcr.io/taha2samy-3/node:v26-dev"
+            reports:
+              vuln: "./../reports/26-dev-vuln.json"
+              cis: "./../reports/26-dev-cis.json"
+              sbom: "./../reports/26-dev-sbom.json"
+          - id: "prod"
+            name: "Production Runtime (Scratch)"
+            policy_header: "Hardened Minimal Runtime (Node 26)"
+            policy_text: "Minimal, secure, minimal-compat runtime directly from scratch with no extra tools, no shell, no package manager."
+            tags:
+              - "ghcr.io/taha2samy-3/node:26"
+              - "ghcr.io/taha2samy-3/node:v26"
+            reports:
+              vuln: "./../reports/26-prod-vuln.json"
+              cis: "./../reports/26-prod-cis.json"
+              sbom: "./../reports/26-prod-sbom.json"
+
       - version: "24"
         flavors:
           - id: "dev"
@@ -83,6 +108,31 @@ runtimes:
               vuln: "./../reports/20-prod-vuln.json"
               cis: "./../reports/20-prod-cis.json"
               sbom: "./../reports/20-prod-sbom.json"
+
+      - version: "18"
+        flavors:
+          - id: "dev"
+            name: "Development Builder (with NPM)"
+            policy_header: "Full Developer Suite (Node 18)"
+            policy_text: "Contains Node.js 18 and NPM for building packages and running tests. Built on Wolfi OS with non-root user execution."
+            tags:
+              - "ghcr.io/taha2samy-3/node:18-dev"
+              - "ghcr.io/taha2samy-3/node:v18-dev"
+            reports:
+              vuln: "./../reports/18-dev-vuln.json"
+              cis: "./../reports/18-dev-cis.json"
+              sbom: "./../reports/18-dev-sbom.json"
+          - id: "prod"
+            name: "Production Runtime (Scratch)"
+            policy_header: "Hardened Minimal Runtime (Node 18)"
+            policy_text: "Minimal, secure, minimal-compat runtime directly from scratch with no extra tools, no shell, no package manager."
+            tags:
+              - "ghcr.io/taha2samy-3/node:18"
+              - "ghcr.io/taha2samy-3/node:v18"
+            reports:
+              vuln: "./../reports/18-prod-vuln.json"
+              cis: "./../reports/18-prod-cis.json"
+              sbom: "./../reports/18-prod-sbom.json"
 
   # ==========================================
   # Python Runtimes
@@ -253,3 +303,173 @@ runtimes:
               vuln: "./../reports/1-prod-vuln.json"
               cis: "./../reports/1-prod-cis.json"
               sbom: "./../reports/1-prod-sbom.json"
+
+  # ==========================================
+  # Java OpenJDK Runtimes
+  # ==========================================
+  - id: "java"
+    title: "Java OpenJDK"
+    icon: "https://cdn.simpleicons.org/openjdk/437291"
+    architectures:
+      - "linux/amd64"
+      - "linux/arm64"
+    versions:
+      - version: "23"
+        flavors:
+          - id: "dev"
+            name: "Development Builder (JDK)"
+            policy_header: "Full Developer Suite (Java 23)"
+            policy_text: "Contains OpenJDK 23 for building and testing Java applications. Built on Wolfi OS with non-root user execution."
+            tags:
+              - "ghcr.io/taha2samy-3/java:23-dev"
+              - "ghcr.io/taha2samy-3/java:v23-dev"
+            reports:
+              vuln: "./../reports/23-dev-vuln.json"
+              cis: "./../reports/23-dev-cis.json"
+              sbom: "./../reports/23-dev-sbom.json"
+          - id: "prod"
+            name: "Production Runtime (Scratch)"
+            policy_header: "Hardened Minimal Runtime (Java 23)"
+            policy_text: "Minimal Java 23 JRE runtime directly from scratch."
+            tags:
+              - "ghcr.io/taha2samy-3/java:23"
+              - "ghcr.io/taha2samy-3/java:v23"
+            reports:
+              vuln: "./../reports/23-prod-vuln.json"
+              cis: "./../reports/23-prod-cis.json"
+              sbom: "./../reports/23-prod-sbom.json"
+
+      - version: "21"
+        flavors:
+          - id: "dev"
+            name: "Development Builder (JDK)"
+            policy_header: "Full Developer Suite (Java 21)"
+            policy_text: "Contains OpenJDK 21 for building and testing Java applications. Built on Wolfi OS with non-root user execution."
+            tags:
+              - "ghcr.io/taha2samy-3/java:21-dev"
+              - "ghcr.io/taha2samy-3/java:v21-dev"
+            reports:
+              vuln: "./../reports/21-dev-vuln.json"
+              cis: "./../reports/21-dev-cis.json"
+              sbom: "./../reports/21-dev-sbom.json"
+          - id: "prod"
+            name: "Production Runtime (Scratch)"
+            policy_header: "Hardened Minimal Runtime (Java 21)"
+            policy_text: "Minimal Java 21 JRE runtime directly from scratch."
+            tags:
+              - "ghcr.io/taha2samy-3/java:21"
+              - "ghcr.io/taha2samy-3/java:v21"
+            reports:
+              vuln: "./../reports/21-prod-vuln.json"
+              cis: "./../reports/21-prod-cis.json"
+              sbom: "./../reports/21-prod-sbom.json"
+
+      - version: "17"
+        flavors:
+          - id: "dev"
+            name: "Development Builder (JDK)"
+            policy_header: "Full Developer Suite (Java 17)"
+            policy_text: "Contains OpenJDK 17 for building and testing Java applications. Built on Wolfi OS with non-root user execution."
+            tags:
+              - "ghcr.io/taha2samy-3/java:17-dev"
+              - "ghcr.io/taha2samy-3/java:v17-dev"
+            reports:
+              vuln: "./../reports/17-dev-vuln.json"
+              cis: "./../reports/17-dev-cis.json"
+              sbom: "./../reports/17-dev-sbom.json"
+          - id: "prod"
+            name: "Production Runtime (Scratch)"
+            policy_header: "Hardened Minimal Runtime (Java 17)"
+            policy_text: "Minimal Java 17 JRE runtime directly from scratch."
+            tags:
+              - "ghcr.io/taha2samy-3/java:17"
+              - "ghcr.io/taha2samy-3/java:v17"
+            reports:
+              vuln: "./../reports/17-prod-vuln.json"
+              cis: "./../reports/17-prod-cis.json"
+              sbom: "./../reports/17-prod-sbom.json"
+
+  # ==========================================
+  # Go Runtimes
+  # ==========================================
+  - id: "go"
+    title: "Go Runtimes"
+    icon: "https://cdn.simpleicons.org/go/00ADD8"
+    architectures:
+      - "linux/amd64"
+      - "linux/arm64"
+    versions:
+      - version: "1.24"
+        flavors:
+          - id: "dev"
+            name: "Development Builder"
+            policy_header: "Full Developer Suite (Go 1.24)"
+            policy_text: "Contains Go 1.24 and build utilities. Built on Wolfi OS with non-root user execution."
+            tags:
+              - "ghcr.io/taha2samy-3/go:1.24-dev"
+              - "ghcr.io/taha2samy-3/go:v1.24-dev"
+            reports:
+              vuln: "./../reports/1.24-dev-vuln.json"
+              cis: "./../reports/1.24-dev-cis.json"
+              sbom: "./../reports/1.24-dev-sbom.json"
+          - id: "prod"
+            name: "Production Base (Scratch)"
+            policy_header: "Hardened Minimal Base (Go 1.24)"
+            policy_text: "Minimal distroless base image for Go applications containing only CA certificates and tzdata."
+            tags:
+              - "ghcr.io/taha2samy-3/go:1.24"
+              - "ghcr.io/taha2samy-3/go:v1.24"
+            reports:
+              vuln: "./../reports/1.24-prod-vuln.json"
+              cis: "./../reports/1.24-prod-cis.json"
+              sbom: "./../reports/1.24-prod-sbom.json"
+
+      - version: "1.23"
+        flavors:
+          - id: "dev"
+            name: "Development Builder"
+            policy_header: "Full Developer Suite (Go 1.23)"
+            policy_text: "Contains Go 1.23 and build utilities. Built on Wolfi OS with non-root user execution."
+            tags:
+              - "ghcr.io/taha2samy-3/go:1.23-dev"
+              - "ghcr.io/taha2samy-3/go:v1.23-dev"
+            reports:
+              vuln: "./../reports/1.23-dev-vuln.json"
+              cis: "./../reports/1.23-dev-cis.json"
+              sbom: "./../reports/1.23-dev-sbom.json"
+          - id: "prod"
+            name: "Production Base (Scratch)"
+            policy_header: "Hardened Minimal Base (Go 1.23)"
+            policy_text: "Minimal distroless base image for Go applications containing only CA certificates and tzdata."
+            tags:
+              - "ghcr.io/taha2samy-3/go:1.23"
+              - "ghcr.io/taha2samy-3/go:v1.23"
+            reports:
+              vuln: "./../reports/1.23-prod-vuln.json"
+              cis: "./../reports/1.23-prod-cis.json"
+              sbom: "./../reports/1.23-prod-sbom.json"
+
+      - version: "1.22"
+        flavors:
+          - id: "dev"
+            name: "Development Builder"
+            policy_header: "Full Developer Suite (Go 1.22)"
+            policy_text: "Contains Go 1.22 and build utilities. Built on Wolfi OS with non-root user execution."
+            tags:
+              - "ghcr.io/taha2samy-3/go:1.22-dev"
+              - "ghcr.io/taha2samy-3/go:v1.22-dev"
+            reports:
+              vuln: "./../reports/1.22-dev-vuln.json"
+              cis: "./../reports/1.22-dev-cis.json"
+              sbom: "./../reports/1.22-dev-sbom.json"
+          - id: "prod"
+            name: "Production Base (Scratch)"
+            policy_header: "Hardened Minimal Base (Go 1.22)"
+            policy_text: "Minimal distroless base image for Go applications containing only CA certificates and tzdata."
+            tags:
+              - "ghcr.io/taha2samy-3/go:1.22"
+              - "ghcr.io/taha2samy-3/go:v1.22"
+            reports:
+              vuln: "./../reports/1.22-prod-vuln.json"
+              cis: "./../reports/1.22-prod-cis.json"
+              sbom: "./../reports/1.22-prod-sbom.json"

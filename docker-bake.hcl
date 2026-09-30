@@ -19,10 +19,13 @@ variable "BASE_IMAGE" {
 variable "REPO" {
   default = "node"
 }
+variable "NODE_18_FULL_VERSION" {
+  default = "18.20.8-r9"
+}
+
 variable "NODE_20_FULL_VERSION" {
   default = "20.20.2-r9"
 }
-
 
 variable "NODE_22_FULL_VERSION" {
   default = "22.23.2-r1"
@@ -30,6 +33,10 @@ variable "NODE_22_FULL_VERSION" {
 
 variable "NODE_24_FULL_VERSION" {
   default = "24.21.0-r3"
+}
+
+variable "NODE_26_FULL_VERSION" {
+  default = "26.10.0-r2"
 }
 
 # ==========================================
@@ -55,6 +62,28 @@ variable "BUN_REPO" {
 variable "BUN_1_FULL_VERSION" {
   default = "1.4.2-r0"
 }
+
+# ==========================================
+# Java Versions
+# ==========================================
+variable "JAVA_REPO" {
+  default = "java"
+}
+
+variable "JAVA_17_FULL_VERSION" { default = "17.0.20.1-r4" }
+variable "JAVA_21_FULL_VERSION" { default = "21.0.12.1-r2" }
+variable "JAVA_23_FULL_VERSION" { default = "23.0.2-r8" }
+
+# ==========================================
+# Go Versions
+# ==========================================
+variable "GO_REPO" {
+  default = "go"
+}
+
+variable "GO_1_22_FULL_VERSION" { default = "1.22" }
+variable "GO_1_23_FULL_VERSION" { default = "1.23" }
+variable "GO_1_24_FULL_VERSION" { default = "1.24" }
 
 # ==========================================
 # envoke (secrets-entrypoint) Binary
@@ -83,7 +112,7 @@ target "_envoke" {
 # Groups
 # ==========================================
 group "default" {
-  targets = ["dev", "prod", "python-dev", "python-prod", "bun-dev", "bun-prod"]
+  targets = ["dev", "prod", "python-dev", "python-prod", "bun-dev", "bun-prod", "java-dev", "java-prod", "go-dev", "go-prod"]
 }
 
 # ==========================================
@@ -94,9 +123,11 @@ target "dev" {
   name = "dev-${item.version}"
   matrix = {
     item = [
+      { version = "18", full_version = NODE_18_FULL_VERSION },
       { version = "20", full_version = NODE_20_FULL_VERSION },
       { version = "22", full_version = NODE_22_FULL_VERSION },
-      { version = "24", full_version = NODE_24_FULL_VERSION }
+      { version = "24", full_version = NODE_24_FULL_VERSION },
+      { version = "26", full_version = NODE_26_FULL_VERSION }
     ]
   }
   context = "."
@@ -130,9 +161,11 @@ target "prod" {
   name = "prod-${item.version}"
   matrix = {
     item = [
+      { version = "18", full_version = NODE_18_FULL_VERSION },
       { version = "20", full_version = NODE_20_FULL_VERSION },
       { version = "22", full_version = NODE_22_FULL_VERSION },
-      { version = "24", full_version = NODE_24_FULL_VERSION }
+      { version = "24", full_version = NODE_24_FULL_VERSION },
+      { version = "26", full_version = NODE_26_FULL_VERSION }
     ]
   }
   platforms = ["linux/amd64", "linux/arm64"]
@@ -313,3 +346,156 @@ target "bun-prod" {
     "index,manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${BUN_REPO}"
   ]
 }
+
+# ==========================================
+# Java Targets
+# ==========================================
+target "java-dev" {
+  inherits = ["_envoke"]
+  name = "java-dev-${item.version}"
+  matrix = {
+    item = [
+      { version = "17", full_version = JAVA_17_FULL_VERSION },
+      { version = "21", full_version = JAVA_21_FULL_VERSION },
+      { version = "23", full_version = JAVA_23_FULL_VERSION }
+    ]
+  }
+  context = "."
+  dockerfile = "java/dockerfile"
+  target = "full-dev"
+  args = {
+    JAVA_VERSION = item.version
+    JAVA_FULL_VERSION = item.full_version
+    BASE_IMAGE = BASE_IMAGE
+  }
+  platforms = ["linux/amd64", "linux/arm64"]
+  tags = [
+    "${REGISTRY}/${OWNER}/${JAVA_REPO}:${item.version}-dev",
+    "${REGISTRY}/${OWNER}/${JAVA_REPO}:v${item.version}-dev"
+  ]
+  cache-from = ["type=gha,scope=java-dev-${item.version}"]
+  cache-to = ["type=gha,mode=max,scope=java-dev-${item.version},compression=zstd,compression-level=3"]
+  labels = {
+    "org.opencontainers.image.authors" = "Taha Samy"
+    "org.opencontainers.image.source" = "https://github.com/${OWNER}/${JAVA_REPO}"
+    "org.opencontainers.image.licenses" = "MIT"
+    "org.opencontainers.image.description" = "Optimized Java OpenJDK ${item.version} (${item.full_version}) development image based on Chainguard Wolfi"
+  }
+  annotations = [
+    "index,manifest:org.opencontainers.image.description=Optimized Java OpenJDK ${item.version} (${item.full_version}) development image based on Chainguard Wolfi",
+    "index,manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${JAVA_REPO}"
+  ]
+}
+
+target "java-prod" {
+  inherits = ["_envoke"]
+  name = "java-prod-${item.version}"
+  matrix = {
+    item = [
+      { version = "17", full_version = JAVA_17_FULL_VERSION },
+      { version = "21", full_version = JAVA_21_FULL_VERSION },
+      { version = "23", full_version = JAVA_23_FULL_VERSION }
+    ]
+  }
+  platforms = ["linux/amd64", "linux/arm64"]
+  context = "."
+  dockerfile = "java/dockerfile"
+  target = "minimal"
+  args = {
+    JAVA_VERSION = item.version
+    JAVA_FULL_VERSION = item.full_version
+    BASE_IMAGE = BASE_IMAGE
+  }
+  tags = [
+    "${REGISTRY}/${OWNER}/${JAVA_REPO}:${item.version}",
+    "${REGISTRY}/${OWNER}/${JAVA_REPO}:v${item.version}"
+  ]
+  cache-from = ["type=gha,scope=java-prod-${item.version}"]
+  cache-to = ["type=gha,mode=max,scope=java-prod-${item.version},compression=zstd,compression-level=3"]
+  labels = {
+    "org.opencontainers.image.authors" = "Taha Samy"
+    "org.opencontainers.image.source" = "https://github.com/${OWNER}/${JAVA_REPO}"
+    "org.opencontainers.image.licenses" = "MIT"
+    "org.opencontainers.image.description" = "Ultra-secure minimal Java OpenJDK ${item.version} (${item.full_version}) production runtime based on Chainguard Wolfi and scratch"
+  }
+  annotations = [
+    "index,manifest:org.opencontainers.image.description=Ultra-secure minimal Java OpenJDK ${item.version} (${item.full_version}) production runtime based on Chainguard Wolfi and scratch",
+    "index,manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${JAVA_REPO}"
+  ]
+}
+
+# ==========================================
+# Go Targets
+# ==========================================
+target "go-dev" {
+  inherits = ["_envoke"]
+  name = "go-dev-${replace(item.version, ".", "-")}"
+  matrix = {
+    item = [
+      { version = "1.22", full_version = GO_1_22_FULL_VERSION },
+      { version = "1.23", full_version = GO_1_23_FULL_VERSION },
+      { version = "1.24", full_version = GO_1_24_FULL_VERSION }
+    ]
+  }
+  context = "."
+  dockerfile = "go/dockerfile"
+  target = "full-dev"
+  args = {
+    GO_VERSION = item.version
+    BASE_IMAGE = BASE_IMAGE
+  }
+  platforms = ["linux/amd64", "linux/arm64"]
+  tags = [
+    "${REGISTRY}/${OWNER}/${GO_REPO}:${item.version}-dev",
+    "${REGISTRY}/${OWNER}/${GO_REPO}:v${item.version}-dev"
+  ]
+  cache-from = ["type=gha,scope=go-dev-${replace(item.version, ".", "-")}"]
+  cache-to = ["type=gha,mode=max,scope=go-dev-${replace(item.version, ".", "-")},compression=zstd,compression-level=3"]
+  labels = {
+    "org.opencontainers.image.authors" = "Taha Samy"
+    "org.opencontainers.image.source" = "https://github.com/${OWNER}/${GO_REPO}"
+    "org.opencontainers.image.licenses" = "MIT"
+    "org.opencontainers.image.description" = "Optimized Go ${item.version} development image based on Chainguard Wolfi"
+  }
+  annotations = [
+    "index,manifest:org.opencontainers.image.description=Optimized Go ${item.version} development image based on Chainguard Wolfi",
+    "index,manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${GO_REPO}"
+  ]
+}
+
+target "go-prod" {
+  inherits = ["_envoke"]
+  name = "go-prod-${replace(item.version, ".", "-")}"
+  matrix = {
+    item = [
+      { version = "1.22", full_version = GO_1_22_FULL_VERSION },
+      { version = "1.23", full_version = GO_1_23_FULL_VERSION },
+      { version = "1.24", full_version = GO_1_24_FULL_VERSION }
+    ]
+  }
+  platforms = ["linux/amd64", "linux/arm64"]
+  context = "."
+  dockerfile = "go/dockerfile"
+  target = "minimal"
+  args = {
+    GO_VERSION = item.version
+    BASE_IMAGE = BASE_IMAGE
+  }
+  tags = [
+    "${REGISTRY}/${OWNER}/${GO_REPO}:${item.version}",
+    "${REGISTRY}/${OWNER}/${GO_REPO}:v${item.version}"
+  ]
+  cache-from = ["type=gha,scope=go-prod-${replace(item.version, ".", "-")}"]
+  cache-to = ["type=gha,mode=max,scope=go-prod-${replace(item.version, ".", "-")},compression=zstd,compression-level=3"]
+  labels = {
+    "org.opencontainers.image.authors" = "Taha Samy"
+    "org.opencontainers.image.source" = "https://github.com/${OWNER}/${GO_REPO}"
+    "org.opencontainers.image.licenses" = "MIT"
+    "org.opencontainers.image.description" = "Ultra-secure minimal distroless base for Go ${item.version} apps based on Chainguard Wolfi and scratch"
+  }
+  annotations = [
+    "index,manifest:org.opencontainers.image.description=Ultra-secure minimal distroless base for Go ${item.version} apps based on Chainguard Wolfi and scratch",
+    "index,manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${GO_REPO}"
+  ]
+}
+

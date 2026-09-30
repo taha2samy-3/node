@@ -28,6 +28,8 @@ jobs:
       matrix:
         include:
           # --- Node.js ---
+          - { type: "node", version: "18", image: "ghcr.io/taha2samy-3/node:18-dev", v_out: "18-dev-vuln.json", c_out: "18-dev-cis.json", s_out: "18-dev-sbom.json" }
+          - { type: "node", version: "18", image: "ghcr.io/taha2samy-3/node:18", v_out: "18-prod-vuln.json", c_out: "18-prod-cis.json", s_out: "18-prod-sbom.json" }
           - { type: "node", version: "20", image: "ghcr.io/taha2samy-3/node:20-dev", v_out: "20-dev-vuln.json", c_out: "20-dev-cis.json", s_out: "20-dev-sbom.json" }
           - { type: "node", version: "20", image: "ghcr.io/taha2samy-3/node:20", v_out: "20-prod-vuln.json", c_out: "20-prod-cis.json", s_out: "20-prod-sbom.json" }
 
@@ -50,6 +52,23 @@ jobs:
           # --- Bun ---
           - { type: "bun", version: "1", image: "ghcr.io/taha2samy-3/bun:1-dev", v_out: "1-dev-vuln.json", c_out: "1-dev-cis.json", s_out: "1-dev-sbom.json" }
           - { type: "bun", version: "1", image: "ghcr.io/taha2samy-3/bun:1", v_out: "1-prod-vuln.json", c_out: "1-prod-cis.json", s_out: "1-prod-sbom.json" }
+          # --- Node 26 ---
+          - { type: "node", version: "26", image: "ghcr.io/taha2samy-3/node:26-dev", v_out: "26-dev-vuln.json", c_out: "26-dev-cis.json", s_out: "26-dev-sbom.json" }
+          - { type: "node", version: "26", image: "ghcr.io/taha2samy-3/node:26", v_out: "26-prod-vuln.json", c_out: "26-prod-cis.json", s_out: "26-prod-sbom.json" }
+          # --- Java OpenJDK ---
+          - { type: "java", version: "17", image: "ghcr.io/taha2samy-3/java:17-dev", v_out: "17-dev-vuln.json", c_out: "17-dev-cis.json", s_out: "17-dev-sbom.json" }
+          - { type: "java", version: "17", image: "ghcr.io/taha2samy-3/java:17", v_out: "17-prod-vuln.json", c_out: "17-prod-cis.json", s_out: "17-prod-sbom.json" }
+          - { type: "java", version: "21", image: "ghcr.io/taha2samy-3/java:21-dev", v_out: "21-dev-vuln.json", c_out: "21-dev-cis.json", s_out: "21-dev-sbom.json" }
+          - { type: "java", version: "21", image: "ghcr.io/taha2samy-3/java:21", v_out: "21-prod-vuln.json", c_out: "21-prod-cis.json", s_out: "21-prod-sbom.json" }
+          - { type: "java", version: "23", image: "ghcr.io/taha2samy-3/java:23-dev", v_out: "23-dev-vuln.json", c_out: "23-dev-cis.json", s_out: "23-dev-sbom.json" }
+          - { type: "java", version: "23", image: "ghcr.io/taha2samy-3/java:23", v_out: "23-prod-vuln.json", c_out: "23-prod-cis.json", s_out: "23-prod-sbom.json" }
+          # --- Go ---
+          - { type: "go", version: "1.22", image: "ghcr.io/taha2samy-3/go:1.22-dev", v_out: "1.22-dev-vuln.json", c_out: "1.22-dev-cis.json", s_out: "1.22-dev-sbom.json" }
+          - { type: "go", version: "1.22", image: "ghcr.io/taha2samy-3/go:1.22", v_out: "1.22-prod-vuln.json", c_out: "1.22-prod-cis.json", s_out: "1.22-prod-sbom.json" }
+          - { type: "go", version: "1.23", image: "ghcr.io/taha2samy-3/go:1.23-dev", v_out: "1.23-dev-vuln.json", c_out: "1.23-dev-cis.json", s_out: "1.23-dev-sbom.json" }
+          - { type: "go", version: "1.23", image: "ghcr.io/taha2samy-3/go:1.23", v_out: "1.23-prod-vuln.json", c_out: "1.23-prod-cis.json", s_out: "1.23-prod-sbom.json" }
+          - { type: "go", version: "1.24", image: "ghcr.io/taha2samy-3/go:1.24-dev", v_out: "1.24-dev-vuln.json", c_out: "1.24-dev-cis.json", s_out: "1.24-dev-sbom.json" }
+          - { type: "go", version: "1.24", image: "ghcr.io/taha2samy-3/go:1.24", v_out: "1.24-prod-vuln.json", c_out: "1.24-prod-cis.json", s_out: "1.24-prod-sbom.json" }
 
     steps:
       - name: Checkout Code
