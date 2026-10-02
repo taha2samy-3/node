@@ -10,7 +10,7 @@ variable "OWNER" {
 }
 
 variable "BASE_IMAGE" {
-  default = "cgr.dev/chainguard/wolfi-base@sha256:6d63d8f5580a48e60b5c0dd9f67dd0672ea062d0eeabf0688fb10c522ee5967d"
+  default = "cgr.dev/chainguard/wolfi-base@sha256:824f77df45397eb954dfb963db255907ee8842e3446353ce93d688e5e862f51d"
 }
 
 # ==========================================
@@ -32,7 +32,7 @@ variable "NODE_22_FULL_VERSION" {
 }
 
 variable "NODE_24_FULL_VERSION" {
-  default = "24.21.0-r3"
+  default = "24.21.0-r4"
 }
 
 variable "NODE_26_FULL_VERSION" {
@@ -46,11 +46,11 @@ variable "PYTHON_REPO" {
   default = "python"
 }
 
-variable "PYTHON_3_10_FULL_VERSION" { default = "3.10.21-r7" }
-variable "PYTHON_3_11_FULL_VERSION" { default = "3.11.16-r8" }
-variable "PYTHON_3_12_FULL_VERSION" { default = "3.12.14-r9" }
+variable "PYTHON_3_10_FULL_VERSION" { default = "3.10.22-r0" }
+variable "PYTHON_3_11_FULL_VERSION" { default = "3.11.17-r0" }
+variable "PYTHON_3_12_FULL_VERSION" { default = "3.12.15-r0" }
 variable "PYTHON_3_13_FULL_VERSION" { default = "3.13.15_git20260925-r0" }
-variable "PYTHON_3_14_FULL_VERSION" { default = "3.14.7_git20260925-r0" }
+variable "PYTHON_3_14_FULL_VERSION" { default = "3.14.8_git20261001-r0" }
 
 # ==========================================
 # Bun Versions
