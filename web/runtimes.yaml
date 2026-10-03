@@ -46,6 +46,55 @@ runtimes:
               sbom: "./../reports/openssl-3.5-dev-sbom.json"
 
   # ==========================================
+  # OpenJDK FIPS 140-3 Cryptographic Runtime
+  # ==========================================
+  - id: "openjdk"
+    title: "Wolfi OpenJDK FIPS"
+    icon: "https://cdn.simpleicons.org/openjdk/white"
+    architectures:
+      - "linux/amd64"
+      - "linux/arm64"
+    versions:
+      - version: "21"
+        flavors:
+          - id: "prod"
+            name: "Distroless FIPS Runtime (Scratch)"
+            policy_header: "Hardened Minimal Distroless JRE FIPS 140-3 Runtime"
+            policy_text: "Ultra-hardened, Zero-CVE distroless Java runtime built from scratch with no shell and no package manager. Enforces strict FIPS 140-3 cryptographic boundaries, Bouncy Castle FIPS (BC-FJA) provider, BCFKS keystore, and SLSA L3 provenance."
+            tags:
+              - "ghcr.io/taha2samy-3/wolfi-openjdk-fips:21-distroless"
+              - "ghcr.io/taha2samy-3/wolfi-openjdk-fips:21-jre_distroless"
+              - "ghcr.io/taha2samy-3/wolfi-openjdk-fips:distroless"
+            reports:
+              vuln: "./../reports/openjdk-21-prod-vuln.json"
+              cis: "./../reports/openjdk-21-prod-cis.json"
+              sbom: "./../reports/openjdk-21-prod-sbom.json"
+          - id: "standard"
+            name: "Standard FIPS Runtime (with Shell)"
+            policy_header: "Production Hardened Standard JRE FIPS Runtime"
+            policy_text: "Wolfi-based secure container with Eclipse Temurin OpenJDK 21 JRE and Bouncy Castle FIPS 140-3 provider active by default. Includes non-root busybox shell and runtime utilities."
+            tags:
+              - "ghcr.io/taha2samy-3/wolfi-openjdk-fips:21"
+              - "ghcr.io/taha2samy-3/wolfi-openjdk-fips:21-jre_standard"
+              - "ghcr.io/taha2samy-3/wolfi-openjdk-fips:latest"
+            reports:
+              vuln: "./../reports/openjdk-21-standard-vuln.json"
+              cis: "./../reports/openjdk-21-standard-cis.json"
+              sbom: "./../reports/openjdk-21-standard-sbom.json"
+          - id: "dev"
+            name: "Development Builder (with SDK & Compilers)"
+            policy_header: "Full OpenJDK 21 FIPS Development & Cryptographic SDK"
+            policy_text: "Contains full Eclipse Temurin JDK 21 SDK with javac, build tools, Bouncy Castle FIPS cryptographic provider, and developer utilities."
+            tags:
+              - "ghcr.io/taha2samy-3/wolfi-openjdk-fips:21-dev"
+              - "ghcr.io/taha2samy-3/wolfi-openjdk-fips:21-jdk_standard"
+              - "ghcr.io/taha2samy-3/wolfi-openjdk-fips:dev"
+            reports:
+              vuln: "./../reports/openjdk-21-dev-vuln.json"
+              cis: "./../reports/openjdk-21-dev-cis.json"
+              sbom: "./../reports/openjdk-21-dev-sbom.json"
+
+  # ==========================================
   # Node.js Runtimes
   # ==========================================
   - id: "node"

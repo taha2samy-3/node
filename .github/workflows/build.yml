@@ -55,6 +55,8 @@ jobs:
             targets: "dev-26,prod-26"
           - runtime: "openssl-3-5"
             targets: "openssl-dev,openssl-standard,openssl-prod"
+          - runtime: "openjdk-21"
+            targets: "openjdk-dev,openjdk-standard,openjdk-prod"
 
     steps:
       - name: Checkout Code
@@ -201,6 +203,15 @@ jobs:
           - image: "ghcr.io/taha2samy-3/wolfi-openssl-fips"
             tag: "3.5.5-distroless"
             suffix: "openssl-3-5-prod"
+          - image: "ghcr.io/taha2samy-3/wolfi-openjdk-fips"
+            tag: "21-dev"
+            suffix: "openjdk-21-dev"
+          - image: "ghcr.io/taha2samy-3/wolfi-openjdk-fips"
+            tag: "21"
+            suffix: "openjdk-21-standard"
+          - image: "ghcr.io/taha2samy-3/wolfi-openjdk-fips"
+            tag: "21-distroless"
+            suffix: "openjdk-21-prod"
 
     steps:
       - name: Checkout Code

@@ -1,0 +1,74 @@
+image_flavors:
+  jre-distroless:
+    java_type: "jre"
+    options:
+      has_shell: false
+      has_package_manager: false
+      use_cache: true
+      use_ldconfig: true
+    packages:
+      - "glibc"
+      - "glibc-locale-posix"
+      - "ld-linux"
+      - "zlib"
+      - "ca-certificates"
+      - "ca-certificates-bundle"
+      - "wolfi-baselayout"
+      - "wolfi-keys"
+      - "libgcc"
+      - "libstdc++"
+      - "libcrypto3"
+      - "tzdata"
+
+  jre-standard:
+    java_type: "jre"
+    options:
+      has_shell: true 
+      has_package_manager: true
+      use_cache: true
+      use_ldconfig: true
+    packages:
+      - "apk-tools"
+      - "bash"
+      - "busybox"
+      - "ca-certificates"
+      - "ca-certificates-bundle"
+      - "glibc"
+      - "glibc-locale-posix"
+      - "ld-linux"
+      - "libcrypt1"
+      - "libcrypto3"
+      - "libgcc"
+      - "libssl3"
+      - "libstdc++"
+      - "libxcrypt"
+      - "ncurses"
+      - "ncurses-terminfo-base"
+      - "posix-libc-utils"
+      - "posix-libc-utils-bin"
+      - "tzdata"
+      - "wolfi-baselayout"
+      - "wolfi-keys"
+      - "zlib"
+  jdk-standard:
+    java_type: "jdk"
+    options:
+      has_shell: true
+      has_package_manager: true
+      use_cache: true
+      use_ldconfig: true
+    packages:
+      - "apk-tools"
+      - "wolfi-keys"
+      - "glibc"
+      - "zlib"
+      - "ca-certificates"
+      - "wolfi-baselayout"
+      - "wolfi-keys"
+      - "libgcc"
+      - "libstdc++"
+      - "posix-libc-utils"
+      - "busybox"
+      - "bash"
+      - "curl"
+      - "tzdata"
