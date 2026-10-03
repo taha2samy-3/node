@@ -130,14 +130,30 @@ def main():
                     if tag not in metadata_map:
                         print(f"   ↳ ⏳ Fetching metadata for: {tag} ...", end="", flush=True)
                         size_str, root_digest, provenance_url = get_image_metadata(tag, gh_token)
+                        # Resolve attestation URL and Sigstore Rekor URL
+                        if flavor.get("attestation_url"):
+                            attestation_url = flavor.get("attestation_url")
+                        elif "wolfi-openssl-fips" in tag or runtime.get("id") == "openssl":
+                            attestation_url = "https://github.com/taha2samy/openssl_fips/attestations"
+                        else:
+                            parts = tag.replace("ghcr.io/", "").split(":")[0].split("/")
+                            owner = parts[0] if len(parts) > 0 else "taha2samy-3"
+                            repo_name = "openssl_fips" if "openssl" in tag else "node"
+                            attestation_url = f"https://github.com/{owner}/{repo_name}/attestations"
+
+                        clean_digest = root_digest.replace("sha256:", "") if root_digest and root_digest != "N/A" else ""
+                        rekor_url = f"https://search.sigstore.dev/?hash={clean_digest}" if clean_digest else "https://search.sigstore.dev/"
+
                         metadata_map[tag] = {
                             "size": size_str,
                             "digest": root_digest,
+                            "attestation_url": attestation_url,
+                            "rekor_url": rekor_url,
                             "provenance_url": provenance_url,
                             "compression": "zstd",
                             "compression_level": 3
                         }
-                        print(f"\r   ↳ ✅ Done: {tag} ({size_str} | {root_digest[:18]}... | {provenance_url[:30]}...)")
+                        print(f"\r   ↳ ✅ Done: {tag} ({size_str} | {root_digest[:18]}... | {attestation_url[:35]}...)")
 
     os.makedirs(args.output_dir, exist_ok=True)
     output_path = os.path.join(args.output_dir, "config.json")

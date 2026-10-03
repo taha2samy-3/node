@@ -53,6 +53,8 @@ jobs:
             targets: "go-dev-1-24,go-prod-1-24"
           - runtime: "node-26"
             targets: "dev-26,prod-26"
+          - runtime: "openssl-3-5"
+            targets: "openssl-dev,openssl-standard,openssl-prod"
 
     steps:
       - name: Checkout Code
@@ -190,6 +192,15 @@ jobs:
           - image: "ghcr.io/taha2samy-3/node"
             tag: "26"
             suffix: "node-26-prod"
+          - image: "ghcr.io/taha2samy-3/wolfi-openssl-fips"
+            tag: "3.5.5-dev"
+            suffix: "openssl-3-5-dev"
+          - image: "ghcr.io/taha2samy-3/wolfi-openssl-fips"
+            tag: "3.5.5"
+            suffix: "openssl-3-5-standard"
+          - image: "ghcr.io/taha2samy-3/wolfi-openssl-fips"
+            tag: "3.5.5-distroless"
+            suffix: "openssl-3-5-prod"
 
     steps:
       - name: Checkout Code

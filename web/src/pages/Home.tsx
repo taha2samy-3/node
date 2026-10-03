@@ -1,4 +1,5 @@
-import { Shield, MemoryStick as Memory, FileCheck, Search } from 'lucide-react';
+import { Shield, MemoryStick as Memory, FileCheck, Search, Lock, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import ProjectLogo from '../components/ProjectLogo';
 
 export default function Home() {
@@ -99,9 +100,28 @@ export default function Home() {
           </li>
           <li className="flex items-start gap-3 bg-white dark:bg-card-dark p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
             <FileCheck className="w-6 h-6 text-brand-mint shrink-0 mt-0.5" />
-            <div>
-              <strong className="text-slate-900 dark:text-white block mb-1">Supply Chain Attestation</strong>
-              <span className="text-sm text-slate-600 dark:text-slate-400">Full SLSA Build Provenance and CycloneDX SBOM generated natively in our pipeline.</span>
+            <div className="flex-1">
+              <strong className="text-slate-900 dark:text-white block mb-1">Supply Chain Attestation & SLSA L3</strong>
+              <span className="text-sm text-slate-600 dark:text-slate-400">
+                Full SLSA Build Provenance and CycloneDX SBOM generated natively in our pipeline. Manage and verify attestation links directly in the GUI.
+              </span>
+            </div>
+          </li>
+          <li className="flex items-start gap-3 bg-gradient-to-r from-red-500/10 via-purple-500/10 to-brand-mint/10 p-4 rounded-xl border border-brand-mint/30 shadow-sm">
+            <Lock className="w-6 h-6 text-red-500 shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <strong className="text-slate-900 dark:text-white block mb-1">FIPS 140-3 Automated Boundary Testing</strong>
+              <span className="text-sm text-slate-600 dark:text-slate-400">
+                50+ Automated Power-On Self-Tests (POST) and Known Answer Tests (KAT) certifying cryptographic boundary enforcement and Zero FIPS Tax performance.
+              </span>
+              <div className="mt-3">
+                <Link
+                  to="/runtime/openssl/3.5"
+                  className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-brand-mint hover:underline"
+                >
+                  Explore Wolfi OpenSSL FIPS Dashboard <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
             </div>
           </li>
         </ul>

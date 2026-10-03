@@ -4,6 +4,7 @@ export interface RuntimeFlavor {
   policy_header: string;
   policy_text: string;
   tags: string[];
+  attestation_url?: string;
   reports: {
     vuln: string;
     cis: string;

@@ -7,7 +7,6 @@ on:
       - main
     paths:
       - 'web/**'
-      - 'runtimes.yaml'
   workflow_run:
     workflows: ["Build and Push Images"]
     types:
@@ -18,7 +17,28 @@ concurrency:
   cancel-in-progress: true  
 
 jobs:
+  cleanup-previous-runs:
+    name: Purge Stale Artifacts (New Run Inbound)
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - name: Delete Stale Report Artifacts from Previous Runs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "🧹 Purging leftover report artifacts from previous workflow runs..."
+          OLD_IDS=$(gh api --paginate /repos/${{ github.repository }}/actions/artifacts --jq '.artifacts[] | select(.name | startswith("reports-")) | .id')
+          if [ -n "$OLD_IDS" ]; then
+            for ID in $OLD_IDS; do
+              echo "Purging old artifact ID: $ID"
+              gh api -X DELETE /repos/${{ github.repository }}/actions/artifacts/$ID || true
+            done
+          fi
+          echo "✅ Stale report artifacts cleared."
+
   scan-images:
+    needs: cleanup-previous-runs
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -69,6 +89,10 @@ jobs:
           - { type: "go", version: "1.23", image: "ghcr.io/taha2samy-3/go:1.23", v_out: "1.23-prod-vuln.json", c_out: "1.23-prod-cis.json", s_out: "1.23-prod-sbom.json" }
           - { type: "go", version: "1.24", image: "ghcr.io/taha2samy-3/go:1.24-dev", v_out: "1.24-dev-vuln.json", c_out: "1.24-dev-cis.json", s_out: "1.24-dev-sbom.json" }
           - { type: "go", version: "1.24", image: "ghcr.io/taha2samy-3/go:1.24", v_out: "1.24-prod-vuln.json", c_out: "1.24-prod-cis.json", s_out: "1.24-prod-sbom.json" }
+          # --- OpenSSL FIPS ---
+          - { type: "openssl", version: "3.5", image: "ghcr.io/taha2samy-3/wolfi-openssl-fips:3.5.5-dev", v_out: "openssl-3.5-dev-vuln.json", c_out: "openssl-3.5-dev-cis.json", s_out: "openssl-3.5-dev-sbom.json" }
+          - { type: "openssl", version: "3.5", image: "ghcr.io/taha2samy-3/wolfi-openssl-fips:3.5.5", v_out: "openssl-3.5-standard-vuln.json", c_out: "openssl-3.5-standard-cis.json", s_out: "openssl-3.5-standard-sbom.json" }
+          - { type: "openssl", version: "3.5", image: "ghcr.io/taha2samy-3/wolfi-openssl-fips:3.5.5-distroless", v_out: "openssl-3.5-prod-vuln.json", c_out: "openssl-3.5-prod-cis.json", s_out: "openssl-3.5-prod-sbom.json" }
 
     steps:
       - name: Checkout Code
@@ -95,13 +119,17 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      actions: write
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v7
 
+      - name: Clean Stale Runner Directory (Lifecycle Policy)
+        run: rm -rf reports reports4ms web/dist
+
       - name: Download and Merge Reports
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@v4
         with:
           path: reports
           merge-multiple: true
@@ -131,10 +159,30 @@ jobs:
       - name: Build Dynamic Dashboard (Static Production Build)
         working-directory: web
         run: npm run build
+
+      - name: Clean Ephemeral Reports Directory (Lifecycle Policy)
+        run: rm -rf reports reports4ms
+
       - name: tree all infra
         run: tree -a 
+
       - name: Push to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./web/dist
+
+      - name: Purge Temporary Scan Report Artifacts (Lifecycle Policy)
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "🧹 Purging ephemeral report artifacts from GitHub Actions storage..."
+          ARTIFACT_IDS=$(gh api --paginate /repos/${{ github.repository }}/actions/artifacts --jq '.artifacts[] | select(.name | startswith("reports-")) | .id')
+          if [ -n "$ARTIFACT_IDS" ]; then
+            for ID in $ARTIFACT_IDS; do
+              echo "Removing ephemeral artifact ID: $ID"
+              gh api -X DELETE /repos/${{ github.repository }}/actions/artifacts/$ID || true
+            done
+          fi
+          echo "✅ Ephemeral report artifact lifecycle cleanup complete."
