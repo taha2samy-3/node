@@ -293,46 +293,11 @@ RUN set -eux; \
     else \
       JDK_SHA="${JDK_ARM64_SHA}"; JRE_SHA="${JRE_ARM64_SHA}"; \
     fi; \
-    cat <<EOF > /opt/jdk/java.cdx.json
-{
-  "bomFormat": "CycloneDX",
-  "specVersion": "1.4",
-  "version": 1,
-  "components": [
-    {
-      "type": "library",
-      "name": "Eclipse Temurin JDK",
-      "version": "${JAVA_FULL_VERSION}",
-      "purl": "pkg:generic/eclipse-temurin-jdk@${JAVA_FULL_VERSION}?arch=${TARGETARCH}",
-      "hashes": [ { "alg": "SHA-256", "content": "${JDK_SHA}" } ],
-      "properties": [
-        { "name": "fips-enabled", "value": "true" },
-        { "name": "bouncycastle-version", "value": "${BC_FIPS_VERSION}" }
-      ]
-    }
-  ]
-}
-EOF
-    cat <<EOF > /opt/jre/java.cdx.json
-{
-  "bomFormat": "CycloneDX",
-  "specVersion": "1.4",
-  "version": 1,
-  "components": [
-    {
-      "type": "library",
-      "name": "Eclipse Temurin JRE",
-      "version": "${JAVA_FULL_VERSION}",
-      "purl": "pkg:generic/eclipse-temurin-jre@${JAVA_FULL_VERSION}?arch=${TARGETARCH}",
-      "hashes": [ { "alg": "SHA-256", "content": "${JRE_SHA}" } ],
-      "properties": [
-        { "name": "fips-enabled", "value": "true" },
-        { "name": "bouncycastle-version", "value": "${BC_FIPS_VERSION}" }
-      ]
-    }
-  ]
-}
-EOF
+    printf '{\n  "bomFormat": "CycloneDX",\n  "specVersion": "1.4",\n  "version": 1,\n  "components": [\n    {\n      "type": "library",\n      "name": "Eclipse Temurin JDK",\n      "version": "%s",\n      "purl": "pkg:generic/eclipse-temurin-jdk@%s?arch=%s",\n      "hashes": [ { "alg": "SHA-256", "content": "%s" } ],\n      "properties": [\n        { "name": "fips-enabled", "value": "true" },\n        { "name": "bouncycastle-version", "value": "%s" }\n      ]\n    }\n  ]\n}\n' \
+      "${JAVA_FULL_VERSION}" "${JAVA_FULL_VERSION}" "${TARGETARCH}" "${JDK_SHA}" "${BC_FIPS_VERSION}" > /opt/jdk/java.cdx.json; \
+    printf '{\n  "bomFormat": "CycloneDX",\n  "specVersion": "1.4",\n  "version": 1,\n  "components": [\n    {\n      "type": "library",\n      "name": "Eclipse Temurin JRE",\n      "version": "%s",\n      "purl": "pkg:generic/eclipse-temurin-jre@%s?arch=%s",\n      "hashes": [ { "alg": "SHA-256", "content": "%s" } ],\n      "properties": [\n        { "name": "fips-enabled", "value": "true" },\n        { "name": "bouncycastle-version", "value": "%s" }\n      ]\n    }\n  ]\n}\n' \
+      "${JAVA_FULL_VERSION}" "${JAVA_FULL_VERSION}" "${TARGETARCH}" "${JRE_SHA}" "${BC_FIPS_VERSION}" > /opt/jre/java.cdx.json
+
 
 # -----------------------------------------------------------------------------
 # Base Assemblies
