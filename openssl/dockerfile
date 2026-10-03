@@ -118,7 +118,7 @@ RUN --mount=type=cache,target=/var/cache/apk \
     cp -a /etc/group /rootfs/standard/etc/; \
     cp -a /etc/shadow /rootfs/standard/etc/; \
     for applet in $(/rootfs/standard/usr/bin/busybox --list); do \
-        ln -sf busybox /rootfs/standard/usr/bin/$applet; \
+    ln -sf busybox /rootfs/standard/usr/bin/$applet; \
     done; \
     ln -sf busybox /rootfs/standard/usr/bin/sh; \
     echo "hosts: files dns" > /rootfs/standard/etc/nsswitch.conf; \
@@ -156,10 +156,10 @@ RUN --mount=type=cache,target=/var/cache/apk \
     cp -a /etc/passwd /rootfs/development/etc/; \
     cp -a /etc/group /rootfs/development/etc/; \
     cp -a /etc/shadow /rootfs/development/etc/; \
-    for applet in $(/rootfs/standard/usr/bin/busybox --list); do \
-        ln -sf busybox /rootfs/standard/usr/bin/$applet; \
+    for applet in $(/rootfs/development/usr/bin/busybox --list); do \
+        ln -sf busybox /rootfs/development/usr/bin/$applet; \
     done; \
-    ln -sf busybox /rootfs/standard/usr/bin/sh; \
+    ln -sf busybox /rootfs/development/usr/bin/sh; \
     echo "hosts: files dns" > /rootfs/development/etc/nsswitch.conf; \
     touch /rootfs/development/etc/resolv.conf /rootfs/development/etc/hosts
 
@@ -332,7 +332,7 @@ ARG CORE_VERSION
 ARG FIPS_VERSION
 
 LABEL org.opencontainers.image.title="Wolfi OpenSSL FIPS (Standard)" \
-    org.opencontainers.image.vendor="taha2samy" \
+    org.opencontainers.image.vendor="taha2samy-3" \
     org.opencontainers.image.core-version="${CORE_VERSION}" \
     org.opencontainers.image.fips-version="${FIPS_VERSION}"
 COPY --from=producer /rootfs/standard /
@@ -359,11 +359,11 @@ ARG FIPS_VERSION
 
 LABEL org.opencontainers.image.title="Wolfi OpenSSL FIPS (distroless)" \
     org.opencontainers.image.description="FIPS 140-3 compliant OpenSSL container (distroless)" \
-    org.opencontainers.image.vendor="taha2samy" \
+    org.opencontainers.image.vendor="taha2samy-3" \
     org.opencontainers.image.core-version="${CORE_VERSION}" \
     org.opencontainers.image.fips-version="${FIPS_VERSION}" \
     org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.source="https://github.com/taha2samy/openssl_fips" 
+    org.opencontainers.image.source="https://github.com/taha2samy-3/openssl_fips" 
 USER nonroot
 WORKDIR /home/user/nonroot
 HEALTHCHECK --interval=30s --timeout=3s --start-period=2s --retries=3 \
@@ -372,14 +372,16 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=2s --retries=3 \
 ENTRYPOINT ["/usr/local/bin/openssl"]
 
 FROM development AS openssl-dev
+ARG CORE_VERSION
+ARG FIPS_VERSION
 
 LABEL org.opencontainers.image.title="Wolfi OpenSSL FIPS (development)" \
     org.opencontainers.image.description="FIPS 140-3 compliant OpenSSL container (development)" \
-    org.opencontainers.image.vendor="taha2samy" \
+    org.opencontainers.image.vendor="taha2samy-3" \
     org.opencontainers.image.core-version="${CORE_VERSION}" \
     org.opencontainers.image.fips-version="${FIPS_VERSION}" \
     org.opencontainers.image.licenses="Apache-2.0" \
-    org.opencontainers.image.source="https://github.com/taha2samy/openssl_fips" 
+    org.opencontainers.image.source="https://github.com/taha2samy-3/openssl_fips" 
 USER nonroot
 WORKDIR /home/user/nonroot
 HEALTHCHECK --interval=30s --timeout=3s --start-period=2s --retries=3 \
