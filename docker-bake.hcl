@@ -100,6 +100,37 @@ variable "OPENSSL_FIPS_VERSION" {
   default = "3.1.2"
 }
 
+variable "OPENSSL_STATIC_IMAGE" {
+  default = "cgr.dev/chainguard/static@sha256:11ec91f0372630a2ca3764cea6325bebb0189a514084463cbb3724e5bb350d14"
+}
+variable "OPENSSL_BUILD_BASE_VER" { default = "1-r9" }
+variable "OPENSSL_PERL_VER" { default = "5.42.2-r3" }
+variable "OPENSSL_LINUX_HEADERS_VER" { default = "7.0.11-r0" }
+variable "OPENSSL_WGET_VER" { default = "1.25.0-r14" }
+variable "OPENSSL_CA_CERTIFICATES_VER" { default = "20260413-r0" }
+variable "OPENSSL_LIBSTDC_PLUS_PLUS_VER" { default = "16.1.0-r2" }
+variable "OPENSSL_ZLIB_VER" { default = "1.3.2-r3" }
+variable "OPENSSL_TZDATA_VER" { default = "2026b-r0" }
+variable "OPENSSL_POSIX_LIBC_UTILS_VER" { default = "2.43-r8" }
+variable "OPENSSL_PKGCONF_VER" { default = "2.5.1-r2" }
+variable "OPENSSL_PCRE_DEV_VER" { default = "8.45-r7" }
+variable "OPENSSL_ZLIB_DEV_VER" { default = "1.3.2-r3" }
+variable "OPENSSL_BASH_VER" { default = "5.3-r12" }
+variable "OPENSSL_CURL_VER" { default = "8.20.0-r1" }
+variable "OPENSSL_JQ_VER" { default = "1.8.1-r6" }
+variable "OPENSSL_UNZIP_VER" { default = "6.0-r6" }
+variable "OPENSSL_APK_TOOLS_VER" { default = "2.14.10-r12" }
+variable "OPENSSL_BUSYBOX_VER" { default = "1.37.0-r59" }
+variable "OPENSSL_GLIBC_VER" { default = "2.43-r8" }
+variable "OPENSSL_GLIBC_LOCALE_POSIX_VER" { default = "2.43-r8" }
+variable "OPENSSL_LD_LINUX_VER" { default = "2.43-r8" }
+variable "OPENSSL_LIBCRYPT1_VER" { default = "2.43-r8" }
+variable "OPENSSL_LIBXCRYPT_VER" { default = "4.5.2-r3" }
+variable "OPENSSL_LIBGCC_VER" { default = "16.1.0-r2" }
+variable "OPENSSL_WOLFI_BASE_VER" { default = "1-r7" }
+variable "OPENSSL_WOLFI_BASELAYOUT_VER" { default = "20230201-r29" }
+variable "OPENSSL_WOLFI_KEYS_VER" { default = "1-r13" }
+
 # ==========================================
 # envoke (secrets-entrypoint) Binary
 # ==========================================
@@ -517,16 +548,48 @@ target "go-prod" {
 # ==========================================
 # OpenSSL FIPS Targets
 # ==========================================
-target "openssl-dev" {
-  platforms = ["linux/amd64", "linux/arm64"]
-  context = "openssl"
-  dockerfile = "dockerfile"
-  target = "openssl-dev"
+target "openssl-base" {
   args = {
     FIPS_VERSION = OPENSSL_FIPS_VERSION
     CORE_VERSION = OPENSSL_CORE_VERSION
     BASE_IMAGE = BASE_IMAGE
+    STATIC_IMAGE = OPENSSL_STATIC_IMAGE
+    BUILD_BASE_VER = OPENSSL_BUILD_BASE_VER
+    PERL_VER = OPENSSL_PERL_VER
+    LINUX_HEADERS_VER = OPENSSL_LINUX_HEADERS_VER
+    WGET_VER = OPENSSL_WGET_VER
+    CA_CERTIFICATES_VER = OPENSSL_CA_CERTIFICATES_VER
+    LIBSTDC_PLUS_PLUS_VER = OPENSSL_LIBSTDC_PLUS_PLUS_VER
+    ZLIB_VER = OPENSSL_ZLIB_VER
+    TZDATA_VER = OPENSSL_TZDATA_VER
+    POSIX_LIBC_UTILS_VER = OPENSSL_POSIX_LIBC_UTILS_VER
+    PKGCONF_VER = OPENSSL_PKGCONF_VER
+    PCRE_DEV_VER = OPENSSL_PCRE_DEV_VER
+    ZLIB_DEV_VER = OPENSSL_ZLIB_DEV_VER
+    BASH_VER = OPENSSL_BASH_VER
+    CURL_VER = OPENSSL_CURL_VER
+    JQ_VER = OPENSSL_JQ_VER
+    UNZIP_VER = OPENSSL_UNZIP_VER
+    APK_TOOLS_VER = OPENSSL_APK_TOOLS_VER
+    BUSYBOX_VER = OPENSSL_BUSYBOX_VER
+    GLIBC_VER = OPENSSL_GLIBC_VER
+    GLIBC_LOCALE_POSIX_VER = OPENSSL_GLIBC_LOCALE_POSIX_VER
+    LD_LINUX_VER = OPENSSL_LD_LINUX_VER
+    LIBCRYPT1_VER = OPENSSL_LIBCRYPT1_VER
+    LIBXCRYPT_VER = OPENSSL_LIBXCRYPT_VER
+    LIBGCC_VER = OPENSSL_LIBGCC_VER
+    WOLFI_BASE_VER = OPENSSL_WOLFI_BASE_VER
+    WOLFI_BASELAYOUT_VER = OPENSSL_WOLFI_BASELAYOUT_VER
+    WOLFI_KEYS_VER = OPENSSL_WOLFI_KEYS_VER
   }
+}
+
+target "openssl-dev" {
+  inherits = ["openssl-base"]
+  platforms = ["linux/amd64", "linux/arm64"]
+  context = "openssl"
+  dockerfile = "dockerfile"
+  target = "openssl-dev"
   tags = [
     "${REGISTRY}/${OWNER}/${OPENSSL_REPO}:${OPENSSL_CORE_VERSION}-dev",
     "${REGISTRY}/${OWNER}/${OPENSSL_REPO}:dev"
@@ -542,15 +605,11 @@ target "openssl-dev" {
 }
 
 target "openssl-standard" {
+  inherits = ["openssl-base"]
   platforms = ["linux/amd64", "linux/arm64"]
   context = "openssl"
   dockerfile = "dockerfile"
   target = "openssl-standard"
-  args = {
-    FIPS_VERSION = OPENSSL_FIPS_VERSION
-    CORE_VERSION = OPENSSL_CORE_VERSION
-    BASE_IMAGE = BASE_IMAGE
-  }
   tags = [
     "${REGISTRY}/${OWNER}/${OPENSSL_REPO}:${OPENSSL_CORE_VERSION}",
     "${REGISTRY}/${OWNER}/${OPENSSL_REPO}:latest"
@@ -566,15 +625,11 @@ target "openssl-standard" {
 }
 
 target "openssl-prod" {
+  inherits = ["openssl-base"]
   platforms = ["linux/amd64", "linux/arm64"]
   context = "openssl"
   dockerfile = "dockerfile"
   target = "openssl-distroless"
-  args = {
-    FIPS_VERSION = OPENSSL_FIPS_VERSION
-    CORE_VERSION = OPENSSL_CORE_VERSION
-    BASE_IMAGE = BASE_IMAGE
-  }
   tags = [
     "${REGISTRY}/${OWNER}/${OPENSSL_REPO}:${OPENSSL_CORE_VERSION}-distroless",
     "${REGISTRY}/${OWNER}/${OPENSSL_REPO}:distroless"
