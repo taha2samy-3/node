@@ -1,5 +1,51 @@
 runtimes:
   # ==========================================
+  # OpenSSL FIPS 140-3 Cryptographic Runtime
+  # ==========================================
+  - id: "openssl"
+    title: "Wolfi OpenSSL FIPS"
+    icon: "https://cdn.simpleicons.org/openssl/E03C31"
+    architectures:
+      - "linux/amd64"
+      - "linux/arm64"
+    versions:
+      - version: "3.5"
+        flavors:
+          - id: "prod"
+            name: "Distroless FIPS Runtime (Scratch)"
+            policy_header: "Hardened Minimal Distroless FIPS 140-3 Runtime"
+            policy_text: "Ultra-hardened, Zero-CVE distroless runtime built directly from scratch with no shell, no busybox, and no package manager. Enforces strict FIPS 140-3 cryptographic boundaries, KAT/POST self-tests, and SLSA L3 provenance."
+            tags:
+              - "ghcr.io/taha2samy-3/wolfi-openssl-fips:3.5.5-distroless"
+              - "ghcr.io/taha2samy-3/wolfi-openssl-fips:distroless"
+            reports:
+              vuln: "./../reports/openssl-3.5-prod-vuln.json"
+              cis: "./../reports/openssl-3.5-prod-cis.json"
+              sbom: "./../reports/openssl-3.5-prod-sbom.json"
+          - id: "standard"
+            name: "Standard FIPS Runtime (with Shell)"
+            policy_header: "Production Hardened Standard FIPS Runtime"
+            policy_text: "Wolfi-based secure container with OpenSSL 3.5 and FIPS 140-3 provider active by default. Includes non-root busybox shell and runtime utilities."
+            tags:
+              - "ghcr.io/taha2samy-3/wolfi-openssl-fips:3.5.5"
+              - "ghcr.io/taha2samy-3/wolfi-openssl-fips:latest"
+            reports:
+              vuln: "./../reports/openssl-3.5-standard-vuln.json"
+              cis: "./../reports/openssl-3.5-standard-cis.json"
+              sbom: "./../reports/openssl-3.5-standard-sbom.json"
+          - id: "dev"
+            name: "Development Builder (with SDK & C Toolchain)"
+            policy_header: "Full OpenSSL FIPS Development & Cryptographic SDK"
+            policy_text: "Contains OpenSSL 3.5 FIPS module, C headers, pkg-config, build-base, and developer tools for building FIPS-compliant applications."
+            tags:
+              - "ghcr.io/taha2samy-3/wolfi-openssl-fips:3.5.5-dev"
+              - "ghcr.io/taha2samy-3/wolfi-openssl-fips:dev"
+            reports:
+              vuln: "./../reports/openssl-3.5-dev-vuln.json"
+              cis: "./../reports/openssl-3.5-dev-cis.json"
+              sbom: "./../reports/openssl-3.5-dev-sbom.json"
+
+  # ==========================================
   # Node.js Runtimes
   # ==========================================
   - id: "node"
@@ -45,7 +91,7 @@ runtimes:
               - "ghcr.io/taha2samy-3/node:v24-dev"
             reports:
               vuln: "./../reports/24-dev-vuln.json"
-              cis: ".reports/24-dev-cis.json"
+              cis: "./../reports/24-dev-cis.json"
               sbom: "./../reports/24-dev-sbom.json"
           - id: "prod"
             name: "Production Runtime (Scratch)"

@@ -59,3 +59,7 @@ runs:
         name: ${{ inputs.artifact_name }}
         path: reports/
         retention-days: 1
+
+    - name: Clean Up Local Scan Reports
+      shell: bash
+      run: rm -rf reports/

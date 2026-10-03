@@ -86,6 +86,21 @@ variable "GO_1_23_FULL_VERSION" { default = "1.23" }
 variable "GO_1_24_FULL_VERSION" { default = "1.24" }
 
 # ==========================================
+# OpenSSL FIPS Versions
+# ==========================================
+variable "OPENSSL_REPO" {
+  default = "wolfi-openssl-fips"
+}
+
+variable "OPENSSL_CORE_VERSION" {
+  default = "3.5.5"
+}
+
+variable "OPENSSL_FIPS_VERSION" {
+  default = "3.1.2"
+}
+
+# ==========================================
 # envoke (secrets-entrypoint) Binary
 # ==========================================
 variable "ENVOKE_VERSION" {
@@ -112,7 +127,7 @@ target "_envoke" {
 # Groups
 # ==========================================
 group "default" {
-  targets = ["dev", "prod", "python-dev", "python-prod", "bun-dev", "bun-prod", "java-dev", "java-prod", "go-dev", "go-prod"]
+  targets = ["dev", "prod", "python-dev", "python-prod", "bun-dev", "bun-prod", "java-dev", "java-prod", "go-dev", "go-prod", "openssl-dev", "openssl-standard", "openssl-prod"]
 }
 
 # ==========================================
@@ -498,4 +513,80 @@ target "go-prod" {
     "index,manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${GO_REPO}"
   ]
 }
+
+# ==========================================
+# OpenSSL FIPS Targets
+# ==========================================
+target "openssl-dev" {
+  platforms = ["linux/amd64", "linux/arm64"]
+  context = "openssl"
+  dockerfile = "dockerfile"
+  target = "openssl-dev"
+  args = {
+    FIPS_VERSION = OPENSSL_FIPS_VERSION
+    CORE_VERSION = OPENSSL_CORE_VERSION
+    BASE_IMAGE = BASE_IMAGE
+  }
+  tags = [
+    "${REGISTRY}/${OWNER}/${OPENSSL_REPO}:${OPENSSL_CORE_VERSION}-dev",
+    "${REGISTRY}/${OWNER}/${OPENSSL_REPO}:dev"
+  ]
+  cache-from = ["type=gha,scope=openssl-dev"]
+  cache-to = ["type=gha,mode=max,scope=openssl-dev,compression=zstd,compression-level=3"]
+  labels = {
+    "org.opencontainers.image.authors" = "Taha Samy"
+    "org.opencontainers.image.source" = "https://github.com/${OWNER}/${OPENSSL_REPO}"
+    "org.opencontainers.image.licenses" = "Apache-2.0"
+    "org.opencontainers.image.description" = "Hardened FIPS 140-3 compliant OpenSSL development SDK image on Wolfi"
+  }
+}
+
+target "openssl-standard" {
+  platforms = ["linux/amd64", "linux/arm64"]
+  context = "openssl"
+  dockerfile = "dockerfile"
+  target = "openssl-standard"
+  args = {
+    FIPS_VERSION = OPENSSL_FIPS_VERSION
+    CORE_VERSION = OPENSSL_CORE_VERSION
+    BASE_IMAGE = BASE_IMAGE
+  }
+  tags = [
+    "${REGISTRY}/${OWNER}/${OPENSSL_REPO}:${OPENSSL_CORE_VERSION}",
+    "${REGISTRY}/${OWNER}/${OPENSSL_REPO}:latest"
+  ]
+  cache-from = ["type=gha,scope=openssl-standard"]
+  cache-to = ["type=gha,mode=max,scope=openssl-standard,compression=zstd,compression-level=3"]
+  labels = {
+    "org.opencontainers.image.authors" = "Taha Samy"
+    "org.opencontainers.image.source" = "https://github.com/${OWNER}/${OPENSSL_REPO}"
+    "org.opencontainers.image.licenses" = "Apache-2.0"
+    "org.opencontainers.image.description" = "Hardened FIPS 140-3 compliant OpenSSL standard runtime image on Wolfi"
+  }
+}
+
+target "openssl-prod" {
+  platforms = ["linux/amd64", "linux/arm64"]
+  context = "openssl"
+  dockerfile = "dockerfile"
+  target = "openssl-distroless"
+  args = {
+    FIPS_VERSION = OPENSSL_FIPS_VERSION
+    CORE_VERSION = OPENSSL_CORE_VERSION
+    BASE_IMAGE = BASE_IMAGE
+  }
+  tags = [
+    "${REGISTRY}/${OWNER}/${OPENSSL_REPO}:${OPENSSL_CORE_VERSION}-distroless",
+    "${REGISTRY}/${OWNER}/${OPENSSL_REPO}:distroless"
+  ]
+  cache-from = ["type=gha,scope=openssl-distroless"]
+  cache-to = ["type=gha,mode=max,scope=openssl-distroless,compression=zstd,compression-level=3"]
+  labels = {
+    "org.opencontainers.image.authors" = "Taha Samy"
+    "org.opencontainers.image.source" = "https://github.com/${OWNER}/${OPENSSL_REPO}"
+    "org.opencontainers.image.licenses" = "Apache-2.0"
+    "org.opencontainers.image.description" = "Hardened FIPS 140-3 compliant Zero-CVE distroless OpenSSL container on Wolfi"
+  }
+}
+
 
