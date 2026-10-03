@@ -114,12 +114,18 @@ export default function Home() {
               <span className="text-sm text-slate-600 dark:text-slate-400">
                 50+ Automated Power-On Self-Tests (POST) and Known Answer Tests (KAT) certifying cryptographic boundary enforcement and Zero FIPS Tax performance.
               </span>
-              <div className="mt-3">
+              <div className="mt-3 flex flex-wrap gap-4">
                 <Link
                   to="/runtime/openssl/3.5"
                   className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-brand-mint hover:underline"
                 >
                   Explore Wolfi OpenSSL FIPS Dashboard <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+                <Link
+                  to="/runtime/openjdk/21"
+                  className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-purple-400 hover:underline"
+                >
+                  Explore Wolfi OpenJDK FIPS Dashboard <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
             </div>

@@ -93,6 +93,10 @@ jobs:
           - { type: "openssl", version: "3.5", image: "ghcr.io/taha2samy-3/wolfi-openssl-fips:3.5.5-dev", v_out: "openssl-3.5-dev-vuln.json", c_out: "openssl-3.5-dev-cis.json", s_out: "openssl-3.5-dev-sbom.json" }
           - { type: "openssl", version: "3.5", image: "ghcr.io/taha2samy-3/wolfi-openssl-fips:3.5.5", v_out: "openssl-3.5-standard-vuln.json", c_out: "openssl-3.5-standard-cis.json", s_out: "openssl-3.5-standard-sbom.json" }
           - { type: "openssl", version: "3.5", image: "ghcr.io/taha2samy-3/wolfi-openssl-fips:3.5.5-distroless", v_out: "openssl-3.5-prod-vuln.json", c_out: "openssl-3.5-prod-cis.json", s_out: "openssl-3.5-prod-sbom.json" }
+          # --- OpenJDK FIPS ---
+          - { type: "openjdk", version: "21", image: "ghcr.io/taha2samy-3/wolfi-openjdk-fips:21-dev", v_out: "openjdk-21-dev-vuln.json", c_out: "openjdk-21-dev-cis.json", s_out: "openjdk-21-dev-sbom.json" }
+          - { type: "openjdk", version: "21", image: "ghcr.io/taha2samy-3/wolfi-openjdk-fips:21", v_out: "openjdk-21-standard-vuln.json", c_out: "openjdk-21-standard-cis.json", s_out: "openjdk-21-standard-sbom.json" }
+          - { type: "openjdk", version: "21", image: "ghcr.io/taha2samy-3/wolfi-openjdk-fips:21-distroless", v_out: "openjdk-21-prod-vuln.json", c_out: "openjdk-21-prod-cis.json", s_out: "openjdk-21-prod-sbom.json" }
 
     steps:
       - name: Checkout Code

@@ -132,6 +132,62 @@ variable "OPENSSL_WOLFI_BASELAYOUT_VER" { default = "20230201-r29" }
 variable "OPENSSL_WOLFI_KEYS_VER" { default = "1-r13" }
 
 # ==========================================
+# OpenJDK FIPS Versions
+# ==========================================
+variable "OPENJDK_REPO" {
+  default = "wolfi-openjdk-fips"
+}
+
+variable "OPENJDK_VERSION" {
+  default = "21"
+}
+
+variable "OPENJDK_FULL_VERSION" {
+  default = "21.0.11+10-LTS"
+}
+
+variable "OPENJDK_JDK_AMD64_URL" {
+  default = "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.11%2B10/OpenJDK21U-jdk_x64_linux_hotspot_21.0.11_10.tar.gz"
+}
+variable "OPENJDK_JDK_AMD64_SHA" {
+  default = "4b2220e232a97997b436ca6ab15cbf70171ecff52958a46159dfa5a8c44ca4de"
+}
+variable "OPENJDK_JDK_ARM64_URL" {
+  default = "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.11%2B10/OpenJDK21U-jdk_aarch64_linux_hotspot_21.0.11_10.tar.gz"
+}
+variable "OPENJDK_JDK_ARM64_SHA" {
+  default = "8d498ec88e1c1989fab95c6784240ab92d011e29c54d20a3f9c324b13476f9ad"
+}
+
+variable "OPENJDK_JRE_AMD64_URL" {
+  default = "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.11%2B10/OpenJDK21U-jre_x64_linux_hotspot_21.0.11_10.tar.gz"
+}
+variable "OPENJDK_JRE_AMD64_SHA" {
+  default = "e5038aae3ca9ff670bc696496b0728dbd23d280026bad30291cb919221ecfdcb"
+}
+variable "OPENJDK_JRE_ARM64_URL" {
+  default = "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.11%2B10/OpenJDK21U-jre_aarch64_linux_hotspot_21.0.11_10.tar.gz"
+}
+variable "OPENJDK_JRE_ARM64_SHA" {
+  default = "fa23d9d9945053e67bcc7638410eabf1e17a7672c7c95a24f70cd08b8407d36e"
+}
+
+variable "OPENJDK_BC_FIPS_VERSION" { default = "2.1.2" }
+variable "OPENJDK_BC_FIPS_URL" { default = "https://repo1.maven.org/maven2/org/bouncycastle/bc-fips/2.1.2/bc-fips-2.1.2.jar" }
+variable "OPENJDK_BC_FIPS_SHA" { default = "044fcd8a29d236edea8a5b414406cdae63b475f9ad9f05fe2dc904a277941115" }
+
+variable "OPENJDK_BC_UTIL_FIPS_VERSION" { default = "2.1.5" }
+variable "OPENJDK_BC_UTIL_FIPS_URL" { default = "https://repo1.maven.org/maven2/org/bouncycastle/bcutil-fips/2.1.5/bcutil-fips-2.1.5.jar" }
+variable "OPENJDK_BC_UTIL_FIPS_SHA" { default = "503aaf5c2c5b7c729547462efe13699b5f6dacf9be150b7c48bba974b793dc92" }
+
+variable "OPENJDK_BC_TLS_FIPS_VERSION" { default = "2.1.22" }
+variable "OPENJDK_BC_TLS_FIPS_URL" { default = "https://repo1.maven.org/maven2/org/bouncycastle/bctls-fips/2.1.22/bctls-fips-2.1.22.jar" }
+variable "OPENJDK_BC_TLS_FIPS_SHA" { default = "688410563445e1a65ff33cb67842499f0788994d752c3df8f7ea4a0d40ddbf50" }
+
+variable "OPENJDK_KEYSTORE_PWD" { default = "changeit" }
+
+
+# ==========================================
 # envoke (secrets-entrypoint) Binary
 # ==========================================
 variable "ENVOKE_VERSION" {
@@ -158,7 +214,7 @@ target "_envoke" {
 # Groups
 # ==========================================
 group "default" {
-  targets = ["dev", "prod", "python-dev", "python-prod", "bun-dev", "bun-prod", "java-dev", "java-prod", "go-dev", "go-prod", "openssl-dev", "openssl-standard", "openssl-prod"]
+  targets = ["dev", "prod", "python-dev", "python-prod", "bun-dev", "bun-prod", "java-dev", "java-prod", "go-dev", "go-prod", "openssl-dev", "openssl-standard", "openssl-prod", "openjdk-dev", "openjdk-standard", "openjdk-prod"]
 }
 
 # ==========================================
@@ -641,6 +697,126 @@ target "openssl-prod" {
     "org.opencontainers.image.source" = "https://github.com/${OWNER}/${OPENSSL_REPO}"
     "org.opencontainers.image.licenses" = "Apache-2.0"
     "org.opencontainers.image.description" = "Hardened FIPS 140-3 compliant Zero-CVE distroless OpenSSL container on Wolfi"
+  }
+}
+
+# ==========================================
+# OpenJDK FIPS Targets
+# ==========================================
+target "openjdk-base" {
+  args = {
+    JAVA_VERSION         = OPENJDK_VERSION
+    JAVA_FULL_VERSION    = OPENJDK_FULL_VERSION
+    BASE_IMAGE           = BASE_IMAGE
+    ALPINE_IMAGE         = "alpine@sha256:6baf43584bcb78f2e5847d1de515f23499913ac9f12bdf834811a3145eb11ca1"
+
+    JDK_AMD64_URL        = OPENJDK_JDK_AMD64_URL
+    JDK_AMD64_SHA        = OPENJDK_JDK_AMD64_SHA
+    JDK_ARM64_URL        = OPENJDK_JDK_ARM64_URL
+    JDK_ARM64_SHA        = OPENJDK_JDK_ARM64_SHA
+
+    JRE_AMD64_URL        = OPENJDK_JRE_AMD64_URL
+    JRE_AMD64_SHA        = OPENJDK_JRE_AMD64_SHA
+    JRE_ARM64_URL        = OPENJDK_JRE_ARM64_URL
+    JRE_ARM64_SHA        = OPENJDK_JRE_ARM64_SHA
+
+    BC_FIPS_VERSION      = OPENJDK_BC_FIPS_VERSION
+    BC_FIPS_URL          = OPENJDK_BC_FIPS_URL
+    BC_FIPS_SHA          = OPENJDK_BC_FIPS_SHA
+
+    BC_UTIL_FIPS_VERSION = OPENJDK_BC_UTIL_FIPS_VERSION
+    BC_UTIL_FIPS_URL     = OPENJDK_BC_UTIL_FIPS_URL
+    BC_UTIL_FIPS_SHA     = OPENJDK_BC_UTIL_FIPS_SHA
+
+    BC_TLS_FIPS_VERSION  = OPENJDK_BC_TLS_FIPS_VERSION
+    BC_TLS_FIPS_URL      = OPENJDK_BC_TLS_FIPS_URL
+    BC_TLS_FIPS_SHA      = OPENJDK_BC_TLS_FIPS_SHA
+
+    KEYSTORE_PWD         = OPENJDK_KEYSTORE_PWD
+
+    APK_TOOLS_VER          = OPENSSL_APK_TOOLS_VER
+    BASH_VER               = OPENSSL_BASH_VER
+    BUSYBOX_VER            = OPENSSL_BUSYBOX_VER
+    CA_CERTIFICATES_VER    = OPENSSL_CA_CERTIFICATES_VER
+    CURL_VER               = OPENSSL_CURL_VER
+    GLIBC_VER              = OPENSSL_GLIBC_VER
+    GLIBC_LOCALE_POSIX_VER = OPENSSL_GLIBC_LOCALE_POSIX_VER
+    LD_LINUX_VER           = OPENSSL_LD_LINUX_VER
+    LIBCRYPT1_VER          = OPENSSL_LIBCRYPT1_VER
+    LIBCRYPTO3_VER         = "3.6.2-r5"
+    LIBGCC_VER             = OPENSSL_LIBGCC_VER
+    LIBSSL3_VER            = "3.6.2-r5"
+    LIBSTDCPP_VER          = OPENSSL_LIBSTDC_PLUS_PLUS_VER
+    LIBXCRYPT_VER          = OPENSSL_LIBXCRYPT_VER
+    NCURSES_VER            = "6.6.20260608-r0"
+    POSIX_LIBC_UTILS_VER   = OPENSSL_POSIX_LIBC_UTILS_VER
+    TZDATA_VER             = OPENSSL_TZDATA_VER
+    WOLFI_BASELAYOUT_VER   = OPENSSL_WOLFI_BASELAYOUT_VER
+    WOLFI_KEYS_VER         = OPENSSL_WOLFI_KEYS_VER
+    ZLIB_VER               = OPENSSL_ZLIB_VER
+  }
+}
+
+target "openjdk-dev" {
+  inherits = ["openjdk-base"]
+  platforms = ["linux/amd64", "linux/arm64"]
+  context = "openjdk"
+  dockerfile = "dockerfile"
+  target = "openjdk-dev"
+  tags = [
+    "${REGISTRY}/${OWNER}/${OPENJDK_REPO}:${OPENJDK_VERSION}-dev",
+    "${REGISTRY}/${OWNER}/${OPENJDK_REPO}:${OPENJDK_VERSION}-jdk_standard",
+    "${REGISTRY}/${OWNER}/${OPENJDK_REPO}:dev"
+  ]
+  cache-from = ["type=gha,scope=openjdk-dev"]
+  cache-to = ["type=gha,mode=max,scope=openjdk-dev,compression=zstd,compression-level=3"]
+  labels = {
+    "org.opencontainers.image.authors" = "Taha Samy"
+    "org.opencontainers.image.source" = "https://github.com/${OWNER}/${OPENJDK_REPO}"
+    "org.opencontainers.image.licenses" = "Apache-2.0"
+    "org.opencontainers.image.description" = "Hardened FIPS 140-3 compliant OpenJDK development SDK image on Wolfi"
+  }
+}
+
+target "openjdk-standard" {
+  inherits = ["openjdk-base"]
+  platforms = ["linux/amd64", "linux/arm64"]
+  context = "openjdk"
+  dockerfile = "dockerfile"
+  target = "openjdk-standard"
+  tags = [
+    "${REGISTRY}/${OWNER}/${OPENJDK_REPO}:${OPENJDK_VERSION}",
+    "${REGISTRY}/${OWNER}/${OPENJDK_REPO}:${OPENJDK_VERSION}-jre_standard",
+    "${REGISTRY}/${OWNER}/${OPENJDK_REPO}:latest"
+  ]
+  cache-from = ["type=gha,scope=openjdk-standard"]
+  cache-to = ["type=gha,mode=max,scope=openjdk-standard,compression=zstd,compression-level=3"]
+  labels = {
+    "org.opencontainers.image.authors" = "Taha Samy"
+    "org.opencontainers.image.source" = "https://github.com/${OWNER}/${OPENJDK_REPO}"
+    "org.opencontainers.image.licenses" = "Apache-2.0"
+    "org.opencontainers.image.description" = "Hardened FIPS 140-3 compliant OpenJDK standard JRE runtime on Wolfi"
+  }
+}
+
+target "openjdk-prod" {
+  inherits = ["openjdk-base"]
+  platforms = ["linux/amd64", "linux/arm64"]
+  context = "openjdk"
+  dockerfile = "dockerfile"
+  target = "openjdk-distroless"
+  tags = [
+    "${REGISTRY}/${OWNER}/${OPENJDK_REPO}:${OPENJDK_VERSION}-distroless",
+    "${REGISTRY}/${OWNER}/${OPENJDK_REPO}:${OPENJDK_VERSION}-jre_distroless",
+    "${REGISTRY}/${OWNER}/${OPENJDK_REPO}:distroless"
+  ]
+  cache-from = ["type=gha,scope=openjdk-distroless"]
+  cache-to = ["type=gha,mode=max,scope=openjdk-distroless,compression=zstd,compression-level=3"]
+  labels = {
+    "org.opencontainers.image.authors" = "Taha Samy"
+    "org.opencontainers.image.source" = "https://github.com/${OWNER}/${OPENJDK_REPO}"
+    "org.opencontainers.image.licenses" = "Apache-2.0"
+    "org.opencontainers.image.description" = "Hardened FIPS 140-3 compliant Zero-CVE distroless OpenJDK JRE container on Wolfi"
   }
 }
 

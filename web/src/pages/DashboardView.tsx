@@ -86,6 +86,9 @@ export default function DashboardView() {
     if (tag.includes('wolfi-openssl-fips') || runtime?.id === 'openssl') {
       return { url: 'https://github.com/taha2samy/openssl_fips/attestations', isCustom: false, source: 'GitHub Attestations' };
     }
+    if (tag.includes('wolfi-openjdk-fips') || tag.includes('openjdk') || runtime?.id === 'openjdk') {
+      return { url: 'https://github.com/taha2samy/openjdk/attestations', isCustom: false, source: 'GitHub Attestations' };
+    }
     return { url: 'https://github.com/taha2samy-3/node/attestations', isCustom: false, source: 'GitHub Attestations' };
   };
 
@@ -128,7 +131,8 @@ export default function DashboardView() {
   };
 
   const handleCopyVerifyCmd = (tag: string) => {
-    const owner = tag.includes('openssl') ? 'taha2samy' : (tag.split('/')[1] || 'taha2samy-3');
+    const isCustomFips = tag.includes('openssl') || tag.includes('openjdk');
+    const owner = isCustomFips ? 'taha2samy' : (tag.split('/')[1] || 'taha2samy-3');
     const cmd = `gh attestation verify oci://${tag} --owner ${owner}`;
     navigator.clipboard.writeText(cmd);
     setCopiedVerifyTag(tag);
@@ -143,9 +147,10 @@ export default function DashboardView() {
 
   const getPresetsForTag = (tag: string) => {
     const isOpenssl = tag.includes('openssl') || runtime?.id === 'openssl';
-    const owner = isOpenssl ? 'taha2samy' : 'taha2samy-3';
-    const repo = isOpenssl ? 'openssl_fips' : 'node';
-    const pkg = isOpenssl ? 'wolfi-openssl-fips' : 'node';
+    const isOpenjdk = tag.includes('openjdk') || tag.includes('wolfi-openjdk-fips') || runtime?.id === 'openjdk';
+    const owner = isOpenssl || isOpenjdk ? 'taha2samy' : 'taha2samy-3';
+    const repo = isOpenssl ? 'openssl_fips' : isOpenjdk ? 'openjdk' : 'node';
+    const pkg = isOpenssl ? 'wolfi-openssl-fips' : isOpenjdk ? 'wolfi-openjdk-fips' : 'node';
     const entry = (configData as Record<string, any>)[tag];
     const digest = typeof entry === 'object' ? entry?.digest?.replace('sha256:', '') : '';
 
@@ -195,7 +200,7 @@ export default function DashboardView() {
   const cisData = reportsMap[`${runtimeId}-${version}`]?.[activeFlavor.id]?.['cis'] || reportsMap[version || '']?.[activeFlavor.id]?.['cis'];
   const sbomData = reportsMap[`${runtimeId}-${version}`]?.[activeFlavor.id]?.['sbom'] || reportsMap[version || '']?.[activeFlavor.id]?.['sbom'];
 
-  const isFipsRuntime = runtime.id === 'openssl';
+  const isFipsRuntime = runtime.id === 'openssl' || runtime.id === 'openjdk';
 
   const handleCopy = (tag: string) => {
     navigator.clipboard.writeText(`docker pull ${tag}`);
@@ -934,7 +939,8 @@ export default function DashboardView() {
     if (activeSubTab === 'attestation') {
       const activeAttestation = getAttestationUrl(primaryTag);
       const isOpenssl = primaryTag.includes('openssl') || runtime?.id === 'openssl';
-      const owner = isOpenssl ? 'taha2samy' : 'taha2samy-3';
+      const isOpenjdk = primaryTag.includes('openjdk') || runtime?.id === 'openjdk';
+      const owner = isOpenssl || isOpenjdk ? 'taha2samy' : 'taha2samy-3';
       const digest = typeof tagEntry === 'object' ? (tagEntry?.digest || 'sha256:7f4a91b8d231e405a1db0b11c983c54d096121f621743bb9ff9621cb6b7e8c37') : 'sha256:7f4a...';
 
       const ghVerifyCmd = `gh attestation verify oci://${primaryTag} --owner ${owner}`;
