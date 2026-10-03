@@ -1,44 +1,44 @@
 # syntax=docker/dockerfile:1.6
 
 # --- Base Images ---
-ARG BASE_IMAGE="cgr.dev/chainguard/wolfi-base@sha256:9925d3017788558fa8f27e8bb160b791e56202b60c91fbcc5c867de3175986c8"
+ARG BASE_IMAGE="cgr.dev/chainguard/wolfi-base@sha256:824f77df45397eb954dfb963db255907ee8842e3446353ce93d688e5e862f51d"
 ARG STATIC_IMAGE="cgr.dev/chainguard/static@sha256:11ec91f0372630a2ca3764cea6325bebb0189a514084463cbb3724e5bb350d14"
 # --- Version Variables ---
-ARG FIPS_VERSION
-ARG CORE_VERSION
-ARG APK_TOOLS_VER
-ARG BUSYBOX_VER
-ARG GLIBC_VER
-ARG GLIBC_LOCALE_POSIX_VER
-ARG LD_LINUX_VER
-ARG LIBCRYPT1_VER
-ARG LIBXCRYPT_VER
-ARG LIBGCC_VER
-ARG WOLFI_BASE_VER
-ARG WOLFI_BASELAYOUT_VER
-ARG WOLFI_KEYS_VER
+ARG FIPS_VERSION="3.1.2"
+ARG CORE_VERSION="3.5.5"
+ARG APK_TOOLS_VER="2.14.10-r12"
+ARG BUSYBOX_VER="1.37.0-r59"
+ARG GLIBC_VER="2.43-r8"
+ARG GLIBC_LOCALE_POSIX_VER="2.43-r8"
+ARG LD_LINUX_VER="2.43-r8"
+ARG LIBCRYPT1_VER="2.43-r8"
+ARG LIBXCRYPT_VER="4.5.2-r3"
+ARG LIBGCC_VER="16.1.0-r2"
+ARG WOLFI_BASE_VER="1-r7"
+ARG WOLFI_BASELAYOUT_VER="20230201-r29"
+ARG WOLFI_KEYS_VER="1-r13"
 
 # --- Build Stage Packages ---
-ARG BUILD_BASE_VER
-ARG PERL_VER
-ARG LINUX_HEADERS_VER
-ARG WGET_VER
-ARG CA_CERTIFICATES_VER
+ARG BUILD_BASE_VER="1-r9"
+ARG PERL_VER="5.42.2-r3"
+ARG LINUX_HEADERS_VER="7.0.11-r0"
+ARG WGET_VER="1.25.0-r14"
+ARG CA_CERTIFICATES_VER="20260413-r0"
 
 # --- Runtime & Helper Packages ---
-ARG LIBSTDC_PLUS_PLUS_VER
-ARG ZLIB_VER
-ARG TZDATA_VER
-ARG POSIX_LIBC_UTILS_VER
+ARG LIBSTDC_PLUS_PLUS_VER="16.1.0-r2"
+ARG ZLIB_VER="1.3.2-r3"
+ARG TZDATA_VER="2026b-r0"
+ARG POSIX_LIBC_UTILS_VER="2.43-r8"
 
 # --- Dev Tools (SDK Only) ---
-ARG PKGCONF_VER
-ARG PCRE_DEV_VER
-ARG ZLIB_DEV_VER
-ARG BASH_VER
-ARG CURL_VER
-ARG JQ_VER
-ARG UNZIP_VER
+ARG PKGCONF_VER="2.5.1-r2"
+ARG PCRE_DEV_VER="8.45-r7"
+ARG ZLIB_DEV_VER="1.3.2-r3"
+ARG BASH_VER="5.3-r12"
+ARG CURL_VER="8.20.0-r1"
+ARG JQ_VER="1.8.1-r6"
+ARG UNZIP_VER="6.0-r6"
 
 FROM ${BASE_IMAGE} as producer
 ARG APK_TOOLS_VER
@@ -77,13 +77,13 @@ RUN --mount=type=cache,target=/var/cache/apk \
     set -eux; \
     apk add --no-cache --initdb --no-scripts --root /rootfs/distroless \
     --keys-dir /etc/apk/keys --repositories-file /etc/apk/repositories \
-    wolfi-baselayout=${WOLFI_BASELAYOUT_VER} \
-    wolfi-keys=${WOLFI_KEYS_VER} \
-    glibc=${GLIBC_VER} \
-    libgcc=${LIBGCC_VER} \
-    zlib=${ZLIB_VER} \
-    tzdata=${TZDATA_VER} \
-    ca-certificates=${CA_CERTIFICATES_VER}; \
+    wolfi-baselayout${WOLFI_BASELAYOUT_VER:+=$WOLFI_BASELAYOUT_VER} \
+    wolfi-keys${WOLFI_KEYS_VER:+=$WOLFI_KEYS_VER} \
+    glibc${GLIBC_VER:+=$GLIBC_VER} \
+    libgcc${LIBGCC_VER:+=$LIBGCC_VER} \
+    zlib${ZLIB_VER:+=$ZLIB_VER} \
+    tzdata${TZDATA_VER:+=$TZDATA_VER} \
+    ca-certificates${CA_CERTIFICATES_VER:+=$CA_CERTIFICATES_VER}; \
     mkdir -p /rootfs/distroless/etc/apk; \
     cp -a /etc/apk/keys /rootfs/distroless/etc/apk/; \
     cp -a /etc/apk/repositories /rootfs/distroless/etc/apk/; \
@@ -101,16 +101,16 @@ RUN --mount=type=cache,target=/var/cache/apk \
     set -eux; \
     apk add --no-cache --initdb --no-scripts --root /rootfs/standard \
     --keys-dir /etc/apk/keys --repositories-file /etc/apk/repositories \
-    wolfi-baselayout=${WOLFI_BASELAYOUT_VER} \
-    wolfi-keys=${WOLFI_KEYS_VER} \
-    glibc=${GLIBC_VER} \
-    libgcc=${LIBGCC_VER} \
-    zlib=${ZLIB_VER} \
-    tzdata=${TZDATA_VER} \
-    ca-certificates=${CA_CERTIFICATES_VER} \
-    busybox=${BUSYBOX_VER} \
-    posix-libc-utils=${POSIX_LIBC_UTILS_VER} \
-    libstdc++=${LIBSTDC_PLUS_PLUS_VER}; \
+    wolfi-baselayout${WOLFI_BASELAYOUT_VER:+=$WOLFI_BASELAYOUT_VER} \
+    wolfi-keys${WOLFI_KEYS_VER:+=$WOLFI_KEYS_VER} \
+    glibc${GLIBC_VER:+=$GLIBC_VER} \
+    libgcc${LIBGCC_VER:+=$LIBGCC_VER} \
+    zlib${ZLIB_VER:+=$ZLIB_VER} \
+    tzdata${TZDATA_VER:+=$TZDATA_VER} \
+    ca-certificates${CA_CERTIFICATES_VER:+=$CA_CERTIFICATES_VER} \
+    busybox${BUSYBOX_VER:+=$BUSYBOX_VER} \
+    posix-libc-utils${POSIX_LIBC_UTILS_VER:+=$POSIX_LIBC_UTILS_VER} \
+    libstdc++${LIBSTDC_PLUS_PLUS_VER:+=$LIBSTDC_PLUS_PLUS_VER}; \
     mkdir -p /rootfs/standard/etc/apk; \
     cp -a /etc/apk/keys /rootfs/standard/etc/apk/; \
     cp -a /etc/apk/repositories /rootfs/standard/etc/apk/; \
@@ -132,24 +132,24 @@ RUN --mount=type=cache,target=/var/cache/apk \
     set -eux; \
     apk add --no-cache --initdb --no-scripts --root /rootfs/development \
     --keys-dir /etc/apk/keys --repositories-file /etc/apk/repositories \
-    wolfi-baselayout=${WOLFI_BASELAYOUT_VER} \
-    wolfi-keys=${WOLFI_KEYS_VER} \
-    glibc=${GLIBC_VER} \
-    libgcc=${LIBGCC_VER} \
-    zlib=${ZLIB_VER} \
-    tzdata=${TZDATA_VER} \
-    ca-certificates=${CA_CERTIFICATES_VER} \
-    busybox=${BUSYBOX_VER} \
-    posix-libc-utils=${POSIX_LIBC_UTILS_VER} \
-    libstdc++=${LIBSTDC_PLUS_PLUS_VER} \
-    build-base=${BUILD_BASE_VER} \
-    pkgconf=${PKGCONF_VER} \
-    pcre-dev=${PCRE_DEV_VER} \
-    zlib-dev=${ZLIB_DEV_VER} \
-    bash=${BASH_VER} \
-    curl=${CURL_VER} \
-    jq=${JQ_VER} \
-    unzip=${UNZIP_VER}; \
+    wolfi-baselayout${WOLFI_BASELAYOUT_VER:+=$WOLFI_BASELAYOUT_VER} \
+    wolfi-keys${WOLFI_KEYS_VER:+=$WOLFI_KEYS_VER} \
+    glibc${GLIBC_VER:+=$GLIBC_VER} \
+    libgcc${LIBGCC_VER:+=$LIBGCC_VER} \
+    zlib${ZLIB_VER:+=$ZLIB_VER} \
+    tzdata${TZDATA_VER:+=$TZDATA_VER} \
+    ca-certificates${CA_CERTIFICATES_VER:+=$CA_CERTIFICATES_VER} \
+    busybox${BUSYBOX_VER:+=$BUSYBOX_VER} \
+    posix-libc-utils${POSIX_LIBC_UTILS_VER:+=$POSIX_LIBC_UTILS_VER} \
+    libstdc++${LIBSTDC_PLUS_PLUS_VER:+=$LIBSTDC_PLUS_PLUS_VER} \
+    build-base${BUILD_BASE_VER:+=$BUILD_BASE_VER} \
+    pkgconf${PKGCONF_VER:+=$PKGCONF_VER} \
+    pcre-dev${PCRE_DEV_VER:+=$PCRE_DEV_VER} \
+    zlib-dev${ZLIB_DEV_VER:+=$ZLIB_DEV_VER} \
+    bash${BASH_VER:+=$BASH_VER} \
+    curl${CURL_VER:+=$CURL_VER} \
+    jq${JQ_VER:+=$JQ_VER} \
+    unzip${UNZIP_VER:+=$UNZIP_VER}; \
     mkdir -p /rootfs/development/etc/apk; \
     cp -a /etc/apk/keys /rootfs/development/etc/apk/; \
     cp -a /etc/apk/repositories /rootfs/development/etc/apk/; \
@@ -176,14 +176,15 @@ ARG CA_CERTIFICATES_VER
 ARG FIPS_VERSION
 RUN --mount=type=cache,target=/var/cache/apk \
     apk add --no-cache \
-    build-base=${BUILD_BASE_VER} \
-    perl=${PERL_VER} \
-    linux-headers=${LINUX_HEADERS_VER} \
-    wget=${WGET_VER} \
-    ca-certificates=${CA_CERTIFICATES_VER}
+    build-base${BUILD_BASE_VER:+=$BUILD_BASE_VER} \
+    perl${PERL_VER:+=$PERL_VER} \
+    linux-headers${LINUX_HEADERS_VER:+=$LINUX_HEADERS_VER} \
+    wget${WGET_VER:+=$WGET_VER} \
+    ca-certificates${CA_CERTIFICATES_VER:+=$CA_CERTIFICATES_VER}
 
 WORKDIR /src
-RUN wget -q https://www.openssl.org/source/old/3.1/openssl-${FIPS_VERSION}.tar.gz || \
+RUN wget -q https://github.com/openssl/openssl/releases/download/openssl-${FIPS_VERSION}/openssl-${FIPS_VERSION}.tar.gz || \
+    wget -q https://www.openssl.org/source/old/3.1/openssl-${FIPS_VERSION}.tar.gz || \
     wget -q https://www.openssl.org/source/openssl-${FIPS_VERSION}.tar.gz && \
     tar -xf openssl-${FIPS_VERSION}.tar.gz
 
@@ -201,14 +202,16 @@ ARG WGET_VER
 ARG CA_CERTIFICATES_VER
 RUN --mount=type=cache,target=/var/cache/apk \
     apk add --no-cache \
-    build-base=${BUILD_BASE_VER} \
-    perl=${PERL_VER} \
-    linux-headers=${LINUX_HEADERS_VER} \
-    wget=${WGET_VER} \
-    ca-certificates=${CA_CERTIFICATES_VER}
+    build-base${BUILD_BASE_VER:+=$BUILD_BASE_VER} \
+    perl${PERL_VER:+=$PERL_VER} \
+    linux-headers${LINUX_HEADERS_VER:+=$LINUX_HEADERS_VER} \
+    wget${WGET_VER:+=$WGET_VER} \
+    ca-certificates${CA_CERTIFICATES_VER:+=$CA_CERTIFICATES_VER}
 
 WORKDIR /src
-RUN wget -q https://www.openssl.org/source/openssl-${CORE_VERSION}.tar.gz || \
+RUN wget -q https://github.com/openssl/openssl/releases/download/openssl-${CORE_VERSION}/openssl-${CORE_VERSION}.tar.gz || \
+    wget -q https://www.openssl.org/source/openssl-${CORE_VERSION}.tar.gz || \
+    wget -q https://www.openssl.org/source/old/3.5/openssl-${CORE_VERSION}.tar.gz || \
     wget -q https://www.openssl.org/source/old/3.4/openssl-${CORE_VERSION}.tar.gz && \
     tar -xf openssl-${CORE_VERSION}.tar.gz
 
@@ -257,7 +260,11 @@ ARG ZLIB_VER
 ARG TZDATA_VER
 ARG POSIX_LIBC_UTILS_VER
 RUN --mount=type=cache,target=/var/cache/apk \
-    apk add --no-cache libstdc++=${LIBSTDC_PLUS_PLUS_VER} zlib=${ZLIB_VER} tzdata=${TZDATA_VER} posix-libc-utils=${POSIX_LIBC_UTILS_VER}
+    apk add --no-cache \
+    libstdc++${LIBSTDC_PLUS_PLUS_VER:+=$LIBSTDC_PLUS_PLUS_VER} \
+    zlib${ZLIB_VER:+=$ZLIB_VER} \
+    tzdata${TZDATA_VER:+=$TZDATA_VER} \
+    posix-libc-utils${POSIX_LIBC_UTILS_VER:+=$POSIX_LIBC_UTILS_VER}
 RUN addgroup -g 1000 openssl && adduser -u 1000 -G openssl -D -s /bin/bash openssl
 RUN mkdir -p /etc && touch /etc/nsswitch.conf
 RUN cp /usr/share/zoneinfo/UTC /etc/localtime && echo "UTC" > /etc/timezone
