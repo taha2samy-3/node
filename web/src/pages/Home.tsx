@@ -127,6 +127,12 @@ export default function Home() {
                 >
                   Explore Wolfi OpenJDK FIPS Dashboard <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
+                <Link
+                  to="/runtime/node-fips/24"
+                  className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-emerald-500 hover:underline"
+                >
+                  Explore Node.js FIPS Dashboard <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
               </div>
             </div>
           </li>

@@ -7,7 +7,7 @@ mkdir -p "$RESULT_DIR"
 docker rmi fips-bench debian-bench alpine-bench ubuntu-bench -f 2>/dev/null || true
 
 docker build -t fips-bench - <<EOF
-FROM ghcr.io/taha2samy/wolfi-openssl-fips:latest
+FROM ghcr.io/taha2samy-3/openssl-fips:latest
 USER root
 ENTRYPOINT ["openssl"]
 EOF

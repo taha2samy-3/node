@@ -25,9 +25,9 @@ A high-assurance container runtime delivering **OpenSSL 3.5.x** with the **FIPS 
 
 | Target | Image Tag | Description |
 | :--- | :--- | :--- |
-| `openssl-dev` | `ghcr.io/taha2samy-3/wolfi-openssl-fips:3.5.5-dev` | Development image with C headers, compiler, and debug tools |
-| `openssl-standard` | `ghcr.io/taha2samy-3/wolfi-openssl-fips:3.5.5` | Standard runtime with OpenSSL binary and core shared libs |
-| `openssl-prod` | `ghcr.io/taha2samy-3/wolfi-openssl-fips:3.5.5-distroless` | Hardened distroless container for secure microservices |
+| `openssl-dev` | `ghcr.io/taha2samy-3/openssl-fips:3.5.5-dev` | Development image with C headers, compiler, and debug tools |
+| `openssl-standard` | `ghcr.io/taha2samy-3/openssl-fips:3.5.5` | Standard runtime with OpenSSL binary and core shared libs |
+| `openssl-prod` | `ghcr.io/taha2samy-3/openssl-fips:3.5.5-distroless` | Hardened distroless container for secure microservices |
 
 ---
 
@@ -35,10 +35,10 @@ A high-assurance container runtime delivering **OpenSSL 3.5.x** with the **FIPS 
 
 ```bash
 # Pull production distroless image
-docker pull ghcr.io/taha2samy-3/wolfi-openssl-fips:3.5.5-distroless
+docker pull ghcr.io/taha2samy-3/openssl-fips:3.5.5-distroless
 
 # Verify FIPS provider status
-docker run --rm ghcr.io/taha2samy-3/wolfi-openssl-fips:3.5.5 openssl list -providers -verbose
+docker run --rm ghcr.io/taha2samy-3/openssl-fips:3.5.5 openssl list -providers -verbose
 ```
 
 ---

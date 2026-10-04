@@ -5,6 +5,7 @@ runtimes:
   - id: "openssl"
     title: "Wolfi OpenSSL FIPS"
     icon: "https://cdn.simpleicons.org/openssl/E03C31"
+    fips: true
     architectures:
       - "linux/amd64"
       - "linux/arm64"
@@ -16,8 +17,8 @@ runtimes:
             policy_header: "Hardened Minimal Distroless FIPS 140-3 Runtime"
             policy_text: "Ultra-hardened, Zero-CVE distroless runtime built directly from scratch with no shell, no busybox, and no package manager. Enforces strict FIPS 140-3 cryptographic boundaries, KAT/POST self-tests, and SLSA L3 provenance."
             tags:
-              - "ghcr.io/taha2samy-3/wolfi-openssl-fips:3.5.5-distroless"
-              - "ghcr.io/taha2samy-3/wolfi-openssl-fips:distroless"
+              - "ghcr.io/taha2samy-3/openssl-fips:3.5.5-distroless"
+              - "ghcr.io/taha2samy-3/openssl-fips:distroless"
             reports:
               vuln: "./../reports/openssl-3.5-prod-vuln.json"
               cis: "./../reports/openssl-3.5-prod-cis.json"
@@ -27,8 +28,8 @@ runtimes:
             policy_header: "Production Hardened Standard FIPS Runtime"
             policy_text: "Wolfi-based secure container with OpenSSL 3.5 and FIPS 140-3 provider active by default. Includes non-root busybox shell and runtime utilities."
             tags:
-              - "ghcr.io/taha2samy-3/wolfi-openssl-fips:3.5.5"
-              - "ghcr.io/taha2samy-3/wolfi-openssl-fips:latest"
+              - "ghcr.io/taha2samy-3/openssl-fips:3.5.5"
+              - "ghcr.io/taha2samy-3/openssl-fips:latest"
             reports:
               vuln: "./../reports/openssl-3.5-standard-vuln.json"
               cis: "./../reports/openssl-3.5-standard-cis.json"
@@ -38,8 +39,8 @@ runtimes:
             policy_header: "Full OpenSSL FIPS Development & Cryptographic SDK"
             policy_text: "Contains OpenSSL 3.5 FIPS module, C headers, pkg-config, build-base, and developer tools for building FIPS-compliant applications."
             tags:
-              - "ghcr.io/taha2samy-3/wolfi-openssl-fips:3.5.5-dev"
-              - "ghcr.io/taha2samy-3/wolfi-openssl-fips:dev"
+              - "ghcr.io/taha2samy-3/openssl-fips:3.5.5-dev"
+              - "ghcr.io/taha2samy-3/openssl-fips:dev"
             reports:
               vuln: "./../reports/openssl-3.5-dev-vuln.json"
               cis: "./../reports/openssl-3.5-dev-cis.json"
@@ -51,10 +52,47 @@ runtimes:
   - id: "openjdk"
     title: "Wolfi OpenJDK FIPS"
     icon: "https://cdn.simpleicons.org/openjdk/white"
+    fips: true
     architectures:
       - "linux/amd64"
       - "linux/arm64"
     versions:
+      - version: "25"
+        flavors:
+          - id: "prod"
+            name: "Distroless FIPS Runtime (Scratch)"
+            policy_header: "Hardened Minimal Distroless JRE FIPS 140-3 Runtime"
+            policy_text: "Ultra-hardened, Zero-CVE distroless Java runtime built from scratch with no shell and no package manager. Enforces strict FIPS 140-3 cryptographic boundaries, Bouncy Castle FIPS (BC-FJA) provider, BCFKS keystore, and SLSA L3 provenance."
+            tags:
+              - "ghcr.io/taha2samy-3/wolfi-openjdk-fips:25-distroless"
+              - "ghcr.io/taha2samy-3/wolfi-openjdk-fips:25-jre_distroless"
+            reports:
+              vuln: "./../reports/openjdk-25-prod-vuln.json"
+              cis: "./../reports/openjdk-25-prod-cis.json"
+              sbom: "./../reports/openjdk-25-prod-sbom.json"
+          - id: "standard"
+            name: "Standard FIPS Runtime (with Shell)"
+            policy_header: "Production Hardened Standard JRE FIPS Runtime"
+            policy_text: "Wolfi-based secure container with Eclipse Temurin OpenJDK 25 JRE and Bouncy Castle FIPS 140-3 provider active by default. Includes non-root busybox shell and runtime utilities."
+            tags:
+              - "ghcr.io/taha2samy-3/wolfi-openjdk-fips:25"
+              - "ghcr.io/taha2samy-3/wolfi-openjdk-fips:25-jre_standard"
+            reports:
+              vuln: "./../reports/openjdk-25-standard-vuln.json"
+              cis: "./../reports/openjdk-25-standard-cis.json"
+              sbom: "./../reports/openjdk-25-standard-sbom.json"
+          - id: "dev"
+            name: "Development Builder (with SDK & Compilers)"
+            policy_header: "Full OpenJDK 25 FIPS Development & Cryptographic SDK"
+            policy_text: "Contains full Eclipse Temurin JDK 25 SDK with javac, build tools, Bouncy Castle FIPS cryptographic provider, and developer utilities."
+            tags:
+              - "ghcr.io/taha2samy-3/wolfi-openjdk-fips:25-dev"
+              - "ghcr.io/taha2samy-3/wolfi-openjdk-fips:25-jdk_standard"
+            reports:
+              vuln: "./../reports/openjdk-25-dev-vuln.json"
+              cis: "./../reports/openjdk-25-dev-cis.json"
+              sbom: "./../reports/openjdk-25-dev-sbom.json"
+
       - version: "21"
         flavors:
           - id: "prod"
@@ -93,6 +131,155 @@ runtimes:
               vuln: "./../reports/openjdk-21-dev-vuln.json"
               cis: "./../reports/openjdk-21-dev-cis.json"
               sbom: "./../reports/openjdk-21-dev-sbom.json"
+
+      - version: "17"
+        flavors:
+          - id: "prod"
+            name: "Distroless FIPS Runtime (Scratch)"
+            policy_header: "Hardened Minimal Distroless JRE FIPS 140-3 Runtime"
+            policy_text: "Ultra-hardened, Zero-CVE distroless Java runtime built from scratch with no shell and no package manager. Enforces strict FIPS 140-3 cryptographic boundaries, Bouncy Castle FIPS (BC-FJA) provider, BCFKS keystore, and SLSA L3 provenance."
+            tags:
+              - "ghcr.io/taha2samy-3/wolfi-openjdk-fips:17-distroless"
+              - "ghcr.io/taha2samy-3/wolfi-openjdk-fips:17-jre_distroless"
+            reports:
+              vuln: "./../reports/openjdk-17-prod-vuln.json"
+              cis: "./../reports/openjdk-17-prod-cis.json"
+              sbom: "./../reports/openjdk-17-prod-sbom.json"
+          - id: "standard"
+            name: "Standard FIPS Runtime (with Shell)"
+            policy_header: "Production Hardened Standard JRE FIPS Runtime"
+            policy_text: "Wolfi-based secure container with Eclipse Temurin OpenJDK 17 JRE and Bouncy Castle FIPS 140-3 provider active by default. Includes non-root busybox shell and runtime utilities."
+            tags:
+              - "ghcr.io/taha2samy-3/wolfi-openjdk-fips:17"
+              - "ghcr.io/taha2samy-3/wolfi-openjdk-fips:17-jre_standard"
+            reports:
+              vuln: "./../reports/openjdk-17-standard-vuln.json"
+              cis: "./../reports/openjdk-17-standard-cis.json"
+              sbom: "./../reports/openjdk-17-standard-sbom.json"
+          - id: "dev"
+            name: "Development Builder (with SDK & Compilers)"
+            policy_header: "Full OpenJDK 17 FIPS Development & Cryptographic SDK"
+            policy_text: "Contains full Eclipse Temurin JDK 17 SDK with javac, build tools, Bouncy Castle FIPS cryptographic provider, and developer utilities."
+            tags:
+              - "ghcr.io/taha2samy-3/wolfi-openjdk-fips:17-dev"
+              - "ghcr.io/taha2samy-3/wolfi-openjdk-fips:17-jdk_standard"
+            reports:
+              vuln: "./../reports/openjdk-17-dev-vuln.json"
+              cis: "./../reports/openjdk-17-dev-cis.json"
+              sbom: "./../reports/openjdk-17-dev-sbom.json"
+
+      - version: "8"
+        flavors:
+          - id: "prod"
+            name: "Distroless FIPS Runtime (Scratch)"
+            policy_header: "Hardened Minimal Distroless JRE FIPS 140-3 Runtime"
+            policy_text: "Ultra-hardened, Zero-CVE distroless Java runtime built from scratch with no shell and no package manager. Enforces strict FIPS 140-3 cryptographic boundaries, Bouncy Castle FIPS (BC-FJA) provider, BCFKS keystore, and SLSA L3 provenance."
+            tags:
+              - "ghcr.io/taha2samy-3/wolfi-openjdk-fips:8-distroless"
+              - "ghcr.io/taha2samy-3/wolfi-openjdk-fips:8-jre_distroless"
+            reports:
+              vuln: "./../reports/openjdk-8-prod-vuln.json"
+              cis: "./../reports/openjdk-8-prod-cis.json"
+              sbom: "./../reports/openjdk-8-prod-sbom.json"
+          - id: "standard"
+            name: "Standard FIPS Runtime (with Shell)"
+            policy_header: "Production Hardened Standard JRE FIPS Runtime"
+            policy_text: "Wolfi-based secure container with Eclipse Temurin OpenJDK 8 JRE and Bouncy Castle FIPS 140-3 provider active by default. Includes non-root busybox shell and runtime utilities."
+            tags:
+              - "ghcr.io/taha2samy-3/wolfi-openjdk-fips:8"
+              - "ghcr.io/taha2samy-3/wolfi-openjdk-fips:8-jre_standard"
+            reports:
+              vuln: "./../reports/openjdk-8-standard-vuln.json"
+              cis: "./../reports/openjdk-8-standard-cis.json"
+              sbom: "./../reports/openjdk-8-standard-sbom.json"
+          - id: "dev"
+            name: "Development Builder (with SDK & Compilers)"
+            policy_header: "Full OpenJDK 8 FIPS Development & Cryptographic SDK"
+            policy_text: "Contains full Eclipse Temurin JDK 8 SDK with javac, build tools, Bouncy Castle FIPS cryptographic provider, and developer utilities."
+            tags:
+              - "ghcr.io/taha2samy-3/wolfi-openjdk-fips:8-dev"
+              - "ghcr.io/taha2samy-3/wolfi-openjdk-fips:8-jdk_standard"
+            reports:
+              vuln: "./../reports/openjdk-8-dev-vuln.json"
+              cis: "./../reports/openjdk-8-dev-cis.json"
+              sbom: "./../reports/openjdk-8-dev-sbom.json"
+
+  # ==========================================
+  # Node.js FIPS 140-3 Runtimes
+  # ==========================================
+  - id: "node-fips"
+    title: "Node.js FIPS"
+    icon: "https://cdn.simpleicons.org/nodedotjs/339933"
+    fips: true
+    architectures:
+      - "linux/amd64"
+      - "linux/arm64"
+    versions:
+      - version: "24"
+        flavors:
+          - id: "prod"
+            name: "Distroless FIPS Runtime (Scratch)"
+            policy_header: "Hardened Distroless Node.js 24 FIPS 140-3 Runtime"
+            policy_text: "Node.js 24 on a scratch root filesystem with no shell and no package manager. Wolfi's Node.js loads the validated OpenSSL FIPS 3.1.2 provider, approved algorithms are the default, and --force-fips stops applications from switching FIPS mode off."
+            tags:
+              - "ghcr.io/taha2samy-3/node-fips:24-distroless"
+            reports:
+              vuln: "./../reports/node-fips-24-prod-vuln.json"
+              cis: "./../reports/node-fips-24-prod-cis.json"
+              sbom: "./../reports/node-fips-24-prod-sbom.json"
+          - id: "standard"
+            name: "Standard FIPS Runtime (with Shell)"
+            policy_header: "Production Node.js 24 FIPS 140-3 Runtime"
+            policy_text: "Minimal Node.js 24 runtime with tini and a non-root busybox shell. Non-approved algorithms such as MD5, ChaCha20 and RSA-1024 are rejected by the OpenSSL FIPS provider."
+            tags:
+              - "ghcr.io/taha2samy-3/node-fips:24"
+            reports:
+              vuln: "./../reports/node-fips-24-standard-vuln.json"
+              cis: "./../reports/node-fips-24-standard-cis.json"
+              sbom: "./../reports/node-fips-24-standard-sbom.json"
+          - id: "dev"
+            name: "Development Builder (with NPM)"
+            policy_header: "Node.js 24 FIPS Development Suite"
+            policy_text: "Node.js 24 with npm for building and testing applications under the same enforced OpenSSL FIPS 140-3 policy as the runtime images."
+            tags:
+              - "ghcr.io/taha2samy-3/node-fips:24-dev"
+            reports:
+              vuln: "./../reports/node-fips-24-dev-vuln.json"
+              cis: "./../reports/node-fips-24-dev-cis.json"
+              sbom: "./../reports/node-fips-24-dev-sbom.json"
+
+      - version: "22"
+        flavors:
+          - id: "prod"
+            name: "Distroless FIPS Runtime (Scratch)"
+            policy_header: "Hardened Distroless Node.js 22 FIPS 140-3 Runtime"
+            policy_text: "Node.js 22 on a scratch root filesystem with no shell and no package manager. Wolfi's Node.js loads the validated OpenSSL FIPS 3.1.2 provider, approved algorithms are the default, and --force-fips stops applications from switching FIPS mode off."
+            tags:
+              - "ghcr.io/taha2samy-3/node-fips:22-distroless"
+            reports:
+              vuln: "./../reports/node-fips-22-prod-vuln.json"
+              cis: "./../reports/node-fips-22-prod-cis.json"
+              sbom: "./../reports/node-fips-22-prod-sbom.json"
+          - id: "standard"
+            name: "Standard FIPS Runtime (with Shell)"
+            policy_header: "Production Node.js 22 FIPS 140-3 Runtime"
+            policy_text: "Minimal Node.js 22 runtime with tini and a non-root busybox shell. Non-approved algorithms such as MD5, ChaCha20 and RSA-1024 are rejected by the OpenSSL FIPS provider."
+            tags:
+              - "ghcr.io/taha2samy-3/node-fips:22"
+            reports:
+              vuln: "./../reports/node-fips-22-standard-vuln.json"
+              cis: "./../reports/node-fips-22-standard-cis.json"
+              sbom: "./../reports/node-fips-22-standard-sbom.json"
+          - id: "dev"
+            name: "Development Builder (with NPM)"
+            policy_header: "Node.js 22 FIPS Development Suite"
+            policy_text: "Node.js 22 with npm for building and testing applications under the same enforced OpenSSL FIPS 140-3 policy as the runtime images."
+            tags:
+              - "ghcr.io/taha2samy-3/node-fips:22-dev"
+            reports:
+              vuln: "./../reports/node-fips-22-dev-vuln.json"
+              cis: "./../reports/node-fips-22-dev-cis.json"
+              sbom: "./../reports/node-fips-22-dev-sbom.json"
 
   # ==========================================
   # Node.js Runtimes

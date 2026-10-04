@@ -1,44 +1,87 @@
 name: Generate Security Dashboard and Deploy
 
 on:
-  workflow_dispatch: 
+  workflow_dispatch:
+    inputs:
+      rescan:
+        description: "What to rescan: 'missing' (images without stored reports), 'all', or runtimes / versions such as 'node-22 openjdk'"
+        required: false
+        default: missing
   push:
     branches:
       - main
     paths:
       - 'web/**'
+      - 'scripts/fetch_metadata.py'
   workflow_run:
     workflows: ["Build and Push Images"]
     types:
       - completed
 
+# Queue instead of cancelling so the reports of every finished build reach the dashboard
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true  
+  cancel-in-progress: false
 
 jobs:
-  cleanup-previous-runs:
-    name: Purge Stale Artifacts (New Run Inbound)
+  plan:
+    name: Plan Security Scans
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       actions: write
+    outputs:
+      scans: ${{ steps.plan.outputs.scans }}
+      has_scans: ${{ steps.plan.outputs.has_scans }}
+
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+
       - name: Delete Stale Report Artifacts from Previous Runs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "🧹 Purging leftover report artifacts from previous workflow runs..."
           OLD_IDS=$(gh api --paginate /repos/${{ github.repository }}/actions/artifacts --jq '.artifacts[] | select(.name | startswith("reports-")) | .id')
-          if [ -n "$OLD_IDS" ]; then
-            for ID in $OLD_IDS; do
-              echo "Purging old artifact ID: $ID"
-              gh api -X DELETE /repos/${{ github.repository }}/actions/artifacts/$ID || true
-            done
+          for ID in $OLD_IDS; do
+            gh api -X DELETE /repos/${{ github.repository }}/actions/artifacts/"$ID" || true
+          done
+
+      - name: Restore Published Reports
+        run: |
+          mkdir -p store
+          if git fetch --depth=1 origin gh-pages 2>/dev/null && git cat-file -e FETCH_HEAD:reports 2>/dev/null; then
+            git archive FETCH_HEAD reports | tar -x -C store
           fi
-          echo "✅ Stale report artifacts cleared."
+          mkdir -p store/reports
+          echo "Stored reports: $(find store/reports -name '*.json' | wc -l)"
+
+      - name: Download Build Plan
+        if: github.event_name == 'workflow_run'
+        continue-on-error: true
+        uses: actions/download-artifact@v8
+        with:
+          name: build-plan
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - name: Install Planner Dependencies
+        run: pip install pyyaml
+
+      - name: Plan Scans
+        id: plan
+        env:
+          RESCAN: ${{ inputs.rescan || 'missing' }}
+        run: python .github/scripts/plan_images.py scan --mode "$RESCAN" --store store/reports --build-plan build-plan.json
 
   scan-images:
-    needs: cleanup-previous-runs
+    needs: plan
+    if: needs.plan.outputs.has_scans == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -46,58 +89,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          # --- Node.js ---
-          - { type: "node", version: "18", image: "ghcr.io/taha2samy-3/node:18-dev", v_out: "18-dev-vuln.json", c_out: "18-dev-cis.json", s_out: "18-dev-sbom.json" }
-          - { type: "node", version: "18", image: "ghcr.io/taha2samy-3/node:18", v_out: "18-prod-vuln.json", c_out: "18-prod-cis.json", s_out: "18-prod-sbom.json" }
-          - { type: "node", version: "20", image: "ghcr.io/taha2samy-3/node:20-dev", v_out: "20-dev-vuln.json", c_out: "20-dev-cis.json", s_out: "20-dev-sbom.json" }
-          - { type: "node", version: "20", image: "ghcr.io/taha2samy-3/node:20", v_out: "20-prod-vuln.json", c_out: "20-prod-cis.json", s_out: "20-prod-sbom.json" }
+        include: ${{ fromJSON(needs.plan.outputs.scans) }}
 
-          - { type: "node", version: "22", image: "ghcr.io/taha2samy-3/node:22-dev", v_out: "22-dev-vuln.json", c_out: "22-dev-cis.json", s_out: "22-dev-sbom.json" }
-          - { type: "node", version: "22", image: "ghcr.io/taha2samy-3/node:22", v_out: "22-prod-vuln.json", c_out: "22-prod-cis.json", s_out: "22-prod-sbom.json" }
-          
-          - { type: "node", version: "24", image: "ghcr.io/taha2samy-3/node:24-dev", v_out: "24-dev-vuln.json", c_out: "24-dev-cis.json", s_out: "24-dev-sbom.json" }
-          - { type: "node", version: "24", image: "ghcr.io/taha2samy-3/node:24", v_out: "24-prod-vuln.json", c_out: "24-prod-cis.json", s_out: "24-prod-sbom.json" }
-          # --- Python ---
-          - { type: "python", version: "3.10", image: "ghcr.io/taha2samy-3/python:3.10-dev", v_out: "3.10-dev-vuln.json", c_out: "3.10-dev-cis.json", s_out: "3.10-dev-sbom.json" }
-          - { type: "python", version: "3.10", image: "ghcr.io/taha2samy-3/python:3.10", v_out: "3.10-prod-vuln.json", c_out: "3.10-prod-cis.json", s_out: "3.10-prod-sbom.json" }
-          - { type: "python", version: "3.11", image: "ghcr.io/taha2samy-3/python:3.11-dev", v_out: "3.11-dev-vuln.json", c_out: "3.11-dev-cis.json", s_out: "3.11-dev-sbom.json" }
-          - { type: "python", version: "3.11", image: "ghcr.io/taha2samy-3/python:3.11", v_out: "3.11-prod-vuln.json", c_out: "3.11-prod-cis.json", s_out: "3.11-prod-sbom.json" }
-          - { type: "python", version: "3.12", image: "ghcr.io/taha2samy-3/python:3.12-dev", v_out: "3.12-dev-vuln.json", c_out: "3.12-dev-cis.json", s_out: "3.12-dev-sbom.json" }
-          - { type: "python", version: "3.12", image: "ghcr.io/taha2samy-3/python:3.12", v_out: "3.12-prod-vuln.json", c_out: "3.12-prod-cis.json", s_out: "3.12-prod-sbom.json" }
-          - { type: "python", version: "3.13", image: "ghcr.io/taha2samy-3/python:3.13-dev", v_out: "3.13-dev-vuln.json", c_out: "3.13-dev-cis.json", s_out: "3.13-dev-sbom.json" }
-          - { type: "python", version: "3.13", image: "ghcr.io/taha2samy-3/python:3.13", v_out: "3.13-prod-vuln.json", c_out: "3.13-prod-cis.json", s_out: "3.13-prod-sbom.json" }
-          - { type: "python", version: "3.14", image: "ghcr.io/taha2samy-3/python:3.14-dev", v_out: "3.14-dev-vuln.json", c_out: "3.14-dev-cis.json", s_out: "3.14-dev-sbom.json" }
-          - { type: "python", version: "3.14", image: "ghcr.io/taha2samy-3/python:3.14", v_out: "3.14-prod-vuln.json", c_out: "3.14-prod-cis.json", s_out: "3.14-prod-sbom.json" }
-          # --- Bun ---
-          - { type: "bun", version: "1", image: "ghcr.io/taha2samy-3/bun:1-dev", v_out: "1-dev-vuln.json", c_out: "1-dev-cis.json", s_out: "1-dev-sbom.json" }
-          - { type: "bun", version: "1", image: "ghcr.io/taha2samy-3/bun:1", v_out: "1-prod-vuln.json", c_out: "1-prod-cis.json", s_out: "1-prod-sbom.json" }
-          # --- Node 26 ---
-          - { type: "node", version: "26", image: "ghcr.io/taha2samy-3/node:26-dev", v_out: "26-dev-vuln.json", c_out: "26-dev-cis.json", s_out: "26-dev-sbom.json" }
-          - { type: "node", version: "26", image: "ghcr.io/taha2samy-3/node:26", v_out: "26-prod-vuln.json", c_out: "26-prod-cis.json", s_out: "26-prod-sbom.json" }
-          # --- Java OpenJDK ---
-          - { type: "java", version: "17", image: "ghcr.io/taha2samy-3/java:17-dev", v_out: "17-dev-vuln.json", c_out: "17-dev-cis.json", s_out: "17-dev-sbom.json" }
-          - { type: "java", version: "17", image: "ghcr.io/taha2samy-3/java:17", v_out: "17-prod-vuln.json", c_out: "17-prod-cis.json", s_out: "17-prod-sbom.json" }
-          - { type: "java", version: "21", image: "ghcr.io/taha2samy-3/java:21-dev", v_out: "21-dev-vuln.json", c_out: "21-dev-cis.json", s_out: "21-dev-sbom.json" }
-          - { type: "java", version: "21", image: "ghcr.io/taha2samy-3/java:21", v_out: "21-prod-vuln.json", c_out: "21-prod-cis.json", s_out: "21-prod-sbom.json" }
-          - { type: "java", version: "23", image: "ghcr.io/taha2samy-3/java:23-dev", v_out: "23-dev-vuln.json", c_out: "23-dev-cis.json", s_out: "23-dev-sbom.json" }
-          - { type: "java", version: "23", image: "ghcr.io/taha2samy-3/java:23", v_out: "23-prod-vuln.json", c_out: "23-prod-cis.json", s_out: "23-prod-sbom.json" }
-          # --- Go ---
-          - { type: "go", version: "1.22", image: "ghcr.io/taha2samy-3/go:1.22-dev", v_out: "1.22-dev-vuln.json", c_out: "1.22-dev-cis.json", s_out: "1.22-dev-sbom.json" }
-          - { type: "go", version: "1.22", image: "ghcr.io/taha2samy-3/go:1.22", v_out: "1.22-prod-vuln.json", c_out: "1.22-prod-cis.json", s_out: "1.22-prod-sbom.json" }
-          - { type: "go", version: "1.23", image: "ghcr.io/taha2samy-3/go:1.23-dev", v_out: "1.23-dev-vuln.json", c_out: "1.23-dev-cis.json", s_out: "1.23-dev-sbom.json" }
-          - { type: "go", version: "1.23", image: "ghcr.io/taha2samy-3/go:1.23", v_out: "1.23-prod-vuln.json", c_out: "1.23-prod-cis.json", s_out: "1.23-prod-sbom.json" }
-          - { type: "go", version: "1.24", image: "ghcr.io/taha2samy-3/go:1.24-dev", v_out: "1.24-dev-vuln.json", c_out: "1.24-dev-cis.json", s_out: "1.24-dev-sbom.json" }
-          - { type: "go", version: "1.24", image: "ghcr.io/taha2samy-3/go:1.24", v_out: "1.24-prod-vuln.json", c_out: "1.24-prod-cis.json", s_out: "1.24-prod-sbom.json" }
-          # --- OpenSSL FIPS ---
-          - { type: "openssl", version: "3.5", image: "ghcr.io/taha2samy-3/wolfi-openssl-fips:3.5.5-dev", v_out: "openssl-3.5-dev-vuln.json", c_out: "openssl-3.5-dev-cis.json", s_out: "openssl-3.5-dev-sbom.json" }
-          - { type: "openssl", version: "3.5", image: "ghcr.io/taha2samy-3/wolfi-openssl-fips:3.5.5", v_out: "openssl-3.5-standard-vuln.json", c_out: "openssl-3.5-standard-cis.json", s_out: "openssl-3.5-standard-sbom.json" }
-          - { type: "openssl", version: "3.5", image: "ghcr.io/taha2samy-3/wolfi-openssl-fips:3.5.5-distroless", v_out: "openssl-3.5-prod-vuln.json", c_out: "openssl-3.5-prod-cis.json", s_out: "openssl-3.5-prod-sbom.json" }
-          # --- OpenJDK FIPS ---
-          - { type: "openjdk", version: "21", image: "ghcr.io/taha2samy-3/wolfi-openjdk-fips:21-dev", v_out: "openjdk-21-dev-vuln.json", c_out: "openjdk-21-dev-cis.json", s_out: "openjdk-21-dev-sbom.json" }
-          - { type: "openjdk", version: "21", image: "ghcr.io/taha2samy-3/wolfi-openjdk-fips:21", v_out: "openjdk-21-standard-vuln.json", c_out: "openjdk-21-standard-cis.json", s_out: "openjdk-21-standard-sbom.json" }
-          - { type: "openjdk", version: "21", image: "ghcr.io/taha2samy-3/wolfi-openjdk-fips:21-distroless", v_out: "openjdk-21-prod-vuln.json", c_out: "openjdk-21-prod-cis.json", s_out: "openjdk-21-prod-sbom.json" }
-
+    name: scan (${{ matrix.suffix }})
     steps:
       - name: Checkout Code
         uses: actions/checkout@v7
@@ -113,13 +107,14 @@ jobs:
         uses: ./.github/actions/trivy-scan
         with:
           image: ${{ matrix.image }}
-          vuln_out: ${{ matrix.v_out }}
-          cis_out: ${{ matrix.c_out }}
-          sbom_out: ${{ matrix.s_out }}
-          artifact_name: "reports-${{ matrix.type }}-${{ matrix.version }}-${{ matrix.v_out }}"
+          vuln_out: ${{ matrix.report }}-vuln.json
+          cis_out: ${{ matrix.report }}-cis.json
+          sbom_out: ${{ matrix.report }}-sbom.json
+          artifact_name: "reports-${{ matrix.suffix }}"
 
   deploy-web:
-    needs: scan-images
+    needs: [plan, scan-images]
+    if: "!cancelled() && needs.plan.result == 'success'"
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -132,16 +127,32 @@ jobs:
       - name: Clean Stale Runner Directory (Lifecycle Policy)
         run: rm -rf reports reports4ms web/dist
 
-      - name: Download and Merge Reports
-        uses: actions/download-artifact@v4
+      # Reports of images that were not rescanned keep their last published version
+      - name: Restore Published Reports
+        run: |
+          mkdir -p reports
+          if git fetch --depth=1 origin gh-pages 2>/dev/null && git cat-file -e FETCH_HEAD:reports 2>/dev/null; then
+            git archive FETCH_HEAD reports | tar -x
+          fi
+
+      - name: Download New Scan Reports
+        if: needs.scan-images.result == 'success' || needs.scan-images.result == 'failure'
+        uses: actions/download-artifact@v8
         with:
           path: reports
+          pattern: reports-*
           merge-multiple: true
 
       - name: Set up Python
         uses: actions/setup-python@v7
         with:
           python-version: '3.12'
+
+      - name: Install Python Dependencies
+        run: pip install pyyaml
+
+      - name: Drop Reports of Images No Longer Published
+        run: python .github/scripts/plan_images.py prune --store reports
 
       - name: Generate Image Sizes Metadata (reports/config.json)
         env:
@@ -164,11 +175,12 @@ jobs:
         working-directory: web
         run: npm run build
 
-      - name: Clean Ephemeral Reports Directory (Lifecycle Policy)
-        run: rm -rf reports reports4ms
-
-      - name: tree all infra
-        run: tree -a 
+      # Published next to the site so the next deploy can reuse them
+      - name: Store Reports With the Site
+        run: |
+          mkdir -p web/dist/reports
+          cp reports/*.json web/dist/reports/
+          rm -rf reports reports4ms
 
       - name: Push to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
@@ -181,12 +193,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "🧹 Purging ephemeral report artifacts from GitHub Actions storage..."
           ARTIFACT_IDS=$(gh api --paginate /repos/${{ github.repository }}/actions/artifacts --jq '.artifacts[] | select(.name | startswith("reports-")) | .id')
-          if [ -n "$ARTIFACT_IDS" ]; then
-            for ID in $ARTIFACT_IDS; do
-              echo "Removing ephemeral artifact ID: $ID"
-              gh api -X DELETE /repos/${{ github.repository }}/actions/artifacts/$ID || true
-            done
-          fi
-          echo "✅ Ephemeral report artifact lifecycle cleanup complete."
+          for ID in $ARTIFACT_IDS; do
+            gh api -X DELETE /repos/${{ github.repository }}/actions/artifacts/"$ID" || true
+          done

@@ -133,13 +133,10 @@ def main():
                         # Resolve attestation URL and Sigstore Rekor URL
                         if flavor.get("attestation_url"):
                             attestation_url = flavor.get("attestation_url")
-                        elif "wolfi-openssl-fips" in tag or runtime.get("id") == "openssl":
-                            attestation_url = "https://github.com/taha2samy/openssl_fips/attestations"
                         else:
-                            parts = tag.replace("ghcr.io/", "").split(":")[0].split("/")
-                            owner = parts[0] if len(parts) > 0 else "taha2samy-3"
-                            repo_name = "openssl_fips" if "openssl" in tag else "node"
-                            attestation_url = f"https://github.com/{owner}/{repo_name}/attestations"
+                            # Every image is built and attested by this repository
+                            owner = tag.replace("ghcr.io/", "").split(":")[0].split("/")[0] or "taha2samy-3"
+                            attestation_url = f"https://github.com/{owner}/node/attestations"
 
                         clean_digest = root_digest.replace("sha256:", "") if root_digest and root_digest != "N/A" else ""
                         rekor_url = f"https://search.sigstore.dev/?hash={clean_digest}" if clean_digest else "https://search.sigstore.dev/"

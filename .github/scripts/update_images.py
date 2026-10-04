@@ -31,8 +31,8 @@ IMAGE_LOCKS = {
 
 PACKAGE_LOCKS = {
     "NODE_20_FULL_VERSION": {"package": "nodejs-20", "runtime": "Node.js 20", "images": ["node:20", "node:20-dev"], "notes": NODE_NOTES},
-    "NODE_22_FULL_VERSION": {"package": "nodejs-22", "runtime": "Node.js 22", "images": ["node:22", "node:22-dev"], "notes": NODE_NOTES},
-    "NODE_24_FULL_VERSION": {"package": "nodejs-24", "runtime": "Node.js 24", "images": ["node:24", "node:24-dev"], "notes": NODE_NOTES},
+    "NODE_22_FULL_VERSION": {"package": "nodejs-22", "runtime": "Node.js 22", "images": ["node:22", "node:22-dev", "node-fips:22", "node-fips:22-dev", "node-fips:22-distroless"], "notes": NODE_NOTES},
+    "NODE_24_FULL_VERSION": {"package": "nodejs-24", "runtime": "Node.js 24", "images": ["node:24", "node:24-dev", "node-fips:24", "node-fips:24-dev", "node-fips:24-distroless"], "notes": NODE_NOTES},
     "PYTHON_3_10_FULL_VERSION": {"package": "python-3.10", "runtime": "Python 3.10", "images": ["python:3.10", "python:3.10-dev"], "notes": PYTHON_NOTES},
     "PYTHON_3_11_FULL_VERSION": {"package": "python-3.11", "runtime": "Python 3.11", "images": ["python:3.11", "python:3.11-dev"], "notes": PYTHON_NOTES},
     "PYTHON_3_12_FULL_VERSION": {"package": "python-3.12", "runtime": "Python 3.12", "images": ["python:3.12", "python:3.12-dev"], "notes": PYTHON_NOTES},

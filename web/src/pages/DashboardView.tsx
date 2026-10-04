@@ -83,11 +83,11 @@ export default function DashboardView() {
       return { url: activeFlavor.attestation_url, isCustom: false, source: 'Runtime Specification' };
     }
     // Smart fallback based on repo
-    if (tag.includes('wolfi-openssl-fips') || runtime?.id === 'openssl') {
-      return { url: 'https://github.com/taha2samy/openssl_fips/attestations', isCustom: false, source: 'GitHub Attestations' };
+    if (tag.includes('openssl-fips') || runtime?.id === 'openssl') {
+      return { url: 'https://github.com/taha2samy-3/node/attestations', isCustom: false, source: 'GitHub Attestations' };
     }
     if (tag.includes('wolfi-openjdk-fips') || tag.includes('openjdk') || runtime?.id === 'openjdk') {
-      return { url: 'https://github.com/taha2samy/openjdk/attestations', isCustom: false, source: 'GitHub Attestations' };
+      return { url: 'https://github.com/taha2samy-3/node/attestations', isCustom: false, source: 'GitHub Attestations' };
     }
     return { url: 'https://github.com/taha2samy-3/node/attestations', isCustom: false, source: 'GitHub Attestations' };
   };
@@ -131,8 +131,7 @@ export default function DashboardView() {
   };
 
   const handleCopyVerifyCmd = (tag: string) => {
-    const isCustomFips = tag.includes('openssl') || tag.includes('openjdk');
-    const owner = isCustomFips ? 'taha2samy' : (tag.split('/')[1] || 'taha2samy-3');
+    const owner = tag.split('/')[1] || 'taha2samy-3';
     const cmd = `gh attestation verify oci://${tag} --owner ${owner}`;
     navigator.clipboard.writeText(cmd);
     setCopiedVerifyTag(tag);
@@ -146,11 +145,10 @@ export default function DashboardView() {
   };
 
   const getPresetsForTag = (tag: string) => {
-    const isOpenssl = tag.includes('openssl') || runtime?.id === 'openssl';
-    const isOpenjdk = tag.includes('openjdk') || tag.includes('wolfi-openjdk-fips') || runtime?.id === 'openjdk';
-    const owner = isOpenssl || isOpenjdk ? 'taha2samy' : 'taha2samy-3';
-    const repo = isOpenssl ? 'openssl_fips' : isOpenjdk ? 'openjdk' : 'node';
-    const pkg = isOpenssl ? 'wolfi-openssl-fips' : isOpenjdk ? 'wolfi-openjdk-fips' : 'node';
+    // Every image is built, attested and published by this repository
+    const owner = 'taha2samy-3';
+    const repo = 'node';
+    const pkg = tag.replace(/^ghcr\.io\//, '').split(':')[0].split('/').pop() || 'node';
     const entry = (configData as Record<string, any>)[tag];
     const digest = typeof entry === 'object' ? entry?.digest?.replace('sha256:', '') : '';
 
@@ -200,7 +198,9 @@ export default function DashboardView() {
   const cisData = reportsMap[`${runtimeId}-${version}`]?.[activeFlavor.id]?.['cis'] || reportsMap[version || '']?.[activeFlavor.id]?.['cis'];
   const sbomData = reportsMap[`${runtimeId}-${version}`]?.[activeFlavor.id]?.['sbom'] || reportsMap[version || '']?.[activeFlavor.id]?.['sbom'];
 
-  const isFipsRuntime = runtime.id === 'openssl' || runtime.id === 'openjdk';
+  const isFipsRuntime = !!runtime.fips;
+  // The test suite and benchmark tabs show the OpenSSL / OpenJDK FIPS results from fipsData.ts
+  const hasFipsTestData = runtime.id === 'openssl' || runtime.id === 'openjdk';
 
   const handleCopy = (tag: string) => {
     navigator.clipboard.writeText(`docker pull ${tag}`);
@@ -938,9 +938,8 @@ export default function DashboardView() {
 
     if (activeSubTab === 'attestation') {
       const activeAttestation = getAttestationUrl(primaryTag);
-      const isOpenssl = primaryTag.includes('openssl') || runtime?.id === 'openssl';
-      const isOpenjdk = primaryTag.includes('openjdk') || runtime?.id === 'openjdk';
-      const owner = isOpenssl || isOpenjdk ? 'taha2samy' : 'taha2samy-3';
+      // Attestations for every image are created by this repository's workflows
+      const owner = 'taha2samy-3';
       const digest = typeof tagEntry === 'object' ? (tagEntry?.digest || 'sha256:7f4a91b8d231e405a1db0b11c983c54d096121f621743bb9ff9621cb6b7e8c37') : 'sha256:7f4a...';
 
       const ghVerifyCmd = `gh attestation verify oci://${primaryTag} --owner ${owner}`;
@@ -1558,7 +1557,7 @@ export default function DashboardView() {
             </span>
           </button>
 
-          {isFipsRuntime && (
+          {hasFipsTestData && (
             <button
               onClick={() => setActiveSubTab('fips-tests')}
               className={cn("px-4 py-2 rounded-lg text-sm font-bold transition-all border flex items-center gap-2", activeSubTab === 'fips-tests' ? "bg-brand-mint text-slate-950 border-brand-mint shadow-md" : "bg-white dark:bg-card-dark text-emerald-600 dark:text-brand-mint border-brand-mint/40 hover:bg-brand-mint/10")}
@@ -1569,7 +1568,7 @@ export default function DashboardView() {
             </button>
           )}
 
-          {isFipsRuntime && (
+          {hasFipsTestData && (
             <button
               onClick={() => setActiveSubTab('benchmarks')}
               className={cn("px-4 py-2 rounded-lg text-sm font-bold transition-all border flex items-center gap-2", activeSubTab === 'benchmarks' ? "bg-brand-cyan text-slate-950 border-brand-cyan shadow-md" : "bg-white dark:bg-card-dark text-cyan-600 dark:text-brand-cyan border-brand-cyan/40 hover:bg-brand-cyan/10")}

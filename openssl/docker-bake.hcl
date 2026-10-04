@@ -13,11 +13,11 @@ variable "REGISTRY" {
 }
 
 variable "OWNER" {
-  default = "taha2samy"
+  default = "taha2samy-3"
 }
 
 variable "REPO_NAME" {
-  default = "wolfi-openssl-fips"
+  default = "openssl-fips"
 }
 
 function "tag" {

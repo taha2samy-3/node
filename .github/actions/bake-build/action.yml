@@ -5,6 +5,10 @@ inputs:
   targets:
     description: Targets to build from docker-bake.hcl
     required: true
+  set:
+    description: Newline-separated bake overrides (target.key=value), e.g. the build fingerprint labels
+    required: false
+    default: ""
   registry-username:
     description: Username for GitHub Container Registry
     required: true
@@ -38,4 +42,5 @@ runs:
         files: |
           ./docker-bake.hcl
         targets: ${{ inputs.targets }}
+        set: ${{ inputs.set }}
         push: true

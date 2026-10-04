@@ -7,7 +7,7 @@
 
 A high-assurance, **FIPS 140-3 compliant** OpenJDK container image designed for mission-critical, enterprise, and regulated environments (FedRAMP, DoD, HIPAA, PCI-DSS).
 
-Built on top of **Wolfi OS** (undistro) with **Eclipse Adoptium OpenJDK 21** and **Bouncy Castle FIPS Java modules** (`bc-fips`, `bcpkix-fips`, `bctls-fips`).
+Built on top of **Wolfi OS** (undistro) with **Eclipse Adoptium OpenJDK 8, 17, 21 and 25 (LTS)** and **Bouncy Castle FIPS Java modules** (`bc-fips`, `bcpkix-fips`, `bctls-fips`).
 
 ---
 
@@ -30,7 +30,7 @@ This runtime enforces a strict **Cryptographic Boundary** at the JVM layer:
 
 ## 📦 Runtime Flavors
 
-Every release provides three distinct tiers optimized for different stages of the delivery lifecycle:
+Every Java version (`8`, `17`, `21`, `25`) provides three distinct tiers optimized for different stages of the delivery lifecycle. Replace `21` below with the version you need; the floating `dev`, `latest` and `distroless` tags follow Java 21.
 
 | Target | Image Tag | Base | Capabilities | Intended Use Case |
 | :--- | :--- | :--- | :--- | :--- |
@@ -53,6 +53,11 @@ docker pull ghcr.io/taha2samy-3/wolfi-openjdk-fips:21
 
 # Pull development container
 docker pull ghcr.io/taha2samy-3/wolfi-openjdk-fips:21-dev
+
+# Other LTS versions use the same tag scheme
+docker pull ghcr.io/taha2samy-3/wolfi-openjdk-fips:8-distroless
+docker pull ghcr.io/taha2samy-3/wolfi-openjdk-fips:17
+docker pull ghcr.io/taha2samy-3/wolfi-openjdk-fips:25-dev
 ```
 
 ### Running Applications
@@ -120,8 +125,12 @@ pytest tests/ -v
 From the repository root:
 
 ```bash
-# Build all OpenJDK flavors
-docker buildx bake openjdk-dev openjdk-standard openjdk-prod
+# Build every Java version and flavor, or one target (openjdk-<version>-<dev|standard|prod>)
+docker buildx bake openjdk
+docker buildx bake openjdk-8-prod
+
+# After editing templates/java.security.j2 or config/context.json
+python openjdk/render_security.py
 
 # Build standalone from openjdk directory
 cd openjdk

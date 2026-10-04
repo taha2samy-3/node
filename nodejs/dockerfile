@@ -1,6 +1,8 @@
 ARG BASE_IMAGE=cgr.dev/chainguard/wolfi-base:latest
 ARG NODE_VERSION=22
 ARG NODE_FULL_VERSION
+# Image that provides the validated OpenSSL FIPS provider (fips.so + fipsmodule.cnf)
+ARG OPENSSL_FIPS_IMAGE=ghcr.io/taha2samy-3/openssl-fips:3.5.5
 
 # ==========================================
 # envoke (secrets-entrypoint) binary
@@ -91,3 +93,69 @@ USER node
 
 ENTRYPOINT ["/sbin/tini", "--", "/usr/bin/docker-entrypoint.sh"]
 CMD ["node"]
+
+# ==========================================
+# Node.js FIPS 140-3
+# ==========================================
+# Wolfi's Node.js links the system libcrypto, which loads the validated OpenSSL
+# FIPS provider built by this repo's OpenSSL FIPS image through openssl-fips.cnf.
+FROM ${OPENSSL_FIPS_IMAGE} AS fips-provider
+
+FROM scratch AS fips-layer
+COPY --from=fips-provider /usr/local/lib/ossl-modules/fips.so /usr/lib/ossl-modules-fips/fips.so
+COPY --from=fips-provider /usr/local/ssl/fipsmodule.cnf /etc/ssl/fips/fipsmodule.cnf
+COPY nodejs/fips/openssl-fips.cnf /etc/ssl/fips/openssl-fips.cnf
+COPY nodejs/fips/fips-check.js /usr/share/nodejs-fips/fips-check.js
+
+# Shell-less root filesystem for the distroless flavor
+FROM ${BASE_IMAGE} AS fips-distroless-rootfs
+
+ARG NODE_VERSION
+ARG NODE_FULL_VERSION
+
+USER root
+
+RUN apk add --no-cache --initdb --no-scripts --root /rootfs \
+      --keys-dir /etc/apk/keys --repositories-file /etc/apk/repositories \
+      nodejs-${NODE_VERSION}-minimal-compat=${NODE_FULL_VERSION} \
+      tini \
+      ca-certificates-bundle \
+      wolfi-baselayout && \
+    rm -rf /rootfs/lib/apk/db /rootfs/var/cache/apk /rootfs/etc/apk /rootfs/usr/share/apk \
+      /rootfs/usr/share/man /rootfs/usr/share/doc && \
+    echo "node:x:1000:1000:node:/app:/sbin/nologin" >> /rootfs/etc/passwd && \
+    echo "node:x:1000:" >> /rootfs/etc/group && \
+    mkdir -p /rootfs/app && chown 1000:1000 /rootfs/app
+
+FROM full-dev AS fips-dev
+
+COPY --from=fips-layer / /
+ENV OPENSSL_CONF=/etc/ssl/fips/openssl-fips.cnf \
+    OPENSSL_MODULES=/usr/lib/ossl-modules-fips \
+    NODE_OPTIONS=--force-fips
+RUN ["/usr/bin/node", "/usr/share/nodejs-fips/fips-check.js"]
+
+FROM minimal AS fips-standard
+
+COPY --from=fips-layer / /
+ENV OPENSSL_CONF=/etc/ssl/fips/openssl-fips.cnf \
+    OPENSSL_MODULES=/usr/lib/ossl-modules-fips \
+    NODE_OPTIONS=--force-fips
+RUN ["/usr/bin/node", "/usr/share/nodejs-fips/fips-check.js"]
+
+FROM scratch AS fips-distroless
+
+COPY --from=fips-distroless-rootfs /rootfs /
+COPY --from=envoke /out/ /usr/bin/
+COPY --from=fips-layer / /
+
+ENV NODE_ENV=production \
+    OPENSSL_CONF=/etc/ssl/fips/openssl-fips.cnf \
+    OPENSSL_MODULES=/usr/lib/ossl-modules-fips \
+    NODE_OPTIONS=--force-fips
+RUN ["/usr/bin/node", "/usr/share/nodejs-fips/fips-check.js"]
+
+WORKDIR /app
+USER node
+
+ENTRYPOINT ["/sbin/tini", "--", "/usr/bin/node"]

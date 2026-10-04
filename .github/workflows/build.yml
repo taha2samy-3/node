@@ -5,59 +5,76 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      rebuild:
+        description: "What to rebuild: 'changed' (images whose inputs changed), 'all', or runtimes / versions / targets such as 'node-22 openjdk'"
+        required: false
+        default: changed
 
+# Queue instead of cancelling: the next run only rebuilds what this one has not published yet
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
+  plan:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+    outputs:
+      build: ${{ steps.plan.outputs.build }}
+      build_dependents: ${{ steps.plan.outputs.build_dependents }}
+      images: ${{ steps.plan.outputs.images }}
+      has_build: ${{ steps.plan.outputs.has_build }}
+      has_dependents: ${{ steps.plan.outputs.has_dependents }}
+      has_images: ${{ steps.plan.outputs.has_images }}
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - name: Install Planner Dependencies
+        run: pip install pyyaml
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Plan Image Builds
+        id: plan
+        env:
+          REBUILD: ${{ inputs.rebuild || 'changed' }}
+        run: python .github/scripts/plan_images.py build --mode "$REBUILD" --output build-plan.json
+
+      - name: Upload Build Plan
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-plan
+          path: build-plan.json
+          retention-days: 7
+
   build:
+    needs: plan
+    if: needs.plan.outputs.has_build == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
     strategy:
+      fail-fast: false
       matrix:
-        include:
-          - runtime: "node-18"
-            targets: "dev-18,prod-18"
-          - runtime: "node-20"
-            targets: "dev-20,prod-20"
-          - runtime: "node-22"
-            targets: "dev-22,prod-22"
-          - runtime: "node-24"
-            targets: "dev-24,prod-24"
-          - runtime: "python-3-10"
-            targets: "python-dev-3-10,python-prod-3-10"
-          - runtime: "python-3-11"
-            targets: "python-dev-3-11,python-prod-3-11"
-          - runtime: "python-3-12"
-            targets: "python-dev-3-12,python-prod-3-12"
-          - runtime: "python-3-13"
-            targets: "python-dev-3-13,python-prod-3-13"
-          - runtime: "python-3-14"
-            targets: "python-dev-3-14,python-prod-3-14"
-          - runtime: "bun-1"
-            targets: "bun-dev-1,bun-prod-1"
-          - runtime: "java-17"
-            targets: "java-dev-17,java-prod-17"
-          - runtime: "java-21"
-            targets: "java-dev-21,java-prod-21"
-          - runtime: "java-23"
-            targets: "java-dev-23,java-prod-23"
-          - runtime: "go-1-22"
-            targets: "go-dev-1-22,go-prod-1-22"
-          - runtime: "go-1-23"
-            targets: "go-dev-1-23,go-prod-1-23"
-          - runtime: "go-1-24"
-            targets: "go-dev-1-24,go-prod-1-24"
-          - runtime: "node-26"
-            targets: "dev-26,prod-26"
-          - runtime: "openssl-3-5"
-            targets: "openssl-dev,openssl-standard,openssl-prod"
-          - runtime: "openjdk-21"
-            targets: "openjdk-dev,openjdk-standard,openjdk-prod"
+        include: ${{ fromJSON(needs.plan.outputs.build) }}
 
+    name: build (${{ matrix.unit }})
     steps:
       - name: Checkout Code
         uses: actions/checkout@v7
@@ -66,11 +83,44 @@ jobs:
         uses: ./.github/actions/bake-build
         with:
           targets: ${{ matrix.targets }}
+          set: ${{ matrix.set }}
+          registry-username: ${{ github.actor }}
+          registry-token: ${{ secrets.GITHUB_TOKEN }}
+
+  # Images that consume another image built in this run (node-fips copies the provider from openssl-fips)
+  build-dependents:
+    needs: [plan, build]
+    if: >-
+      !cancelled() && needs.plan.outputs.has_dependents == 'true' &&
+      (needs.build.result == 'success' || needs.build.result == 'skipped')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(needs.plan.outputs.build_dependents) }}
+
+    name: build (${{ matrix.unit }})
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+
+      - name: Build Runtime Images
+        uses: ./.github/actions/bake-build
+        with:
+          targets: ${{ matrix.targets }}
+          set: ${{ matrix.set }}
           registry-username: ${{ github.actor }}
           registry-token: ${{ secrets.GITHUB_TOKEN }}
 
   cleanup:
-    needs: build
+    needs: [build, build-dependents]
+    if: >-
+      !cancelled() &&
+      (needs.build.result == 'success' || needs.build.result == 'failure' ||
+       needs.build-dependents.result == 'success' || needs.build-dependents.result == 'failure')
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -82,7 +132,8 @@ jobs:
           delete-untagged: true
 
   attest:
-    needs: cleanup
+    needs: [plan, cleanup]
+    if: "!cancelled() && needs.plan.outputs.has_images == 'true' && needs.cleanup.result == 'success'"
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -90,134 +141,36 @@ jobs:
       id-token: write
       attestations: write
     strategy:
+      fail-fast: false
       matrix:
-        include:
-          - image: "ghcr.io/taha2samy-3/node"
-            tag: "18-dev"
-            suffix: "node-18-dev"
-          - image: "ghcr.io/taha2samy-3/node"
-            tag: "18"
-            suffix: "node-18-prod"
-          - image: "ghcr.io/taha2samy-3/node"
-            tag: "20-dev"
-            suffix: "node-20-dev"
-          - image: "ghcr.io/taha2samy-3/node"
-            tag: "20"
-            suffix: "node-20-prod"
-          - image: "ghcr.io/taha2samy-3/node"
-            tag: "22-dev"
-            suffix: "node-22-dev"
-          - image: "ghcr.io/taha2samy-3/node"
-            tag: "22"
-            suffix: "node-22-prod"
-          - image: "ghcr.io/taha2samy-3/node"
-            tag: "24-dev"
-            suffix: "node-24-dev"
-          - image: "ghcr.io/taha2samy-3/node"
-            tag: "24"
-            suffix: "node-24-prod"
-          - image: "ghcr.io/taha2samy-3/python"
-            tag: "3.10-dev"
-            suffix: "python-3.10-dev"
-          - image: "ghcr.io/taha2samy-3/python"
-            tag: "3.10"
-            suffix: "python-3.10-prod"
-          - image: "ghcr.io/taha2samy-3/python"
-            tag: "3.11-dev"
-            suffix: "python-3.11-dev"
-          - image: "ghcr.io/taha2samy-3/python"
-            tag: "3.11"
-            suffix: "python-3.11-prod"
-          - image: "ghcr.io/taha2samy-3/python"
-            tag: "3.12-dev"
-            suffix: "python-3.12-dev"
-          - image: "ghcr.io/taha2samy-3/python"
-            tag: "3.12"
-            suffix: "python-3.12-prod"
-          - image: "ghcr.io/taha2samy-3/python"
-            tag: "3.13-dev"
-            suffix: "python-3.13-dev"
-          - image: "ghcr.io/taha2samy-3/python"
-            tag: "3.13"
-            suffix: "python-3.13-prod"
-          - image: "ghcr.io/taha2samy-3/python"
-            tag: "3.14-dev"
-            suffix: "python-3.14-dev"
-          - image: "ghcr.io/taha2samy-3/python"
-            tag: "3.14"
-            suffix: "python-3.14-prod"
-          - image: "ghcr.io/taha2samy-3/bun"
-            tag: "1-dev"
-            suffix: "bun-1-dev"
-          - image: "ghcr.io/taha2samy-3/bun"
-            tag: "1"
-            suffix: "bun-1-prod"
-          - image: "ghcr.io/taha2samy-3/java"
-            tag: "17-dev"
-            suffix: "java-17-dev"
-          - image: "ghcr.io/taha2samy-3/java"
-            tag: "17"
-            suffix: "java-17-prod"
-          - image: "ghcr.io/taha2samy-3/java"
-            tag: "21-dev"
-            suffix: "java-21-dev"
-          - image: "ghcr.io/taha2samy-3/java"
-            tag: "21"
-            suffix: "java-21-prod"
-          - image: "ghcr.io/taha2samy-3/java"
-            tag: "23-dev"
-            suffix: "java-23-dev"
-          - image: "ghcr.io/taha2samy-3/java"
-            tag: "23"
-            suffix: "java-23-prod"
-          - image: "ghcr.io/taha2samy-3/go"
-            tag: "1.22-dev"
-            suffix: "go-1.22-dev"
-          - image: "ghcr.io/taha2samy-3/go"
-            tag: "1.22"
-            suffix: "go-1.22-prod"
-          - image: "ghcr.io/taha2samy-3/go"
-            tag: "1.23-dev"
-            suffix: "go-1.23-dev"
-          - image: "ghcr.io/taha2samy-3/go"
-            tag: "1.23"
-            suffix: "go-1.23-prod"
-          - image: "ghcr.io/taha2samy-3/go"
-            tag: "1.24-dev"
-            suffix: "go-1.24-dev"
-          - image: "ghcr.io/taha2samy-3/go"
-            tag: "1.24"
-            suffix: "go-1.24-prod"
-          - image: "ghcr.io/taha2samy-3/node"
-            tag: "26-dev"
-            suffix: "node-26-dev"
-          - image: "ghcr.io/taha2samy-3/node"
-            tag: "26"
-            suffix: "node-26-prod"
-          - image: "ghcr.io/taha2samy-3/wolfi-openssl-fips"
-            tag: "3.5.5-dev"
-            suffix: "openssl-3-5-dev"
-          - image: "ghcr.io/taha2samy-3/wolfi-openssl-fips"
-            tag: "3.5.5"
-            suffix: "openssl-3-5-standard"
-          - image: "ghcr.io/taha2samy-3/wolfi-openssl-fips"
-            tag: "3.5.5-distroless"
-            suffix: "openssl-3-5-prod"
-          - image: "ghcr.io/taha2samy-3/wolfi-openjdk-fips"
-            tag: "21-dev"
-            suffix: "openjdk-21-dev"
-          - image: "ghcr.io/taha2samy-3/wolfi-openjdk-fips"
-            tag: "21"
-            suffix: "openjdk-21-standard"
-          - image: "ghcr.io/taha2samy-3/wolfi-openjdk-fips"
-            tag: "21-distroless"
-            suffix: "openjdk-21-prod"
+        include: ${{ fromJSON(needs.plan.outputs.images) }}
 
+    name: attest (${{ matrix.suffix }})
     steps:
       - name: Checkout Code
         uses: actions/checkout@v7
 
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - name: Install Planner Dependencies
+        run: pip install pyyaml
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check Image Was Rebuilt
+        id: verify
+        run: python .github/scripts/plan_images.py verify --tag "${{ matrix.image }}:${{ matrix.tag }}" --fingerprint "${{ matrix.fingerprint }}"
+
       - name: Attest Runtime Image
+        if: steps.verify.outputs.built == 'true'
         uses: ./.github/actions/attest-image
         with:
           image-name: ${{ matrix.image }}
@@ -227,10 +180,10 @@ jobs:
           registry-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload SBOM to GitHub Dependency Graph
+        if: steps.verify.outputs.built == 'true'
         uses: ./.github/actions/upload-dependency-graph
         with:
           sbom-path: "${{ matrix.suffix }}.cyclonedx.json"
           target-name: ${{ matrix.suffix }}
           repo: ${{ github.repository }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-

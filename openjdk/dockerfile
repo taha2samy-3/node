@@ -37,6 +37,14 @@ ARG BC_TLS_FIPS_SHA="688410563445e1a65ff33cb67842499f0788994d752c3df8f7ea4a0d40d
 
 ARG KEYSTORE_PWD="changeit"
 
+# FIPS classpath and truststore locations. Defaults match the Java 9+ layout; Java 8
+# keeps the JDK runtime under jre/ and loads the Bouncy Castle jars from lib/ext.
+ARG JDK_TRUSTSTORE="/opt/java/lib/security/cacerts"
+ARG JDK_BC_DIR="/opt/java/lib"
+ARG JRE_TRUSTSTORE="/opt/java/lib/security/cacerts"
+ARG JRE_BC_DIR="/opt/java/lib"
+ARG JRE_CHECK_EKU="true"
+
 # Wolfi OS Packages
 ARG APK_TOOLS_VER="2.14.10-r12"
 ARG BASH_VER="5.3-r12"
@@ -243,7 +251,7 @@ ARG BC_UTIL_FIPS_SHA
 ARG BC_TLS_FIPS_URL
 ARG BC_TLS_FIPS_SHA
 
-COPY conf/java.security /tmp/java.security
+COPY conf/java-${JAVA_VERSION}.security /tmp/java.security
 
 RUN set -eux; \
     curl -fLso /tmp/bc-fips.jar "${BC_FIPS_URL}"; \
@@ -323,7 +331,9 @@ COPY --from=fips-modifier /opt/jdk /opt/java
 
 ENV JAVA_HOME=/opt/java PATH="/opt/java/bin:/usr/local/bin:/usr/bin:/bin" LANG=C.UTF-8 TZ=UTC
 ARG KEYSTORE_PWD="changeit"
-ENV JAVA_TOOL_OPTIONS="-Dorg.bouncycastle.fips.approved_only=true -Dorg.bouncycastle.jsse.client.assumeExtendedKeyUsage=false -Dorg.bouncycastle.jsse.trustManager.checkEKU=true -Djdk.tls.trustNameService=true -Dkeystore.type=BCFKS -Djavax.net.ssl.trustStore=/opt/java/lib/security/cacerts -Djavax.net.ssl.trustStoreType=BCFKS -Djavax.net.ssl.trustStorePassword=changeit -Xbootclasspath/a:/opt/java/lib/bc-fips.jar:/opt/java/lib/bcutil-fips.jar:/opt/java/lib/bctls-fips.jar"
+ARG JDK_TRUSTSTORE
+ARG JDK_BC_DIR
+ENV JAVA_TOOL_OPTIONS="-Dorg.bouncycastle.fips.approved_only=true -Dorg.bouncycastle.jsse.client.assumeExtendedKeyUsage=false -Dorg.bouncycastle.jsse.trustManager.checkEKU=true -Djdk.tls.trustNameService=true -Dkeystore.type=BCFKS -Djavax.net.ssl.trustStore=${JDK_TRUSTSTORE} -Djavax.net.ssl.trustStoreType=BCFKS -Djavax.net.ssl.trustStorePassword=changeit -Xbootclasspath/a:${JDK_BC_DIR}/bc-fips.jar:${JDK_BC_DIR}/bcutil-fips.jar:${JDK_BC_DIR}/bctls-fips.jar"
 
 ARG JAVA_VERSION="21"
 ARG JAVA_FULL_VERSION="21.0.11+10-LTS"
@@ -354,7 +364,10 @@ COPY --from=fips-modifier /opt/jre /opt/java
 
 ENV JAVA_HOME=/opt/java PATH="/opt/java/bin:/usr/local/bin:/usr/bin:/bin" LANG=C.UTF-8 TZ=UTC
 ARG KEYSTORE_PWD="changeit"
-ENV JAVA_TOOL_OPTIONS="-Dorg.bouncycastle.fips.approved_only=true -Dorg.bouncycastle.jsse.client.assumeExtendedKeyUsage=false -Dorg.bouncycastle.jsse.trustManager.checkEKU=true -Djdk.tls.trustNameService=true -Dkeystore.type=BCFKS -Djavax.net.ssl.trustStore=/opt/java/lib/security/cacerts -Djavax.net.ssl.trustStoreType=BCFKS -Djavax.net.ssl.trustStorePassword=changeit -Xbootclasspath/a:/opt/java/lib/bc-fips.jar:/opt/java/lib/bcutil-fips.jar:/opt/java/lib/bctls-fips.jar"
+ARG JRE_TRUSTSTORE
+ARG JRE_BC_DIR
+ARG JRE_CHECK_EKU
+ENV JAVA_TOOL_OPTIONS="-Dorg.bouncycastle.fips.approved_only=true -Dorg.bouncycastle.jsse.client.assumeExtendedKeyUsage=false -Dorg.bouncycastle.jsse.trustManager.checkEKU=${JRE_CHECK_EKU} -Djdk.tls.trustNameService=true -Dkeystore.type=BCFKS -Djavax.net.ssl.trustStore=${JRE_TRUSTSTORE} -Djavax.net.ssl.trustStoreType=BCFKS -Djavax.net.ssl.trustStorePassword=changeit -Xbootclasspath/a:${JRE_BC_DIR}/bc-fips.jar:${JRE_BC_DIR}/bcutil-fips.jar:${JRE_BC_DIR}/bctls-fips.jar"
 
 ARG JAVA_VERSION="21"
 ARG JAVA_FULL_VERSION="21.0.11+10-LTS"
@@ -385,7 +398,10 @@ COPY --from=fips-modifier /opt/jre /opt/java
 
 ENV JAVA_HOME=/opt/java PATH="/opt/java/bin:/usr/local/bin:/usr/bin:/bin" LANG=C.UTF-8 TZ=UTC
 ARG KEYSTORE_PWD="changeit"
-ENV JAVA_TOOL_OPTIONS="-Dorg.bouncycastle.fips.approved_only=true -Dorg.bouncycastle.jsse.client.assumeExtendedKeyUsage=false -Dorg.bouncycastle.jsse.trustManager.checkEKU=true -Djdk.tls.trustNameService=true -Dkeystore.type=BCFKS -Djavax.net.ssl.trustStore=/opt/java/lib/security/cacerts -Djavax.net.ssl.trustStoreType=BCFKS -Djavax.net.ssl.trustStorePassword=changeit -Xbootclasspath/a:/opt/java/lib/bc-fips.jar:/opt/java/lib/bcutil-fips.jar:/opt/java/lib/bctls-fips.jar"
+ARG JRE_TRUSTSTORE
+ARG JRE_BC_DIR
+ARG JRE_CHECK_EKU
+ENV JAVA_TOOL_OPTIONS="-Dorg.bouncycastle.fips.approved_only=true -Dorg.bouncycastle.jsse.client.assumeExtendedKeyUsage=false -Dorg.bouncycastle.jsse.trustManager.checkEKU=${JRE_CHECK_EKU} -Djdk.tls.trustNameService=true -Dkeystore.type=BCFKS -Djavax.net.ssl.trustStore=${JRE_TRUSTSTORE} -Djavax.net.ssl.trustStoreType=BCFKS -Djavax.net.ssl.trustStorePassword=changeit -Xbootclasspath/a:${JRE_BC_DIR}/bc-fips.jar:${JRE_BC_DIR}/bcutil-fips.jar:${JRE_BC_DIR}/bctls-fips.jar"
 
 ARG JAVA_VERSION="21"
 ARG JAVA_FULL_VERSION="21.0.11+10-LTS"
