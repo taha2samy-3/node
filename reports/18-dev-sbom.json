@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "serialNumber": "urn:uuid:644286d2-49f2-49c5-8833-99c3b47ff919",
+  "serialNumber": "urn:uuid:b0bcb9d0-7f14-4cb8-856e-19bf83027f3e",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-10-04T14:21:17+00:00",
+    "timestamp": "2026-10-04T14:34:44+00:00",
     "tools": {
       "components": [
         {
@@ -20,10 +20,10 @@
       ]
     },
     "component": {
-      "bom-ref": "pkg:oci/node@sha256:71e3eaad44955ddf03a18151d561b09a5ab99670b38d73730f5aee1b2b5ee69a?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fnode",
+      "bom-ref": "pkg:oci/node@sha256:e5a9bc9b8a755167138d292bfb1ec34da93e5c80818feb409182e2ea18832f70?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fnode",
       "type": "container",
       "name": "ghcr.io/taha2samy-3/node:18-dev",
-      "purl": "pkg:oci/node@sha256:71e3eaad44955ddf03a18151d561b09a5ab99670b38d73730f5aee1b2b5ee69a?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fnode",
+      "purl": "pkg:oci/node@sha256:e5a9bc9b8a755167138d292bfb1ec34da93e5c80818feb409182e2ea18832f70?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fnode",
       "properties": [
         {
           "name": "aquasecurity:trivy:DiffID",
@@ -139,7 +139,7 @@
         },
         {
           "name": "aquasecurity:trivy:RepoDigest",
-          "value": "ghcr.io/taha2samy-3/node@sha256:71e3eaad44955ddf03a18151d561b09a5ab99670b38d73730f5aee1b2b5ee69a"
+          "value": "ghcr.io/taha2samy-3/node@sha256:e5a9bc9b8a755167138d292bfb1ec34da93e5c80818feb409182e2ea18832f70"
         },
         {
           "name": "aquasecurity:trivy:RepoTag",
@@ -158,7 +158,22 @@
   },
   "components": [
     {
-      "bom-ref": "f0329d32-0875-4cc1-af19-ac74ec0ff66b",
+      "bom-ref": "726fed75-ec04-41a5-ac8d-50138bfbeed5",
+      "type": "application",
+      "name": "usr/bin/secrets-entrypoint",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:Class",
+          "value": "lang-pkgs"
+        },
+        {
+          "name": "aquasecurity:trivy:Type",
+          "value": "gobinary"
+        }
+      ]
+    },
+    {
+      "bom-ref": "a98f4405-bf9f-4ae3-a910-371c8ac5304d",
       "type": "operating-system",
       "name": "wolfi",
       "version": "20230201",
@@ -170,21 +185,6 @@
         {
           "name": "aquasecurity:trivy:Type",
           "value": "wolfi"
-        }
-      ]
-    },
-    {
-      "bom-ref": "f15a3193-fef6-4244-92e5-996f573de413",
-      "type": "application",
-      "name": "usr/bin/secrets-entrypoint",
-      "properties": [
-        {
-          "name": "aquasecurity:trivy:Class",
-          "value": "lang-pkgs"
-        },
-        {
-          "name": "aquasecurity:trivy:Type",
-          "value": "gobinary"
         }
       ]
     },
@@ -1724,16 +1724,16 @@
   ],
   "dependencies": [
     {
-      "ref": "f0329d32-0875-4cc1-af19-ac74ec0ff66b",
+      "ref": "726fed75-ec04-41a5-ac8d-50138bfbeed5",
       "dependsOn": [
-        "pkg:apk/wolfi/npm-12@12.2.0-r1?arch=x86_64&distro=20230201",
-        "pkg:apk/wolfi/wolfi-base@1-r7?arch=x86_64&distro=20230201"
+        "pkg:golang/secrets-entrypoint@v1.0.0%2Bdirty"
       ]
     },
     {
-      "ref": "f15a3193-fef6-4244-92e5-996f573de413",
+      "ref": "a98f4405-bf9f-4ae3-a910-371c8ac5304d",
       "dependsOn": [
-        "pkg:golang/secrets-entrypoint@v1.0.0%2Bdirty"
+        "pkg:apk/wolfi/npm-12@12.2.0-r1?arch=x86_64&distro=20230201",
+        "pkg:apk/wolfi/wolfi-base@1-r7?arch=x86_64&distro=20230201"
       ]
     },
     {
@@ -1967,10 +1967,10 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:oci/node@sha256:71e3eaad44955ddf03a18151d561b09a5ab99670b38d73730f5aee1b2b5ee69a?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fnode",
+      "ref": "pkg:oci/node@sha256:e5a9bc9b8a755167138d292bfb1ec34da93e5c80818feb409182e2ea18832f70?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fnode",
       "dependsOn": [
-        "f0329d32-0875-4cc1-af19-ac74ec0ff66b",
-        "f15a3193-fef6-4244-92e5-996f573de413"
+        "726fed75-ec04-41a5-ac8d-50138bfbeed5",
+        "a98f4405-bf9f-4ae3-a910-371c8ac5304d"
       ]
     }
   ],
