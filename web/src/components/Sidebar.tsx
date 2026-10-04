@@ -1,133 +1,146 @@
+import { useMemo, useState, type MouseEvent } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Moon, Sun, CheckCircle2, ShieldCheck } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
-import { cn } from '../utils';
-import runtimesData from '../../runtimes.yaml';
+import { AnimatePresence, motion } from 'motion/react';
+import { LayoutDashboard, Moon, Sun } from 'lucide-react';
+import Github from './GithubIcon';
+import { Logo } from './Logo';
 import RuntimeIcon from './RuntimeIcon';
-import ProjectLogo from './ProjectLogo';
-import { RuntimesData } from '../types';
-import { reportsMap } from '../reports';
+import { SearchInput, StatusDot } from './ui';
+import { REPO_URL, runtimePath, runtimes } from '../lib/catalog';
+import { versionStatus } from '../lib/reports';
+import { cn } from '../utils';
 
 declare const __BUILD_DATE__: string;
 
 interface SidebarProps {
   isDark: boolean;
-  toggleTheme: (e?: React.MouseEvent) => void;
+  toggleTheme: (event?: MouseEvent) => void;
+  onNavigate?: () => void;
 }
 
-export default function Sidebar({ isDark, toggleTheme }: SidebarProps) {
+export default function Sidebar({ isDark, toggleTheme, onNavigate }: SidebarProps) {
   const location = useLocation();
-  const data = runtimesData as RuntimesData;
-  const buildDate = typeof __BUILD_DATE__ !== 'undefined' ? __BUILD_DATE__ : new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  const [query, setQuery] = useState('');
+
+  const groups = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return runtimes
+      .map((runtime) => ({
+        runtime,
+        versions: runtime.versions.filter(
+          (v) => !q || runtime.title.toLowerCase().includes(q) || runtime.id.includes(q) || v.version.includes(q),
+        ),
+      }))
+      .filter((group) => group.versions.length > 0);
+  }, [query]);
+
+  const linkClass = (active: boolean) =>
+    cn(
+      'relative flex items-center gap-2.5 rounded-lg px-3 py-1.5 text-sm transition-colors',
+      active ? 'font-semibold text-slate-900 dark:text-white' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800/60 dark:hover:text-slate-100',
+    );
+
+  const activePill = (
+    <motion.span
+      layoutId="nav-active"
+      className="absolute inset-0 -z-10 rounded-lg bg-emerald-500/10 ring-1 ring-emerald-500/30 dark:bg-brand-mint/10 dark:ring-brand-mint/25"
+      transition={{ type: 'spring', stiffness: 450, damping: 38 }}
+    />
+  );
 
   return (
-    <aside className="w-64 bg-slate-900 dark:bg-card-dark border-r border-slate-800 flex flex-col shrink-0 text-slate-300 transition-colors duration-300">
-      <div className="p-5 border-b border-slate-800 flex flex-col gap-4">
-        <div className="flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 overflow-hidden hover:opacity-90 transition-opacity">
-            <ProjectLogo isDark={true} className="h-7 w-auto" />
-          </Link>
-          <motion.button 
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.92 }}
-            onClick={(e) => toggleTheme(e)} 
-            className="relative p-2 rounded-lg bg-slate-800/60 hover:bg-slate-800 text-slate-300 hover:text-amber-400 dark:hover:text-amber-300 transition-colors shrink-0 overflow-hidden border border-slate-700/50 shadow-sm"
-            title="Toggle Theme"
+    <div className="flex h-full flex-col">
+      <div className="flex items-center justify-between gap-2 px-5 pb-4 pt-5">
+        <Link to="/" onClick={onNavigate} aria-label="Secure Runtimes overview">
+          <motion.span className="block" whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+            <Logo animate />
+          </motion.span>
+        </Link>
+      </div>
+
+      <div className="px-4 pb-3">
+        <SearchInput value={query} onChange={setQuery} placeholder="Filter runtimes" />
+      </div>
+
+      <nav className="custom-scrollbar flex-1 space-y-5 overflow-y-auto px-3 pb-6" aria-label="Runtimes">
+        <Link to="/" onClick={onNavigate} className={cn(linkClass(location.pathname === '/'), 'isolate')}>
+          {location.pathname === '/' && activePill}
+          <LayoutDashboard className="h-4 w-4" />
+          Overview
+        </Link>
+
+        <AnimatePresence initial={false}>
+          {groups.map(({ runtime, versions }) => (
+            <motion.div
+              key={runtime.id}
+              layout
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className="flex items-center gap-2 px-3 pb-1 text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                <RuntimeIcon icon={runtime.icon} className="h-3.5 w-3.5" />
+                <span className="truncate">{runtime.title}</span>
+                {runtime.fips && (
+                  <span className="rounded bg-emerald-500/10 px-1 text-[9px] text-emerald-600 dark:text-brand-mint">FIPS</span>
+                )}
+              </div>
+              <div className="space-y-0.5">
+                {versions.map((version) => {
+                  const path = runtimePath(runtime, version);
+                  const active = location.pathname === path;
+                  return (
+                    <Link key={version.version} to={path} onClick={onNavigate} className={cn(linkClass(active), 'isolate justify-between')}>
+                      {active && activePill}
+                      <span>Version {version.version}</span>
+                      <StatusDot status={versionStatus(version)} />
+                    </Link>
+                  );
+                })}
+              </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+        {groups.length === 0 && <p className="px-3 text-sm text-slate-500">No runtime matches “{query}”.</p>}
+      </nav>
+
+      <div className="flex items-center justify-between gap-2 border-t border-slate-200 px-4 py-3 dark:border-slate-800">
+        <div className="text-[11px] leading-tight text-slate-500">
+          Reports built
+          <div className="font-mono font-semibold text-slate-700 dark:text-slate-300">{__BUILD_DATE__}</div>
+        </div>
+        <div className="flex items-center gap-1">
+          <a
+            href={REPO_URL}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Source on GitHub"
+            className="rounded-lg p-2 text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white"
+          >
+            <Github className="h-4 w-4" />
+          </a>
+          <button
+            type="button"
+            onClick={(e) => toggleTheme(e)}
+            aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
+            className="overflow-hidden rounded-lg p-2 text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-white"
           >
             <AnimatePresence mode="wait" initial={false}>
-              <motion.div
+              <motion.span
                 key={isDark ? 'sun' : 'moon'}
-                initial={{ rotate: -120, opacity: 0, scale: 0.4 }}
+                className="block"
+                initial={{ rotate: -90, opacity: 0, scale: 0.5 }}
                 animate={{ rotate: 0, opacity: 1, scale: 1 }}
-                exit={{ rotate: 120, opacity: 0, scale: 0.4 }}
-                transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+                exit={{ rotate: 90, opacity: 0, scale: 0.5 }}
+                transition={{ duration: 0.25 }}
               >
-                {isDark ? (
-                  <Sun className="w-4 h-4 text-amber-400" />
-                ) : (
-                  <Moon className="w-4 h-4 text-indigo-400" />
-                )}
-              </motion.div>
+                {isDark ? <Sun className="h-4 w-4 text-amber-400" /> : <Moon className="h-4 w-4 text-indigo-500" />}
+              </motion.span>
             </AnimatePresence>
-          </motion.button>
-        </div>
-        
-        <div className="flex items-center gap-2.5 text-xs font-medium text-slate-400 bg-slate-800/30 px-3 py-2 rounded-lg border border-slate-800/50 font-mono shadow-[inset_0_1px_2px_rgba(0,0,0,0.2)]">
-          <span className="relative flex h-2 w-2 shrink-0">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-mint opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-mint"></span>
-          </span>
-          <div className="flex flex-col">
-            <span className="text-[9px] text-slate-500 font-sans uppercase tracking-wider font-bold">Active Build</span>
-            <span className="text-slate-300 font-bold tracking-tight text-[11px] sm:text-xs">Scan Date: <span className="text-brand-mint">{buildDate}</span></span>
-          </div>
+          </button>
         </div>
       </div>
-      <nav className="p-4 space-y-6 overflow-y-auto flex-1 custom-scrollbar">
-        <div>
-          <Link
-            to="/"
-            className={cn(
-              'flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors border-l-2',
-              location.pathname === '/'
-                ? 'bg-brand-mint/10 border-brand-mint text-brand-mint'
-                : 'border-transparent text-slate-400 hover:bg-slate-800/50 hover:text-slate-200'
-            )}
-          >
-            <RuntimeIcon icon="shield" className={cn('w-5 h-5', location.pathname === '/' ? 'text-brand-mint' : 'text-slate-500')} />
-            Dashboard Home
-          </Link>
-        </div>
-        
-        {data.runtimes.map((runtime) => (
-          <div key={runtime.id} className="space-y-1">
-            <div className="px-3 py-2 text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
-              <RuntimeIcon icon={runtime.icon} className="w-4 h-4" />
-              {runtime.title}
-            </div>
-            {runtime.versions.map((v) => {
-              const path = `/runtime/${runtime.id}/${v.version}`;
-              const active = location.pathname === path;
-              
-              let hasZeroCve = false;
-              const prodVulnData = reportsMap[v.version]?.['prod']?.['vuln'];
-              
-              if (prodVulnData?.Results) {
-                let totalVulns = 0;
-                for (const res of prodVulnData.Results) {
-                  if (res.Vulnerabilities) {
-                    totalVulns += res.Vulnerabilities.length;
-                  }
-                }
-                hasZeroCve = totalVulns === 0;
-              } else if (prodVulnData) {
-                // If the report exists but has no Results/Vulnerabilities, it's zero
-                hasZeroCve = true;
-              }
-
-              return (
-                <Link
-                  key={v.version}
-                  to={path}
-                  className={cn(
-                    'flex items-center justify-between px-3 py-2 rounded-r-lg text-sm font-medium transition-colors border-l-2',
-                    active
-                      ? 'bg-brand-mint/10 border-brand-mint text-brand-mint shadow-[inset_2px_0_10px_rgba(0,245,160,0.1)]'
-                      : 'border-transparent text-slate-400 hover:bg-slate-800/50 hover:text-slate-200'
-                  )}
-                >
-                  <span className="flex items-center gap-2">
-                    Version {v.version}
-                  </span>
-                  {hasZeroCve && (
-                    <CheckCircle2 className={cn("w-4 h-4", active ? "text-brand-mint" : "text-emerald-500/70")} />
-                  )}
-                </Link>
-              );
-            })}
-          </div>
-        ))}
-      </nav>
-    </aside>
+    </div>
   );
 }

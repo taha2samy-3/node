@@ -1,76 +1,96 @@
-import { Routes, Route } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import { AnimatePresence, MotionConfig, motion } from 'motion/react';
+import { Menu, X } from 'lucide-react';
 import Sidebar from './components/Sidebar';
+import { Logo } from './components/Logo';
+import { EASE_OUT } from './components/ui';
+import { useTheme } from './hooks/useTheme';
 import Home from './pages/Home';
-import DashboardView from './pages/DashboardView';
+import RuntimePage from './pages/RuntimePage';
+import NotFound from './pages/NotFound';
 
 export default function App() {
-  const [isDark, setIsDark] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem('theme');
-      if (stored) return stored === 'dark';
-      return true; // Default to dark mode for Chainguard aesthetic
-    }
-    return true;
-  });
+  const { isDark, toggleTheme } = useTheme();
+  const location = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
 
+  // New page: start at the top and close the mobile menu
   useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  }, [isDark]);
-
-  const toggleTheme = (e?: React.MouseEvent) => {
-    const nextIsDark = !isDark;
-
-    if (typeof document !== 'undefined' && 'startViewTransition' in document) {
-      const x = e?.clientX ?? window.innerWidth / 2;
-      const y = e?.clientY ?? window.innerHeight / 2;
-      const endRadius = Math.hypot(
-        Math.max(x, window.innerWidth - x),
-        Math.max(y, window.innerHeight - y)
-      );
-
-      const transition = (document as any).startViewTransition(() => {
-        setIsDark(nextIsDark);
-      });
-
-      transition.ready.then(() => {
-        const clipPath = [
-          `circle(0px at ${x}px ${y}px)`,
-          `circle(${endRadius}px at ${x}px ${y}px)`,
-        ];
-        document.documentElement.animate(
-          {
-            clipPath: nextIsDark ? clipPath : clipPath.reverse(),
-          },
-          {
-            duration: 700,
-            easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
-            pseudoElement: nextIsDark
-              ? '::view-transition-new(root)'
-              : '::view-transition-old(root)',
-          }
-        );
-      });
-    } else {
-      setIsDark(nextIsDark);
-    }
-  };
+    document.getElementById('main')?.scrollTo({ top: 0 });
+    setMenuOpen(false);
+  }, [location.pathname]);
 
   return (
-    <div className="min-h-screen flex bg-slate-50 dark:bg-bg-dark text-slate-900 dark:text-slate-50 font-sans selection:bg-brand-mint/30 selection:text-brand-mint transition-colors duration-300">
-      <Sidebar isDark={isDark} toggleTheme={toggleTheme} />
-      <main className="flex-1 overflow-y-auto">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/runtime/:runtimeId/:version" element={<DashboardView />} />
-        </Routes>
-      </main>
-    </div>
+    <MotionConfig reducedMotion="user">
+      <div className="flex h-screen overflow-hidden bg-slate-50 text-slate-900 dark:bg-bg-dark dark:text-slate-50">
+        <aside className="hidden w-72 shrink-0 border-r border-slate-200 bg-white dark:border-slate-800 dark:bg-card-dark lg:block">
+          <Sidebar isDark={isDark} toggleTheme={toggleTheme} />
+        </aside>
+
+        <AnimatePresence>
+          {menuOpen && (
+            <>
+              <motion.div
+                className="fixed inset-0 z-40 bg-slate-950/60 backdrop-blur-sm lg:hidden"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setMenuOpen(false)}
+              />
+              <motion.aside
+                className="fixed inset-y-0 left-0 z-50 w-80 max-w-[85vw] border-r border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-card-dark lg:hidden"
+                initial={{ x: '-100%' }}
+                animate={{ x: 0 }}
+                exit={{ x: '-100%' }}
+                transition={{ duration: 0.3, ease: EASE_OUT }}
+              >
+                <button
+                  type="button"
+                  onClick={() => setMenuOpen(false)}
+                  aria-label="Close menu"
+                  className="absolute right-3 top-4 rounded-lg p-2 text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+                <Sidebar isDark={isDark} toggleTheme={toggleTheme} onNavigate={() => setMenuOpen(false)} />
+              </motion.aside>
+            </>
+          )}
+        </AnimatePresence>
+
+        <div className="flex min-w-0 flex-1 flex-col">
+          <header className="flex items-center justify-between border-b border-slate-200 bg-white/80 px-4 py-3 backdrop-blur dark:border-slate-800 dark:bg-card-dark/80 lg:hidden">
+            <Logo />
+            <button
+              type="button"
+              onClick={() => setMenuOpen(true)}
+              aria-label="Open menu"
+              className="rounded-lg p-2 text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
+            >
+              <Menu className="h-5 w-5" />
+            </button>
+          </header>
+
+          <main id="main" className="custom-scrollbar flex-1 overflow-y-auto">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={location.pathname}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.25, ease: EASE_OUT }}
+              >
+                <Routes location={location}>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/runtime/:runtimeId/:version" element={<RuntimePage />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </motion.div>
+            </AnimatePresence>
+          </main>
+        </div>
+      </div>
+    </MotionConfig>
   );
 }

@@ -5,7 +5,10 @@ runtimes:
   - id: "openssl"
     title: "Wolfi OpenSSL FIPS"
     icon: "https://cdn.simpleicons.org/openssl/E03C31"
-    fips: true
+    fips:
+      module: "OpenSSL FIPS Provider 3.1.2 (fips.so)"
+      enforcement: "OpenSSL 3.5 is built from source with enable-fips; openssl.cnf activates only the FIPS and base providers and sets fips=yes as the default property, so non-approved algorithms fail."
+      verify: "docker run --rm --entrypoint /usr/local/bin/openssl {tag} list -providers"
     architectures:
       - "linux/amd64"
       - "linux/arm64"
@@ -51,8 +54,11 @@ runtimes:
   # ==========================================
   - id: "openjdk"
     title: "Wolfi OpenJDK FIPS"
-    icon: "https://cdn.simpleicons.org/openjdk/white"
-    fips: true
+    icon: "https://cdn.simpleicons.org/openjdk/5382A1"
+    fips:
+      module: "Bouncy Castle FIPS Java API 2.1.2 (BC-FJA)"
+      enforcement: "java.security registers BCFIPS and BCJSSE as the first providers, BCFKS is the default keystore and JAVA_TOOL_OPTIONS sets org.bouncycastle.fips.approved_only=true."
+      verify: "docker run --rm --entrypoint /opt/java/bin/java {tag} -XshowSettings:properties -version"
     architectures:
       - "linux/amd64"
       - "linux/arm64"
@@ -210,7 +216,10 @@ runtimes:
   - id: "node-fips"
     title: "Node.js FIPS"
     icon: "https://cdn.simpleicons.org/nodedotjs/339933"
-    fips: true
+    fips:
+      module: "OpenSSL FIPS Provider 3.1.2, loaded by the system libcrypto"
+      enforcement: "openssl-fips.cnf activates only the FIPS and base providers with fips=yes as the default property, and NODE_OPTIONS=--force-fips stops application code from calling crypto.setFips(false)."
+      verify: "docker run --rm --entrypoint /usr/bin/node {tag} /usr/share/nodejs-fips/fips-check.js"
     architectures:
       - "linux/amd64"
       - "linux/arm64"
@@ -556,7 +565,7 @@ runtimes:
   # ==========================================
   - id: "bun"
     title: "Bun Runtime"
-    icon: "https://cdn.simpleicons.org/bun/FBF0DF"
+    icon: "https://cdn.simpleicons.org/bun/D9A066"
     architectures:
       - "linux/amd64"
       - "linux/arm64"

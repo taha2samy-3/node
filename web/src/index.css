@@ -6,31 +6,23 @@
   --color-brand-cyan: #06B6D4;
   --color-bg-dark: #0A0E17;
   --color-card-dark: #111827;
-  
-  --font-sans: "Plus Jakarta Sans", "Inter", sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+
+  --font-sans: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
 }
 
 @custom-variant dark (&:is(.dark *));
 
-/* Smooth global theme transition */
-html, body {
-  transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1), color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+::selection {
+  background: rgb(0 245 160 / 0.3);
 }
 
-*, ::before, ::after {
-  transition-property: background-color, border-color, color, fill, stroke, box-shadow;
-  transition-duration: 500ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* View transitions circular expand effect */
+/* Theme switch: circular reveal driven by useTheme */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
 }
-
 ::view-transition-old(root) {
   z-index: 1;
 }
@@ -44,6 +36,13 @@ html, body {
   z-index: 1;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
 @layer utilities {
   .custom-scrollbar::-webkit-scrollbar {
     width: 6px;
@@ -53,7 +52,7 @@ html, body {
     background: transparent;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-slate-300 dark:bg-slate-700 rounded-full;
+    @apply rounded-full bg-slate-300 dark:bg-slate-700;
   }
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     @apply bg-slate-400 dark:bg-slate-600;

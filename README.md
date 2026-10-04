@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/brand/banner.svg" alt="Secure Runtimes: hardened, signed and scanned container runtimes on Wolfi" width="100%"></p>
+
 # High-Assurance Secure Container Runtimes
 
 [![FIPS 140-3](https://img.shields.io/badge/FIPS-140--3%20Hardened-blue?style=for-the-badge&logo=shield)](https://github.com/taha2samy-3/node)
