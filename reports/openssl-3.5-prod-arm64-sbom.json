@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "serialNumber": "urn:uuid:57125c3f-8a4c-4564-bffb-3d1113cdcbcb",
+  "serialNumber": "urn:uuid:43495c72-638d-4304-8da2-08e080598b96",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-10-04T12:58:48+00:00",
+    "timestamp": "2026-10-04T13:17:22+00:00",
     "tools": {
       "components": [
         {
@@ -20,10 +20,10 @@
       ]
     },
     "component": {
-      "bom-ref": "pkg:oci/openssl-fips@sha256:12799a1e62acef60155ce997de6cb32260d23c9bdf7017cf476edfbf5c0dc0c0?arch=arm64&repository_url=ghcr.io%2Ftaha2samy-3%2Fopenssl-fips",
+      "bom-ref": "pkg:oci/openssl-fips@sha256:409301332170f3958d674cf57e741ae52abfb9dbfa82861fe32fef2ecccfee7d?arch=arm64&repository_url=ghcr.io%2Ftaha2samy-3%2Fopenssl-fips",
       "type": "container",
       "name": "ghcr.io/taha2samy-3/openssl-fips:3.5.5-distroless",
-      "purl": "pkg:oci/openssl-fips@sha256:12799a1e62acef60155ce997de6cb32260d23c9bdf7017cf476edfbf5c0dc0c0?arch=arm64&repository_url=ghcr.io%2Ftaha2samy-3%2Fopenssl-fips",
+      "purl": "pkg:oci/openssl-fips@sha256:409301332170f3958d674cf57e741ae52abfb9dbfa82861fe32fef2ecccfee7d?arch=arm64&repository_url=ghcr.io%2Ftaha2samy-3%2Fopenssl-fips",
       "properties": [
         {
           "name": "aquasecurity:trivy:DiffID",
@@ -115,7 +115,7 @@
         },
         {
           "name": "aquasecurity:trivy:RepoDigest",
-          "value": "ghcr.io/taha2samy-3/openssl-fips@sha256:12799a1e62acef60155ce997de6cb32260d23c9bdf7017cf476edfbf5c0dc0c0"
+          "value": "ghcr.io/taha2samy-3/openssl-fips@sha256:409301332170f3958d674cf57e741ae52abfb9dbfa82861fe32fef2ecccfee7d"
         },
         {
           "name": "aquasecurity:trivy:RepoTag",
@@ -134,7 +134,7 @@
   },
   "components": [
     {
-      "bom-ref": "fab41a6d-1f1d-4fd2-94ce-c79ab6b9dd18",
+      "bom-ref": "07668bf3-2a45-44ed-b2e2-c100b9e18b94",
       "type": "operating-system",
       "name": "wolfi",
       "version": "20230201",
@@ -150,7 +150,7 @@
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/ca-certificates-bundle@20251003-r3?arch=aarch64&origin=ca-certificates",
+      "bom-ref": "pkg:apk/wolfi/ca-certificates-bundle@20251003-r3?arch=aarch64&distro=wolfi",
       "type": "library",
       "name": "ca-certificates-bundle",
       "version": "20251003-r3",
@@ -159,7 +159,7 @@
           "expression": "MPL-2.0 AND MIT"
         }
       ],
-      "purl": "pkg:apk/wolfi/ca-certificates-bundle@20251003-r3?arch=aarch64&origin=ca-certificates",
+      "purl": "pkg:apk/wolfi/ca-certificates-bundle@20251003-r3?arch=aarch64&distro=wolfi",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
@@ -873,7 +873,7 @@
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/wolfi-baselayout@20230201-r27?arch=aarch64&distro=wolfi",
+      "bom-ref": "pkg:apk/wolfi/wolfi-baselayout@20230201-r27?arch=aarch64&origin=wolfi-baselayout",
       "type": "library",
       "name": "wolfi-baselayout",
       "version": "20230201-r27",
@@ -884,7 +884,7 @@
           }
         }
       ],
-      "purl": "pkg:apk/wolfi/wolfi-baselayout@20230201-r27?arch=aarch64&distro=wolfi",
+      "purl": "pkg:apk/wolfi/wolfi-baselayout@20230201-r27?arch=aarch64&origin=wolfi-baselayout",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
@@ -1067,19 +1067,19 @@
   ],
   "dependencies": [
     {
-      "ref": "fab41a6d-1f1d-4fd2-94ce-c79ab6b9dd18",
+      "ref": "07668bf3-2a45-44ed-b2e2-c100b9e18b94",
       "dependsOn": [
-        "pkg:apk/wolfi/ca-certificates-bundle@20251003-r3?arch=aarch64&origin=ca-certificates",
+        "pkg:apk/wolfi/ca-certificates-bundle@20251003-r3?arch=aarch64&distro=wolfi",
         "pkg:apk/wolfi/ca-certificates@20260413-r0?arch=aarch64&distro=20230201",
         "pkg:apk/wolfi/tzdata@2025c-r0?arch=aarch64&distro=wolfi",
         "pkg:apk/wolfi/tzdata@2026b-r0?arch=aarch64&distro=20230201",
-        "pkg:apk/wolfi/wolfi-baselayout@20230201-r27?arch=aarch64&distro=wolfi",
+        "pkg:apk/wolfi/wolfi-baselayout@20230201-r27?arch=aarch64&origin=wolfi-baselayout",
         "pkg:apk/wolfi/wolfi-keys@1-r13?arch=aarch64&distro=20230201",
         "pkg:apk/wolfi/zlib@1.3.2-r3?arch=aarch64&distro=20230201"
       ]
     },
     {
-      "ref": "pkg:apk/wolfi/ca-certificates-bundle@20251003-r3?arch=aarch64&origin=ca-certificates",
+      "ref": "pkg:apk/wolfi/ca-certificates-bundle@20251003-r3?arch=aarch64&distro=wolfi",
       "dependsOn": []
     },
     {
@@ -1182,7 +1182,7 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/wolfi-baselayout@20230201-r27?arch=aarch64&distro=wolfi",
+      "ref": "pkg:apk/wolfi/wolfi-baselayout@20230201-r27?arch=aarch64&origin=wolfi-baselayout",
       "dependsOn": []
     },
     {
@@ -1204,9 +1204,9 @@
       ]
     },
     {
-      "ref": "pkg:oci/openssl-fips@sha256:12799a1e62acef60155ce997de6cb32260d23c9bdf7017cf476edfbf5c0dc0c0?arch=arm64&repository_url=ghcr.io%2Ftaha2samy-3%2Fopenssl-fips",
+      "ref": "pkg:oci/openssl-fips@sha256:409301332170f3958d674cf57e741ae52abfb9dbfa82861fe32fef2ecccfee7d?arch=arm64&repository_url=ghcr.io%2Ftaha2samy-3%2Fopenssl-fips",
       "dependsOn": [
-        "fab41a6d-1f1d-4fd2-94ce-c79ab6b9dd18"
+        "07668bf3-2a45-44ed-b2e2-c100b9e18b94"
       ]
     }
   ],

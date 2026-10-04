@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "serialNumber": "urn:uuid:da5418b2-ce7b-4aa8-83f7-65eb2c5e7f41",
+  "serialNumber": "urn:uuid:f5632e09-9f79-48f9-957b-d7435a19b239",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-10-04T12:59:01+00:00",
+    "timestamp": "2026-10-04T13:17:49+00:00",
     "tools": {
       "components": [
         {
@@ -20,10 +20,10 @@
       ]
     },
     "component": {
-      "bom-ref": "pkg:oci/openssl-fips@sha256:2b5edf12348aea94659ef2ebd12aefb1eb2508844563ee498c80eb461885881a?arch=arm64&repository_url=ghcr.io%2Ftaha2samy-3%2Fopenssl-fips",
+      "bom-ref": "pkg:oci/openssl-fips@sha256:8cc3f0c191626081fc3b6373c4bbfeb0263b5581b682a8c5549d7a62ab98d483?arch=arm64&repository_url=ghcr.io%2Ftaha2samy-3%2Fopenssl-fips",
       "type": "container",
       "name": "ghcr.io/taha2samy-3/openssl-fips:3.5.5-dev",
-      "purl": "pkg:oci/openssl-fips@sha256:2b5edf12348aea94659ef2ebd12aefb1eb2508844563ee498c80eb461885881a?arch=arm64&repository_url=ghcr.io%2Ftaha2samy-3%2Fopenssl-fips",
+      "purl": "pkg:oci/openssl-fips@sha256:8cc3f0c191626081fc3b6373c4bbfeb0263b5581b682a8c5549d7a62ab98d483?arch=arm64&repository_url=ghcr.io%2Ftaha2samy-3%2Fopenssl-fips",
       "properties": [
         {
           "name": "aquasecurity:trivy:DiffID",
@@ -99,7 +99,7 @@
         },
         {
           "name": "aquasecurity:trivy:RepoDigest",
-          "value": "ghcr.io/taha2samy-3/openssl-fips@sha256:2b5edf12348aea94659ef2ebd12aefb1eb2508844563ee498c80eb461885881a"
+          "value": "ghcr.io/taha2samy-3/openssl-fips@sha256:8cc3f0c191626081fc3b6373c4bbfeb0263b5581b682a8c5549d7a62ab98d483"
         },
         {
           "name": "aquasecurity:trivy:RepoTag",
@@ -118,7 +118,7 @@
   },
   "components": [
     {
-      "bom-ref": "9151a812-e1b5-4e3a-b49a-bd8028e873e5",
+      "bom-ref": "62797bcc-91cf-4467-b9b4-65586715950b",
       "type": "operating-system",
       "name": "wolfi",
       "version": "20230201",
@@ -330,7 +330,7 @@
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/ca-certificates-bundle@20251003-r3?arch=aarch64&origin=ca-certificates",
+      "bom-ref": "pkg:apk/wolfi/ca-certificates-bundle@20251003-r3?arch=aarch64&distro=wolfi",
       "type": "library",
       "name": "ca-certificates-bundle",
       "version": "20251003-r3",
@@ -339,7 +339,7 @@
           "expression": "MPL-2.0 AND MIT"
         }
       ],
-      "purl": "pkg:apk/wolfi/ca-certificates-bundle@20251003-r3?arch=aarch64&origin=ca-certificates",
+      "purl": "pkg:apk/wolfi/ca-certificates-bundle@20251003-r3?arch=aarch64&distro=wolfi",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
@@ -3934,11 +3934,11 @@
   ],
   "dependencies": [
     {
-      "ref": "9151a812-e1b5-4e3a-b49a-bd8028e873e5",
+      "ref": "62797bcc-91cf-4467-b9b4-65586715950b",
       "dependsOn": [
         "pkg:apk/wolfi/build-base@1-r9?arch=aarch64&distro=20230201",
         "pkg:apk/wolfi/busybox@1.37.0-r59?arch=aarch64&distro=20230201",
-        "pkg:apk/wolfi/ca-certificates-bundle@20251003-r3?arch=aarch64&origin=ca-certificates",
+        "pkg:apk/wolfi/ca-certificates-bundle@20251003-r3?arch=aarch64&distro=wolfi",
         "pkg:apk/wolfi/ca-certificates@20260413-r0?arch=aarch64&distro=20230201",
         "pkg:apk/wolfi/curl@8.20.0-r1?arch=aarch64&distro=20230201",
         "pkg:apk/wolfi/jq@1.8.1-r6?arch=aarch64&distro=20230201",
@@ -3993,7 +3993,7 @@
       ]
     },
     {
-      "ref": "pkg:apk/wolfi/ca-certificates-bundle@20251003-r3?arch=aarch64&origin=ca-certificates",
+      "ref": "pkg:apk/wolfi/ca-certificates-bundle@20251003-r3?arch=aarch64&distro=wolfi",
       "dependsOn": []
     },
     {
@@ -4553,9 +4553,9 @@
       ]
     },
     {
-      "ref": "pkg:oci/openssl-fips@sha256:2b5edf12348aea94659ef2ebd12aefb1eb2508844563ee498c80eb461885881a?arch=arm64&repository_url=ghcr.io%2Ftaha2samy-3%2Fopenssl-fips",
+      "ref": "pkg:oci/openssl-fips@sha256:8cc3f0c191626081fc3b6373c4bbfeb0263b5581b682a8c5549d7a62ab98d483?arch=arm64&repository_url=ghcr.io%2Ftaha2samy-3%2Fopenssl-fips",
       "dependsOn": [
-        "9151a812-e1b5-4e3a-b49a-bd8028e873e5"
+        "62797bcc-91cf-4467-b9b4-65586715950b"
       ]
     }
   ],
