@@ -1,0 +1,183 @@
+# Every version pinned in docker-bake.hcl and how it is kept up to date.
+#
+# certified     FIPS 140-3 validated modules. Never updated automatically: the weekly
+#               certificate watch (.github/scripts/cmvp_watch.py) opens an issue when NIST
+#               lists a new certificate, a certificate changes status or its sunset is near.
+# dependencies  Updated by .github/scripts/update_dependencies.py. Each group gets its own
+#               pull request, and merging it rebuilds only the images that use those pins.
+#
+# Sources and how a new version is chosen
+#   wolfi           newest version of the exact Wolfi package name
+#   image           current digest of the tag
+#   openssl         newest release on the same major.minor line, with its SHA-256
+#   adoptium        newest Eclipse Temurin build of the same feature release, per architecture
+#   maven           newest release on the same major.minor line, with its SHA-256
+#   github-release  newest release, with checksums from the release's checksum file
+
+groups:
+  runtimes: Language runtimes
+  openssl-fips: OpenSSL FIPS
+  openjdk-fips: OpenJDK FIPS
+  base: Base image and tools
+
+certified:
+  - name: OpenSSL FIPS Provider
+    vendor: The OpenSSL Project
+    certificate: 4985
+    version: "3.1.2"
+    variables: [OPENSSL_FIPS_VERSION, OPENSSL_FIPS_SHA256]
+    used_by: [openssl-fips, node-fips]
+  - name: BC-FJA (Bouncy Castle FIPS Java API)
+    vendor: Legion of the Bouncy Castle Inc.
+    certificate: 4943
+    version: "2.1.1"
+    variables: [OPENJDK_BC_FIPS_VERSION, OPENJDK_BC_FIPS_URL, OPENJDK_BC_FIPS_SHA]
+    used_by: [wolfi-openjdk-fips]
+
+# Variables that look like pins but are not versions to track
+not_pinned:
+  NODE_FIPS_PROVIDER_IMAGE: built from OPENSSL_REPO and OPENSSL_CORE_VERSION (the OpenSSL FIPS image of this repository)
+  OPENJDK_LATEST_VERSION: policy setting, the Java version that gets the floating dev / latest / distroless tags
+
+dependencies:
+  # ==========================================
+  # Base image and tools (used by every image)
+  # ==========================================
+  - name: wolfi-base
+    group: base
+    source: image
+    ref: cgr.dev/chainguard/wolfi-base:latest
+    variable: BASE_IMAGE
+
+  - name: envoke
+    group: base
+    source: github-release
+    repo: taha2samy-3/envoke
+    variable: ENVOKE_VERSION
+    checksum_file: checksums.txt
+    checksums:
+      ENVOKE_SHA256_AMD64: secrets-entrypoint_linux_amd64
+      ENVOKE_SHA256_ARM64: secrets-entrypoint_linux_arm64
+
+  # ==========================================
+  # Language runtimes (Wolfi packages)
+  # ==========================================
+  - group: runtimes
+    source: wolfi
+    packages:
+      NODE_18_FULL_VERSION: nodejs-18
+      NODE_20_FULL_VERSION: nodejs-20
+      NODE_22_FULL_VERSION: nodejs-22
+      NODE_24_FULL_VERSION: nodejs-24
+      NODE_26_FULL_VERSION: nodejs-26
+      PYTHON_3_10_FULL_VERSION: python-3.10
+      PYTHON_3_11_FULL_VERSION: python-3.11
+      PYTHON_3_12_FULL_VERSION: python-3.12
+      PYTHON_3_13_FULL_VERSION: python-3.13
+      PYTHON_3_14_FULL_VERSION: python-3.14
+      BUN_1_FULL_VERSION: bun
+      JAVA_17_FULL_VERSION: openjdk-17-default-jdk
+      JAVA_21_FULL_VERSION: openjdk-21-default-jdk
+      JAVA_23_FULL_VERSION: openjdk-23-default-jdk
+      GO_1_22_FULL_VERSION: go-1.22
+      GO_1_23_FULL_VERSION: go-1.23
+      GO_1_24_FULL_VERSION: go-1.24
+
+  # ==========================================
+  # OpenSSL FIPS (core library, static base, build and runtime packages)
+  # ==========================================
+  - name: openssl
+    group: openssl-fips
+    source: openssl
+    variable: OPENSSL_CORE_VERSION
+    sha256_variable: OPENSSL_CORE_SHA256
+
+  - name: chainguard/static
+    group: openssl-fips
+    source: image
+    ref: cgr.dev/chainguard/static:latest
+    variable: OPENSSL_STATIC_IMAGE
+
+  - group: openssl-fips
+    source: wolfi
+    packages:
+      OPENSSL_BUILD_BASE_VER: build-base
+      OPENSSL_PERL_VER: perl
+      OPENSSL_LINUX_HEADERS_VER: linux-headers
+      OPENSSL_WGET_VER: wget
+      OPENSSL_CA_CERTIFICATES_VER: ca-certificates
+      OPENSSL_LIBSTDC_PLUS_PLUS_VER: libstdc++
+      OPENSSL_ZLIB_VER: zlib
+      OPENSSL_TZDATA_VER: tzdata
+      OPENSSL_POSIX_LIBC_UTILS_VER: posix-libc-utils
+      OPENSSL_PKGCONF_VER: pkgconf
+      OPENSSL_PCRE_DEV_VER: pcre-dev
+      OPENSSL_ZLIB_DEV_VER: zlib-dev
+      OPENSSL_BASH_VER: bash
+      OPENSSL_CURL_VER: curl
+      OPENSSL_JQ_VER: jq
+      OPENSSL_UNZIP_VER: unzip
+      OPENSSL_APK_TOOLS_VER: apk-tools
+      OPENSSL_BUSYBOX_VER: busybox
+      OPENSSL_GLIBC_VER: glibc
+      OPENSSL_GLIBC_LOCALE_POSIX_VER: glibc-locale-posix
+      OPENSSL_LD_LINUX_VER: ld-linux
+      OPENSSL_LIBCRYPT1_VER: libcrypt1
+      OPENSSL_LIBXCRYPT_VER: libxcrypt
+      OPENSSL_LIBGCC_VER: libgcc
+      OPENSSL_WOLFI_BASE_VER: wolfi-base
+      OPENSSL_WOLFI_BASELAYOUT_VER: wolfi-baselayout
+      OPENSSL_WOLFI_KEYS_VER: wolfi-keys
+
+  # ==========================================
+  # OpenJDK FIPS (Temurin, Bouncy Castle TLS / utilities, runtime packages)
+  # ==========================================
+  - name: temurin-8
+    group: openjdk-fips
+    source: adoptium
+    feature: 8
+    prefix: OPENJDK_8
+  - name: temurin-17
+    group: openjdk-fips
+    source: adoptium
+    feature: 17
+    prefix: OPENJDK_17
+  - name: temurin-21
+    group: openjdk-fips
+    source: adoptium
+    feature: 21
+    prefix: OPENJDK_21
+  - name: temurin-25
+    group: openjdk-fips
+    source: adoptium
+    feature: 25
+    prefix: OPENJDK_25
+
+  # Not part of the validated module; must stay on the bc-fips 2.1 line
+  - name: bctls-fips
+    group: openjdk-fips
+    source: maven
+    artifact: org.bouncycastle:bctls-fips
+    variable: OPENJDK_BC_TLS_FIPS_VERSION
+    url_variable: OPENJDK_BC_TLS_FIPS_URL
+    sha256_variable: OPENJDK_BC_TLS_FIPS_SHA
+  - name: bcutil-fips
+    group: openjdk-fips
+    source: maven
+    artifact: org.bouncycastle:bcutil-fips
+    variable: OPENJDK_BC_UTIL_FIPS_VERSION
+    url_variable: OPENJDK_BC_UTIL_FIPS_URL
+    sha256_variable: OPENJDK_BC_UTIL_FIPS_SHA
+
+  - name: alpine
+    group: openjdk-fips
+    source: image
+    ref: alpine:3
+    variable: OPENJDK_ALPINE_IMAGE
+
+  - group: openjdk-fips
+    source: wolfi
+    packages:
+      OPENJDK_LIBCRYPTO3_VER: libcrypto3
+      OPENJDK_LIBSSL3_VER: libssl3
+      OPENJDK_NCURSES_VER: ncurses

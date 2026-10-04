@@ -5,6 +5,10 @@ inputs:
   image:
     description: "The full image reference to scan"
     required: true
+  platform:
+    description: "Platform of the multi-platform image to scan, e.g. linux/arm64"
+    required: false
+    default: "linux/amd64"
   vuln_out:
     description: "Output filename for vulnerability report"
     required: true
@@ -31,7 +35,7 @@ runs:
         docker run --rm \
           -v /var/run/docker.sock:/var/run/docker.sock \
           -v "$(pwd)/reports:/reports" \
-          aquasec/trivy image --format json --output /reports/${{ inputs.vuln_out }} ${{ inputs.image }}
+          aquasec/trivy image --platform ${{ inputs.platform }} --format json --output /reports/${{ inputs.vuln_out }} ${{ inputs.image }}
 
     - name: Run Trivy CIS Compliance Scan
       shell: bash
@@ -39,7 +43,7 @@ runs:
         docker run --rm \
           -v /var/run/docker.sock:/var/run/docker.sock \
           -v "$(pwd)/reports:/reports" \
-          aquasec/trivy image --compliance docker-cis-1.6.0 --format json --output /reports/${{ inputs.cis_out }} ${{ inputs.image }}
+          aquasec/trivy image --platform ${{ inputs.platform }} --compliance docker-cis-1.6.0 --format json --output /reports/${{ inputs.cis_out }} ${{ inputs.image }}
 
     - name: Run Trivy SBOM Scan
       shell: bash
@@ -47,7 +51,7 @@ runs:
         docker run --rm \
           -v /var/run/docker.sock:/var/run/docker.sock \
           -v "$(pwd)/reports:/reports" \
-          aquasec/trivy image --format cyclonedx --output /reports/${{ inputs.sbom_out }} ${{ inputs.image }}
+          aquasec/trivy image --platform ${{ inputs.platform }} --format cyclonedx --output /reports/${{ inputs.sbom_out }} ${{ inputs.image }}
 
     - name: Clean Up Pulled Image
       shell: bash

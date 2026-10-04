@@ -7,6 +7,10 @@ import subprocess
 import re
 import inspect
 
+# These tests talk to public internet hosts; CI runs the suite with -m "not network"
+pytestmark = pytest.mark.network
+
+
 @allure.feature("Network Stack & TLS Compliance")
 class TestNetworkAndTLS:
     """

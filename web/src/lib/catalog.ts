@@ -2,6 +2,8 @@ import runtimesData from '../../runtimes.yaml';
 
 export interface FipsInfo {
   module: string;
+  // NIST CMVP certificate of the module
+  certificate?: number;
   enforcement: string;
   // Command that proves FIPS mode, with {tag} standing for the image reference
   verify: string;

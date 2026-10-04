@@ -1,14 +1,22 @@
 name: Bake Build and Push
-description: Sets up QEMU, Buildx, logs into GHCR, and builds targets using Bake
+description: Sets up Buildx, logs into GHCR and builds targets with Bake
 
 inputs:
   targets:
     description: Targets to build from docker-bake.hcl
     required: true
   set:
-    description: Newline-separated bake overrides (target.key=value), e.g. the build fingerprint labels
+    description: Newline-separated bake overrides (target.key=value), e.g. platform, output and fingerprint labels
     required: false
     default: ""
+  push:
+    description: Push the tagged images (false when the output in `set` already pushes by digest)
+    required: false
+    default: "false"
+  emulate:
+    description: Install QEMU to build for a platform the runner cannot run natively
+    required: false
+    default: "false"
   registry-username:
     description: Username for GitHub Container Registry
     required: true
@@ -16,10 +24,16 @@ inputs:
     description: Token for GitHub Container Registry
     required: true
 
+outputs:
+  metadata:
+    description: Bake build result metadata (image digests per target)
+    value: ${{ steps.bake.outputs.metadata }}
+
 runs:
   using: composite
   steps:
     - name: Set up QEMU
+      if: inputs.emulate == 'true'
       uses: docker/setup-qemu-action@v4
 
     - name: Set up Docker Buildx
@@ -32,7 +46,8 @@ runs:
         username: ${{ inputs.registry-username }}
         password: ${{ inputs.registry-token }}
 
-    - name: Build and Push with Bake
+    - name: Build with Bake
+      id: bake
       uses: docker/bake-action@v7
       env:
         DOCKER_BUILD_RECORD_RETENTION_DAYS: 2
@@ -43,4 +58,4 @@ runs:
           ./docker-bake.hcl
         targets: ${{ inputs.targets }}
         set: ${{ inputs.set }}
-        push: true
+        push: ${{ inputs.push }}

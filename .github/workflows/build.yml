@@ -16,6 +16,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: false
 
+env:
+  # Each architecture job pushes untagged images by digest; the merge job tags the multi-platform image
+  PUSH_BY_DIGEST: "*.output=type=image,push-by-digest=true,name-canonical=true,push=true"
+
 jobs:
   plan:
     runs-on: ubuntu-latest
@@ -24,11 +28,15 @@ jobs:
       packages: read
     outputs:
       build: ${{ steps.plan.outputs.build }}
+      merge: ${{ steps.plan.outputs.merge }}
       build_dependents: ${{ steps.plan.outputs.build_dependents }}
+      merge_dependents: ${{ steps.plan.outputs.merge_dependents }}
       images: ${{ steps.plan.outputs.images }}
+      tests: ${{ steps.plan.outputs.tests }}
       has_build: ${{ steps.plan.outputs.has_build }}
       has_dependents: ${{ steps.plan.outputs.has_dependents }}
       has_images: ${{ steps.plan.outputs.has_images }}
+      has_tests: ${{ steps.plan.outputs.has_tests }}
 
     steps:
       - name: Checkout Code
@@ -62,10 +70,13 @@ jobs:
           path: build-plan.json
           retention-days: 7
 
+  # ==========================================
+  # Images built from scratch (native runner per architecture)
+  # ==========================================
   build:
     needs: plan
     if: needs.plan.outputs.has_build == 'true'
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.runner }}
     permissions:
       contents: read
       packages: write
@@ -74,26 +85,96 @@ jobs:
       matrix:
         include: ${{ fromJSON(needs.plan.outputs.build) }}
 
-    name: build (${{ matrix.unit }})
+    name: build (${{ matrix.unit }}, ${{ matrix.arch }})
     steps:
       - name: Checkout Code
         uses: actions/checkout@v7
 
-      - name: Build Runtime Images
+      - name: Build Images
+        id: attempt1
+        continue-on-error: true
         uses: ./.github/actions/bake-build
         with:
           targets: ${{ matrix.targets }}
-          set: ${{ matrix.set }}
+          set: |
+            ${{ matrix.set }}
+            ${{ env.PUSH_BY_DIGEST }}
           registry-username: ${{ github.actor }}
           registry-token: ${{ secrets.GITHUB_TOKEN }}
 
-  # Images that consume another image built in this run (node-fips copies the provider from openssl-fips)
-  build-dependents:
+      # Registries occasionally answer 403/429 or drop connections; one delayed retry absorbs that
+      - name: Wait Before Retrying
+        if: steps.attempt1.outcome == 'failure'
+        run: sleep 60
+
+      - name: Build Images (Retry)
+        id: attempt2
+        if: steps.attempt1.outcome == 'failure'
+        uses: ./.github/actions/bake-build
+        with:
+          targets: ${{ matrix.targets }}
+          set: |
+            ${{ matrix.set }}
+            ${{ env.PUSH_BY_DIGEST }}
+          registry-username: ${{ github.actor }}
+          registry-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Record Image Digests
+        env:
+          BAKE_METADATA: ${{ steps.attempt2.outputs.metadata || steps.attempt1.outputs.metadata }}
+        run: python3 .github/scripts/merge_manifests.py record --arch ${{ matrix.arch }} --out digests
+
+      - name: Upload Image Digests
+        uses: actions/upload-artifact@v4
+        with:
+          name: digests-${{ matrix.unit }}-${{ matrix.arch }}
+          path: digests/
+          retention-days: 1
+
+  merge:
     needs: [plan, build]
-    if: >-
-      !cancelled() && needs.plan.outputs.has_dependents == 'true' &&
-      (needs.build.result == 'success' || needs.build.result == 'skipped')
+    if: "!cancelled() && needs.plan.outputs.has_build == 'true'"
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(needs.plan.outputs.merge) }}
+
+    name: merge (${{ matrix.unit }})
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download Image Digests
+        uses: actions/download-artifact@v8
+        with:
+          pattern: digests-${{ matrix.unit }}-*
+          path: digests
+          merge-multiple: true
+
+      - name: Create Multi-Platform Images
+        run: python3 .github/scripts/merge_manifests.py merge --targets "${{ matrix.targets }}" --digests digests
+
+  # ==========================================
+  # Images that consume another image built in this run (node-fips copies the provider from openssl-fips)
+  # ==========================================
+  build-dependents:
+    needs: [plan, merge]
+    if: "!cancelled() && needs.plan.outputs.has_dependents == 'true'"
+    runs-on: ${{ matrix.runner }}
     permissions:
       contents: read
       packages: write
@@ -102,25 +183,120 @@ jobs:
       matrix:
         include: ${{ fromJSON(needs.plan.outputs.build_dependents) }}
 
-    name: build (${{ matrix.unit }})
+    name: build (${{ matrix.unit }}, ${{ matrix.arch }})
     steps:
       - name: Checkout Code
         uses: actions/checkout@v7
 
-      - name: Build Runtime Images
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - name: Install Planner Dependencies
+        run: pip install pyyaml
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Only wait for the images this unit uses; if one failed, skip and retry on the next run
+      - name: Check Required Images Were Published
+        id: requires
+        env:
+          REQUIRES: ${{ matrix.requires }}
+        run: python .github/scripts/plan_images.py verify --requires "$REQUIRES"
+
+      - name: Build Images
+        id: attempt1
+        if: steps.requires.outputs.built == 'true'
+        continue-on-error: true
         uses: ./.github/actions/bake-build
         with:
           targets: ${{ matrix.targets }}
-          set: ${{ matrix.set }}
+          set: |
+            ${{ matrix.set }}
+            ${{ env.PUSH_BY_DIGEST }}
           registry-username: ${{ github.actor }}
           registry-token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Wait Before Retrying
+        if: steps.attempt1.outcome == 'failure'
+        run: sleep 60
+
+      - name: Build Images (Retry)
+        id: attempt2
+        if: steps.attempt1.outcome == 'failure'
+        uses: ./.github/actions/bake-build
+        with:
+          targets: ${{ matrix.targets }}
+          set: |
+            ${{ matrix.set }}
+            ${{ env.PUSH_BY_DIGEST }}
+          registry-username: ${{ github.actor }}
+          registry-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Record Image Digests
+        if: steps.requires.outputs.built == 'true'
+        env:
+          BAKE_METADATA: ${{ steps.attempt2.outputs.metadata || steps.attempt1.outputs.metadata }}
+        run: python3 .github/scripts/merge_manifests.py record --arch ${{ matrix.arch }} --out digests
+
+      - name: Upload Image Digests
+        if: steps.requires.outputs.built == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: digests-${{ matrix.unit }}-${{ matrix.arch }}
+          path: digests/
+          retention-days: 1
+
+  merge-dependents:
+    needs: [plan, build-dependents]
+    if: "!cancelled() && needs.plan.outputs.has_dependents == 'true'"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(needs.plan.outputs.merge_dependents) }}
+
+    name: merge (${{ matrix.unit }})
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download Image Digests
+        uses: actions/download-artifact@v8
+        continue-on-error: true
+        with:
+          pattern: digests-${{ matrix.unit }}-*
+          path: digests
+          merge-multiple: true
+
+      - name: Create Multi-Platform Images
+        run: python3 .github/scripts/merge_manifests.py merge --targets "${{ matrix.targets }}" --digests digests
+
   cleanup:
-    needs: [build, build-dependents]
+    needs: [merge, merge-dependents]
     if: >-
       !cancelled() &&
-      (needs.build.result == 'success' || needs.build.result == 'failure' ||
-       needs.build-dependents.result == 'success' || needs.build-dependents.result == 'failure')
+      (needs.merge.result == 'success' || needs.merge.result == 'failure' ||
+       needs.merge-dependents.result == 'success' || needs.merge-dependents.result == 'failure')
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -187,3 +363,62 @@ jobs:
           target-name: ${{ matrix.suffix }}
           repo: ${{ github.repository }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
+
+  # ==========================================
+  # FIPS 140-3 test suites on both architectures, against the published images
+  # ==========================================
+  fips-tests:
+    needs: [plan, merge, merge-dependents]
+    if: "!cancelled() && needs.plan.outputs.has_tests == 'true'"
+    runs-on: ${{ matrix.runner }}
+    permissions:
+      contents: read
+      packages: read
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(needs.plan.outputs.tests) }}
+
+    name: fips tests (${{ matrix.unit }}, ${{ matrix.arch }})
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - name: Install Test Dependencies
+        run: pip install pyyaml pytest allure-pytest
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check Images Were Rebuilt
+        id: verify
+        env:
+          REQUIRES: ${{ matrix.requires }}
+        run: python .github/scripts/plan_images.py verify --requires "$REQUIRES"
+
+      - name: Pull Images
+        if: steps.verify.outputs.built == 'true'
+        env:
+          REQUIRES: ${{ matrix.requires }}
+        run: echo "$REQUIRES" | cut -d' ' -f1 | xargs -r -n1 docker pull -q
+
+      - name: Run FIPS Test Suites
+        if: steps.verify.outputs.built == 'true'
+        run: python .github/scripts/fips_tests.py --unit "${{ matrix.unit }}" --arch "${{ matrix.arch }}" --out fips-results
+
+      - name: Upload Test Results
+        if: always() && steps.verify.outputs.built == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: fips-tests-${{ matrix.unit }}-${{ matrix.arch }}
+          path: fips-results/
+          retention-days: 7

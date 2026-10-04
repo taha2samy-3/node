@@ -1,9 +1,14 @@
-name: Daily Base Image & Package Lock Update
+name: Daily Dependency Update
 
 on:
   schedule:
     - cron: '0 0 * * *'
   workflow_dispatch:
+    inputs:
+      group:
+        description: "Only update one group (runtimes, openssl-fips, openjdk-fips, base); empty updates all"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -14,9 +19,9 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  update-images:
+  update-dependencies:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
 
     steps:
       - name: Checkout repository
@@ -29,8 +34,15 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Run image lock update
+      - name: Install Dependencies
+        run: pip install pyyaml
+
+      # One pull request per group in .github/dependencies.yml; certified FIPS modules are never changed here
+      - name: Update Pinned Dependencies
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GROUP: ${{ inputs.group }}
         run: |
-          python .github/scripts/update_images.py --pull-request --base "${{ github.event.repository.default_branch }}"
+          python .github/scripts/update_dependencies.py --pull-request \
+            --base "${{ github.event.repository.default_branch }}" \
+            ${GROUP:+--group "$GROUP"}

@@ -2,10 +2,14 @@ import pytest
 import subprocess
 import shutil
 import logging
+import uuid
 from dataclasses import dataclass
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
 logger = logging.getLogger(__name__)
+
+# A container that has not finished by then is removed and the test fails instead of hanging
+RUN_TIMEOUT = 60
 
 @dataclass
 class CleanResult:
@@ -35,7 +39,8 @@ def run_docker():
             else:
                 container_cmd.append(arg)
                 i += 1
-        cmd = ["docker", "run", "--user", "0", "--rm"] + docker_options + [image] + container_cmd
+        label = f"fips-test={uuid.uuid4().hex}"
+        cmd = ["docker", "run", "--user", "0", "--rm", "--label", label] + docker_options + [image] + container_cmd
         
         logger.info(f"Executing: {' '.join(cmd)}")
         
@@ -43,13 +48,19 @@ def run_docker():
             result = subprocess.run(
                 cmd,
                 capture_output=True,
-                text=False, 
-                check=False
+                text=False,
+                check=False,
+                timeout=RUN_TIMEOUT,
             )
             stdout_decoded = result.stdout.decode('utf-8', errors='ignore')
             stderr_decoded = result.stderr.decode('utf-8', errors='ignore')
             
             return CleanResult(result.returncode, stdout_decoded, stderr_decoded)
+        except subprocess.TimeoutExpired:
+            stuck = subprocess.run(["docker", "ps", "-q", "--filter", f"label={label}"], capture_output=True, text=True).stdout.split()
+            if stuck:
+                subprocess.run(["docker", "rm", "-f", *stuck], capture_output=True)
+            pytest.fail(f"Container did not finish within {RUN_TIMEOUT}s: {' '.join(cmd)}")
         except Exception as e:
             pytest.fail(f"Local Docker execution failed: {str(e)}")
 

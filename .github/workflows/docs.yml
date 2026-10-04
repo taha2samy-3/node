@@ -14,7 +14,7 @@ on:
       - 'web/**'
       - 'scripts/fetch_metadata.py'
   workflow_run:
-    workflows: ["Build and Push Images"]
+    workflows: ["Build and Push Images", "FIPS Benchmarks"]
     types:
       - completed
 
@@ -107,6 +107,7 @@ jobs:
         uses: ./.github/actions/trivy-scan
         with:
           image: ${{ matrix.image }}
+          platform: ${{ matrix.platform }}
           vuln_out: ${{ matrix.report }}-vuln.json
           cis_out: ${{ matrix.report }}-cis.json
           sbom_out: ${{ matrix.report }}-sbom.json
@@ -143,6 +144,18 @@ jobs:
           pattern: reports-*
           merge-multiple: true
 
+      # FIPS test results (and benchmarks) produced by the workflow run that triggered this deploy
+      - name: Download FIPS Test and Benchmark Results
+        if: github.event_name == 'workflow_run'
+        continue-on-error: true
+        uses: actions/download-artifact@v8
+        with:
+          path: reports
+          pattern: "{fips-tests,benchmarks}-*"
+          merge-multiple: true
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Set up Python
         uses: actions/setup-python@v7
         with:
@@ -153,6 +166,11 @@ jobs:
 
       - name: Drop Reports of Images No Longer Published
         run: python .github/scripts/plan_images.py prune --store reports
+
+      # Status and sunset date of the FIPS 140-3 certificates, shown on the FIPS module tabs
+      - name: Check FIPS Certificates
+        continue-on-error: true
+        run: python .github/scripts/cmvp_watch.py --json reports/fips-certificates.json
 
       - name: Generate Image Sizes Metadata (reports/config.json)
         env:

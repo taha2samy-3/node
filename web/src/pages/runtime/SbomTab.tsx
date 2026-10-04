@@ -2,11 +2,11 @@ import { useMemo, useState } from 'react';
 import { AnimatedRow, Card, EmptyState, SearchInput } from '../../components/ui';
 import { useAsync } from '../../hooks/useAsync';
 import type { Flavor } from '../../lib/catalog';
-import { loadSbom, reportUrl, sbomComponents } from '../../lib/reports';
+import { loadSbom, reportUrl, sbomComponents, type Arch } from '../../lib/reports';
 import { LoadingRows, ReportFooter } from './shared';
 
-export default function SbomTab({ flavor }: { flavor: Flavor }) {
-  const report = useAsync(() => loadSbom(flavor), [flavor]);
+export default function SbomTab({ flavor, arch }: { flavor: Flavor; arch: Arch }) {
+  const report = useAsync(() => loadSbom(flavor, arch), [flavor, arch]);
   const [query, setQuery] = useState('');
 
   const components = useMemo(() => (report.status === 'ready' ? sbomComponents(report.value) : []), [report]);
@@ -53,7 +53,7 @@ export default function SbomTab({ flavor }: { flavor: Flavor }) {
           {rows.length === 0 && <p className="p-6 text-center text-sm text-slate-500">No component matches “{query}”.</p>}
         </div>
       </Card>
-      <ReportFooter href={reportUrl(flavor, 'sbom')} label="CycloneDX JSON" />
+      <ReportFooter href={reportUrl(flavor, 'sbom', arch)} label="CycloneDX JSON" />
     </div>
   );
 }

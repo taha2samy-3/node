@@ -5,7 +5,10 @@ ARG BASE_IMAGE="cgr.dev/chainguard/wolfi-base@sha256:824f77df45397eb954dfb963db2
 ARG STATIC_IMAGE="cgr.dev/chainguard/static@sha256:11ec91f0372630a2ca3764cea6325bebb0189a514084463cbb3724e5bb350d14"
 # --- Version Variables ---
 ARG FIPS_VERSION="3.1.2"
+# SHA-256 of openssl-3.1.2.tar.gz from the FIPS 140-3 module security policy (certificate #4985)
+ARG FIPS_SHA256="a0ce69b8b97ea6a35b96875235aa453b966ba3cba8af2de23657d8b6767d6539"
 ARG CORE_VERSION="3.5.5"
+ARG CORE_SHA256="b28c91532a8b65a1f983b4c28b7488174e4a01008e29ce8e69bd789f28bc2a89"
 ARG APK_TOOLS_VER="2.14.10-r12"
 ARG BUSYBOX_VER="1.37.0-r59"
 ARG GLIBC_VER="2.43-r8"
@@ -174,6 +177,7 @@ ARG LINUX_HEADERS_VER
 ARG WGET_VER
 ARG CA_CERTIFICATES_VER
 ARG FIPS_VERSION
+ARG FIPS_SHA256
 RUN --mount=type=cache,target=/var/cache/apk \
     apk add --no-cache \
     build-base${BUILD_BASE_VER:+=$BUILD_BASE_VER} \
@@ -183,10 +187,16 @@ RUN --mount=type=cache,target=/var/cache/apk \
     ca-certificates${CA_CERTIFICATES_VER:+=$CA_CERTIFICATES_VER}
 
 WORKDIR /src
-RUN wget -q https://github.com/openssl/openssl/releases/download/openssl-${FIPS_VERSION}/openssl-${FIPS_VERSION}.tar.gz || \
-    wget -q https://www.openssl.org/source/old/3.1/openssl-${FIPS_VERSION}.tar.gz || \
-    wget -q https://www.openssl.org/source/openssl-${FIPS_VERSION}.tar.gz && \
-    tar -xf openssl-${FIPS_VERSION}.tar.gz
+# The validated module must be built from the exact source tarball named in its security policy
+RUN set -e; \
+    for url in \
+      https://github.com/openssl/openssl/releases/download/openssl-${FIPS_VERSION}/openssl-${FIPS_VERSION}.tar.gz \
+      https://www.openssl.org/source/old/3.1/openssl-${FIPS_VERSION}.tar.gz \
+      https://www.openssl.org/source/openssl-${FIPS_VERSION}.tar.gz; do \
+      wget -q -O openssl.tar.gz "$url" && break; \
+    done; \
+    echo "${FIPS_SHA256}  openssl.tar.gz" | sha256sum -c -; \
+    tar -xf openssl.tar.gz
 
 WORKDIR /src/openssl-${FIPS_VERSION}
 RUN ./Configure enable-fips && \
@@ -195,6 +205,7 @@ RUN ./Configure enable-fips && \
 FROM ${BASE_IMAGE} AS core-builder
 USER root
 ARG CORE_VERSION
+ARG CORE_SHA256
 ARG BUILD_BASE_VER
 ARG PERL_VER
 ARG LINUX_HEADERS_VER
@@ -209,11 +220,15 @@ RUN --mount=type=cache,target=/var/cache/apk \
     ca-certificates${CA_CERTIFICATES_VER:+=$CA_CERTIFICATES_VER}
 
 WORKDIR /src
-RUN wget -q https://github.com/openssl/openssl/releases/download/openssl-${CORE_VERSION}/openssl-${CORE_VERSION}.tar.gz || \
-    wget -q https://www.openssl.org/source/openssl-${CORE_VERSION}.tar.gz || \
-    wget -q https://www.openssl.org/source/old/3.5/openssl-${CORE_VERSION}.tar.gz || \
-    wget -q https://www.openssl.org/source/old/3.4/openssl-${CORE_VERSION}.tar.gz && \
-    tar -xf openssl-${CORE_VERSION}.tar.gz
+RUN set -e; \
+    for url in \
+      https://github.com/openssl/openssl/releases/download/openssl-${CORE_VERSION}/openssl-${CORE_VERSION}.tar.gz \
+      https://www.openssl.org/source/openssl-${CORE_VERSION}.tar.gz \
+      https://www.openssl.org/source/old/3.5/openssl-${CORE_VERSION}.tar.gz; do \
+      wget -q -O openssl.tar.gz "$url" && break; \
+    done; \
+    echo "${CORE_SHA256}  openssl.tar.gz" | sha256sum -c -; \
+    tar -xf openssl.tar.gz
 
 WORKDIR /src/openssl-${CORE_VERSION}
 RUN ./Configure enable-fips shared --prefix=/usr/local --openssldir=/usr/local/ssl && \

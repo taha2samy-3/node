@@ -1,11 +1,11 @@
 import { ExternalLink, HardDrive, Hash } from 'lucide-react';
 import { Badge, Card, Command, CopyButton, type Tone } from '../../components/ui';
 import { packageUrl, type Flavor } from '../../lib/catalog';
-import { getImageMeta } from '../../lib/reports';
+import { getImageMeta, type Arch } from '../../lib/reports';
 
-export default function ImageCard({ flavor, statusLabel, statusTone }: { flavor: Flavor; statusLabel: string; statusTone: Tone }) {
+export default function ImageCard({ flavor, arch, statusLabel, statusTone }: { flavor: Flavor; arch: Arch; statusLabel: string; statusTone: Tone }) {
   const primary = flavor.tags[0];
-  const meta = getImageMeta(primary);
+  const meta = getImageMeta(primary, arch);
 
   return (
     <Card className="overflow-hidden">
@@ -41,10 +41,10 @@ export default function ImageCard({ flavor, statusLabel, statusTone }: { flavor:
               <span className="text-xs">Digest available after the first publish</span>
             )}
           </div>
-          <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400" title="Compressed size of the linux/amd64 image">
+          <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400" title={`Compressed size of the linux/${arch} image`}>
             <HardDrive className="h-4 w-4 text-slate-400" />
             <span className="font-mono text-xs">{meta.size ?? 'n/a'}</span>
-            <span className="text-xs text-slate-400">amd64</span>
+            <span className="text-xs text-slate-400">{arch}</span>
           </div>
           <a
             href={packageUrl(primary)}

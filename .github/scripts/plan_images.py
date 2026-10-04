@@ -37,6 +37,16 @@ FINGERPRINT_LABEL = "io.github.taha2samy-3.build.fingerprint"
 IGNORED_TARGET_KEYS = ("cache-from", "cache-to", "output")
 REPORT_KINDS = ("vuln", "cis", "sbom")
 VAR_RE = re.compile(r"\$\{(\w+)(?::[-+]([^}]*))?\}|\$(\w+)")
+# Each architecture builds natively on its own runner; the merge job joins them into one image
+ARCHES = {
+    "amd64": {"platform": "linux/amd64", "runner": "ubuntu-24.04"},
+    "arm64": {"platform": "linux/arm64", "runner": "ubuntu-24.04-arm"},
+}
+
+
+def arch_report(report, arch):
+    """Report file base for an architecture: amd64 keeps the catalog name, arm64 adds a suffix."""
+    return report if arch == "amd64" else f"{report}-{arch}"
 
 
 # ==========================================
@@ -67,6 +77,7 @@ def load_images(targets=None):
                     "tag": tag,
                     "report": report,
                     "suffix": f"{unit}-{flavor['id']}",
+                    "fips": bool(runtime.get("fips")),
                 }
                 if targets is not None:
                     if tag not in tag_to_target:
@@ -282,15 +293,23 @@ def write_summary(markdown):
     print(markdown)
 
 
-def matrix_entries(targets_by_unit, fingerprints):
-    return [
-        {
-            "unit": unit,
-            "targets": ",".join(names),
-            "set": "\n".join(f"{n}.labels.{FINGERPRINT_LABEL}={fingerprints[n]}" for n in names),
-        }
-        for unit, names in targets_by_unit.items()
-    ]
+def build_entries(targets_by_unit, fingerprints, requires=None):
+    """One job per unit and architecture; each pushes its images by digest for the merge job."""
+    entries = []
+    for unit, names in targets_by_unit.items():
+        for arch, spec in ARCHES.items():
+            lines = [f"*.platform={spec['platform']}"]
+            for name in names:
+                lines += [
+                    f"{name}.labels.{FINGERPRINT_LABEL}={fingerprints[name]}",
+                    f"{name}.cache-from=type=gha,scope={name}-{arch}",
+                    f"{name}.cache-to=type=gha,mode=max,scope={name}-{arch},compression=zstd,compression-level=3",
+                ]
+            entry = {"unit": unit, "arch": arch, "runner": spec["runner"], "targets": ",".join(names), "set": "\n".join(lines)}
+            if requires is not None:
+                entry["requires"] = "\n".join(requires.get(unit, []))
+            entries.append(entry)
+    return entries
 
 
 # ==========================================
@@ -331,7 +350,21 @@ def cmd_build(args):
             sys.exit(f"{name}: dependency chains deeper than one level are not supported")
         (stage2 if waiting_on else stage1).setdefault(unit_of[name], []).append(name)
 
+    # Dependents check that the images they build on were published by this run
+    tags = {name: targets[name]["tags"][0] for name in targets}
+    requires = {}
+    for unit, names in stage2.items():
+        requires[unit] = sorted({f"{tags[d]} {fingerprints[d]}" for n in names for d in deps[n] if d in reasons})
+
     rebuilt = [dict(i, fingerprint=fingerprints[i["target"]]) for i in images if i["target"] in reasons]
+    fips_units = sorted({i["unit"] for i in rebuilt if i["fips"]})
+    unit_requires = {u: "\n".join(f"{i['tag']} {i['fingerprint']}" for i in rebuilt if i["unit"] == u) for u in fips_units}
+    tests = [{"unit": u, "arch": a, "runner": spec["runner"], "requires": unit_requires[u]} for u in fips_units for a, spec in ARCHES.items()]
+    pr = [
+        {"unit": unit, "targets": ",".join(names), "fips": unit in fips_units,
+         "deps": ",".join(sorted({d for n in names for d in deps[n] if d in reasons}))}
+        for unit, names in {**stage1, **stage2}.items()
+    ]
     attest = [{"image": i["tag"].rsplit(":", 1)[0], "tag": i["tag"].rsplit(":", 1)[1], "suffix": i["suffix"],
                "fingerprint": i["fingerprint"]} for i in rebuilt]
 
@@ -345,50 +378,87 @@ def cmd_build(args):
     write_summary(f"### Build plan: {len(rebuilt)} of {len(images)} images\n\n" + "\n".join(rows))
 
     write_outputs({
-        "build": matrix_entries(stage1, fingerprints),
-        "build_dependents": matrix_entries(stage2, fingerprints),
+        "build": build_entries(stage1, fingerprints),
+        "merge": [{"unit": u, "targets": ",".join(n)} for u, n in stage1.items()],
+        "build_dependents": build_entries(stage2, fingerprints, requires),
+        "merge_dependents": [{"unit": u, "targets": ",".join(n)} for u, n in stage2.items()],
         "images": attest,
+        "tests": tests,
+        "pr": pr,
         "has_build": str(bool(stage1)).lower(),
         "has_dependents": str(bool(stage2)).lower(),
         "has_images": str(bool(attest)).lower(),
+        "has_tests": str(bool(tests)).lower(),
+        "has_pr": str(bool(pr)).lower(),
     })
 
 
 def cmd_scan(args):
     images = load_images()
-    chosen = {}
+    chosen = {}  # (tag, arch) -> reason
 
+    rebuilt = set()
     if args.build_plan and os.path.exists(args.build_plan):
         with open(args.build_plan, encoding="utf-8") as f:
-            for image in json.load(f)["images"]:
-                chosen[image["tag"]] = "rebuilt"
-
-    if args.mode == ["all"]:
-        for image in images:
-            chosen.setdefault(image["tag"], "full rescan requested")
-    elif args.mode == ["missing"]:
-        for image in images:
-            if any(not os.path.exists(os.path.join(args.store, f"{image['report']}-{kind}.json")) for kind in REPORT_KINDS):
-                chosen.setdefault(image["tag"], "no stored report")
-    else:
+            rebuilt = {image["tag"] for image in json.load(f)["images"]}
+    for image in images:
+        for arch in ARCHES:
+            report = arch_report(image["report"], arch)
+            if image["tag"] in rebuilt:
+                chosen[(image["tag"], arch)] = "rebuilt"
+            elif args.mode == ["all"]:
+                chosen[(image["tag"], arch)] = "full rescan requested"
+            elif args.mode == ["missing"]:
+                if any(not os.path.exists(os.path.join(args.store, f"{report}-{kind}.json")) for kind in REPORT_KINDS):
+                    chosen[(image["tag"], arch)] = "no stored report"
+    if args.mode not in (["all"], ["missing"]):
         for image in select(images, args.mode):
-            chosen.setdefault(image["tag"], "rescan requested")
+            for arch in ARCHES:
+                chosen.setdefault((image["tag"], arch), "rescan requested")
 
-    scans = [{"image": i["tag"], "report": i["report"], "suffix": i["suffix"]} for i in images if i["tag"] in chosen]
-    rows = ["| Image | Reason |", "| :--- | :--- |"] + [f"| `{tag}` | {why} |" for tag, why in chosen.items()]
-    write_summary(f"### Scan plan: {len(scans)} of {len(images)} images\n\n" + ("\n".join(rows) if scans else "Nothing to scan, the dashboard is rebuilt from stored reports."))
+    # Images that were never published (new runtimes before their first build) cannot be scanned yet
+    candidates = sorted({tag for tag, _ in chosen if tag not in rebuilt})
+    with concurrent.futures.ThreadPoolExecutor(max_workers=16) as pool:
+        missing = {tag for tag, fp in zip(candidates, pool.map(published_fingerprint, candidates)) if fp is None}
+    for key in [k for k in chosen if k[0] in missing]:
+        chosen[key] = "skipped: not published yet"
+
+    scans = [
+        {"image": i["tag"], "platform": spec["platform"], "report": arch_report(i["report"], arch), "suffix": f"{i['suffix']}-{arch}"}
+        for i in images for arch, spec in ARCHES.items()
+        if (i["tag"], arch) in chosen and not chosen[(i["tag"], arch)].startswith("skipped")
+    ]
+    rows = ["| Image | Arch | Reason |", "| :--- | :--- | :--- |"] + [f"| `{tag}` | {arch} | {why} |" for (tag, arch), why in chosen.items()]
+    write_summary(f"### Scan plan: {len(scans)} scans\n\n" + ("\n".join(rows) if chosen else "Nothing to scan, the dashboard is rebuilt from stored reports."))
     write_outputs({"scans": scans, "has_scans": str(bool(scans)).lower()})
 
 
 def cmd_verify(args):
-    built = published_fingerprint(args.tag) == args.fingerprint
-    if not built:
-        print(f"::notice::{args.tag} was not rebuilt by this run (fingerprint mismatch), skipping")
+    """built=true when every image carries the expected fingerprint (i.e. this run published it)."""
+    pairs = [line.split() for line in (args.requires or "").splitlines() if line.strip()]
+    if args.tag:
+        pairs.append([args.tag, args.fingerprint])
+    built = True
+    for tag, fingerprint in pairs:
+        if published_fingerprint(tag) != fingerprint:
+            print(f"::notice::{tag} was not published by this run (fingerprint mismatch)")
+            built = False
     write_outputs({"built": str(built).lower()})
 
 
+def cmd_fips_matrix(args):
+    """Every FIPS runtime version on every architecture (benchmarks and full test runs)."""
+    units = sorted({i["unit"] for i in load_images() if i["fips"]})
+    write_outputs({"units": [{"unit": u, "arch": a, "runner": spec["runner"]} for u in units for a, spec in ARCHES.items()]})
+
+
 def cmd_prune(args):
-    keep = {f"{i['report']}-{kind}.json" for i in load_images() for kind in REPORT_KINDS} | {"config.json"}
+    keep = {"config.json", "fips-certificates.json"}
+    for image in load_images():
+        for arch in ARCHES:
+            report = arch_report(image["report"], arch)
+            keep |= {f"{report}-{kind}.json" for kind in REPORT_KINDS}
+            keep |= {f"{image['report']}-tests-{arch}.json", f"{image['report']}-bench-{arch}.json"}
     for name in sorted(os.listdir(args.store)):
         if name.endswith(".json") and name not in keep:
             print(f"Removing stale report {name}")
@@ -409,8 +479,11 @@ def main():
     scan.add_argument("--build-plan")
 
     verify = sub.add_parser("verify")
-    verify.add_argument("--tag", required=True)
-    verify.add_argument("--fingerprint", required=True)
+    verify.add_argument("--tag")
+    verify.add_argument("--fingerprint")
+    verify.add_argument("--requires", help="newline-separated 'tag fingerprint' pairs")
+
+    sub.add_parser("fips-matrix")
 
     prune = sub.add_parser("prune")
     prune.add_argument("--store", required=True)
@@ -418,7 +491,7 @@ def main():
     args = parser.parse_args()
     if getattr(args, "mode", None):
         args.mode = " ".join(args.mode).replace(",", " ").split()
-    {"build": cmd_build, "scan": cmd_scan, "verify": cmd_verify, "prune": cmd_prune}[args.command](args)
+    {"build": cmd_build, "scan": cmd_scan, "verify": cmd_verify, "fips-matrix": cmd_fips_matrix, "prune": cmd_prune}[args.command](args)
 
 
 if __name__ == "__main__":

@@ -98,9 +98,9 @@ variable "GO_REPO" {
   default = "go"
 }
 
-variable "GO_1_22_FULL_VERSION" { default = "1.22" }
-variable "GO_1_23_FULL_VERSION" { default = "1.23" }
-variable "GO_1_24_FULL_VERSION" { default = "1.24" }
+variable "GO_1_22_FULL_VERSION" { default = "1.22.12-r8" }
+variable "GO_1_23_FULL_VERSION" { default = "1.23.12-r1" }
+variable "GO_1_24_FULL_VERSION" { default = "1.24.13-r3" }
 
 # ==========================================
 # OpenSSL FIPS Versions
@@ -113,8 +113,18 @@ variable "OPENSSL_CORE_VERSION" {
   default = "3.5.5"
 }
 
+variable "OPENSSL_CORE_SHA256" {
+  default = "b28c91532a8b65a1f983b4c28b7488174e4a01008e29ce8e69bd789f28bc2a89"
+}
+
+# FIPS 140-3 certificate #4985 covers OpenSSL FIPS Provider 3.1.2: change only when a new certificate lists the version
 variable "OPENSSL_FIPS_VERSION" {
   default = "3.1.2"
+}
+
+# SHA-256 of openssl-3.1.2.tar.gz as required by the module security policy
+variable "OPENSSL_FIPS_SHA256" {
+  default = "a0ce69b8b97ea6a35b96875235aa453b966ba3cba8af2de23657d8b6767d6539"
 }
 
 variable "OPENSSL_STATIC_IMAGE" {
@@ -204,9 +214,10 @@ variable "OPENJDK_25_JRE_AMD64_SHA" { default = "487ad434d8b121ae3902d5ad9cb830c
 variable "OPENJDK_25_JRE_ARM64_URL" { default = "https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25.0.3%2B9/OpenJDK25U-jre_aarch64_linux_hotspot_25.0.3_9.tar.gz" }
 variable "OPENJDK_25_JRE_ARM64_SHA" { default = "d12d5b19ff7f6c4a99fd4f9eecede2c96e64df7d1f41cc84f2e9c9b38408600b" }
 
-variable "OPENJDK_BC_FIPS_VERSION" { default = "2.1.2" }
-variable "OPENJDK_BC_FIPS_URL" { default = "https://repo1.maven.org/maven2/org/bouncycastle/bc-fips/2.1.2/bc-fips-2.1.2.jar" }
-variable "OPENJDK_BC_FIPS_SHA" { default = "044fcd8a29d236edea8a5b414406cdae63b475f9ad9f05fe2dc904a277941115" }
+# FIPS 140-3 certificate #4943 covers BC-FJA 2.1.1: change only when a new certificate lists the version
+variable "OPENJDK_BC_FIPS_VERSION" { default = "2.1.1" }
+variable "OPENJDK_BC_FIPS_URL" { default = "https://repo1.maven.org/maven2/org/bouncycastle/bc-fips/2.1.1/bc-fips-2.1.1.jar" }
+variable "OPENJDK_BC_FIPS_SHA" { default = "a430d935ad6cec6d045930758457740f5a5f8f9715894e347f6800f7926a7321" }
 
 variable "OPENJDK_BC_UTIL_FIPS_VERSION" { default = "2.1.5" }
 variable "OPENJDK_BC_UTIL_FIPS_URL" { default = "https://repo1.maven.org/maven2/org/bouncycastle/bcutil-fips/2.1.5/bcutil-fips-2.1.5.jar" }
@@ -217,6 +228,12 @@ variable "OPENJDK_BC_TLS_FIPS_URL" { default = "https://repo1.maven.org/maven2/o
 variable "OPENJDK_BC_TLS_FIPS_SHA" { default = "688410563445e1a65ff33cb67842499f0788994d752c3df8f7ea4a0d40ddbf50" }
 
 variable "OPENJDK_KEYSTORE_PWD" { default = "changeit" }
+
+# Image used only to download and verify the Temurin archives
+variable "OPENJDK_ALPINE_IMAGE" { default = "alpine@sha256:6baf43584bcb78f2e5847d1de515f23499913ac9f12bdf834811a3145eb11ca1" }
+variable "OPENJDK_LIBCRYPTO3_VER" { default = "3.6.2-r5" }
+variable "OPENJDK_LIBSSL3_VER" { default = "3.6.2-r5" }
+variable "OPENJDK_NCURSES_VER" { default = "6.6.20260608-r0" }
 
 
 # ==========================================
@@ -285,8 +302,8 @@ target "dev" {
     "org.opencontainers.image.description" = "Optimized Node.js ${item.version} (${item.full_version}) development image with npm based on Chainguard Wolfi"
   }
   annotations = [
-    "index,manifest:org.opencontainers.image.description=Optimized Node.js ${item.version} (${item.full_version}) development image with npm based on Chainguard Wolfi",
-    "index,manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
+    "manifest:org.opencontainers.image.description=Optimized Node.js ${item.version} (${item.full_version}) development image with npm based on Chainguard Wolfi",
+    "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
   ]
 }
 
@@ -324,8 +341,8 @@ target "prod" {
     "org.opencontainers.image.description" = "Ultra-secure minimal Node.js ${item.version} (${item.full_version}) production runtime based on Chainguard Wolfi and scratch"
   }
   annotations = [
-    "index,manifest:org.opencontainers.image.description=Ultra-secure minimal Node.js ${item.version} (${item.full_version}) production runtime based on Chainguard Wolfi and scratch",
-    "index,manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
+    "manifest:org.opencontainers.image.description=Ultra-secure minimal Node.js ${item.version} (${item.full_version}) production runtime based on Chainguard Wolfi and scratch",
+    "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
   ]
 }
 
@@ -366,8 +383,8 @@ target "node-fips" {
     "org.opencontainers.image.description" = "${flavor.description} (Node.js ${item.full_version})"
   }
   annotations = [
-    "index,manifest:org.opencontainers.image.description=${flavor.description} (Node.js ${item.full_version})",
-    "index,manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
+    "manifest:org.opencontainers.image.description=${flavor.description} (Node.js ${item.full_version})",
+    "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
   ]
 }
 
@@ -408,8 +425,8 @@ target "python-dev" {
     "org.opencontainers.image.description" = "Optimized Python ${item.version} (${item.full_version}) development image based on Chainguard Wolfi"
   }
   annotations = [
-    "index,manifest:org.opencontainers.image.description=Optimized Python ${item.version} (${item.full_version}) development image based on Chainguard Wolfi",
-    "index,manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
+    "manifest:org.opencontainers.image.description=Optimized Python ${item.version} (${item.full_version}) development image based on Chainguard Wolfi",
+    "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
   ]
 }
 
@@ -447,8 +464,8 @@ target "python-prod" {
     "org.opencontainers.image.description" = "Ultra-secure minimal Python ${item.version} (${item.full_version}) production runtime based on Chainguard Wolfi and scratch"
   }
   annotations = [
-    "index,manifest:org.opencontainers.image.description=Ultra-secure minimal Python ${item.version} (${item.full_version}) production runtime based on Chainguard Wolfi and scratch",
-    "index,manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
+    "manifest:org.opencontainers.image.description=Ultra-secure minimal Python ${item.version} (${item.full_version}) production runtime based on Chainguard Wolfi and scratch",
+    "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
   ]
 }
 
@@ -484,8 +501,8 @@ target "bun-dev" {
     "org.opencontainers.image.description" = "Optimized Bun ${item.version} (${item.full_version}) development image based on Chainguard Wolfi"
   }
   annotations = [
-    "index,manifest:org.opencontainers.image.description=Optimized Bun ${item.version} (${item.full_version}) development image based on Chainguard Wolfi",
-    "index,manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
+    "manifest:org.opencontainers.image.description=Optimized Bun ${item.version} (${item.full_version}) development image based on Chainguard Wolfi",
+    "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
   ]
 }
 
@@ -518,8 +535,8 @@ target "bun-prod" {
     "org.opencontainers.image.description" = "Ultra-secure minimal Bun ${item.version} (${item.full_version}) production runtime based on Chainguard Wolfi and scratch"
   }
   annotations = [
-    "index,manifest:org.opencontainers.image.description=Ultra-secure minimal Bun ${item.version} (${item.full_version}) production runtime based on Chainguard Wolfi and scratch",
-    "index,manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
+    "manifest:org.opencontainers.image.description=Ultra-secure minimal Bun ${item.version} (${item.full_version}) production runtime based on Chainguard Wolfi and scratch",
+    "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
   ]
 }
 
@@ -558,8 +575,8 @@ target "java-dev" {
     "org.opencontainers.image.description" = "Optimized Java OpenJDK ${item.version} (${item.full_version}) development image based on Chainguard Wolfi"
   }
   annotations = [
-    "index,manifest:org.opencontainers.image.description=Optimized Java OpenJDK ${item.version} (${item.full_version}) development image based on Chainguard Wolfi",
-    "index,manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
+    "manifest:org.opencontainers.image.description=Optimized Java OpenJDK ${item.version} (${item.full_version}) development image based on Chainguard Wolfi",
+    "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
   ]
 }
 
@@ -595,8 +612,8 @@ target "java-prod" {
     "org.opencontainers.image.description" = "Ultra-secure minimal Java OpenJDK ${item.version} (${item.full_version}) production runtime based on Chainguard Wolfi and scratch"
   }
   annotations = [
-    "index,manifest:org.opencontainers.image.description=Ultra-secure minimal Java OpenJDK ${item.version} (${item.full_version}) production runtime based on Chainguard Wolfi and scratch",
-    "index,manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
+    "manifest:org.opencontainers.image.description=Ultra-secure minimal Java OpenJDK ${item.version} (${item.full_version}) production runtime based on Chainguard Wolfi and scratch",
+    "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
   ]
 }
 
@@ -618,6 +635,7 @@ target "go-dev" {
   target = "full-dev"
   args = {
     GO_VERSION = item.version
+    GO_FULL_VERSION = item.full_version
     BASE_IMAGE = BASE_IMAGE
   }
   platforms = ["linux/amd64", "linux/arm64"]
@@ -634,8 +652,8 @@ target "go-dev" {
     "org.opencontainers.image.description" = "Optimized Go ${item.version} development image based on Chainguard Wolfi"
   }
   annotations = [
-    "index,manifest:org.opencontainers.image.description=Optimized Go ${item.version} development image based on Chainguard Wolfi",
-    "index,manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
+    "manifest:org.opencontainers.image.description=Optimized Go ${item.version} development image based on Chainguard Wolfi",
+    "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
   ]
 }
 
@@ -670,8 +688,8 @@ target "go-prod" {
     "org.opencontainers.image.description" = "Ultra-secure minimal distroless base for Go ${item.version} apps based on Chainguard Wolfi and scratch"
   }
   annotations = [
-    "index,manifest:org.opencontainers.image.description=Ultra-secure minimal distroless base for Go ${item.version} apps based on Chainguard Wolfi and scratch",
-    "index,manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
+    "manifest:org.opencontainers.image.description=Ultra-secure minimal distroless base for Go ${item.version} apps based on Chainguard Wolfi and scratch",
+    "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
   ]
 }
 
@@ -681,7 +699,9 @@ target "go-prod" {
 target "openssl-base" {
   args = {
     FIPS_VERSION = OPENSSL_FIPS_VERSION
+    FIPS_SHA256 = OPENSSL_FIPS_SHA256
     CORE_VERSION = OPENSSL_CORE_VERSION
+    CORE_SHA256 = OPENSSL_CORE_SHA256
     BASE_IMAGE = BASE_IMAGE
     STATIC_IMAGE = OPENSSL_STATIC_IMAGE
     BUILD_BASE_VER = OPENSSL_BUILD_BASE_VER
@@ -733,8 +753,8 @@ target "openssl-dev" {
     "org.opencontainers.image.description" = "Hardened FIPS 140-3 compliant OpenSSL development SDK image on Wolfi"
   }
   annotations = [
-    "index,manifest:org.opencontainers.image.description=Hardened FIPS 140-3 compliant OpenSSL development SDK image on Wolfi",
-    "index,manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
+    "manifest:org.opencontainers.image.description=Hardened FIPS 140-3 compliant OpenSSL development SDK image on Wolfi",
+    "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
   ]
 }
 
@@ -757,8 +777,8 @@ target "openssl-standard" {
     "org.opencontainers.image.description" = "Hardened FIPS 140-3 compliant OpenSSL standard runtime image on Wolfi"
   }
   annotations = [
-    "index,manifest:org.opencontainers.image.description=Hardened FIPS 140-3 compliant OpenSSL standard runtime image on Wolfi",
-    "index,manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
+    "manifest:org.opencontainers.image.description=Hardened FIPS 140-3 compliant OpenSSL standard runtime image on Wolfi",
+    "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
   ]
 }
 
@@ -781,8 +801,8 @@ target "openssl-prod" {
     "org.opencontainers.image.description" = "Hardened FIPS 140-3 compliant Zero-CVE distroless OpenSSL container on Wolfi"
   }
   annotations = [
-    "index,manifest:org.opencontainers.image.description=Hardened FIPS 140-3 compliant Zero-CVE distroless OpenSSL container on Wolfi",
-    "index,manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
+    "manifest:org.opencontainers.image.description=Hardened FIPS 140-3 compliant Zero-CVE distroless OpenSSL container on Wolfi",
+    "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
   ]
 }
 
@@ -856,7 +876,7 @@ target "openjdk" {
     JAVA_VERSION         = java.version
     JAVA_FULL_VERSION    = java.full_version
     BASE_IMAGE           = BASE_IMAGE
-    ALPINE_IMAGE         = "alpine@sha256:6baf43584bcb78f2e5847d1de515f23499913ac9f12bdf834811a3145eb11ca1"
+    ALPINE_IMAGE         = OPENJDK_ALPINE_IMAGE
 
     JDK_AMD64_URL        = java.jdk_amd64_url
     JDK_AMD64_SHA        = java.jdk_amd64_sha
@@ -891,12 +911,12 @@ target "openjdk" {
     GLIBC_LOCALE_POSIX_VER = OPENSSL_GLIBC_LOCALE_POSIX_VER
     LD_LINUX_VER           = OPENSSL_LD_LINUX_VER
     LIBCRYPT1_VER          = OPENSSL_LIBCRYPT1_VER
-    LIBCRYPTO3_VER         = "3.6.2-r5"
+    LIBCRYPTO3_VER         = OPENJDK_LIBCRYPTO3_VER
     LIBGCC_VER             = OPENSSL_LIBGCC_VER
-    LIBSSL3_VER            = "3.6.2-r5"
+    LIBSSL3_VER            = OPENJDK_LIBSSL3_VER
     LIBSTDCPP_VER          = OPENSSL_LIBSTDC_PLUS_PLUS_VER
     LIBXCRYPT_VER          = OPENSSL_LIBXCRYPT_VER
-    NCURSES_VER            = "6.6.20260608-r0"
+    NCURSES_VER            = OPENJDK_NCURSES_VER
     POSIX_LIBC_UTILS_VER   = OPENSSL_POSIX_LIBC_UTILS_VER
     TZDATA_VER             = OPENSSL_TZDATA_VER
     WOLFI_BASELAYOUT_VER   = OPENSSL_WOLFI_BASELAYOUT_VER
@@ -926,7 +946,7 @@ target "openjdk" {
     "org.opencontainers.image.description" = flavor.description
   }
   annotations = [
-    "index,manifest:org.opencontainers.image.description=${flavor.description}",
-    "index,manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
+    "manifest:org.opencontainers.image.description=${flavor.description}",
+    "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
   ]
 }

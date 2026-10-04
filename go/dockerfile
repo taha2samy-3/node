@@ -30,11 +30,12 @@ RUN set -e; \
 FROM ${BASE_IMAGE} AS full-dev
 
 ARG GO_VERSION
+ARG GO_FULL_VERSION
 
 USER root
 
 RUN apk update && apk add --no-cache \
-    go-${GO_VERSION} \
+    go-${GO_VERSION}${GO_FULL_VERSION:+=$GO_FULL_VERSION} \
     build-base \
     git \
     tini

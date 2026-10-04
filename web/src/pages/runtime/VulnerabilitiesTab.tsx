@@ -4,15 +4,15 @@ import { CheckCircle2, ExternalLink } from 'lucide-react';
 import { AnimatedRow, Badge, Card, EASE_OUT, EmptyState, SEVERITY_META, SearchInput, Stagger, StaggerItem, StatTile } from '../../components/ui';
 import type { Flavor } from '../../lib/catalog';
 import { useAsync } from '../../hooks/useAsync';
-import { SEVERITIES, loadVulns, reportUrl, vulnSummary, type Severity } from '../../lib/reports';
+import { SEVERITIES, loadVulns, reportUrl, vulnSummary, type Arch, type Severity } from '../../lib/reports';
 import { cn } from '../../utils';
 import { LoadingRows, ReportFooter } from './shared';
 
 const PAGE_SIZE = 200;
 
-export default function VulnerabilitiesTab({ flavor }: { flavor: Flavor }) {
-  const summary = vulnSummary(flavor);
-  const details = useAsync(() => (summary && summary.total > 0 ? loadVulns(flavor) : null), [flavor]);
+export default function VulnerabilitiesTab({ flavor, arch }: { flavor: Flavor; arch: Arch }) {
+  const summary = vulnSummary(flavor, arch);
+  const details = useAsync(() => (summary && summary.total > 0 ? loadVulns(flavor, arch) : null), [flavor, arch]);
   const [query, setQuery] = useState('');
   const [severity, setSeverity] = useState<Severity | 'ALL'>('ALL');
   const [fixableOnly, setFixableOnly] = useState(false);
@@ -35,7 +35,7 @@ export default function VulnerabilitiesTab({ flavor }: { flavor: Flavor }) {
   if (!summary) {
     return (
       <EmptyState title="Not scanned yet">
-        This image has no vulnerability report yet. Reports are published after the image is built and scanned.
+        The {arch} image has no vulnerability report yet. Reports are published after the image is built and scanned.
       </EmptyState>
     );
   }
@@ -174,7 +174,7 @@ export default function VulnerabilitiesTab({ flavor }: { flavor: Flavor }) {
         </>
       )}
 
-      <ReportFooter scannedAt={summary.scannedAt} href={reportUrl(flavor, 'vuln')} label="Trivy JSON" />
+      <ReportFooter scannedAt={summary.scannedAt} href={reportUrl(flavor, 'vuln', arch)} label="Trivy JSON" />
     </div>
   );
 }

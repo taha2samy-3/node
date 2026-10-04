@@ -1,0 +1,34 @@
+name: FIPS Certificate Watch
+
+# Certified FIPS 140-3 modules are never updated automatically. This checks their NIST CMVP
+# certificates every week and keeps one issue open while something needs attention.
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - name: Install Dependencies
+        run: pip install pyyaml
+
+      - name: Check Certificates
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python .github/scripts/cmvp_watch.py --issue

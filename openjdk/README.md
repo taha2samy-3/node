@@ -114,9 +114,15 @@ The module includes a comprehensive pytest and JUnit test suite located in `test
 ### Running Tests Locally
 
 ```bash
-cd openjdk
-pytest tests/ -v
+# Every flavor of one Java version, as CI runs it (pulls nothing: pull or build the images first)
+python .github/scripts/fips_tests.py --unit openjdk-21 --arch amd64 --out fips-results
+
+# Or the suite directly against one JDK / JRE pair
+cd openjdk/tests
+pytest -v --jdk-img ghcr.io/taha2samy-3/wolfi-openjdk-fips:21-dev --jre-img ghcr.io/taha2samy-3/wolfi-openjdk-fips:21
 ```
+
+CI runs these suites on amd64 and arm64 after every build and on each pull request that changes an OpenJDK image; results appear on the dashboard's **FIPS tests** tab.
 
 ---
 
@@ -129,13 +135,11 @@ From the repository root:
 docker buildx bake openjdk
 docker buildx bake openjdk-8-prod
 
-# After editing templates/java.security.j2 or config/context.json
+# After editing templates/java.security.j2 or adding a Java version
 python openjdk/render_security.py
-
-# Build standalone from openjdk directory
-cd openjdk
-docker buildx bake -f docker-bake.hcl
 ```
+
+Temurin, Bouncy Castle TLS/utility jars and the Wolfi packages are updated by the daily dependency pull request. The **bc-fips** jar is the FIPS 140-3 validated module (certificate #4943 covers 2.1.1) and only changes by hand when NIST lists a new certificate.
 
 ---
 

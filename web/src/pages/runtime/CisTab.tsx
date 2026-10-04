@@ -3,7 +3,7 @@ import { CheckCircle2, CircleHelp, XCircle } from 'lucide-react';
 import { Badge, Card, EmptyState, SEVERITY_META, Stagger, StaggerItem, StatTile } from '../../components/ui';
 import { useAsync } from '../../hooks/useAsync';
 import type { Flavor } from '../../lib/catalog';
-import { cisControls, loadCis, reportUrl, type CisControl } from '../../lib/reports';
+import { cisControls, loadCis, reportUrl, type Arch, type CisControl } from '../../lib/reports';
 import { LoadingRows, ReportFooter } from './shared';
 
 const STATUS_ICON: Record<CisControl['status'], ReactElement> = {
@@ -14,8 +14,8 @@ const STATUS_ICON: Record<CisControl['status'], ReactElement> = {
 
 const ORDER: CisControl['status'][] = ['fail', 'pass', 'manual'];
 
-export default function CisTab({ flavor }: { flavor: Flavor }) {
-  const report = useAsync(() => loadCis(flavor), [flavor]);
+export default function CisTab({ flavor, arch }: { flavor: Flavor; arch: Arch }) {
+  const report = useAsync(() => loadCis(flavor, arch), [flavor, arch]);
 
   if (report.status === 'missing' || report.status === 'error') {
     return <EmptyState title="No CIS report yet">The Docker CIS benchmark runs together with the vulnerability scan after each rebuild.</EmptyState>;
@@ -53,7 +53,7 @@ export default function CisTab({ flavor }: { flavor: Flavor }) {
         ))}
       </Card>
 
-      <ReportFooter href={reportUrl(flavor, 'cis')} label="Compliance JSON" />
+      <ReportFooter href={reportUrl(flavor, 'cis', arch)} label="Compliance JSON" />
     </div>
   );
 }

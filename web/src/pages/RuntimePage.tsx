@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
-import { ChevronRight, Cpu, FileCheck, Lock, Package, ScanSearch, ShieldCheck } from 'lucide-react';
+import { ChevronRight, Cpu, FileCheck, FlaskConical, Gauge, Lock, Package, ScanSearch, ShieldCheck } from 'lucide-react';
 import RuntimeIcon from '../components/RuntimeIcon';
-import { Badge, EASE_OUT, STATUS_META, StatusDot, Tabs, type TabItem } from '../components/ui';
+import { Badge, EASE_OUT, STATUS_META, Segmented, StatusDot, Tabs, type TabItem } from '../components/ui';
 import { findRuntime, findVersion, runtimePath, type Runtime, type RuntimeVersion } from '../lib/catalog';
-import { flavorStatus, vulnSummary } from '../lib/reports';
+import { ARCHES, flavorStatus, vulnSummary, type Arch } from '../lib/reports';
 import { cn } from '../utils';
 import NotFound from './NotFound';
 import ImageCard from './runtime/ImageCard';
@@ -14,8 +14,10 @@ import CisTab from './runtime/CisTab';
 import SbomTab from './runtime/SbomTab';
 import ProvenanceTab from './runtime/ProvenanceTab';
 import FipsTab from './runtime/FipsTab';
+import TestsTab from './runtime/TestsTab';
+import BenchmarksTab from './runtime/BenchmarksTab';
 
-type ReportTab = 'vuln' | 'cis' | 'sbom' | 'provenance' | 'fips';
+type ReportTab = 'vuln' | 'cis' | 'sbom' | 'provenance' | 'fips' | 'tests' | 'bench';
 
 export default function RuntimePage() {
   const { runtimeId, version } = useParams<{ runtimeId: string; version: string }>();
@@ -33,16 +35,23 @@ function RuntimeView({ runtime, runtimeVersion }: { runtime: Runtime; runtimeVer
   const flavors = runtimeVersion.flavors;
   const [flavorId, setFlavorId] = useState(flavors.find((f) => f.id === 'prod')?.id ?? flavors[0].id);
   const [tab, setTab] = useState<ReportTab>('vuln');
+  const [arch, setArch] = useState<Arch>('amd64');
   const flavor = flavors.find((f) => f.id === flavorId) ?? flavors[0];
-  const status = flavorStatus(flavor);
-  const vulns = vulnSummary(flavor);
+  const status = flavorStatus(flavor, arch);
+  const vulns = vulnSummary(flavor, arch);
 
   const tabs: TabItem<ReportTab>[] = [
     { id: 'vuln', label: 'Vulnerabilities', count: vulns?.total, icon: <ScanSearch className="h-4 w-4" /> },
     { id: 'cis', label: 'Docker CIS', icon: <ShieldCheck className="h-4 w-4" /> },
     { id: 'sbom', label: 'SBOM', icon: <Package className="h-4 w-4" /> },
     { id: 'provenance', label: 'Provenance', icon: <FileCheck className="h-4 w-4" /> },
-    ...(runtime.fips ? [{ id: 'fips' as const, label: 'FIPS 140-3', icon: <Lock className="h-4 w-4" /> }] : []),
+    ...(runtime.fips
+      ? [
+          { id: 'fips' as const, label: 'FIPS module', icon: <Lock className="h-4 w-4" /> },
+          { id: 'tests' as const, label: 'FIPS tests', icon: <FlaskConical className="h-4 w-4" /> },
+          { id: 'bench' as const, label: 'Benchmarks', icon: <Gauge className="h-4 w-4" /> },
+        ]
+      : []),
   ];
 
   return (
@@ -99,47 +108,34 @@ function RuntimeView({ runtime, runtimeVersion }: { runtime: Runtime; runtimeVer
           )}
         </div>
 
-        {/* Flavor selector */}
-        <div className="inline-flex flex-wrap gap-1 rounded-xl border border-slate-200 bg-white p-1 dark:border-slate-800 dark:bg-card-dark" role="radiogroup" aria-label="Image flavor">
-          {flavors.map((f) => {
-            const selected = f.id === flavor.id;
-            return (
-              <button
-                key={f.id}
-                type="button"
-                role="radio"
-                aria-checked={selected}
-                onClick={() => setFlavorId(f.id)}
-                className={cn(
-                  'relative isolate flex items-center gap-2 rounded-lg px-3.5 py-2 text-sm font-semibold transition-colors',
-                  selected ? 'text-white dark:text-slate-900' : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white',
-                )}
-              >
-                {selected && (
-                  <motion.span
-                    layoutId="flavor-pill"
-                    className="absolute inset-0 -z-10 rounded-lg bg-slate-900 dark:bg-white"
-                    transition={{ type: 'spring', stiffness: 450, damping: 38 }}
-                  />
-                )}
-                <StatusDot status={flavorStatus(f)} />
-                {f.name}
-              </button>
-            );
-          })}
+        <div className="flex flex-wrap items-center gap-3">
+          <Segmented
+            id="flavor"
+            label="Image flavor"
+            value={flavor.id}
+            onChange={setFlavorId}
+            options={flavors.map((f) => ({ id: f.id, label: <><StatusDot status={flavorStatus(f)} />{f.name}</> }))}
+          />
+          <Segmented
+            id="arch"
+            label="Architecture"
+            value={arch}
+            onChange={setArch}
+            options={ARCHES.map((a) => ({ id: a, label: <><Cpu className="h-3.5 w-3.5" />{a}</> }))}
+          />
         </div>
       </header>
 
       <AnimatePresence mode="wait">
         <motion.div
-          key={flavor.id}
+          key={`${flavor.id}-${arch}`}
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -6 }}
           transition={{ duration: 0.2, ease: EASE_OUT }}
           className="space-y-8"
         >
-          <ImageCard flavor={flavor} statusLabel={STATUS_META[status].label} statusTone={STATUS_META[status].tone} />
+          <ImageCard flavor={flavor} arch={arch} statusLabel={STATUS_META[status].label} statusTone={STATUS_META[status].tone} />
 
           <section className="space-y-5">
             <Tabs id="report-tabs" items={tabs} active={tab} onChange={setTab} />
@@ -152,11 +148,13 @@ function RuntimeView({ runtime, runtimeVersion }: { runtime: Runtime; runtimeVer
                 exit={{ opacity: 0, x: -10 }}
                 transition={{ duration: 0.18, ease: EASE_OUT }}
               >
-                {tab === 'vuln' && <VulnerabilitiesTab flavor={flavor} />}
-                {tab === 'cis' && <CisTab flavor={flavor} />}
-                {tab === 'sbom' && <SbomTab flavor={flavor} />}
-                {tab === 'provenance' && <ProvenanceTab flavor={flavor} />}
+                {tab === 'vuln' && <VulnerabilitiesTab flavor={flavor} arch={arch} />}
+                {tab === 'cis' && <CisTab flavor={flavor} arch={arch} />}
+                {tab === 'sbom' && <SbomTab flavor={flavor} arch={arch} />}
+                {tab === 'provenance' && <ProvenanceTab flavor={flavor} arch={arch} />}
                 {tab === 'fips' && runtime.fips && <FipsTab fips={runtime.fips} flavor={flavor} />}
+                {tab === 'tests' && runtime.fips && <TestsTab flavor={flavor} arch={arch} />}
+                {tab === 'bench' && runtime.fips && <BenchmarksTab runtimeVersion={runtimeVersion} arch={arch} />}
               </motion.div>
             </AnimatePresence>
           </section>

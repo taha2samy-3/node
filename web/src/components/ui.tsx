@@ -239,6 +239,45 @@ export function Tabs<T extends string>({ id, items, active, onChange }: { id: st
   );
 }
 
+/** Pill selector whose highlight slides to the chosen option. */
+export function Segmented<T extends string>({ id, label, options, value, onChange }: {
+  id: string;
+  label: string;
+  options: { id: T; label: ReactNode }[];
+  value: T;
+  onChange: (value: T) => void;
+}) {
+  return (
+    <div className="inline-flex flex-wrap gap-1 rounded-xl border border-slate-200 bg-white p-1 dark:border-slate-800 dark:bg-card-dark" role="radiogroup" aria-label={label}>
+      {options.map((option) => {
+        const selected = option.id === value;
+        return (
+          <button
+            key={option.id}
+            type="button"
+            role="radio"
+            aria-checked={selected}
+            onClick={() => onChange(option.id)}
+            className={cn(
+              'relative isolate flex items-center gap-2 rounded-lg px-3.5 py-2 text-sm font-semibold transition-colors',
+              selected ? 'text-white dark:text-slate-900' : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white',
+            )}
+          >
+            {selected && (
+              <motion.span
+                layoutId={`${id}-pill`}
+                className="absolute inset-0 -z-10 rounded-lg bg-slate-900 dark:bg-white"
+                transition={{ type: 'spring', stiffness: 450, damping: 38 }}
+              />
+            )}
+            {option.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
 // ==========================================
 // Inputs and empty states
 // ==========================================

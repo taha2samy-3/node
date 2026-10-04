@@ -1,5 +1,5 @@
 name: Attest Image
-description: Extracts digest, generates SBOM, and creates build provenance and SBOM attestations
+description: Attests build provenance for the multi-platform image and a CycloneDX SBOM for each architecture
 
 inputs:
   image-name:
@@ -9,7 +9,7 @@ inputs:
     description: Target tag of the image
     required: true
   artifact-suffix:
-    description: Suffix used to isolate SBOM output files
+    description: Suffix used to name the SBOM files (the amd64 SBOM is <suffix>.cyclonedx.json)
     required: true
   registry-username:
     description: Username for GitHub Container Registry
@@ -21,9 +21,6 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v4
-
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v4
 
@@ -34,35 +31,58 @@ runs:
         username: ${{ inputs.registry-username }}
         password: ${{ inputs.registry-token }}
 
-    - name: Extract Image Digest
-      id: get-digest
+    - name: Resolve Image and Platform Digests
+      id: digests
       shell: bash
       run: |
-        digest=$(docker buildx imagetools inspect ${{ inputs.image-name }}:${{ inputs.image-tag }} --format '{{json .Manifest.Digest}}' | tr -d '"')
-        echo "digest=$digest" >> "$GITHUB_OUTPUT"
+        manifest=$(docker buildx imagetools inspect "${{ inputs.image-name }}:${{ inputs.image-tag }}" --format '{{json .Manifest}}')
+        echo "index=$(echo "$manifest" | jq -r '.digest')" >> "$GITHUB_OUTPUT"
+        for arch in amd64 arm64; do
+          digest=$(echo "$manifest" | jq -r --arg a "$arch" '.manifests[] | select(.platform.os == "linux" and .platform.architecture == $a) | .digest' | head -n1)
+          if [ -z "$digest" ]; then echo "::error::no linux/$arch image in ${{ inputs.image-name }}:${{ inputs.image-tag }}"; exit 1; fi
+          echo "$arch=$digest" >> "$GITHUB_OUTPUT"
+        done
 
-    - name: Generate SBOM
+    - name: Generate SBOM (amd64)
       uses: anchore/sbom-action@v0
       with:
-        image: ${{ inputs.image-name }}:${{ inputs.image-tag }}
+        image: ${{ inputs.image-name }}@${{ steps.digests.outputs.amd64 }}
         format: cyclonedx-json
         output-file: ${{ inputs.artifact-suffix }}.cyclonedx.json
+        upload-artifact: false
+
+    - name: Generate SBOM (arm64)
+      uses: anchore/sbom-action@v0
+      with:
+        image: ${{ inputs.image-name }}@${{ steps.digests.outputs.arm64 }}
+        format: cyclonedx-json
+        output-file: ${{ inputs.artifact-suffix }}-arm64.cyclonedx.json
         upload-artifact: false
 
     - name: Attest Build Provenance
       uses: actions/attest-build-provenance@v4
       with:
         subject-name: ${{ inputs.image-name }}
-        subject-digest: ${{ steps.get-digest.outputs.digest }}
+        subject-digest: ${{ steps.digests.outputs.index }}
         push-to-registry: true
         show-summary: false
 
-    - name: Attest SBOM
+    - name: Attest SBOM (amd64)
       uses: actions/attest@v4
       with:
         subject-name: ${{ inputs.image-name }}
-        subject-digest: ${{ steps.get-digest.outputs.digest }}
+        subject-digest: ${{ steps.digests.outputs.amd64 }}
         predicate-path: ${{ inputs.artifact-suffix }}.cyclonedx.json
+        predicate-type: https://cyclonedx.org/bom
+        push-to-registry: true
+        show-summary: false
+
+    - name: Attest SBOM (arm64)
+      uses: actions/attest@v4
+      with:
+        subject-name: ${{ inputs.image-name }}
+        subject-digest: ${{ steps.digests.outputs.arm64 }}
+        predicate-path: ${{ inputs.artifact-suffix }}-arm64.cyclonedx.json
         predicate-type: https://cyclonedx.org/bom
         push-to-registry: true
         show-summary: false

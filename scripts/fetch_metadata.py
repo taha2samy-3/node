@@ -54,7 +54,7 @@ def get_gh_package_version_url(registry, repo, tag, root_digest, gh_token=None):
 def get_image_metadata(tag_url, gh_token=None):
     match = re.match(r'^(?:https://)?([^/]+)/([^:]+):(.+)$', tag_url)
     if not match:
-        return "N/A", "N/A", "N/A"
+        return "N/A", "N/A", "N/A", {}
     registry, repo, tag = match.groups()
     try:
         token_url = f"https://{registry}/token?service={registry}&scope=repository:{repo}:pull"
@@ -84,25 +84,31 @@ def get_image_metadata(tag_url, gh_token=None):
             root_digest = resp.headers.get("Docker-Content-Digest", "N/A")
             manifest = json.loads(resp.read().decode())
         
-        if "manifests" in manifest:
-            digest = manifest["manifests"][0]["digest"]
-            digest_url = f"https://{registry}/v2/{repo}/manifests/{digest}"
-            req_digest = urllib.request.Request(digest_url, headers=headers)
-            with urllib.request.urlopen(req_digest) as resp_digest:
-                manifest = json.loads(resp_digest.read().decode())
-                
-        layers = manifest.get("layers", [])
-        total_bytes = sum(layer.get("size", 0) for layer in layers)
-        
+        # Compressed size and manifest digest of every linux platform in the image
+        platforms = {}
+        children = manifest.get("manifests") or [{"digest": root_digest, "platform": {"os": "linux", "architecture": "amd64"}}]
+        for child in children:
+            platform = child.get("platform", {})
+            if platform.get("os") != "linux" or platform.get("architecture") in platforms:
+                continue
+            if "manifests" in manifest:
+                child_url = f"https://{registry}/v2/{repo}/manifests/{child['digest']}"
+                with urllib.request.urlopen(urllib.request.Request(child_url, headers=headers)) as resp_child:
+                    child_manifest = json.loads(resp_child.read().decode())
+            else:
+                child_manifest = manifest
+            total_bytes = sum(layer.get("size", 0) for layer in child_manifest.get("layers", []))
+            platforms[platform["architecture"]] = {
+                "size": f"{total_bytes / (1024 * 1024):.1f} MB" if total_bytes else "N/A",
+                "digest": child["digest"],
+            }
+
         provenance_url = get_gh_package_version_url(registry, repo, tag, root_digest, gh_token)
-        
-        if total_bytes == 0:
-            return "N/A", root_digest, provenance_url
-        size_mb = total_bytes / (1024 * 1024)
-        return f"{size_mb:.1f} MB", root_digest, provenance_url
+        size = platforms.get("amd64", {}).get("size", "N/A")
+        return size, root_digest, provenance_url, platforms
     except Exception as e:
         print(f"⚠️ Error fetching metadata for {tag_url}: {e}")
-        return "N/A", "N/A", "N/A"
+        return "N/A", "N/A", "N/A", {}
 
 def main():
     parser = argparse.ArgumentParser()
@@ -129,7 +135,7 @@ def main():
                 for tag in flavor.get("tags", []):
                     if tag not in metadata_map:
                         print(f"   ↳ ⏳ Fetching metadata for: {tag} ...", end="", flush=True)
-                        size_str, root_digest, provenance_url = get_image_metadata(tag, gh_token)
+                        size_str, root_digest, provenance_url, platforms = get_image_metadata(tag, gh_token)
                         # Resolve attestation URL and Sigstore Rekor URL
                         if flavor.get("attestation_url"):
                             attestation_url = flavor.get("attestation_url")
@@ -147,8 +153,7 @@ def main():
                             "attestation_url": attestation_url,
                             "rekor_url": rekor_url,
                             "provenance_url": provenance_url,
-                            "compression": "zstd",
-                            "compression_level": 3
+                            "platforms": platforms,
                         }
                         print(f"\r   ↳ ✅ Done: {tag} ({size_str} | {root_digest[:18]}... | {attestation_url[:35]}...)")
 

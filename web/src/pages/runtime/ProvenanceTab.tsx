@@ -1,11 +1,12 @@
 import { ExternalLink } from 'lucide-react';
 import { Card, Command, Stagger, StaggerItem } from '../../components/ui';
 import { ATTESTATIONS_URL, OWNER, REPO_URL, packageUrl, type Flavor } from '../../lib/catalog';
-import { getImageMeta } from '../../lib/reports';
+import { getImageMeta, type Arch } from '../../lib/reports';
 
-export default function ProvenanceTab({ flavor }: { flavor: Flavor }) {
+export default function ProvenanceTab({ flavor, arch }: { flavor: Flavor; arch: Arch }) {
   const tag = flavor.tags[0];
-  const { digest } = getImageMeta(tag);
+  const { digest: platformDigest, indexDigest } = getImageMeta(tag, arch);
+  const repository = tag.slice(0, tag.lastIndexOf(':'));
 
   const checks = [
     {
@@ -14,9 +15,11 @@ export default function ProvenanceTab({ flavor }: { flavor: Flavor }) {
       command: `gh attestation verify oci://${tag} --owner ${OWNER}`,
     },
     {
-      title: 'Verify the SBOM attestation',
-      text: 'Checks the signed CycloneDX SBOM attached to the image.',
-      command: `gh attestation verify oci://${tag} --owner ${OWNER} --predicate-type https://cyclonedx.org/bom`,
+      title: `Verify the ${arch} SBOM attestation`,
+      text: `Each architecture's SBOM is attested on its own image manifest, so this checks the linux/${arch} image.`,
+      command: platformDigest
+        ? `gh attestation verify oci://${repository}@${platformDigest} --owner ${OWNER} --predicate-type https://cyclonedx.org/bom`
+        : `gh attestation verify oci://${repository}@<linux/${arch} digest> --owner ${OWNER} --predicate-type https://cyclonedx.org/bom`,
     },
     {
       title: 'Download the attestations',
@@ -29,13 +32,13 @@ export default function ProvenanceTab({ flavor }: { flavor: Flavor }) {
     { label: 'Attestations in this repository', href: ATTESTATIONS_URL },
     { label: 'Container package', href: packageUrl(tag) },
     { label: 'Build workflow', href: `${REPO_URL}/actions/workflows/build.yml` },
-    ...(digest ? [{ label: 'Sigstore transparency log', href: `https://search.sigstore.dev/?hash=${digest.replace('sha256:', '')}` }] : []),
+    ...(indexDigest ? [{ label: 'Sigstore transparency log', href: `https://search.sigstore.dev/?hash=${indexDigest.replace('sha256:', '')}` }] : []),
   ];
 
   return (
     <div className="space-y-6">
       <p className="max-w-3xl text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-        After each build, GitHub Actions attaches two signed attestations to the image: SLSA build provenance and a CycloneDX SBOM.
+        After each build, GitHub Actions attaches signed attestations to the image: SLSA build provenance for the multi-platform image and a CycloneDX SBOM for each architecture.
         They are signed with the workflow's OIDC identity through Sigstore, so anyone can verify where and how the image was built.
       </p>
 

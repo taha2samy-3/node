@@ -91,24 +91,33 @@ docker buildx bake
 
 ## 🧪 Testing & Verification
 
-Each runtime module includes automated test suites validating cryptographic compliance and runtime stability:
+Every FIPS image has a test suite. CI runs it on amd64 and arm64 after each build and on every pull request that changes the image, and the results appear on the dashboard's **FIPS tests** tab:
+
+| Image | Suite | What it checks |
+| :--- | :--- | :--- |
+| OpenSSL FIPS | `openssl/tests/` | Provider status and self-tests, approved / rejected digests, ciphers, MACs, KDFs, key sizes and curves, PQC, TLS |
+| OpenJDK FIPS | `openjdk/tests/` | BCFIPS provider order, approved-only mode, rejected algorithms, BCFKS keystores, TLS 1.2 / 1.3, DRBG |
+| Node.js FIPS | `nodejs/fips/tests/` | `crypto.getFips()`, `setFips(false)` blocked, rejected digests / ciphers / curves / scrypt, RSA sizes, HMAC, PBKDF2, TLS 1.3 handshake, non-root and distroless checks |
 
 ```bash
-# Run OpenJDK FIPS automated tests against a JDK and a JRE image
-cd openjdk
-pytest tests/ -v --jdk-img ghcr.io/taha2samy-3/wolfi-openjdk-fips:21-dev --jre-img ghcr.io/taha2samy-3/wolfi-openjdk-fips:21
+# Run a suite the way CI does, against every flavor of one image (pull or build the images first)
+pip install pytest allure-pytest pyyaml
+python .github/scripts/fips_tests.py --unit openssl-3.5 --arch amd64 --out fips-results
+python .github/scripts/fips_tests.py --unit openjdk-21 --arch amd64 --out fips-results
+python .github/scripts/fips_tests.py --unit node-fips-24 --arch amd64 --out fips-results
 
-# Run OpenSSL FIPS automated tests
-cd openssl
-pytest tests/tests/ -v
-
-# Check that a Node.js FIPS image enforces FIPS mode
-docker run --rm ghcr.io/taha2samy-3/node-fips:24-distroless /usr/share/nodejs-fips/fips-check.js
+# Or call pytest directly against one image
+pytest openssl/tests -m "not network" --image ghcr.io/taha2samy-3/openssl-fips:3.5.5
+pytest nodejs/fips/tests --image ghcr.io/taha2samy-3/node-fips:24-distroless --flavor prod
 ```
+
+A few OpenSSL tests are marked as strict expected failures. They cover known limits of the certified OpenSSL FIPS provider 3.1.2 (see [openssl/README.md](openssl/README.md)), and the run fails if one of them starts passing.
 
 ---
 
-## 🔁 Per-Image Builds and Scans
+## 🔁 Build, Test and Update Lifecycle
+
+### Per-image builds and scans
 
 Every change rebuilds, re-attests, rescans and republishes on the dashboard **only the images it affects**:
 
@@ -119,6 +128,35 @@ Every change rebuilds, re-attests, rescans and republishes on the dashboard **on
 Examples: bumping `NODE_22_FULL_VERSION` rebuilds `node:22`, `node:22-dev` and `node-fips:22*`; editing `openjdk/conf/java-8.security` rebuilds the three Java 8 images; editing a README rebuilds nothing.
 
 Both workflows can be run by hand: **Build and Push Images** takes `rebuild` (`changed`, `all`, or ids such as `node-22 openjdk`) and the dashboard workflow takes `rescan` (`missing`, `all`, or ids).
+
+### Native amd64 and arm64
+
+Each image is built twice, natively and without QEMU: on `ubuntu-24.04` for `linux/amd64` and on `ubuntu-24.04-arm` for `linux/arm64`. Both builds push by digest, and `.github/scripts/merge_manifests.py` joins them into one multi-platform tag, then checks that both platforms are present. Trivy scans, CIS checks, SBOM attestations and FIPS tests run once per architecture, and the dashboard has an **amd64 / arm64** switch. Provenance is attached to the multi-platform index.
+
+### Dependency updates
+
+`.github/dependencies.yml` lists every pinned version and checksum in `docker-bake.hcl` and says how to update it:
+
+- **Certified FIPS modules**: the OpenSSL FIPS Provider 3.1.2 (CMVP certificate [#4985](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4985)) and Bouncy Castle `bc-fips` 2.1.1 (certificate [#4943](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4943)). These never change automatically. Only the validated version may be used, so they change by hand when NIST lists a new certificate.
+- **Everything else** is updated by **Daily Dependency Update** (`.github/scripts/update_dependencies.py`): Wolfi packages (including every package installed in the OpenSSL images), base images by digest, the OpenSSL 3.5 LTS core source and its SHA-256, Eclipse Temurin JDK / JRE downloads and checksums, the Bouncy Castle TLS / utility jars (checked against Maven Central's `.sha256`), and the envoke release.
+
+The script opens **one pull request per image family** (`runtimes`, `openssl-fips`, `openjdk-fips`, `base`) on the branch `automation/deps-<group>`, and handles it the way Dependabot does: an open PR is updated in place, a closed one is replaced by a fresh PR, and a group with no updates has its PR closed. Each PR lists the version changes and the images it will rebuild. Nothing is merged automatically.
+
+The run also checks coverage, and fails if `docker-bake.hcl` gains a pinned variable (`*_VER`, `*_VERSION`, `*_SHA`, `*_SHA256`, `*_URL`, `*_IMAGE`) that `dependencies.yml` does not list. Run it locally with:
+
+```bash
+python .github/scripts/update_dependencies.py --dry-run                       # every group
+python .github/scripts/update_dependencies.py --dry-run --group openjdk-fips  # one group
+```
+
+### Pull request check
+
+**Pull Request Check** builds the images a pull request changes (linux/amd64, nothing is pushed) and runs the FIPS test suites against them. Make it a required status check in the `main` branch protection rules, so that a dependency update cannot be merged while it breaks an image or its FIPS behaviour.
+
+### Benchmarks and certificate watch
+
+- **FIPS Benchmarks** runs every week on both architectures. It measures each FIPS image against a non-FIPS baseline of the same software: stock OpenSSL on Alpine, this repository's regular Node.js image, and Eclipse Temurin with SunJCE. Results appear on the dashboard's **Benchmarks** tab, where the FIPS / baseline ratio is the number to compare.
+- **FIPS Certificate Watch** (`.github/scripts/cmvp_watch.py`) checks the CMVP certificates every week. It opens or updates an issue labelled `fips-certificates` if a certificate is no longer Active, is less than a year from its sunset date, no longer lists the pinned version, or if the vendor has a newer certificate. The dashboard's **FIPS module** tab shows the same status.
 
 ---
 
@@ -132,12 +170,13 @@ npm install
 npm run dev
 ```
 
-The dashboard displays:
-- Real-time vulnerability posture and CVE breakdown.
-- FIPS 140-3 cryptographic boundary inspection (Bouncy Castle & OpenSSL providers).
+The dashboard shows, for each image and each architecture (amd64 / arm64):
+- Vulnerability posture and CVE breakdown.
 - CIS benchmark pass/fail scores.
 - Interactive SBOM package explorer.
-- SLSA provenance attestation links.
+- SLSA provenance and SBOM attestations, with the `gh attestation verify` commands.
+- The FIPS module, its CMVP certificate status and sunset date.
+- FIPS test results and benchmark results against non-FIPS baselines.
 
 ---
 
@@ -145,33 +184,42 @@ The dashboard displays:
 
 ```
 ├── .github/
+│   ├── dependencies.yml        # Every pinned version: certified FIPS modules vs. automatically updated
 │   ├── workflows/
-│   │   ├── build.yml         # CI: Multi-platform container build & attestation pipeline
-│   │   └── docs.yml          # CI: Security scans, CIS benchmarks, and documentation
-│   └── scripts/plan_images.py # Decides which images to build, attest and scan
-├── openjdk/                  # Wolfi OpenJDK FIPS 140-3 module
-│   ├── dockerfile            # Multi-stage Wolfi + BCFIPS build
-│   ├── docker-bake.hcl       # Standalone OpenJDK bake targets
-│   ├── conf/java-<v>.security # Hardened FIPS 140-3 security policy per Java version
-│   ├── render_security.py    # Renders conf/java-<v>.security from templates/
-│   ├── tests/                # Automated pytest & JUnit verification suite
-│   ├── benchmark/            # Cryptographic benchmark scripts
-│   └── README.md             # OpenJDK module documentation
-├── nodejs/                   # Node.js images (regular + FIPS stages)
-│   ├── dockerfile            # dev / prod and fips-dev / fips-standard / fips-distroless
-│   └── fips/                 # OpenSSL FIPS config and the build-time FIPS check
-├── openssl/                  # Wolfi OpenSSL FIPS 140-3 module
-│   ├── dockerfile            # Source build with enable-fips
-│   ├── docker-bake.hcl       # Standalone OpenSSL bake targets
-│   ├── conf/openssl.cnf      # Hardened FIPS provider configuration
-│   ├── tests/                # Pytest FIPS verification test suite
-│   ├── benchmark/            # OpenSSL speed benchmarks
-│   └── README.md             # OpenSSL module documentation
-├── web/                      # React/Vite security dashboard
-│   ├── src/                  # Dashboard pages and components
-│   └── runtimes.yaml         # Runtime metadata and report mappings
-├── docker-bake.hcl           # Unified root Docker Bake specification
-└── README.md                 # Project root documentation
+│   │   ├── build.yml           # Native amd64 + arm64 builds, multi-platform merge, attestation, FIPS tests
+│   │   ├── docs.yml            # Security scans, CIS checks and the dashboard deployment
+│   │   ├── pr-check.yml        # Builds and tests the images a pull request changes
+│   │   ├── daily-image-update.yml # Daily dependency update pull requests
+│   │   ├── benchmarks.yml      # Weekly FIPS vs. non-FIPS benchmarks
+│   │   └── fips-certificates.yml  # Weekly CMVP certificate watch
+│   ├── actions/                # bake-build, trivy-scan, attest-image, upload-dependency-graph
+│   └── scripts/
+│       ├── plan_images.py      # Decides which images to build, test, attest and scan
+│       ├── merge_manifests.py  # Joins per-architecture digests into multi-platform tags
+│       ├── update_dependencies.py # Resolves updates and manages the dependency PRs
+│       ├── fips_tests.py       # Runs the FIPS test suite of an image and writes the dashboard report
+│       ├── run_benchmarks.py   # FIPS vs. baseline benchmarks (bench/ holds the Node.js and Java programs)
+│       └── cmvp_watch.py       # Checks the CMVP certificates of the FIPS modules
+├── openjdk/                    # Wolfi OpenJDK FIPS 140-3 images
+│   ├── dockerfile              # Multi-stage Wolfi + BCFIPS build
+│   ├── conf/java-<v>.security  # Hardened FIPS 140-3 security policy per Java version
+│   ├── render_security.py      # Renders conf/java-<v>.security from templates/
+│   ├── tests/                  # pytest & JUnit verification suite
+│   └── README.md               # OpenJDK module documentation
+├── nodejs/                     # Node.js images (regular + FIPS stages)
+│   ├── dockerfile              # dev / prod and fips-dev / fips-standard / fips-distroless
+│   └── fips/                   # OpenSSL FIPS config, build-time FIPS check and tests/
+├── openssl/                    # Wolfi OpenSSL FIPS 140-3 images
+│   ├── dockerfile              # Source build with enable-fips, checksum-verified sources
+│   ├── conf/openssl.cnf        # Hardened FIPS provider configuration
+│   ├── tests/                  # pytest FIPS verification suite
+│   └── README.md               # OpenSSL module documentation
+├── go/, python/, bun/          # Regular runtime images
+├── web/                        # React/Vite security dashboard
+│   ├── src/                    # Dashboard pages and components
+│   └── runtimes.yaml           # Runtime metadata and report mappings
+├── docker-bake.hcl             # All bake targets and pinned versions
+└── README.md                   # Project root documentation
 ```
 
 ---
