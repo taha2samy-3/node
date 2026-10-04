@@ -171,69 +171,69 @@ variable "OPENJDK_LATEST_VERSION" {
 }
 
 # Eclipse Temurin 8
-variable "OPENJDK_8_FULL_VERSION" { default = "1.8.0_492-b09" }
-variable "OPENJDK_8_JDK_AMD64_URL" { default = "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u492-b09/OpenJDK8U-jdk_x64_linux_hotspot_8u492b09.tar.gz" }
-variable "OPENJDK_8_JDK_AMD64_SHA" { default = "da257f161d7f8c6ca5b0e5d9e4090f65ac28c5e398072e68b8ae87988b1d1a2e" }
-variable "OPENJDK_8_JDK_ARM64_URL" { default = "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u492-b09/OpenJDK8U-jdk_aarch64_linux_hotspot_8u492b09.tar.gz" }
-variable "OPENJDK_8_JDK_ARM64_SHA" { default = "3c2253b986909c20f79d6de7a0cb957f89c243df57615897836046e24d2e5257" }
-variable "OPENJDK_8_JRE_AMD64_URL" { default = "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u492-b09/OpenJDK8U-jre_x64_linux_hotspot_8u492b09.tar.gz" }
-variable "OPENJDK_8_JRE_AMD64_SHA" { default = "8eef3d4a837bb7a9e45d30a7579d84d5b76a4321f4376573311e6bf89e48f9b0" }
-variable "OPENJDK_8_JRE_ARM64_URL" { default = "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u492-b09/OpenJDK8U-jre_aarch64_linux_hotspot_8u492b09.tar.gz" }
-variable "OPENJDK_8_JRE_ARM64_SHA" { default = "d5e50cb002600007dbdfac523605d26196607fa5212db0942ef05cdce9fe2892" }
+variable "OPENJDK_8_FULL_VERSION" { default = "1.8.0_504-b01" }
+variable "OPENJDK_8_JDK_AMD64_URL" { default = "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u504-b01/OpenJDK8U-jdk_x64_linux_hotspot_8u504b01.tar.gz" }
+variable "OPENJDK_8_JDK_AMD64_SHA" { default = "9c70e102f527ac674ac2fe9c7d47b9a04e2d19842ba5ab8e9b33f368bbadfaea" }
+variable "OPENJDK_8_JDK_ARM64_URL" { default = "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u504-b01/OpenJDK8U-jdk_aarch64_linux_hotspot_8u504b01.tar.gz" }
+variable "OPENJDK_8_JDK_ARM64_SHA" { default = "57b7ed8af9d48542bb49ff7894448040b17bea0a48b41677d11ecaec6129768d" }
+variable "OPENJDK_8_JRE_AMD64_URL" { default = "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u504-b01/OpenJDK8U-jre_x64_linux_hotspot_8u504b01.tar.gz" }
+variable "OPENJDK_8_JRE_AMD64_SHA" { default = "52dcd578baca1d3e449ea86768a9129c0ee04d7b22565695498353cc66940c61" }
+variable "OPENJDK_8_JRE_ARM64_URL" { default = "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u504-b01/OpenJDK8U-jre_aarch64_linux_hotspot_8u504b01.tar.gz" }
+variable "OPENJDK_8_JRE_ARM64_SHA" { default = "9ae9c4dd80fc8f3c4081b480c7d42346e9e4cbee5ae58198fca11e0fc1a19163" }
 
 # Eclipse Temurin 17
-variable "OPENJDK_17_FULL_VERSION" { default = "17.0.19+10" }
-variable "OPENJDK_17_JDK_AMD64_URL" { default = "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.19%2B10/OpenJDK17U-jdk_x64_linux_hotspot_17.0.19_10.tar.gz" }
-variable "OPENJDK_17_JDK_AMD64_SHA" { default = "d8afc263758141a66e0e3aafc321e783f7016696f4eaea067d340a269037d331" }
-variable "OPENJDK_17_JDK_ARM64_URL" { default = "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.19%2B10/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.19_10.tar.gz" }
-variable "OPENJDK_17_JDK_ARM64_SHA" { default = "83a52172678ec8975164648654869cb2e71d7c748b47aca94b29bbfa10c18e81" }
-variable "OPENJDK_17_JRE_AMD64_URL" { default = "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.19%2B10/OpenJDK17U-jre_x64_linux_hotspot_17.0.19_10.tar.gz" }
-variable "OPENJDK_17_JRE_AMD64_SHA" { default = "adb5a2364baa51de1ef91bb9911f5a61d24b045fe1d6647cb8050272a3a8ee75" }
-variable "OPENJDK_17_JRE_ARM64_URL" { default = "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.19%2B10/OpenJDK17U-jre_aarch64_linux_hotspot_17.0.19_10.tar.gz" }
-variable "OPENJDK_17_JRE_ARM64_SHA" { default = "aae834297a87736869745be7c1fca3207ea9167c5824f41c88b0ebb2e3ccb9b1" }
+variable "OPENJDK_17_FULL_VERSION" { default = "17.0.20.1+1" }
+variable "OPENJDK_17_JDK_AMD64_URL" { default = "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.20.1%2B1/OpenJDK17U-jdk_x64_linux_hotspot_17.0.20.1_1.tar.gz" }
+variable "OPENJDK_17_JDK_AMD64_SHA" { default = "3808d1d15e3ec6bd5b84057fb5d84c33d8a1536a258146bcea2e603fc726e08e" }
+variable "OPENJDK_17_JDK_ARM64_URL" { default = "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.20.1%2B1/OpenJDK17U-jdk_aarch64_linux_hotspot_17.0.20.1_1.tar.gz" }
+variable "OPENJDK_17_JDK_ARM64_SHA" { default = "457b57af8f9c93ec39080bb8c764f559dc8c89a6da1a39d718a400b7890d3e41" }
+variable "OPENJDK_17_JRE_AMD64_URL" { default = "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.20.1%2B1/OpenJDK17U-jre_x64_linux_hotspot_17.0.20.1_1.tar.gz" }
+variable "OPENJDK_17_JRE_AMD64_SHA" { default = "0b2b640e3046b64c8ec504de0ab9d91bb5610182bda21fad454681ce54d45a62" }
+variable "OPENJDK_17_JRE_ARM64_URL" { default = "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.20.1%2B1/OpenJDK17U-jre_aarch64_linux_hotspot_17.0.20.1_1.tar.gz" }
+variable "OPENJDK_17_JRE_ARM64_SHA" { default = "b8efcd5acc9109fe8d35bed132499643048a257b4f6042906ece37d03c839d77" }
 
 # Eclipse Temurin 21
-variable "OPENJDK_21_FULL_VERSION" { default = "21.0.11+10-LTS" }
-variable "OPENJDK_21_JDK_AMD64_URL" { default = "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.11%2B10/OpenJDK21U-jdk_x64_linux_hotspot_21.0.11_10.tar.gz" }
-variable "OPENJDK_21_JDK_AMD64_SHA" { default = "4b2220e232a97997b436ca6ab15cbf70171ecff52958a46159dfa5a8c44ca4de" }
-variable "OPENJDK_21_JDK_ARM64_URL" { default = "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.11%2B10/OpenJDK21U-jdk_aarch64_linux_hotspot_21.0.11_10.tar.gz" }
-variable "OPENJDK_21_JDK_ARM64_SHA" { default = "8d498ec88e1c1989fab95c6784240ab92d011e29c54d20a3f9c324b13476f9ad" }
-variable "OPENJDK_21_JRE_AMD64_URL" { default = "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.11%2B10/OpenJDK21U-jre_x64_linux_hotspot_21.0.11_10.tar.gz" }
-variable "OPENJDK_21_JRE_AMD64_SHA" { default = "e5038aae3ca9ff670bc696496b0728dbd23d280026bad30291cb919221ecfdcb" }
-variable "OPENJDK_21_JRE_ARM64_URL" { default = "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.11%2B10/OpenJDK21U-jre_aarch64_linux_hotspot_21.0.11_10.tar.gz" }
-variable "OPENJDK_21_JRE_ARM64_SHA" { default = "fa23d9d9945053e67bcc7638410eabf1e17a7672c7c95a24f70cd08b8407d36e" }
+variable "OPENJDK_21_FULL_VERSION" { default = "21.0.12.1+1-LTS" }
+variable "OPENJDK_21_JDK_AMD64_URL" { default = "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.12.1%2B1/OpenJDK21U-jdk_x64_linux_hotspot_21.0.12.1_1.tar.gz" }
+variable "OPENJDK_21_JDK_AMD64_SHA" { default = "ce79869e1307ed8ee1e2baa86a412b1eb5b75d10a01006d788a6f968bcfaee94" }
+variable "OPENJDK_21_JDK_ARM64_URL" { default = "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.12.1%2B1/OpenJDK21U-jdk_aarch64_linux_hotspot_21.0.12.1_1.tar.gz" }
+variable "OPENJDK_21_JDK_ARM64_SHA" { default = "23e37e026f12f3e706f18938ff611db3032d075b09d0879a25d06718c773e223" }
+variable "OPENJDK_21_JRE_AMD64_URL" { default = "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.12.1%2B1/OpenJDK21U-jre_x64_linux_hotspot_21.0.12.1_1.tar.gz" }
+variable "OPENJDK_21_JRE_AMD64_SHA" { default = "2413149700df0f7d440500a84a8f764c535f21e5a5e87d38328b64eec2c5b500" }
+variable "OPENJDK_21_JRE_ARM64_URL" { default = "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.12.1%2B1/OpenJDK21U-jre_aarch64_linux_hotspot_21.0.12.1_1.tar.gz" }
+variable "OPENJDK_21_JRE_ARM64_SHA" { default = "14be1f35ebdbd1f6e8d57eb911a3ffb74d6d9aa255abc5daf2b1302002cf2cf2" }
 
 # Eclipse Temurin 25
-variable "OPENJDK_25_FULL_VERSION" { default = "25.0.3+9-LTS" }
-variable "OPENJDK_25_JDK_AMD64_URL" { default = "https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25.0.3%2B9/OpenJDK25U-jdk_x64_linux_hotspot_25.0.3_9.tar.gz" }
-variable "OPENJDK_25_JDK_AMD64_SHA" { default = "69264a7a211bf5029830d07bc3370f879769d62ebc5b5488e90c9343a2da0e1f" }
-variable "OPENJDK_25_JDK_ARM64_URL" { default = "https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25.0.3%2B9/OpenJDK25U-jdk_aarch64_linux_hotspot_25.0.3_9.tar.gz" }
-variable "OPENJDK_25_JDK_ARM64_SHA" { default = "3e4287cb98870ba824ed698854bdc27cff984254caf66dd12cc291e7bfdde26b" }
-variable "OPENJDK_25_JRE_AMD64_URL" { default = "https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25.0.3%2B9/OpenJDK25U-jre_x64_linux_hotspot_25.0.3_9.tar.gz" }
-variable "OPENJDK_25_JRE_AMD64_SHA" { default = "487ad434d8b121ae3902d5ad9cb830cd8e1f75fefad6e2ba80f89d60e3db95d7" }
-variable "OPENJDK_25_JRE_ARM64_URL" { default = "https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25.0.3%2B9/OpenJDK25U-jre_aarch64_linux_hotspot_25.0.3_9.tar.gz" }
-variable "OPENJDK_25_JRE_ARM64_SHA" { default = "d12d5b19ff7f6c4a99fd4f9eecede2c96e64df7d1f41cc84f2e9c9b38408600b" }
+variable "OPENJDK_25_FULL_VERSION" { default = "25.0.4.1+1-LTS" }
+variable "OPENJDK_25_JDK_AMD64_URL" { default = "https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25.0.4.1%2B1/OpenJDK25U-jdk_x64_linux_hotspot_25.0.4.1_1.tar.gz" }
+variable "OPENJDK_25_JDK_AMD64_SHA" { default = "dbb698396d478e7fa2b1e50f4103324b2a99b90569ee27c33f2261f9215cf41e" }
+variable "OPENJDK_25_JDK_ARM64_URL" { default = "https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25.0.4.1%2B1/OpenJDK25U-jdk_aarch64_linux_hotspot_25.0.4.1_1.tar.gz" }
+variable "OPENJDK_25_JDK_ARM64_SHA" { default = "69df11a02cfa3ef7d7ca645e03edce6778ec090e100f6ae2b42097865730ac52" }
+variable "OPENJDK_25_JRE_AMD64_URL" { default = "https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25.0.4.1%2B1/OpenJDK25U-jre_x64_linux_hotspot_25.0.4.1_1.tar.gz" }
+variable "OPENJDK_25_JRE_AMD64_SHA" { default = "1731a34baadec5479258ea0202e4d5d865d2efeee60cb0c7d7eb056fe96ca219" }
+variable "OPENJDK_25_JRE_ARM64_URL" { default = "https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25.0.4.1%2B1/OpenJDK25U-jre_aarch64_linux_hotspot_25.0.4.1_1.tar.gz" }
+variable "OPENJDK_25_JRE_ARM64_SHA" { default = "34828cbb93ed31c281c84ecb31ddab655d11a802f263c1fc019d42e9e0230fed" }
 
 # FIPS 140-3 certificate #4943 covers BC-FJA 2.1.1: change only when a new certificate lists the version
 variable "OPENJDK_BC_FIPS_VERSION" { default = "2.1.1" }
 variable "OPENJDK_BC_FIPS_URL" { default = "https://repo1.maven.org/maven2/org/bouncycastle/bc-fips/2.1.1/bc-fips-2.1.1.jar" }
 variable "OPENJDK_BC_FIPS_SHA" { default = "a430d935ad6cec6d045930758457740f5a5f8f9715894e347f6800f7926a7321" }
 
-variable "OPENJDK_BC_UTIL_FIPS_VERSION" { default = "2.1.5" }
-variable "OPENJDK_BC_UTIL_FIPS_URL" { default = "https://repo1.maven.org/maven2/org/bouncycastle/bcutil-fips/2.1.5/bcutil-fips-2.1.5.jar" }
-variable "OPENJDK_BC_UTIL_FIPS_SHA" { default = "503aaf5c2c5b7c729547462efe13699b5f6dacf9be150b7c48bba974b793dc92" }
+variable "OPENJDK_BC_UTIL_FIPS_VERSION" { default = "2.1.8" }
+variable "OPENJDK_BC_UTIL_FIPS_URL" { default = "https://repo1.maven.org/maven2/org/bouncycastle/bcutil-fips/2.1.8/bcutil-fips-2.1.8.jar" }
+variable "OPENJDK_BC_UTIL_FIPS_SHA" { default = "f44904f61552c823bcc3686a24052ee3135212d547754eaa2ff6532e210103cb" }
 
-variable "OPENJDK_BC_TLS_FIPS_VERSION" { default = "2.1.22" }
-variable "OPENJDK_BC_TLS_FIPS_URL" { default = "https://repo1.maven.org/maven2/org/bouncycastle/bctls-fips/2.1.22/bctls-fips-2.1.22.jar" }
-variable "OPENJDK_BC_TLS_FIPS_SHA" { default = "688410563445e1a65ff33cb67842499f0788994d752c3df8f7ea4a0d40ddbf50" }
+variable "OPENJDK_BC_TLS_FIPS_VERSION" { default = "2.1.25" }
+variable "OPENJDK_BC_TLS_FIPS_URL" { default = "https://repo1.maven.org/maven2/org/bouncycastle/bctls-fips/2.1.25/bctls-fips-2.1.25.jar" }
+variable "OPENJDK_BC_TLS_FIPS_SHA" { default = "af604aa5b337725872651067a819ebc03aa298685572b0b2ad5343c786faad0a" }
 
 variable "OPENJDK_KEYSTORE_PWD" { default = "changeit" }
 
 # Image used only to download and verify the Temurin archives
-variable "OPENJDK_ALPINE_IMAGE" { default = "alpine@sha256:6baf43584bcb78f2e5847d1de515f23499913ac9f12bdf834811a3145eb11ca1" }
-variable "OPENJDK_LIBCRYPTO3_VER" { default = "3.6.2-r5" }
-variable "OPENJDK_LIBSSL3_VER" { default = "3.6.2-r5" }
-variable "OPENJDK_NCURSES_VER" { default = "6.6.20260608-r0" }
+variable "OPENJDK_ALPINE_IMAGE" { default = "alpine@sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6" }
+variable "OPENJDK_LIBCRYPTO3_VER" { default = "3.6.5-r1" }
+variable "OPENJDK_LIBSSL3_VER" { default = "3.6.5-r1" }
+variable "OPENJDK_NCURSES_VER" { default = "6.6.20260926-r0" }
 
 
 # ==========================================
