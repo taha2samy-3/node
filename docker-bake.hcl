@@ -41,7 +41,7 @@ variable "NODE_24_FULL_VERSION" {
 }
 
 variable "NODE_26_FULL_VERSION" {
-  default = "26.10.0-r2"
+  default = "26.10.0-r3"
 }
 
 # ==========================================
