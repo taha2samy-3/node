@@ -1,0 +1,723 @@
+{
+  "SchemaVersion": 2,
+  "Trivy": {
+    "Version": "0.75.0"
+  },
+  "ReportID": "01a105fd-ff66-7f3c-9edf-f92e1b5f490a",
+  "CreatedAt": "2026-10-04T08:18:14.502999962Z",
+  "ArtifactID": "sha256:3d85ca22abd696700757541f07932aba2a6ec2855b06c3a1f50146329c2a0fbb",
+  "ArtifactName": "ghcr.io/taha2samy-3/node:24",
+  "ArtifactType": "container_image",
+  "Metadata": {
+    "Size": 147186688,
+    "OS": {
+      "Family": "wolfi",
+      "Name": "20230201"
+    },
+    "ImageID": "sha256:e5245ee694da2b41798be50a63b69f52cd93a0b753b8701237a9629b181f1bb6",
+    "DiffIDs": [
+      "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f",
+      "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
+    ],
+    "RepoTags": [
+      "ghcr.io/taha2samy-3/node:24"
+    ],
+    "RepoDigests": [
+      "ghcr.io/taha2samy-3/node@sha256:1f1c3338a5de8b76ca06b7395e46b7fc8ba53f2ab6f399eaae62bc32b14de3cf"
+    ],
+    "Reference": "ghcr.io/taha2samy-3/node:24",
+    "ImageConfig": {
+      "architecture": "arm64",
+      "created": "2026-10-04T06:22:58.433119965Z",
+      "history": [
+        {
+          "created": "2026-10-04T06:22:58.355940595Z",
+          "created_by": "COPY / / # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2026-10-04T06:22:58.433119965Z",
+          "created_by": "ENV NODE_ENV=production",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-04T06:22:58.433119965Z",
+          "created_by": "WORKDIR /app",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2026-10-04T06:22:58.433119965Z",
+          "created_by": "USER node",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-04T06:22:58.433119965Z",
+          "created_by": "ENTRYPOINT [\"/sbin/tini\" \"--\" \"/usr/bin/docker-entrypoint.sh\"]",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-04T06:22:58.433119965Z",
+          "created_by": "CMD [\"node\"]",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        }
+      ],
+      "os": "linux",
+      "rootfs": {
+        "type": "layers",
+        "diff_ids": [
+          "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f",
+          "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
+        ]
+      },
+      "config": {
+        "Cmd": [
+          "node"
+        ],
+        "Entrypoint": [
+          "/sbin/tini",
+          "--",
+          "/usr/bin/docker-entrypoint.sh"
+        ],
+        "Env": [
+          "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+          "NODE_ENV=production"
+        ],
+        "Labels": {
+          "io.github.taha2samy-3.build.fingerprint": "37754adedc7707208a0d79e42d86743b",
+          "org.opencontainers.image.authors": "Taha Samy",
+          "org.opencontainers.image.description": "Ultra-secure minimal Node.js 24 (24.21.0-r4) production runtime based on Chainguard Wolfi and scratch",
+          "org.opencontainers.image.licenses": "MIT",
+          "org.opencontainers.image.source": "https://github.com/taha2samy-3/node"
+        },
+        "User": "node",
+        "WorkingDir": "/app",
+        "ArgsEscaped": true
+      }
+    },
+    "Layers": [
+      {
+        "Size": 147185664,
+        "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+        "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+      },
+      {
+        "Size": 1024,
+        "Digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1",
+        "DiffID": "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
+      }
+    ]
+  },
+  "Results": [
+    {
+      "Target": "ghcr.io/taha2samy-3/node:24 (wolfi 20230201)",
+      "Class": "os-pkgs",
+      "Type": "wolfi",
+      "Packages": [
+        {
+          "ID": "apk-tools@2.14.10-r17",
+          "Name": "apk-tools",
+          "Identifier": {
+            "PURL": "pkg:apk/wolfi/apk-tools@2.14.10-r17?arch=aarch64\u0026distro=wolfi",
+            "UID": "2c5ec2b8c9bfa94a"
+          },
+          "Version": "2.14.10-r17",
+          "Arch": "aarch64",
+          "SrcName": "apk-tools",
+          "SrcVersion": "2.14.10-r17",
+          "Licenses": [
+            "GPL-2.0-only"
+          ],
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "sbom"
+        },
+        {
+          "ID": "busybox@1.38.0-r2",
+          "Name": "busybox",
+          "Identifier": {
+            "PURL": "pkg:apk/wolfi/busybox@1.38.0-r2?arch=aarch64\u0026distro=wolfi",
+            "UID": "7e7538b7d338a53b"
+          },
+          "Version": "1.38.0-r2",
+          "Arch": "aarch64",
+          "SrcName": "busybox",
+          "SrcVersion": "1.38.0-r2",
+          "Licenses": [
+            "GPL-2.0-only"
+          ],
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "sbom"
+        },
+        {
+          "ID": "c-ares@1.34.8-r2",
+          "Name": "c-ares",
+          "Identifier": {
+            "PURL": "pkg:apk/wolfi/c-ares@1.34.8-r2?arch=aarch64\u0026distro=wolfi",
+            "UID": "87a68f0858b8dc3a"
+          },
+          "Version": "1.34.8-r2",
+          "Arch": "aarch64",
+          "SrcName": "c-ares",
+          "SrcVersion": "1.34.8-r2",
+          "Licenses": [
+            "MIT"
+          ],
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "sbom"
+        },
+        {
+          "ID": "ca-certificates-bundle@20260909-r2",
+          "Name": "ca-certificates-bundle",
+          "Identifier": {
+            "PURL": "pkg:apk/wolfi/ca-certificates-bundle@20260909-r2?arch=aarch64\u0026origin=ca-certificates",
+            "UID": "2c0c12bf97b41d70"
+          },
+          "Version": "20260909-r2",
+          "Arch": "aarch64",
+          "SrcName": "ca-certificates-bundle",
+          "SrcVersion": "20260909-r2",
+          "Licenses": [
+            "(MPL-2.0 AND MIT)"
+          ],
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "sbom"
+        },
+        {
+          "ID": "glibc-2.44@2.44-r7",
+          "Name": "glibc-2.44",
+          "Identifier": {
+            "PURL": "pkg:apk/wolfi/glibc-2.44@2.44-r7?arch=aarch64\u0026origin=glibc-2.44",
+            "UID": "684e0e948e6fe0e9"
+          },
+          "Version": "2.44-r7",
+          "Arch": "aarch64",
+          "SrcName": "glibc-2.44",
+          "SrcVersion": "2.44-r7",
+          "Licenses": [
+            "LGPL-2.1-or-later"
+          ],
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "sbom"
+        },
+        {
+          "ID": "glibc-2.44-locale-posix@2.44-r7",
+          "Name": "glibc-2.44-locale-posix",
+          "Identifier": {
+            "PURL": "pkg:apk/wolfi/glibc-2.44-locale-posix@2.44-r7?arch=aarch64\u0026distro=wolfi",
+            "UID": "11901c230a6e71d5"
+          },
+          "Version": "2.44-r7",
+          "Arch": "aarch64",
+          "SrcName": "glibc-2.44-locale-posix",
+          "SrcVersion": "2.44-r7",
+          "Licenses": [
+            "LGPL-2.1-or-later"
+          ],
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "sbom"
+        },
+        {
+          "ID": "icu78-data-full@78.3-r4",
+          "Name": "icu78-data-full",
+          "Identifier": {
+            "PURL": "pkg:apk/wolfi/icu78-data-full@78.3-r4?arch=aarch64\u0026origin=icu",
+            "UID": "fc94468bfb56962b"
+          },
+          "Version": "78.3-r4",
+          "Arch": "aarch64",
+          "SrcName": "icu78-data-full",
+          "SrcVersion": "78.3-r4",
+          "Licenses": [
+            "MIT"
+          ],
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "sbom"
+        },
+        {
+          "ID": "ld-linux-2.44@2.44-r7",
+          "Name": "ld-linux-2.44",
+          "Identifier": {
+            "PURL": "pkg:apk/wolfi/ld-linux-2.44@2.44-r7?arch=aarch64\u0026distro=wolfi",
+            "UID": "5048b6dccf5d1aa5"
+          },
+          "Version": "2.44-r7",
+          "Arch": "aarch64",
+          "SrcName": "ld-linux-2.44",
+          "SrcVersion": "2.44-r7",
+          "Licenses": [
+            "LGPL-2.1-or-later"
+          ],
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "sbom"
+        },
+        {
+          "ID": "libbrotlicommon1@1.2.0-r5",
+          "Name": "libbrotlicommon1",
+          "Identifier": {
+            "PURL": "pkg:apk/wolfi/libbrotlicommon1@1.2.0-r5?arch=aarch64\u0026distro=wolfi",
+            "UID": "31d164c6a36f248f"
+          },
+          "Version": "1.2.0-r5",
+          "Arch": "aarch64",
+          "SrcName": "libbrotlicommon1",
+          "SrcVersion": "1.2.0-r5",
+          "Licenses": [
+            "MIT"
+          ],
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "sbom"
+        },
+        {
+          "ID": "libbrotlidec1@1.2.0-r5",
+          "Name": "libbrotlidec1",
+          "Identifier": {
+            "PURL": "pkg:apk/wolfi/libbrotlidec1@1.2.0-r5?arch=aarch64\u0026origin=brotli",
+            "UID": "6f18cff1fec8b5ca"
+          },
+          "Version": "1.2.0-r5",
+          "Arch": "aarch64",
+          "SrcName": "libbrotlidec1",
+          "SrcVersion": "1.2.0-r5",
+          "Licenses": [
+            "MIT"
+          ],
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "sbom"
+        },
+        {
+          "ID": "libbrotlienc1@1.2.0-r5",
+          "Name": "libbrotlienc1",
+          "Identifier": {
+            "PURL": "pkg:apk/wolfi/libbrotlienc1@1.2.0-r5?arch=aarch64\u0026origin=brotli",
+            "UID": "6a649cc6e51acf09"
+          },
+          "Version": "1.2.0-r5",
+          "Arch": "aarch64",
+          "SrcName": "libbrotlienc1",
+          "SrcVersion": "1.2.0-r5",
+          "Licenses": [
+            "MIT"
+          ],
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "sbom"
+        },
+        {
+          "ID": "libcrypt1-2.44@2.44-r7",
+          "Name": "libcrypt1-2.44",
+          "Identifier": {
+            "PURL": "pkg:apk/wolfi/libcrypt1-2.44@2.44-r7?arch=aarch64\u0026distro=wolfi",
+            "UID": "180cd8d1c7674ad3"
+          },
+          "Version": "2.44-r7",
+          "Arch": "aarch64",
+          "SrcName": "libcrypt1-2.44",
+          "SrcVersion": "2.44-r7",
+          "Licenses": [
+            "LGPL-2.1-or-later"
+          ],
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "sbom"
+        },
+        {
+          "ID": "libgcc@16.2.0-r1",
+          "Name": "libgcc",
+          "Identifier": {
+            "PURL": "pkg:apk/wolfi/libgcc@16.2.0-r1?arch=aarch64\u0026origin=gcc",
+            "UID": "1d1277b87d8a3c9f"
+          },
+          "Version": "16.2.0-r1",
+          "Arch": "aarch64",
+          "SrcName": "libgcc",
+          "SrcVersion": "16.2.0-r1",
+          "Licenses": [
+            "(GPL-3.0-or-later WITH GCC-exception-3.1)"
+          ],
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "sbom"
+        },
+        {
+          "ID": "libicu78@78.3-r4",
+          "Name": "libicu78",
+          "Identifier": {
+            "PURL": "pkg:apk/wolfi/libicu78@78.3-r4?arch=aarch64\u0026origin=icu",
+            "UID": "ea936be31f75986b"
+          },
+          "Version": "78.3-r4",
+          "Arch": "aarch64",
+          "SrcName": "libicu78",
+          "SrcVersion": "78.3-r4",
+          "Licenses": [
+            "MIT"
+          ],
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "sbom"
+        },
+        {
+          "ID": "libnghttp2-14@1.70.0-r5",
+          "Name": "libnghttp2-14",
+          "Identifier": {
+            "PURL": "pkg:apk/wolfi/libnghttp2-14@1.70.0-r5?arch=aarch64\u0026origin=nghttp2",
+            "UID": "cf7c46ecee18f552"
+          },
+          "Version": "1.70.0-r5",
+          "Arch": "aarch64",
+          "SrcName": "libnghttp2-14",
+          "SrcVersion": "1.70.0-r5",
+          "Licenses": [
+            "MIT"
+          ],
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "sbom"
+        },
+        {
+          "ID": "libstdc++@16.2.0-r1",
+          "Name": "libstdc++",
+          "Identifier": {
+            "PURL": "pkg:apk/wolfi/libstdc%2B%2B@16.2.0-r1?arch=aarch64\u0026distro=wolfi",
+            "UID": "367c491bc713d1af"
+          },
+          "Version": "16.2.0-r1",
+          "Arch": "aarch64",
+          "SrcName": "libstdc++",
+          "SrcVersion": "16.2.0-r1",
+          "Licenses": [
+            "GPL-3.0-or-later WITH GCC-exception-3.1"
+          ],
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "sbom"
+        },
+        {
+          "ID": "libuv@1.53.0-r0",
+          "Name": "libuv",
+          "Identifier": {
+            "PURL": "pkg:apk/wolfi/libuv@1.53.0-r0?arch=aarch64\u0026origin=libuv",
+            "UID": "6ab5403dd5469796"
+          },
+          "Version": "1.53.0-r0",
+          "Arch": "aarch64",
+          "SrcName": "libuv",
+          "SrcVersion": "1.53.0-r0",
+          "Licenses": [
+            "(MIT AND ISC)"
+          ],
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "sbom"
+        },
+        {
+          "ID": "libxcrypt@4.5.2-r5",
+          "Name": "libxcrypt",
+          "Identifier": {
+            "PURL": "pkg:apk/wolfi/libxcrypt@4.5.2-r5?arch=aarch64\u0026distro=wolfi",
+            "UID": "722aa31f5cef5cab"
+          },
+          "Version": "4.5.2-r5",
+          "Arch": "aarch64",
+          "SrcName": "libxcrypt",
+          "SrcVersion": "4.5.2-r5",
+          "Licenses": [
+            "GPL-2.0-or-later AND LGPL-2.1-or-later"
+          ],
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "sbom"
+        },
+        {
+          "ID": "nodejs-24-minimal@24.21.0-r4",
+          "Name": "nodejs-24-minimal",
+          "Identifier": {
+            "PURL": "pkg:apk/wolfi/nodejs-24-minimal@24.21.0-r4?arch=aarch64\u0026distro=wolfi",
+            "UID": "387ca29441d0f4a4"
+          },
+          "Version": "24.21.0-r4",
+          "Arch": "aarch64",
+          "SrcName": "nodejs-24-minimal",
+          "SrcVersion": "24.21.0-r4",
+          "Licenses": [
+            "MIT"
+          ],
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "sbom"
+        },
+        {
+          "ID": "nodejs-24-minimal-compat@24.21.0-r4",
+          "Name": "nodejs-24-minimal-compat",
+          "Identifier": {
+            "PURL": "pkg:apk/wolfi/nodejs-24-minimal-compat@24.21.0-r4?arch=aarch64\u0026distro=wolfi",
+            "UID": "135c885187fb2a13"
+          },
+          "Version": "24.21.0-r4",
+          "Arch": "aarch64",
+          "SrcName": "nodejs-24-minimal-compat",
+          "SrcVersion": "24.21.0-r4",
+          "Licenses": [
+            "MIT"
+          ],
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "sbom"
+        },
+        {
+          "ID": "openssl-4.0-libcrypto@4.0.3-r2",
+          "Name": "openssl-4.0-libcrypto",
+          "Identifier": {
+            "PURL": "pkg:apk/wolfi/openssl-4.0-libcrypto@4.0.3-r2?arch=aarch64\u0026distro=wolfi",
+            "UID": "f7cf20348a59c217"
+          },
+          "Version": "4.0.3-r2",
+          "Arch": "aarch64",
+          "SrcName": "openssl-4.0-libcrypto",
+          "SrcVersion": "4.0.3-r2",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "sbom"
+        },
+        {
+          "ID": "openssl-4.0-libssl@4.0.3-r2",
+          "Name": "openssl-4.0-libssl",
+          "Identifier": {
+            "PURL": "pkg:apk/wolfi/openssl-4.0-libssl@4.0.3-r2?arch=aarch64\u0026distro=wolfi",
+            "UID": "9e532e9ed2fba144"
+          },
+          "Version": "4.0.3-r2",
+          "Arch": "aarch64",
+          "SrcName": "openssl-4.0-libssl",
+          "SrcVersion": "4.0.3-r2",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "sbom"
+        },
+        {
+          "ID": "openssl-provider-legacy-allowed@4.0.2-r3",
+          "Name": "openssl-provider-legacy-allowed",
+          "Identifier": {
+            "PURL": "pkg:apk/wolfi/openssl-provider-legacy-allowed@4.0.2-r3?arch=aarch64\u0026origin=openssl-provider-legacy-allowed",
+            "UID": "1daf564c5c39bcc"
+          },
+          "Version": "4.0.2-r3",
+          "Arch": "aarch64",
+          "SrcName": "openssl-provider-legacy-allowed",
+          "SrcVersion": "4.0.2-r3",
+          "Licenses": [
+            "Apache-2.0"
+          ],
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "sbom"
+        },
+        {
+          "ID": "tini@0.19.0-r26",
+          "Name": "tini",
+          "Identifier": {
+            "PURL": "pkg:apk/wolfi/tini@0.19.0-r26?arch=aarch64\u0026origin=tini",
+            "UID": "6676a2198eec6d46"
+          },
+          "Version": "0.19.0-r26",
+          "Arch": "aarch64",
+          "SrcName": "tini",
+          "SrcVersion": "0.19.0-r26",
+          "Licenses": [
+            "MIT"
+          ],
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "sbom"
+        },
+        {
+          "ID": "wolfi-base@1-r7",
+          "Name": "wolfi-base",
+          "Identifier": {
+            "PURL": "pkg:apk/wolfi/wolfi-base@1-r7?arch=aarch64",
+            "UID": "2d2a49c32f004513"
+          },
+          "Version": "1-r7",
+          "Arch": "aarch64",
+          "SrcName": "wolfi-base",
+          "SrcVersion": "1-r7",
+          "Licenses": [
+            "MIT"
+          ],
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "sbom"
+        },
+        {
+          "ID": "wolfi-baselayout@20230201-r30",
+          "Name": "wolfi-baselayout",
+          "Identifier": {
+            "PURL": "pkg:apk/wolfi/wolfi-baselayout@20230201-r30?arch=aarch64\u0026origin=wolfi-baselayout",
+            "UID": "ed9bd73bc8eca849"
+          },
+          "Version": "20230201-r30",
+          "Arch": "aarch64",
+          "SrcName": "wolfi-baselayout",
+          "SrcVersion": "20230201-r30",
+          "Licenses": [
+            "MIT"
+          ],
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "sbom"
+        },
+        {
+          "ID": "wolfi-keys@1-r13",
+          "Name": "wolfi-keys",
+          "Identifier": {
+            "PURL": "pkg:apk/wolfi/wolfi-keys@1-r13?arch=aarch64\u0026origin=wolfi-keys",
+            "UID": "70af7042656889c"
+          },
+          "Version": "1-r13",
+          "Arch": "aarch64",
+          "SrcName": "wolfi-keys",
+          "SrcVersion": "1-r13",
+          "Licenses": [
+            "MIT"
+          ],
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "sbom"
+        },
+        {
+          "ID": "zlib@1.3.2.1_rc20260601-r0",
+          "Name": "zlib",
+          "Identifier": {
+            "PURL": "pkg:apk/wolfi/zlib@1.3.2.1_rc20260601-r0?arch=aarch64\u0026distro=wolfi",
+            "UID": "324c73bf20f55cbe"
+          },
+          "Version": "1.3.2.1_rc20260601-r0",
+          "Arch": "aarch64",
+          "SrcName": "zlib",
+          "SrcVersion": "1.3.2.1_rc20260601-r0",
+          "Licenses": [
+            "MPL-2.0 AND MIT"
+          ],
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "sbom"
+        }
+      ]
+    },
+    {
+      "Target": "usr/bin/secrets-entrypoint",
+      "Class": "lang-pkgs",
+      "Type": "gobinary",
+      "Packages": [
+        {
+          "ID": "secrets-entrypoint@v1.0.0+dirty",
+          "Name": "secrets-entrypoint",
+          "Identifier": {
+            "PURL": "pkg:golang/secrets-entrypoint@v1.0.0%2Bdirty",
+            "UID": "5358cf070cf1dac5"
+          },
+          "Version": "v1.0.0+dirty",
+          "Relationship": "root",
+          "DependsOn": [
+            "stdlib@v1.26.8"
+          ],
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "gobinary"
+        },
+        {
+          "ID": "stdlib@v1.26.8",
+          "Name": "stdlib",
+          "Identifier": {
+            "PURL": "pkg:golang/stdlib@v1.26.8",
+            "UID": "2d23c836fd6d3b26"
+          },
+          "Version": "v1.26.8",
+          "Relationship": "direct",
+          "Layer": {
+            "Digest": "sha256:711b0127bb983abca7fcc54ccb263843eb2ebaf0a91f96f13bf21eb1d7bca3d2",
+            "DiffID": "sha256:669dfd1ccf15f295ac7d1ceca53ee00967c08ec1a689a250890dabf26fbaa72f"
+          },
+          "AnalyzedBy": "gobinary"
+        }
+      ]
+    }
+  ]
+}
