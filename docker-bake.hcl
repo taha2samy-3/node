@@ -15,7 +15,7 @@ variable "SOURCE_REPO" {
 }
 
 variable "BASE_IMAGE" {
-  default = "cgr.dev/chainguard/wolfi-base@sha256:824f77df45397eb954dfb963db255907ee8842e3446353ce93d688e5e862f51d"
+  default = "cgr.dev/chainguard/wolfi-base@sha256:9c2092b053779e14c82fb50f77b37bcc38b7d2c83972352d5813280f9d035b03"
 }
 
 # ==========================================
@@ -63,11 +63,11 @@ variable "PYTHON_REPO" {
   default = "python"
 }
 
-variable "PYTHON_3_10_FULL_VERSION" { default = "3.10.22-r0" }
-variable "PYTHON_3_11_FULL_VERSION" { default = "3.11.17-r0" }
-variable "PYTHON_3_12_FULL_VERSION" { default = "3.12.15-r0" }
-variable "PYTHON_3_13_FULL_VERSION" { default = "3.13.15_git20260925-r0" }
-variable "PYTHON_3_14_FULL_VERSION" { default = "3.14.8_git20261001-r0" }
+variable "PYTHON_3_10_FULL_VERSION" { default = "3.10.22-r1" }
+variable "PYTHON_3_11_FULL_VERSION" { default = "3.11.17-r1" }
+variable "PYTHON_3_12_FULL_VERSION" { default = "3.12.15-r1" }
+variable "PYTHON_3_13_FULL_VERSION" { default = "3.13.16_git20261002-r1" }
+variable "PYTHON_3_14_FULL_VERSION" { default = "3.14.8_git20261001-r1" }
 
 # ==========================================
 # Bun Versions
