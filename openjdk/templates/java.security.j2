@@ -66,11 +66,10 @@ org.bouncycastle.fips.approved_only=true
 # Utilizing /dev/urandom for non-blocking entropy in containerized environments.
 securerandom.source=file:/dev/urandom
 
-# Explicitly configures the JVM to use the BCFIPS Approved DRBG 
-# (Deterministic Random Bit Generator) as the primary "strong" algorithm.
-# This ensures that random number generation conforms to SP 800-90A 
-# as mandated in Section 6.4.
-securerandom.strongAlgorithms=DEFAULT:BCFIPS
+# Configures the underlying strong entropy source for SecureRandom.getInstanceStrong(),
+# which seeds the BCFIPS DRBG. Using NativePRNGBlocking:SUN prevents recursive self-initialization
+# loops on architectures without native CPU-assisted entropy instructions (e.g. ARM64).
+securerandom.strongAlgorithms=NativePRNGBlocking:SUN,DRBG:SUN
 
 # Statistical entropy health test factors (C values) for the Repetition 
 # Count Test (RCT) and Adaptive Proportion Test (APT) as specified 
