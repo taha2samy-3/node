@@ -3,9 +3,9 @@
   "Trivy": {
     "Version": "0.75.0"
   },
-  "ReportID": "01a10463-a63d-7eb8-b2a1-b791919f5cc9",
-  "CreatedAt": "2026-10-04T00:50:01.917966469Z",
-  "ArtifactID": "sha256:376fff68d08f6ce2e9e7d5c7d63d4c81cbb8c281946a46baecdf1c4209def2e3",
+  "ReportID": "01a104ef-9617-75e4-be47-0d6fcc06ed3f",
+  "CreatedAt": "2026-10-04T03:22:52.823390783Z",
+  "ArtifactID": "sha256:c7a39c45e77cb27150cd732333ada939e5cf34d0d6506ec8d4d7d2a9077d40d0",
   "ArtifactName": "ghcr.io/taha2samy-3/python:3.10-dev",
   "ArtifactType": "container_image",
   "Metadata": {
@@ -14,7 +14,7 @@
       "Family": "wolfi",
       "Name": "20230201"
     },
-    "ImageID": "sha256:3164a49ee05c55442f3f7abca2f29f06902a06663448139fb94ca820fa91789b",
+    "ImageID": "sha256:cfd93b30c78d6b44b20ffa603d7ce6d1fd2123f947174ecda243c68d4dbabc8e",
     "DiffIDs": [
       "sha256:efad123becea4020f025fdc626e537949127c29fbd940af9c0ea9d9e47144b5d",
       "sha256:da715d131513c748a7eb13d28c0b2dcf1180c0fdf5da6c01f2b31f8cfc079e5d",
@@ -36,7 +36,7 @@
       "ghcr.io/taha2samy-3/python:3.10-dev"
     ],
     "RepoDigests": [
-      "ghcr.io/taha2samy-3/python@sha256:f165ee25f3e7b293be0f09ccc39e5d799677e27d49004ae4bf90afb8d2236d02"
+      "ghcr.io/taha2samy-3/python@sha256:0afbed0299f17b36b69d38787bfbfe70bbd7e82649be3fae8494357135baaceb"
     ],
     "Reference": "ghcr.io/taha2samy-3/python:3.10-dev",
     "ImageConfig": {
@@ -217,11 +217,12 @@
         "Labels": {
           "dev.chainguard.image.title": "wolfi-base",
           "dev.chainguard.package.main": "",
+          "io.github.taha2samy-3.build.fingerprint": "7f8d72d4a5b27c5de2f030d62d3d1f51",
           "org.opencontainers.image.authors": "Taha Samy",
           "org.opencontainers.image.created": "2026-10-01T22:26:15Z",
           "org.opencontainers.image.description": "Optimized Python 3.10 (3.10.22-r0) development image based on Chainguard Wolfi",
           "org.opencontainers.image.licenses": "MIT",
-          "org.opencontainers.image.source": "https://github.com/taha2samy-3/python",
+          "org.opencontainers.image.source": "https://github.com/taha2samy-3/node",
           "org.opencontainers.image.title": "wolfi-base",
           "org.opencontainers.image.url": "https://images.chainguard.dev/directory/image/wolfi-base/overview",
           "org.opencontainers.image.vendor": "Chainguard"
@@ -9220,7 +9221,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:aa08609a0573679ff85a65fb0401d78bcf9f518380f1e65470c1c9dab35c7afa",
+          "Fingerprint": "sha256:a68895a87df7e3f25aa9e63722269b78d3b0c638c93d6076cb71950dec40a0c4",
           "Title": "python: Python/Expat: Denial of Service via crafted XML document",
           "Description": "`xml.parsers.expat` and `xml.etree.ElementTree` use insufficient entropy for Expat hash-flooding protection, which allows a crafted XML document to trigger hash flooding.\\r\\n\\r\\nFully mitigating this vulnerability requires both updating libexpat to 2.8.0 or later and applying this patch.",
           "Severity": "HIGH",
@@ -9289,7 +9290,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:a0f9cd242a73a2f0fe519674a4db0f31a4df8f6c09c753937395bfb63917af5c",
+          "Fingerprint": "sha256:0034c0a8aee964b2ccce5136b89c75827b7c77832367a8d1f41aa6dd26d24f9b",
           "Title": "python: Python tarfile module: File modification and content disclosure via crafted archives",
           "Description": "In CPython 3.13 and earlier, the tarfile module's data and tar extraction filters are vulnerable to crafted archives containing a hard link to a symbolic link. Such archives may cause extraction to modify the permissions or modification time of a file outside the destination directory, or expose the contents of that file within the extracted tree.",
           "Severity": "HIGH",
@@ -9350,7 +9351,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:6aab398f8ab5d60a0bcbda56f3caed3db4b7acc2869a1da258d3033c7b18f97f",
+          "Fingerprint": "sha256:cfc8da080eec3cf5dfdab48a49063ba353bf011630b417d219d0ee9c5456b588",
           "Title": "python: Python tarfile module: Directory traversal allows creation of empty directories outside extraction destination",
           "Description": "The tarfile module's tar and data\n extraction filters created directories outside the destination for \nmembers whose name leaves the destination and returns to it, such as ../evil/../dest/sub/file. The containment check used the resolved path, but intermediate directories were created from the name as given.\n\nOnly\n empty directories are created outside the destination. Member contents \nare still extracted inside it. To return to the destination the member's\n name must contain the destination directory's own final component, so \nextraction into a secure randomised directory is not affected.\n\nThis affects POSIX platforms only. On Windows, .. components are collapsed before the path reaches the filesystem, so the directories outside the destination are never created.",
           "Severity": "MEDIUM",
@@ -9404,7 +9405,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:ae2ed2f345b25075396c021b4847e241abf4ee628d2eeff13ad5913a51400c96",
+          "Fingerprint": "sha256:80697bac7cc7f8c6b201cab787606536d751d13d1cbd7089b160e0d329e54a6c",
           "Title": "python: Python tarfile module: Security filter bypass allows arbitrary file write",
           "Description": "When tarfile extracts a link on a system that doesn't support links, it falls back to extracting a member from the archive. In this case, the filter function is run twice: once for the extracted member, and once with name set to the location of the link. For one of the calls, the return value was ignored. Instead, the member should be skipped if either call returns None.",
           "Severity": "MEDIUM",
@@ -9467,7 +9468,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:597fe64984004ff59e2a47614c3f15907c497d0d0d08ab51177b9c48e0079c42",
+          "Fingerprint": "sha256:d8d6f0047178fa68421be6b31bdb070deb2ebfc7710bb08030dc3fa58cb38246",
           "Title": "When decompressing crafted zip files using the bzip/LZMA/Zstandard   c ...",
           "Description": "When decompressing crafted zip files using the bzip/LZMA/Zstandard \n\ncompressions, Python could use an attacker-controlled size to \n\npre-allocate memory, possibly resulting in memory exhaustion.",
           "Severity": "LOW",
@@ -9524,7 +9525,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:940a57e0a7bca860599cf70dd88edcd0baf707cfd127e459a23fe3a9d2df4333",
+          "Fingerprint": "sha256:fd417f1ad40981b161615915e94d1f09fb0b59f4cd291da0745a0aaa1fa24cd2",
           "Title": "python: Python/Expat: Denial of Service via crafted XML document",
           "Description": "`xml.parsers.expat` and `xml.etree.ElementTree` use insufficient entropy for Expat hash-flooding protection, which allows a crafted XML document to trigger hash flooding.\\r\\n\\r\\nFully mitigating this vulnerability requires both updating libexpat to 2.8.0 or later and applying this patch.",
           "Severity": "HIGH",
@@ -9593,7 +9594,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:a1672fa21ad3dc9379991dc0fe7d356b139b294014f9f5b6f6cba2af1ba9d4b6",
+          "Fingerprint": "sha256:1200fd62e514299a9d72a945eff41a21ef42569a24d07797c770f4b426ab4133",
           "Title": "python: Python tarfile module: File modification and content disclosure via crafted archives",
           "Description": "In CPython 3.13 and earlier, the tarfile module's data and tar extraction filters are vulnerable to crafted archives containing a hard link to a symbolic link. Such archives may cause extraction to modify the permissions or modification time of a file outside the destination directory, or expose the contents of that file within the extracted tree.",
           "Severity": "HIGH",
@@ -9654,7 +9655,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:5fab8fdc22195335409b6dd016c2ec53977148486860a3bd52bebe1bcb763125",
+          "Fingerprint": "sha256:2769053426b6852ce95e85a5a11ddd50838fdd3f24a4c5767683cd6e861d27c8",
           "Title": "python: Python tarfile module: Directory traversal allows creation of empty directories outside extraction destination",
           "Description": "The tarfile module's tar and data\n extraction filters created directories outside the destination for \nmembers whose name leaves the destination and returns to it, such as ../evil/../dest/sub/file. The containment check used the resolved path, but intermediate directories were created from the name as given.\n\nOnly\n empty directories are created outside the destination. Member contents \nare still extracted inside it. To return to the destination the member's\n name must contain the destination directory's own final component, so \nextraction into a secure randomised directory is not affected.\n\nThis affects POSIX platforms only. On Windows, .. components are collapsed before the path reaches the filesystem, so the directories outside the destination are never created.",
           "Severity": "MEDIUM",
@@ -9708,7 +9709,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:f1ee5247e5cee8571af2618661f45f4ed10e5e14454d695119963608e7cff819",
+          "Fingerprint": "sha256:080cafadbd59b5ec2ca77e878adc0f572e64cca202e60bccb46a89ea94e14634",
           "Title": "python: Python tarfile module: Security filter bypass allows arbitrary file write",
           "Description": "When tarfile extracts a link on a system that doesn't support links, it falls back to extracting a member from the archive. In this case, the filter function is run twice: once for the extracted member, and once with name set to the location of the link. For one of the calls, the return value was ignored. Instead, the member should be skipped if either call returns None.",
           "Severity": "MEDIUM",
@@ -9771,7 +9772,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:9cb91165c2bafcc68e4439082d5841fd3c3a732c7976d604dfa8671561054f34",
+          "Fingerprint": "sha256:6a73bfbf3a76a94057ea8a47b5c56df2f9f8eaf480caf3596bdb15b796a26adc",
           "Title": "When decompressing crafted zip files using the bzip/LZMA/Zstandard   c ...",
           "Description": "When decompressing crafted zip files using the bzip/LZMA/Zstandard \n\ncompressions, Python could use an attacker-controlled size to \n\npre-allocate memory, possibly resulting in memory exhaustion.",
           "Severity": "LOW",

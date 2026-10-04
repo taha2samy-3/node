@@ -3,9 +3,9 @@
   "Trivy": {
     "Version": "0.75.0"
   },
-  "ReportID": "01a10464-246a-7447-8b96-81ad13e6af84",
-  "CreatedAt": "2026-10-04T00:50:34.218281497Z",
-  "ArtifactID": "sha256:c184123d6d41b7c11582a8196d61b935e44bcd97da497c69dfc316444ac68e6e",
+  "ReportID": "01a104ef-23e9-71df-82fa-f9ab2942a287",
+  "CreatedAt": "2026-10-04T03:22:23.593124477Z",
+  "ArtifactID": "sha256:d869cb7dbf03c4ef10f76c98a21a1b9c7c549bc72ff05e02c00753e699f2a939",
   "ArtifactName": "ghcr.io/taha2samy-3/wolfi-openjdk-fips:21",
   "ArtifactType": "container_image",
   "Metadata": {
@@ -14,94 +14,112 @@
       "Family": "wolfi",
       "Name": "20230201"
     },
-    "ImageID": "sha256:dc72a20e91b751fc600221aed08961fe17db5088ae4ec46cd98ee4ee44eee9d6",
+    "ImageID": "sha256:a8c13ffaa4fd2b000b199323d58bd0e9d3a3e2a65ea1475a417ae289136a922d",
     "DiffIDs": [
-      "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be",
-      "sha256:fd8676f22a0bcdff28f4ae475696510620c59d7bddf395e7427a70ac37a79800",
+      "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d",
+      "sha256:297bfd229fee15d3356f4b4a8659f42d42fd55460ec8b0753136bbac030b964f",
       "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
     ],
     "RepoTags": [
       "ghcr.io/taha2samy-3/wolfi-openjdk-fips:21"
     ],
     "RepoDigests": [
-      "ghcr.io/taha2samy-3/wolfi-openjdk-fips@sha256:99f91477281860f54180efe3d69f6211b96ca536d15fdfb647f6b1f2e6ac041d"
+      "ghcr.io/taha2samy-3/wolfi-openjdk-fips@sha256:d676739a5b937d83ad0e1751d89d65fbbf5dd243264e139f80ed64ef035d833c"
     ],
     "Reference": "ghcr.io/taha2samy-3/wolfi-openjdk-fips:21",
     "ImageConfig": {
       "architecture": "amd64",
-      "created": "2026-10-03T14:51:26.250227704Z",
+      "created": "2026-10-04T00:50:54.764848501Z",
       "history": [
         {
-          "created": "2026-10-03T14:51:09.470891335Z",
+          "created": "2026-10-04T00:50:40.609338872Z",
           "created_by": "COPY / / # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-03T14:51:26.209217346Z",
+          "created": "2026-10-04T00:50:54.656195081Z",
           "created_by": "COPY /opt/jre /opt/java # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-03T14:51:26.250227704Z",
+          "created": "2026-10-04T00:50:54.764848501Z",
           "created_by": "ENV JAVA_HOME=/opt/java PATH=/opt/java/bin:/usr/local/bin:/usr/bin:/bin LANG=C.UTF-8 TZ=UTC",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-03T14:51:26.250227704Z",
+          "created": "2026-10-04T00:50:54.764848501Z",
           "created_by": "ARG KEYSTORE_PWD=changeit",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-03T14:51:26.250227704Z",
+          "created": "2026-10-04T00:50:54.764848501Z",
+          "created_by": "ARG JRE_TRUSTSTORE",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-04T00:50:54.764848501Z",
+          "created_by": "ARG JRE_BC_DIR",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-04T00:50:54.764848501Z",
+          "created_by": "ARG JRE_CHECK_EKU",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-04T00:50:54.764848501Z",
           "created_by": "ENV JAVA_TOOL_OPTIONS=-Dorg.bouncycastle.fips.approved_only=true -Dorg.bouncycastle.jsse.client.assumeExtendedKeyUsage=false -Dorg.bouncycastle.jsse.trustManager.checkEKU=true -Djdk.tls.trustNameService=true -Dkeystore.type=BCFKS -Djavax.net.ssl.trustStore=/opt/java/lib/security/cacerts -Djavax.net.ssl.trustStoreType=BCFKS -Djavax.net.ssl.trustStorePassword=changeit -Xbootclasspath/a:/opt/java/lib/bc-fips.jar:/opt/java/lib/bcutil-fips.jar:/opt/java/lib/bctls-fips.jar",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-03T14:51:26.250227704Z",
+          "created": "2026-10-04T00:50:54.764848501Z",
           "created_by": "ARG JAVA_VERSION=21",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-03T14:51:26.250227704Z",
+          "created": "2026-10-04T00:50:54.764848501Z",
           "created_by": "ARG JAVA_FULL_VERSION=21.0.11+10-LTS",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-03T14:51:26.250227704Z",
+          "created": "2026-10-04T00:50:54.764848501Z",
           "created_by": "ARG BC_FIPS_VERSION=2.1.2",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-03T14:51:26.250227704Z",
+          "created": "2026-10-04T00:50:54.764848501Z",
           "created_by": "LABEL org.opencontainers.image.authors=Taha Samy org.opencontainers.image.source=https://github.com/taha2samy-3/node org.opencontainers.image.version=21.0.11+10-LTS org.opencontainers.image.vendor=taha2samy-3 org.opencontainers.image.title=Wolfi OpenJDK 21 JRE FIPS (Standard) org.opencontainers.image.description=Hardened OpenJDK 21 JRE with Bouncy Castle FIPS 2.1.2 on Wolfi OS com.taha2samy.fips.version=2.1.2",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-03T14:51:26.250227704Z",
+          "created": "2026-10-04T00:50:54.764848501Z",
           "created_by": "HEALTHCHECK \u0026{[\"CMD\" \"/opt/java/bin/java\" \"-version\"] \"30s\" \"5s\" \"10s\" \"0s\" '\\x03'}",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-03T14:51:26.250227704Z",
+          "created": "2026-10-04T00:50:54.764848501Z",
           "created_by": "USER 1001",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-03T14:51:26.250227704Z",
+          "created": "2026-10-04T00:50:54.764848501Z",
           "created_by": "WORKDIR /home/java",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-03T14:51:26.250227704Z",
+          "created": "2026-10-04T00:50:54.764848501Z",
           "created_by": "ENTRYPOINT []",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
@@ -111,8 +129,8 @@
       "rootfs": {
         "type": "layers",
         "diff_ids": [
-          "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be",
-          "sha256:fd8676f22a0bcdff28f4ae475696510620c59d7bddf395e7427a70ac37a79800",
+          "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d",
+          "sha256:297bfd229fee15d3356f4b4a8659f42d42fd55460ec8b0753136bbac030b964f",
           "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
         ]
       },
@@ -137,10 +155,11 @@
         ],
         "Labels": {
           "com.taha2samy.fips.version": "2.1.2",
+          "io.github.taha2samy-3.build.fingerprint": "d2cca59a15ec8cb330eeb6da6408d10d",
           "org.opencontainers.image.authors": "Taha Samy",
           "org.opencontainers.image.description": "Hardened FIPS 140-3 compliant OpenJDK standard JRE runtime on Wolfi",
           "org.opencontainers.image.licenses": "Apache-2.0",
-          "org.opencontainers.image.source": "https://github.com/taha2samy-3/wolfi-openjdk-fips",
+          "org.opencontainers.image.source": "https://github.com/taha2samy-3/node",
           "org.opencontainers.image.title": "Wolfi OpenJDK 21 JRE FIPS (Standard)",
           "org.opencontainers.image.vendor": "taha2samy-3",
           "org.opencontainers.image.version": "21.0.11+10-LTS"
@@ -152,13 +171,13 @@
     "Layers": [
       {
         "Size": 26859008,
-        "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-        "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+        "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+        "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
       },
       {
         "Size": 176303104,
-        "Digest": "sha256:911013b1b89d54cdeeb8d6508644bae549c2d6df44aef76e792270fa181c1522",
-        "DiffID": "sha256:fd8676f22a0bcdff28f4ae475696510620c59d7bddf395e7427a70ac37a79800"
+        "Digest": "sha256:29af36485535b90d47be5c2763ea7e4acd3293e9e8219e8165bab7e6dbd52b39",
+        "DiffID": "sha256:297bfd229fee15d3356f4b4a8659f42d42fd55460ec8b0753136bbac030b964f"
       },
       {
         "Size": 1024,
@@ -198,8 +217,8 @@
             "zlib@1.3.2-r3"
           ],
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "Digest": "sha1:3bc709141fbb69832958272c22775caaafe2b9ee",
           "InstalledFiles": [
@@ -232,8 +251,8 @@
             "wolfi-baselayout@20230201-r29"
           ],
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "Digest": "sha1:3223ff39fbc888a28079e619c19f5311950c51eb",
           "InstalledFiles": [
@@ -264,8 +283,8 @@
             "wolfi-baselayout@20230201-r29"
           ],
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "Digest": "sha1:c82919b15fd7d50d6ffd2d26f809e258026f3c3e",
           "InstalledFiles": [
@@ -299,8 +318,8 @@
             "wolfi-baselayout@20230201-r29"
           ],
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "Digest": "sha1:c9c598896adb1fa5bba9ce4de8b59714054a2434",
           "InstalledFiles": [
@@ -478,8 +497,8 @@
             "wolfi-baselayout@20230201-r29"
           ],
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "Digest": "sha1:cdbb31b944f2686b23aa355d9f68134437d9b3af",
           "InstalledFiles": [
@@ -513,8 +532,8 @@
             "wolfi-baselayout@20230201-r29"
           ],
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "Digest": "sha1:5595c61bf245289ab1122998f3fc2a5bb2bfc8cb",
           "InstalledFiles": [
@@ -562,8 +581,8 @@
             "wolfi-baselayout@20230201-r29"
           ],
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "Digest": "sha1:c74f79b506ea5e86a688109e2da1dbdf7fbf49bf",
           "InstalledFiles": [
@@ -603,8 +622,8 @@
             "wolfi-baselayout@20230201-r29"
           ],
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "Digest": "sha1:a72f5a0796b7154b6a371ef31470f77cacf06416",
           "InstalledFiles": [
@@ -636,8 +655,8 @@
             "wolfi-baselayout@20230201-r29"
           ],
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "Digest": "sha1:10e2afe4f76a0f76f1a17f4235517942aa018f4d",
           "InstalledFiles": [
@@ -664,8 +683,8 @@
             "glibc@2.43-r8"
           ],
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "Digest": "sha1:aaa5fa034519fdcd141796d11b7b398a4c779f24",
           "InstalledFiles": [
@@ -695,8 +714,8 @@
             "ld-linux@2.43-r8"
           ],
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "Digest": "sha1:8f458615e803232f67222141610a9a93df1db7ab",
           "InstalledFiles": [
@@ -726,8 +745,8 @@
             "libcrypto3@3.6.2-r5"
           ],
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "Digest": "sha1:c35d5c141272a08edcdaeea03e2a5796b82c6889",
           "InstalledFiles": [
@@ -757,8 +776,8 @@
             "libgcc@16.1.0-r2"
           ],
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "Digest": "sha1:a4a41d4653c95f9e1939e58af47a21ac3b1f0307",
           "InstalledFiles": [
@@ -786,8 +805,8 @@
           ],
           "Maintainer": "wolfi",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "Digest": "sha1:23462517925796332a9f79e7b2ae00594c3a5fff",
           "InstalledFiles": [
@@ -818,8 +837,8 @@
             "ncurses-terminfo-base@6.6.20260926-r0"
           ],
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "Digest": "sha1:83b8cd52589e56d1411eabfa7f7519f0d4729f7e",
           "InstalledFiles": [
@@ -868,8 +887,8 @@
           ],
           "Maintainer": "wolfi",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "Digest": "sha1:6fe84e294b2c36936db11ec291f70a5605e07085",
           "InstalledFiles": [
@@ -1209,8 +1228,8 @@
             "wolfi-baselayout@20230201-r29"
           ],
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "Digest": "sha1:c4bae7dc5db530b252cdf0fd900c3dffa460f011",
           "InstalledFiles": [
@@ -1240,8 +1259,8 @@
             "wolfi-baselayout@20230201-r29"
           ],
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "Digest": "sha1:aff1dfc9e000927c9200c1e6f5b4d5128f24906b",
           "InstalledFiles": [
@@ -1273,8 +1292,8 @@
           ],
           "Maintainer": "wolfi",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "Digest": "sha1:5c9765855f63ec2325e1cb86ea3f0d4b6f20e913",
           "InstalledFiles": [
@@ -2502,8 +2521,8 @@
             "ca-certificates-bundle@20260909-r2"
           ],
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "Digest": "sha1:9b1560903e3eaf5712512796a3a0a5920351d480",
           "InstalledFiles": [
@@ -2552,8 +2571,8 @@
           ],
           "Maintainer": "wolfi",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "Digest": "sha1:c9e9f5b4a87785ae4aae9539e439d85b22c7390d",
           "InstalledFiles": [
@@ -2585,8 +2604,8 @@
             "wolfi-baselayout@20230201-r29"
           ],
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "Digest": "sha1:77ec609e1bf6aa69a7c94a6420430bbff09c7edb",
           "InstalledFiles": [
@@ -2610,8 +2629,8 @@
           "FixedVersion": "1.38.0-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-38754",
           "DataSource": {
@@ -2619,7 +2638,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:e9c63abdeb301138e3306e5847b2c324d97ac406e38bf653ea4dfc2d9423855e",
+          "Fingerprint": "sha256:1fa3b9f74997707fc04eb961e827dc77ec272f4b7754bf9879123bf195d31b12",
           "Title": "busybox: Busybox: Denial of Service via heap overflow in ifsbreakup() function",
           "Description": "A heap overflow in the ifsbreakup() function (shell/ash.c) of Busybox v1.38.0 allows attackers to cause a Denial of Service (DoS) via supplying a crafted input.",
           "Severity": "HIGH",
@@ -2660,8 +2679,8 @@
           "FixedVersion": "1.38.0-r1",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-38752",
           "DataSource": {
@@ -2669,7 +2688,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:25a566d7fea8a74f183832397ae11630e50b1b2483109ee5fe975a5b164be51a",
+          "Fingerprint": "sha256:38ecdfe038b9df1a730ceb403634af4d5763ceabf439ef4dd5b0ab70e7642464",
           "Title": "busybox: BusyBox: Denial of Service via crafted AWK script",
           "Description": "A stack overflow in the evaluate() function (editors/awk.c) of BusyBox commit 371fe9 allows attackers to cause a Denial of Service (DoS) via supplying a crafted AWK script.",
           "Severity": "MEDIUM",
@@ -2710,8 +2729,8 @@
           "FixedVersion": "1.38.0-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-38753",
           "DataSource": {
@@ -2719,7 +2738,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:5b9a7d8abf37026f960c619884b85724d3b159fc57c07073daf286b508526576",
+          "Fingerprint": "sha256:b4d24dbe0338dffb4f78477f07a87ef00623be94f3272a484c383b7aca3d7a9a",
           "Title": "busybox: Busybox: Denial of Service via crafted AWK script in awk_sub() function",
           "Description": "A use-after-free in the awk_sub() function (editors/awk.c) of Busybox v1.38.0 allows attackers to cause a Denial of Service (DoS) via supplying a crafted AWK script.",
           "Severity": "MEDIUM",
@@ -2759,8 +2778,8 @@
           "FixedVersion": "1.38.0-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-38755",
           "DataSource": {
@@ -2768,7 +2787,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:0a6c3b4acd7e3989b2c6bf103e2dd51181d34d7ff4a709d01b422911cd1f472e",
+          "Fingerprint": "sha256:aca6f8a7ca73d120e12d70c17d6c6bd8766c9b3005efa6d1d914bb0c57954358",
           "Title": "busybox: Busybox: Denial of Service via heap overflow in evalcommand() function",
           "Description": "A heap overflow in the evalcommand() function (shell/ash.c) of Busybox v1.38.0 allows attackers to cause a Denial of Service (DoS) via supplying a crafted input.",
           "Severity": "MEDIUM",
@@ -2809,8 +2828,8 @@
           "FixedVersion": "2.43-r10",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-6791",
           "DataSource": {
@@ -2818,7 +2837,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:f4bd187e5b11499d11d06d4c31be162307484c6db48ef8564e846e10a0d591fc",
+          "Fingerprint": "sha256:80e7b6a57f45bbee7d9f205923aff0776624c45db2a080f5f1e85480b2904645",
           "Title": "glibc: Glibc: Denial of Service via stack exhaustion during tilde expansion",
           "Description": "When expanding paths that begin with a tilde (~) followed by a username, the internal parse_tilde function extracts the username to determine the user's home directory.  The implementation allocates memory for this username directly on the stack using the strndupa macro. Because the size of this allocation was determined by the length of the user-supplied input without any bounds checks, passing an excessively long username e.g. thousands of characters, forces the thread to exhaust its stack space. Thus if an application passes untrusted, attacker-controlled input to the wordexp function, an attacker can trigger a stack clash.",
           "Severity": "MEDIUM",
@@ -2859,8 +2878,8 @@
           "FixedVersion": "2.43-r10",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-6791",
           "DataSource": {
@@ -2868,7 +2887,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:0aed878c6d4415fce85fd48f34b3753ead56d11204fcb85ccc79a6ed1f903c82",
+          "Fingerprint": "sha256:dddb528ee4ca6d1502010f813d0afd8c3bea9694b58db971afc6c80676107432",
           "Title": "glibc: Glibc: Denial of Service via stack exhaustion during tilde expansion",
           "Description": "When expanding paths that begin with a tilde (~) followed by a username, the internal parse_tilde function extracts the username to determine the user's home directory.  The implementation allocates memory for this username directly on the stack using the strndupa macro. Because the size of this allocation was determined by the length of the user-supplied input without any bounds checks, passing an excessively long username e.g. thousands of characters, forces the thread to exhaust its stack space. Thus if an application passes untrusted, attacker-controlled input to the wordexp function, an attacker can trigger a stack clash.",
           "Severity": "MEDIUM",
@@ -2909,8 +2928,8 @@
           "FixedVersion": "2.43-r10",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-6791",
           "DataSource": {
@@ -2918,7 +2937,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:c12d812abcd495b0c40b9dd7e03fbb666804275e78f422c83f4e52434b905b27",
+          "Fingerprint": "sha256:c130e0cf7de90bf993f2fc7ce02e1a29e37846f1dab03ec517532ca691293b00",
           "Title": "glibc: Glibc: Denial of Service via stack exhaustion during tilde expansion",
           "Description": "When expanding paths that begin with a tilde (~) followed by a username, the internal parse_tilde function extracts the username to determine the user's home directory.  The implementation allocates memory for this username directly on the stack using the strndupa macro. Because the size of this allocation was determined by the length of the user-supplied input without any bounds checks, passing an excessively long username e.g. thousands of characters, forces the thread to exhaust its stack space. Thus if an application passes untrusted, attacker-controlled input to the wordexp function, an attacker can trigger a stack clash.",
           "Severity": "MEDIUM",
@@ -2959,8 +2978,8 @@
           "FixedVersion": "2.43-r10",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-6791",
           "DataSource": {
@@ -2968,7 +2987,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:fd6b5dd2eaa78455437a2966bf542533f41b7ef5c39831a947ad1f52978abd10",
+          "Fingerprint": "sha256:771beaf47ab9a9ac94758cf01c1e08a90fedf0bff7e38994018a21fa7668eee7",
           "Title": "glibc: Glibc: Denial of Service via stack exhaustion during tilde expansion",
           "Description": "When expanding paths that begin with a tilde (~) followed by a username, the internal parse_tilde function extracts the username to determine the user's home directory.  The implementation allocates memory for this username directly on the stack using the strndupa macro. Because the size of this allocation was determined by the length of the user-supplied input without any bounds checks, passing an excessively long username e.g. thousands of characters, forces the thread to exhaust its stack space. Thus if an application passes untrusted, attacker-controlled input to the wordexp function, an attacker can trigger a stack clash.",
           "Severity": "MEDIUM",
@@ -3009,8 +3028,8 @@
           "FixedVersion": "3.6.3-r5",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-14456",
           "DataSource": {
@@ -3018,7 +3037,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:0db5cd665bca75c8800468b26416de1ad59637ab89bc4eb752a6b6bf60bb4fdd",
+          "Fingerprint": "sha256:179c5e5e48f782b0c0e59f147714fd001ab439a5b94225d160c0a7d97f16e2fc",
           "Title": "openssl: OpenSSL: Denial of Service via unbounded memory growth in QUIC server",
           "Description": "Issue summary: When an OpenSSL QUIC server (Listener SSL object) processes\nvalid QUIC Initial packets for unknown destination connection IDs, it\ncan allocate and queue new incoming channels without enforcing any limit.\n\nImpact summary: A remote peer that can make many Initial packets reach the\nserver listener faster than the application accepts connections, can cause the\nmemory allocated to store the per-channel state to grow without any limits,\npotentially making the QUIC listener unavailable and causing Denial of Service.\n\nCWE: CWE-770: Allocation of Resources Without Limits or Throttling\n\nDescription: The function that handles inbound QUIC packets uses\nConnection-Id from the packet header to find an existing connection\n(QUIC channel). If no existing connection is found and the packet\ntype is INITIAL, the function treats the packet as a new connection. It\nallocates a new channel object and inserts it into a queue where it\nwaits to be accepted by the local application with SSL_accept(3ossl).\nThe memory occupied by these initial channel objects may grow\nwithout bounds if the application is not able to call SSL_accept()\nfrequently enough to serve these inbound connection requests.\n\nThe issue is present since OpenSSL 3.5 when the QUIC server implementation\nwas added.\n\nThe fix introduces a limit for pending connections. The default limit is set\nto 256 pending connections (waiting to be accepted by the local application).\nApplications may change the default by calling SSL_set_value_uint(3ossl).\n\nFIPS impact: no\nThe FIPS module is not affected as the QUIC implementation is outside of\nthe OpenSSL FIPS module boundary.",
           "Severity": "HIGH",
@@ -3042,7 +3061,6 @@
           },
           "References": [
             "http://www.openwall.com/lists/oss-security/2026/08/13/4",
-            "https://access.redhat.com/errata/RHSA-2026:67154",
             "https://access.redhat.com/errata/RHSA-2026:67165",
             "https://access.redhat.com/security/cve/CVE-2026-14456",
             "https://bugzilla.redhat.com/2515348",
@@ -3073,7 +3091,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-63074",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-63075",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-63076",
-            "https://errata.almalinux.org/10/ALSA-2026-67154.html",
+            "https://errata.almalinux.org/9/ALSA-2026-67165.html",
             "https://errata.rockylinux.org/RLSA-2026:67165",
             "https://github.com/openssl/openssl/commit/08e7756c3900bcfd77a720e7b74e27d6e4ed01a9",
             "https://github.com/openssl/openssl/commit/4084152e040329ca0194c4c1750b9b46d00a5b6b",
@@ -3100,8 +3118,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-45447",
           "DataSource": {
@@ -3109,7 +3127,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:8383bee22de3f1b935ae5bf1d022b3c361e24c913e3dfe11c0131fc8265287d2",
+          "Fingerprint": "sha256:45ac56b0fa980b9469779413f417aee48f17a112ccaa6223e15a47ff0439fd5a",
           "Title": "openssl: Heap Use-After-Free in OpenSSL PKCS7_verify()",
           "Description": "Issue summary: A specially crafted PKCS#7 or S/MIME signed message could\ntrigger a use-after-free during PKCS#7 signature verification.\n\nImpact summary: A use-after-free may result in process crashes, heap\ncorruption, or potentially remote code execution.\n\nWhen processing a PKCS#7 or S/MIME signed message, if the SignedData\ndigestAlgorithms field is present as an empty ASN.1 SET, OpenSSL may\nincorrectly free a caller-owned BIO during PKCS7_verify(). A subsequent\nuse of the BIO by the calling application results in a use-after-free\ncondition.\n\nIn the common case this occurs when the application later calls\nBIO_free() on the BIO originally passed to PKCS7_verify(). Depending\non allocator behavior and application-specific BIO usage patterns, this\nmay result in a crash or other memory corruption. In some application\ncontexts this may potentially be exploitable for remote code execution.\n\nApplications that process PKCS#7 or S/MIME signed messages using OpenSSL\nPKCS#7 APIs may be affected. Applications using the CMS APIs for this\nprocessing are not affected.\n\nThe FIPS modules in 4.0, 3.6, 3.5, 3.4, and 3.0 are not affected by this\nissue, as the affected code is outside the OpenSSL FIPS module boundary.",
           "Severity": "HIGH",
@@ -3191,7 +3209,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/8/ALSA-2026-36215.html",
+            "https://errata.almalinux.org/9/ALSA-2026-44438.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-f684-cpcq-j565",
             "https://github.com/openssl/openssl/commit/3aad5eb7af4de4ee0633c30a8541a54d9bbde63c",
@@ -3228,8 +3246,8 @@
           "FixedVersion": "3.6.3-r4",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-54876",
           "DataSource": {
@@ -3237,7 +3255,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:503166a11c3f996af39dab7df4a0b761c9e496a27bf633d009afd725ba356e32",
+          "Fingerprint": "sha256:9d50bfa6e8088eca8925024dd9638c8fa0c25427912bb91101a9a0599eee8aec",
           "Title": "openssl: openssl-src: OpenSSL: Memory leak leads to Denial of Service in OCSP response checking",
           "Description": "Issue summary: A malicious TLS server can cause a memory leak in a TLS\nclient that has enabled OCSP response checking by sending an OCSP\nresponse that contains no single response entries.\n\nImpact summary: An attacker can leak an attacker-tunable amount of memory\nper TLS handshake in a victim client application. A long-running client\nthat repeatedly connects to a malicious server can have its memory\nexhausted, resulting in a Denial of Service.\n\nCWE: CWE-401: Missing Release of Memory after Effective Lifetime\n\nDescription: The affected function is called during X.509 certificate\nchain verification when OCSP response checking is enabled\nwith the X509_V_FLAG_OCSP_RESP_CHECK or X509_V_FLAG_OCSP_RESP_CHECK_ALL\nverification flags, for example when a TLS client verifies an OCSP\nresponse stapled into the TLS handshake by the server.\n\nWhen the received BasicOCSPResponse contains an empty SEQUENCE OF\nSingleResponse, which is permitted on the wire and accepted by the\nOpenSSL decoder, the OCSP_BASICRESP structure allocated by\nOCSP_response_get1_basic() was not freed because an early return\nbypassed the cleanup code at the end of the function.\n\nThe amount of memory leaked per handshake can be amplified by the\nattacker by padding the certs field of the BasicOCSPResponse with\nbogus certificates, which are parsed and stored in the leaked\nstructure before the empty response check triggers the early return.\nA long-running TLS client that repeatedly connects to a malicious\nserver can have its memory exhausted over time.\n\nOCSP response checking is not enabled by default. Only client\napplications that explicitly enable the OCSP response check\nverification flags are affected.\n\nFIPS impact: no\n\nThe FIPS modules in 4.0 and 3.6 are not affected by this issue as the\naffected code is outside the OpenSSL FIPS module boundary.",
           "Severity": "HIGH",
@@ -3277,8 +3295,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-34182",
           "DataSource": {
@@ -3286,7 +3304,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:51c44d3d6b37e8e07ea67bc45f2ba43a8bf42a29ab71ff915b82c1c314588c12",
+          "Fingerprint": "sha256:2dd483f05991ea01e23817445bf72623dd7277d8aa21a824b9c2ab41705f8cb4",
           "Title": "openssl: CMS AuthEnvelopedData Processing May Accept Forged Messages",
           "Description": "Issue Summary: Cryptographic Message Services (CMS) processing fails to perform\nsufficient input validation on the cipher and tag length fields of\nAuthEnvelopedData containers, leading to various potential compromises.\n\nImpact Summary: Attackers making use of these vulnerabilities may achieve\nkey-equivalent functionality for a given CMS recipient and/or bypass integrity\nvalidation for a given message.\n\nIn one use case, an attacker may send a CMS message containing\nAuthEnvelopedData with the cipher specified as a non-AEAD cipher.  OpenSSL\nerroneously allows this selection, and attempts to decrypt and validate the\nmessage.\n\nAn on-path attacker who captures one legitimate AES-GCM AuthEnvelopedData\naddressed to the victim can re-emit it with the recipientInfos set left\nbyte-for-byte intact, so the victim's private key still unwraps the genuine CEK\n(the content-encryption key), but with the inner OID rewritten to AES-256-OFB\n(Output Feedback Mode, an unauthenticated keystream mode) and with an\nattacker-chosen IV and ciphertext. The victim initializes AES-256-OFB under the\nreal CEK, never consults the MAC field, and CMS_decrypt() returns success.\n\nIf the application under attack responds to the attacker with any indicator\nshowing success or failure of the decryption effort, it is possible for the\nattacker to use this as an oracle to obtain key equivalent functionality for the\nCEK used for the chosen recipient of the message.\n\nIn another use case, an attacker can reduce the tag length of the chosen AEAD\ncipher for a given AuthEnvelopedData container to be a single byte long,\nallowing an attacker to brute force CMS decryption, producing an integrity\nbypass for applications that trust CMS_decrypt() to reject modified content.\n\nThe FIPS modules are not affected by this issue.",
           "Severity": "MEDIUM",
@@ -3315,7 +3333,6 @@
             }
           },
           "References": [
-            "https://access.redhat.com/errata/RHSA-2026:25237",
             "https://access.redhat.com/errata/RHSA-2026:25239",
             "https://access.redhat.com/security/cve/CVE-2026-34182",
             "https://bugzilla.redhat.com/2481879",
@@ -3364,7 +3381,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/10/ALSA-2026-25237.html",
+            "https://errata.almalinux.org/9/ALSA-2026-25239.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-f9v2-4w9p-2cwc",
             "https://github.com/openssl/openssl/commit/03c1f4d45fb963aee7d5833390c507cd290182bc",
@@ -3400,8 +3417,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-34183",
           "DataSource": {
@@ -3409,7 +3426,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:183e2b35c49a4cfc5588174d38cb66ad2a85236e2c44c29e3cf1fac9453b2bef",
+          "Fingerprint": "sha256:26be913275ad6683114cc44e6b3c116c5a8be07551b03240b355573d97330a56",
           "Title": "openssl: Unbounded Memory Growth in the QUIC PATH_CHALLENGE Handler",
           "Description": "Issue summary: Remote peer may exhaust heap memory of the QUIC\nserver or client by flooding it with packets containing PATH_CHALLENGE\nframes.\n\nImpact summary: A malicious remote peer can cause an unbounded\nmemory allocation which can lead to an abnormal termination of the\napplication acting as a QUIC client or server and a Denial of Service.\n\nA remote peer may exhaust heap memory by flooding the local\nQUIC stack with PATH_CHALLENGE frames. The local QUIC stack\nallocates a PATH_RESPONSE frame for every PATH_CHALLENGE it receives.\nThe allocated PATH_RESPONSE frame gets freed only when the remote\npeer acknowledges reception of the PATH_RESPONSE frame which will\nnot be done by a malicious peer.\n\nThe FIPS modules in 4.0, 3.6, 3.5, 3.4, and 3.0 are not affected by\nthis issue. The QUIC stack is outside of OpenSSL FIPS module\nboundary.",
           "Severity": "MEDIUM",
@@ -3438,7 +3455,6 @@
             }
           },
           "References": [
-            "https://access.redhat.com/errata/RHSA-2026:25237",
             "https://access.redhat.com/errata/RHSA-2026:25239",
             "https://access.redhat.com/security/cve/CVE-2026-34183",
             "https://bugzilla.redhat.com/2481879",
@@ -3487,7 +3503,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/10/ALSA-2026-25237.html",
+            "https://errata.almalinux.org/9/ALSA-2026-25239.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-f5vx-f6jp-89j6",
             "https://github.com/openssl/openssl/commit/5b306efb0b3779dfdd0803b4afc9d08c91f11517",
@@ -3520,8 +3536,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-35188",
           "DataSource": {
@@ -3529,7 +3545,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:07af817c0e1531a56b2982fcd556af46f8b193952e6da5bb282805b30ee49673",
+          "Fingerprint": "sha256:6807915d7eff0c26c46e102ac7c146468bc2bf4f712413dfc4b15e7c84052024",
           "Title": "openssl: Double-free When Checking OCSP Stapled Response",
           "Description": "Issue summary: A malicious server can exploit TLS OCSP stapling by delivering\na crafted response through the status_request extension, triggering a\ndouble-free in the client's certificate verification path.\n\nImpact summary: Successful exploitation allows an attacker to corrupt heap\nmemory via a double-free, potentially leading to a Denial of Service or\npossibly an attacker controlled code execution or other undefined behavior.\n\nIf OCSP stapling is enabled and the TLS client connects to a malicious server,\na crafted OCSP stapled response can trigger a double free in the TLS client\nwhen the stapled response is checked.\n\nThe OCSP stapling is not enabled by default. Reliable code execution\nthrough a double-free is technically complex and highly environment-dependent\nbut the Denial of Service impact is straightforward to achieve, warranting\nModerate severity.\n\nNo FIPS modules are affected by this issue as the affected code is outside\nthe OpenSSL FIPS module boundary.",
           "Severity": "MEDIUM",
@@ -3569,8 +3585,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42764",
           "DataSource": {
@@ -3578,7 +3594,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:5fbcce7ac4ffec1fe9db51c3f882b0b0bd3b0de346ec8713fff836fec064c979",
+          "Fingerprint": "sha256:f78858ee0dfb3b66fea2f203569584410bf6858c3251ed061c1a241c9ead2fbe",
           "Title": "openssl: NULL pointer dereference in QUIC server initial packet handling",
           "Description": "Issue summary: Receiving a QUIC initial packet with an invalid token may\ntrigger a NULL pointer dereference in the OpenSSL QUIC server with\naddress validation disabled.\n\nImpact summary: NULL pointer dereference typically causes abnormal termination\nof the affected QUIC server process and a Denial of Service.\n\nIf the address validation is disabled in the OpenSSL QUIC server\nimplementation, an attacker can crash the server by sending an initial\npacket with an invalid or expired token.\n\nBy default, the client address validation is enabled in the OpenSSL QUIC server\nimplementation, which makes the default configuration not vulnerable\nto this issue. However if the SSL_LISTENER_FLAG_NO_VALIDATE is used with\nthe SSL_new_listener() call, the address validation is disabled making the\nvulnerable code reachable.\n\nThe FIPS modules in 4.0, 3.6, 3.5, 3.4, and 3.0 are not affected by this\nissue, as the affected code is outside the OpenSSL FIPS module boundary.",
           "Severity": "MEDIUM",
@@ -3606,7 +3622,6 @@
             }
           },
           "References": [
-            "https://access.redhat.com/errata/RHSA-2026:25237",
             "https://access.redhat.com/errata/RHSA-2026:25239",
             "https://access.redhat.com/security/cve/CVE-2026-42764",
             "https://bugzilla.redhat.com/2481879",
@@ -3655,7 +3670,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/10/ALSA-2026-25237.html",
+            "https://errata.almalinux.org/9/ALSA-2026-25239.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-5pg7-f6xv-j6m4",
             "https://github.com/openssl/openssl/commit/5e3ed291b8af0b03d5d3b9e56a1da69a187e9729",
@@ -3686,8 +3701,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-45445",
           "DataSource": {
@@ -3695,7 +3710,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:84a731210502da99869d7ec21a0faeb574e662c501ae5751c7c178f5e184ceb8",
+          "Fingerprint": "sha256:08840478f6c2c0e9335250805e06f6c87f89b15d5a6d3478f2e5457bd865b147",
           "Title": "openssl: AES-OCB IV Ignored on EVP_Cipher() Path",
           "Description": "Issue summary: When an application drives an AES-OCB context through the\npublic EVP_Cipher() one-shot interface, the application-supplied\ninitialisation vector (IV) is silently discarded.\n\nImpact summary: Every message encrypted under the same key uses the\nsame effective nonce regardless of the IV supplied by the caller,\nresulting in (key, nonce) reuse and loss of confidentiality.  If the\nsame code path is used to compute the authentication tag, the tag\ndepends only on the (key, IV) pair and not on the plaintext or\nciphertext, allowing universal forgery of arbitrary ciphertext from a\nsingle captured message.\n\nOpenSSL provides two ways to drive a cipher: the documented streaming\ninterface (EVP_CipherUpdate / EVP_CipherFinal_ex) and a lower-level\none-shot, EVP_Cipher(), whose documentation explicitly recommends\nagainst use by applications in favour of EVP_CipherUpdate() and\nEVP_CipherFinal_ex().  The OCB provider's streaming handler flushes\nthe application-supplied IV into the OCB context before processing\ndata; the one-shot handler did not.  Every call to EVP_Cipher() on an\nAES-OCB context therefore ran with the all-zero key-derived offset\nstate left by cipher initialisation, regardless of the caller's IV.\n\nIf EVP_EncryptFinal_ex() is subsequently used to obtain the\nauthentication tag, the deferred IV setup runs at that point and\nclears the running checksum that should have been accumulated over the\nplaintext.  The resulting tag is a function of (key, IV) only and\nverifies against any ciphertext produced under the same (key, IV)\npair.\n\nThe OpenSSL SSL/TLS implementation is not affected: AES-OCB is not a\nTLS cipher suite, and libssl does not call EVP_Cipher() in any case.\nApplications that drive AES-OCB through the documented streaming AEAD\nAPI (EVP_CipherUpdate / EVP_CipherFinal_ex) are not affected.  Only\napplications that combine the AES-OCB cipher with the EVP_Cipher()\none-shot API are vulnerable.\n\nThe FIPS modules in 4.0, 3.6, 3.5, 3.4 and 3.0 are not affected by\nthis issue, as AES-OCB is outside the OpenSSL FIPS module boundary.",
           "Severity": "MEDIUM",
@@ -3724,7 +3739,6 @@
             }
           },
           "References": [
-            "https://access.redhat.com/errata/RHSA-2026:25237",
             "https://access.redhat.com/errata/RHSA-2026:25239",
             "https://access.redhat.com/security/cve/CVE-2026-45445",
             "https://bugzilla.redhat.com/2481879",
@@ -3773,7 +3787,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/10/ALSA-2026-25237.html",
+            "https://errata.almalinux.org/9/ALSA-2026-25239.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-v446-xwfm-x7mr",
             "https://github.com/openssl/openssl/commit/323f0b6e7d530a4cb4336d50c88cb70f3ac2a451",
@@ -3808,8 +3822,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-34180",
           "DataSource": {
@@ -3817,7 +3831,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:b6667291b7e3dc0498227b869961dfd968c32bf48a63e3beb4b220230f5ea1ac",
+          "Fingerprint": "sha256:a719e1b72791f5e6519d8aa6a7a7e92d045ddcf8fd8d4585be9b82c56ee8df71",
           "Title": "openssl: OpenSSL: Heap buffer over-read in ASN.1 decoding can lead to denial of service or information disclosure.",
           "Description": "Issue summary: Parsing a crafted DER-encoded ASN.1 structure with a primitive\nelement whose content exceeds 2 gigabytes in length may cause a heap buffer\nover-read on 64-bit Unix and Unix-like platforms.\n\nImpact summary: The heap buffer over-read may crash the application (Denial of\nService) or to load into the decoded ASN.1 object contents of memory beyond the\nend of the input buffer.  More typically such ASN.1 elements would instead be\ntruncated.\n\nAn integer truncation in OpenSSL's ASN.1 decoder causes the content length of\nan ASN.1 primitive element to be mishandled when it exceeds 2 gigabytes. In the\nworst case the truncated length is treated as a request to scan the binary\ncontent for a terminating zero byte, possibly causing OpenSSL to read either\nless than or beyond the end of the allocated buffer.\n\nApplications that pass attacker-supplied data to d2i_X509(), d2i_PKCS7(), or\nany other d2i_* decoding function are affected. OpenSSL's own command-line\ntools are not vulnerable, as data read through the BIO layer is checked before\nit reaches the affected code. The issue only affects 64-bit Unix and Unix-like\nplatforms; 32-bit platforms and 64-bit Windows are not affected.\n\nThe FIPS modules in 4.0, 3.6, 3.5, 3.4 and 3.0 are not affected by this issue,\nas the affected code is outside the OpenSSL FIPS module boundary.",
           "Severity": "LOW",
@@ -3846,7 +3860,6 @@
             }
           },
           "References": [
-            "https://access.redhat.com/errata/RHSA-2026:25237",
             "https://access.redhat.com/errata/RHSA-2026:25239",
             "https://access.redhat.com/security/cve/CVE-2026-34180",
             "https://bugzilla.redhat.com/2481879",
@@ -3895,7 +3908,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/10/ALSA-2026-25237.html",
+            "https://errata.almalinux.org/9/ALSA-2026-25239.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-3c8f-qq7h-7qv6",
             "https://github.com/openssl/openssl/commit/1c6908e4fa5fa568752221d8eaf561a809751e5d",
@@ -3931,8 +3944,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-34181",
           "DataSource": {
@@ -3940,7 +3953,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:ebe1cd9d0fdde6ed27ab97bc7d32a282b0e3f206167fca69bf401f6e64c74fe7",
+          "Fingerprint": "sha256:4fec4e50d121f6b93d1a8ef18216b8b00e25df3d5b13ea5d38469bcb90fa6393",
           "Title": "openssl: PKCS#12 Files with PBMAC1 Are Accepted with Short HMAC Keys",
           "Description": "Issue Summary: The PKCS#12 file processing fails to perform sufficient input\nvalidation for files that use Password-Based Message Authentication Code 1\n(PBMAC1) integrity mechanism allowing a certificate and private key forgery.\n\nImpact Summary: An attacker impersonating a user can cause a service reading\nPKCS#12 files to accept forged certificates and private keys with a 1 in 256\nprobability.\n\nIf a service accepting PKCS#12 files is using passwords for authenticating\nthe received files, the attacker can create unencrypted PKCS#12 files that\nuse PBMAC1 authentication that specifies an HMAC key of only one byte, allowing\nthem to craft a file that will be accepted with a 1 in 256 probability.\nThat would then cause the service to accept a certificate and private key\ncontrolled by the attacker.\n\nThe FIPS modules are not affected by this issue, as the affected code is\noutside the OpenSSL FIPS module boundary.",
           "Severity": "LOW",
@@ -3968,7 +3981,6 @@
             }
           },
           "References": [
-            "https://access.redhat.com/errata/RHSA-2026:25237",
             "https://access.redhat.com/errata/RHSA-2026:25239",
             "https://access.redhat.com/security/cve/CVE-2026-34181",
             "https://bugzilla.redhat.com/2481879",
@@ -4017,7 +4029,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/10/ALSA-2026-25237.html",
+            "https://errata.almalinux.org/9/ALSA-2026-25239.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-4jgc-cj59-f9mm",
             "https://github.com/openssl/openssl/commit/0300eb9ddce7a0895bf301a4b0c03a9da2313a0f",
@@ -4050,8 +4062,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42765",
           "DataSource": {
@@ -4059,7 +4071,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:86fdc3eb8bf06015ad444afdfdbe1443aaa4bf00147256960009a4653f2d6c1f",
+          "Fingerprint": "sha256:086dd0658bd53f42febefb982349541d12ce2c11d67391640e43051a181a3395",
           "Title": "openssl: NULL Dereference in Certificate Verification with OCSP Checking",
           "Description": "Issue summary: When a partial-chain certificate verification is enabled\ntogether with OCSP response checking for the whole chain, a NULL dereference\nwill happen if the verified chain does not have a self-signed trusted anchor,\ncrashing the process.\n\nImpact summary: A NULL pointer dereference can trigger a crash which leads to a\nDenial of Service for an application.\n\nWhen performing OCSP response checking for certificates in the verification\nchain, the code always tries to access the next certificate as the issuer.\nThere is a check for a self-signed certificate. However with the partial\nchain verification enabled when the chain does not have a self-signed trusted\nanchor, the issuer will be NULL for the last certificate in the chain. A NULL\npointer dereference then happens.\n\nThis issue affects only applications which enable both OCSP verification\nof the certificate chain (X509_V_FLAG_OCSP_RESP_CHECK_ALL) and partial\nchain verification (X509_V_FLAG_PARTIAL_CHAIN) in the certificate\nverification. Both flags are disabled by default. For that reason, we have\nassigned Low severity to the issue.\n\nNo FIPS modules are affected by this issue as the affected code is outside\nthe OpenSSL FIPS module boundary.",
           "Severity": "LOW",
@@ -4100,8 +4112,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42766",
           "DataSource": {
@@ -4109,7 +4121,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:b26c6cd361b09057de0f8297ad5759120c828a319689dcaa8788187d50b8dd51",
+          "Fingerprint": "sha256:646d64678f4d43c8d7b88d6538516034982f178655e3ec98c62afa6977611263",
           "Title": "openssl: Possible NULL Dereference in Password-Based CMS Decryption",
           "Description": "Issue summary: A specially crafted password-encrypted CMS message\ncan trigger a NULL pointer dereference during CMS decryption.\n\nImpact summary: This NULL pointer dereference leads to an application crash\nand a Denial of Service.\n\nThe CMS PasswordRecipientInfo.keyDerivationAlgorithm field is defined as\nOPTIONAL in the ASN.1 specification and may therefore be absent in specially\ncrafted inputs. During the password-based CMS decryption the OpenSSL\nCMS implementation dereferences this field without first checking whether it\nwas present.\n\nAn attacker who supplies such a CMS message to an application performing\npassword-based CMS decryption can trigger an application crash, leading to\na Denial of Service.\n\nApplications that process password-encrypted CMS messages may be affected.\n\nThe FIPS modules in 4.0, 3.6, 3.5, 3.4, and 3.0 are not affected by this\nissue, as the affected code is outside the OpenSSL FIPS module boundary.",
           "Severity": "LOW",
@@ -4138,7 +4150,6 @@
             }
           },
           "References": [
-            "https://access.redhat.com/errata/RHSA-2026:25237",
             "https://access.redhat.com/errata/RHSA-2026:25239",
             "https://access.redhat.com/security/cve/CVE-2026-42766",
             "https://bugzilla.redhat.com/2481879",
@@ -4187,7 +4198,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/10/ALSA-2026-25237.html",
+            "https://errata.almalinux.org/9/ALSA-2026-25239.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-58mv-qqmv-gqgv",
             "https://github.com/openssl/openssl/commit/056d06c1918fafbb98c1c85a02e4c47cc4e199ce",
@@ -4223,8 +4234,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42767",
           "DataSource": {
@@ -4232,7 +4243,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:63832cf8bc6672eab795a156be0c618240247f6ed0dc1bb32a9a4b5464c52dc1",
+          "Fingerprint": "sha256:a8d7200f8bf9b5ee8d76ae2d44875c4fe26603d79ffeafa8a5c5e3c392e694fb",
           "Title": "openssl: NULL Pointer Dereference in CRMF EncryptedValue Decryption",
           "Description": "Issue summary: An attacker-controlled CMP (Certificate Management Protocol)\nserver could trigger a NULL pointer dereference in a CMP client application.\n\nImpact summary: A NULL pointer dereference causes a crash of the\napplication and a Denial of Service.\n\nAn attacker controlling a CMP server (or acting as a man-in-the-middle) could\ncraft a CMP response containing a CRMF (Certificate Request Message Format)\nCertRepMessage with an EncryptedValue structure where the symmAlg field\nhas an algorithm OID but no parameters field. When the OpenSSL CMP client\nprocesses this response, the NULL dereference occurs, causing a crash of\nthe CMP client.\n\nApplications that process untrusted CMP/CRMF messages may be affected.\n\nThe FIPS modules in 4.0, 3.6, 3.5, 3.4, and 3.0 are not affected by this\nissue, as the affected code is outside the OpenSSL FIPS module boundary.",
           "Severity": "LOW",
@@ -4261,7 +4272,6 @@
             }
           },
           "References": [
-            "https://access.redhat.com/errata/RHSA-2026:25237",
             "https://access.redhat.com/errata/RHSA-2026:25239",
             "https://access.redhat.com/security/cve/CVE-2026-42767",
             "https://bugzilla.redhat.com/2481879",
@@ -4310,7 +4320,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/10/ALSA-2026-25237.html",
+            "https://errata.almalinux.org/9/ALSA-2026-25239.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-gxhg-7jx8-m22j",
             "https://github.com/openssl/openssl/commit/61a86a8cd73546c9fea916f3d304c1293e05c046",
@@ -4345,8 +4355,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42768",
           "DataSource": {
@@ -4354,7 +4364,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:7357dd158d47314995749ca3c5aabaf770730aa9414804f8e0ff909f29293d66",
+          "Fingerprint": "sha256:b48b0869438ec19f9aa3a1e733d00e2fac0b46a7aa385b43c230dee6a74b9662",
           "Title": "openssl: Multi-RecipientInfo Bleichenbacher Oracle in CMS_decrypt() and PKCS7_decrypt()",
           "Description": "Issue summary: The CMS_decrypt and PKCS7_decrypt functions are vulnerable to\nBleichenbacher-style attack when an attacker is able to provide the CMS or\nS/MIME messages and observe the error code and/or decryption output.\n\nImpact summary: The Bleichenbacher-style attack allows an attacker to use the\nvictim's vulnerable application as a way to decrypt or sign messages with the\nvictim's private RSA key.\n\nThe attack is possible in 2 variants.\n\n1. The decryption API (CMS_decrypt(), PKCS7_decrypt()) is used without\nproviding the recipient certificate. In this case OpenSSL iterates over every\nKeyTransRecipientInfo (KTRI) without stopping at the first success.\n\nAn attacker who authors a message with two KTRI entries — the first one\nwrapping a real CEK under the victim's public key, the second with an\narbitrary probe ciphertext — obtains opportunity to iterate the 2nd KTRI to\nget a valid PKCS#1 v1.5 padding if the error code of the application is\navailable.\n\nThat is a Bleichenbacher oracle (Bleichenbacher, CRYPTO '98): an\nadaptive-chosen-ciphertext side channel from which the attacker decrypts any\nRSA ciphertext to the victim's key or forges any PKCS#1 v1.5 signature under\nit.\n\n2. When the decryption API (CMS_decrypt(), PKCS7_decrypt()) is provided with\nthe recipient certificate, and the recipient is not found, a random\nkey is substituted.\n\nAn attacker who authors a message and is able to compare both error code and\nthe result of the decryption, can mount a Bleichenbacher oracle.\n\nWe are not aware of any applications that provide a remote attacker\nan opportunity to mount an attack described in these scenarios. We consider\nthe existence of such application very unlikely, and for this reason this\nCVE has been evaluated as Low severity.\n\nTo avoid these attacks, when RSA PKCS#1 v1.5 Key Transport is in use, the\ninvoked EVP_PKEY_decrypt() will use the implicit rejection mechanism described\nin draft-irtf-cfrg-rsa-guidance. In previous OpenSSL releases the implicit\nrejection was explicitly disabled.\n\nThe implicit rejection mechanism always returns a plaintext value,\nthe symmetric key. This result is deterministic for the ciphertext and the\nprivate key.  The length of the decryption result can happen to match the\nlength of the key of the symmetric cipher that was used for the content\nencryption. When a certificate is not provided, the last RecipientInfo\nproducing a key that looks valid will be used. It may cause getting garbage\ncontent on decryption. As a proper way to deal with this a recipient\ncertificate has to be provided to identify the particular RecipientInfo for\ndecryption.\n\nThe FIPS modules in 4.0, 3.6, 3.5, and 3.4 are not affected by this issue, as\nCMS and S/MIME processing happens outside the OpenSSL FIPS module boundary.",
           "Severity": "LOW",
@@ -4383,7 +4393,6 @@
             }
           },
           "References": [
-            "https://access.redhat.com/errata/RHSA-2026:25237",
             "https://access.redhat.com/errata/RHSA-2026:25239",
             "https://access.redhat.com/security/cve/CVE-2026-42768",
             "https://bugzilla.redhat.com/2481879",
@@ -4432,7 +4441,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/10/ALSA-2026-25237.html",
+            "https://errata.almalinux.org/9/ALSA-2026-25239.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-5m8f-m8jv-3rp3",
             "https://github.com/openssl/openssl/commit/a2ca7b2d73e0ffc1eae183fe6e1741dac767cb4f",
@@ -4465,8 +4474,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42769",
           "DataSource": {
@@ -4474,7 +4483,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:0c226c966ac2aca60b18dc578172831fbc1752805354d467325ff388b8b599a7",
+          "Fingerprint": "sha256:2e54c15d28cf823577b2cda9971cbce8dc4607725e936e1c0da64c598ebf0d7a",
           "Title": "openssl: Trust-Anchor Substitution via cert/issuer Typo in CMP rootCaKeyUpdate",
           "Description": "Issue Summary: An error in the callback used to verify the certificate\nprovided in a Root CA key update Certificate Management Protocol (CMP)\nmessage response rendered the certificate validation ineffectual, which\ncould lead to escalation of credentials from the Registration Authority (RA)\nlevel to the root Certification Authority (root CA) level.\n\nImpact Summary: The Registration Autority could replace the root CA\ncertificate for the CMP clients with an arbitrary root CA certificate.\n\nOne of the parts of the Certificate Management Protocol (CMP), specified in\nRFC 9810, is Root Certification Authority (root CA) key Rollover,\nwhich is sent by the server in a message with type 'id-it-rootCaKeyUpdate'.\nAs part of these messages, 'newWithOld' certificate, the new root CA\ncertificate signed with the old root CA key, is provided, and verifying its\nsignature is crucial for transferring the trust from the old CA key to the\nnew one.\n\nThe 'id-it-rootCaKeyUpdate' messages are expected to be processed with\nOSSL_CMP_get1_rootCaKeyUpdate(), that is expected to verify the 'newWithOld'\ncertificate.  A typo in the certificate chain building code led to adding\nan incorrect certificate ('newWithOld' instead of 'oldRoot') to the\ncertificate chain, rendering the certificate verification process ineffectual\n(only the issuer name and the algorithm OIDs were verified by other parts\nof the verification code).\n\nAn attacker who already has credentials that satisfy the CMP message\nprotection checks can generate a new key pair and use a crafted self-signed\ncertificate in its 'id-it-rootCaKeyUpdate' CMP messages which affected CMP\nclients would accept as a new trust anchor.\n\nSignificant preconditions for the attack (having valid RA-level credentials)\nare the reason the issue was assigned Low severity.\n\nThe FIPS modules are not affected by this issue, as the affected code is\noutside the OpenSSL FIPS module boundary.",
           "Severity": "LOW",
@@ -4503,7 +4512,6 @@
             }
           },
           "References": [
-            "https://access.redhat.com/errata/RHSA-2026:25237",
             "https://access.redhat.com/errata/RHSA-2026:25239",
             "https://access.redhat.com/security/cve/CVE-2026-42769",
             "https://bugzilla.redhat.com/2481879",
@@ -4552,7 +4560,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/10/ALSA-2026-25237.html",
+            "https://errata.almalinux.org/9/ALSA-2026-25239.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-rpj2-p5pj-r33v",
             "https://github.com/openssl/openssl/commit/54d0989997e5fc26057009a9782c3441ce3842fb",
@@ -4585,8 +4593,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42770",
           "DataSource": {
@@ -4594,7 +4602,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:d7559ecfa198c4f97d04a26b3af0575a838f4e5747da103bbf8cdb89ad322ff6",
+          "Fingerprint": "sha256:52bafb5fc413356cbe80e19bba4625c4135dd6bf749893f1e4905ece264a4535",
           "Title": "openssl: FFC-DH Peer Validation Uses Attacker-Supplied q",
           "Description": "Issue summary: When EVP_PKEY_derive_set_peer() is called with a DHX (X9.42)\npeer key, the peer key is not properly checked for the subgroup membership.\n\nImpact summary: A malicious peer which presents an X9.42 key carrying the\nvictim's p and g parameters, a forged q = r (a small prime factor of the\ncofactor (p−1)/q_local), and a public value Y of order r can recover the\nvictim's private key after a small number of key exchange attempts.\n\nWhen EVP_PKEY_derive_set_peer() is called with a DHX (X9.42) peer key, the\nsubgroup membership check Y^q ≡ 1 (mod p) is performed using the peer's\nown q parameter, not the local key's q. The peer's domain parameters are\nthen matched against the domain parameters of the private key, but the value\nof q is not compared.\n\nA malicious peer who presents an X9.42 key carrying the victim's p, g,\na forged q = r (a small prime factor of the cofactor), and a public\nvalue Y of order r passes all checks. The shared secret then takes only\nr distinct values, leaking priv mod r. Repeating for each small-prime\nfactor of the cofactor and combining via CRT recovers the full private\nkey (Lim–Lee / small-subgroup-confinement attack).\n\nThe realistic attack surface is narrow: principally CMP deployments with\nlong-lived RA/CA DHX keys and bespoke enterprise or government applications\nusing X9.42 DHX static keys with interactive protocols and therefore this\nissue was assigned Low severity.\n\nThe FIPS modules in 4.0, 3.6, 3.5, 3.4, 3.1.2 and 3.0 are affected by this\nissue.",
           "Severity": "LOW",
@@ -4623,7 +4631,6 @@
             }
           },
           "References": [
-            "https://access.redhat.com/errata/RHSA-2026:25237",
             "https://access.redhat.com/errata/RHSA-2026:25239",
             "https://access.redhat.com/security/cve/CVE-2026-42770",
             "https://bugzilla.redhat.com/2481879",
@@ -4672,7 +4679,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/10/ALSA-2026-25237.html",
+            "https://errata.almalinux.org/9/ALSA-2026-25239.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-3cxm-476w-ghm2",
             "https://github.com/openssl/openssl/commit/3da5a516cd2635a320ff748503db2cef7c4b0f02",
@@ -4707,8 +4714,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-45446",
           "DataSource": {
@@ -4716,7 +4723,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:9abba015e4cc88ea39e65bdf415605c41d2d4c762e65e5d5f032395f028931a3",
+          "Fingerprint": "sha256:18805b63ec82b779ce7a2b09fc6f7e9889643ba29946363e5d2189efe44f48db",
           "Title": "openssl: Incorrect Tag Processing for Empty Messages in AES-GCM-SIV and AES-SIV modes",
           "Description": "Issue summary: The implementations of AES-SIV (RFC 5297) and AES-GCM-SIV\n(RFC 8452) mishandle the authentication of AAD (Additional Authenticated\nData) with an empty ciphertext allowing a forgery of such messages.\n\nImpact summary: An attacker can forge empty messages with arbitrary AAD\nto the victim's application using these ciphers.\n\nAES-SIV (RFC 5297) and AES-GCM-SIV (RFC 8452) are nonce-misuse-resistant AEAD\nmodes: they accept a key, nonce, optional AAD (bytes that are authenticated\nbut not encrypted), and plaintext, and produces ciphertext plus a 16-byte\ntag. On decrypt, `EVP_DecryptFinal_ex()` is documented to return success only\nif the tag is verified succesfully.\n\nIn OpenSSL's provider implementation of these ciphers, the expected tag is\ncomputed only when decryption function is invoked with non-empty data.\nIf the caller supplies AAD and then calls `EVP_DecryptFinal_ex()` without\ninvocation of the ciphertext update, which can happen when the received\nciphertext length is zero, the tag is never recalculated and still holds its\nall-zeros value.\n\nWhen AES-GCM-SIV is used, an attacker who sends arbitrary AAD, empty\nciphertext, and all-zeros tag passes authentication under any key they do not\nknow, single-shot. When AES-SIV is used, for mounting the attack it's\nnecessary for the application to reuse the decryption context without\nresetting the key.\n\nAES-SIV is implemented since OpenSSL 3.0. AES-GCM-SIV is implemented since\nOpenSSL 3.2.\n\nNo protocols implemented in OpenSSL itself (TLS/CMS/PKCS7/HPKE/QUIC) support\neither AES-GCM-SIV or AES-SIV. To mount an attack, the applications must\nimplement their own protocol and use the EVP interface. Also they must skip the\nciphertext update when a message with an empty ciphertext arrives.\n\nThe FIPS modules in 4.0, 3.6, 3.5, 3.4, and 3.0 are not affected by this\nissue, as these algorithms are not FIPS approved and the affected code is\noutside the OpenSSL FIPS module boundary.",
           "Severity": "LOW",
@@ -4745,7 +4752,6 @@
             }
           },
           "References": [
-            "https://access.redhat.com/errata/RHSA-2026:25237",
             "https://access.redhat.com/errata/RHSA-2026:25239",
             "https://access.redhat.com/security/cve/CVE-2026-45446",
             "https://bugzilla.redhat.com/2481879",
@@ -4794,7 +4800,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/10/ALSA-2026-25237.html",
+            "https://errata.almalinux.org/9/ALSA-2026-25239.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-7phf-qpm5-q6p3",
             "https://github.com/openssl/openssl/commit/25b32cd9d41d2bc01b6abc425bb4baf2c2236fdc",
@@ -4829,8 +4835,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-7383",
           "DataSource": {
@@ -4838,7 +4844,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:f70cf239644b54e04be71e8c4c785bdf8b8c6f387821cbb101f29467f8d7fc6d",
+          "Fingerprint": "sha256:7515eddb125b181d07c0f82842a20c58c8aab3ce53fae4a00110c795c1fd6798",
           "Title": "openssl: OpenSSL: Heap buffer overflow due to signed integer overflow in Unicode output sizing",
           "Description": "Issue summary: A signed integer overflow when sizing the destination\nbuffer for Unicode output in ASN1_mbstring_ncopy() can lead to a heap\nbuffer overflow.\n\nImpact summary: A heap buffer overflow may lead to a crash or possibly\nattacker controlled code execution or other undefined behaviour.\n\nIn ASN1_mbstring_copy() and ASN1_mbstring_ncopy() the destination\nsize for Unicode output is computed in a signed int: by left shift\nof the input character count for BMPSTRING (UTF-16) and\nUNIVERSALSTRING (UTF-32), and by summing per-character byte counts\nfor UTF8STRING. The calculation overflows when the input reaches\naround 2^30 characters. In the worst case (UNIVERSALSTRING at 2^30\ncharacters) the size wraps to zero, OPENSSL_malloc(1) is called, and\nthe subsequent character copy writes several gigabytes past the\none-byte allocation.\n\nX.509 certificate processing routes through ASN1_STRING_set_by_NID(),\nwhose DIRSTRING_TYPE mask excludes UNIVERSALSTRING and whose per-NID\nsize limits cap the input length; no network protocol or\ncertificate-handling path in OpenSSL exercises the overflow.\nTriggering the bug requires an application that calls\nASN1_mbstring_copy() or ASN1_mbstring_ncopy() directly, or registers\na custom string type via ASN1_STRING_TABLE_add(), with\nattacker-controlled input on the order of half a gigabyte or more.\nFor these reasons this issue was assigned Low severity.\n\nThe FIPS modules in 4.0, 3.6, 3.5, 3.4 and 3.0 are not affected by\nthis issue, as the affected code is outside the OpenSSL FIPS module\nboundary.",
           "Severity": "LOW",
@@ -4867,7 +4873,6 @@
             }
           },
           "References": [
-            "https://access.redhat.com/errata/RHSA-2026:25237",
             "https://access.redhat.com/errata/RHSA-2026:25239",
             "https://access.redhat.com/security/cve/CVE-2026-7383",
             "https://bugzilla.redhat.com/2481879",
@@ -4916,7 +4921,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/10/ALSA-2026-25237.html",
+            "https://errata.almalinux.org/9/ALSA-2026-25239.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-w853-v86g-gv7j",
             "https://github.com/openssl/openssl/commit/4f8d2bddaa2c8e06f9c33390ee1717059a6e4be6",
@@ -4952,8 +4957,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-9076",
           "DataSource": {
@@ -4961,7 +4966,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:5fa3d4ca3b36bc24dbc5c2284eeecae162849086fce31a2608533bbf046b13a3",
+          "Fingerprint": "sha256:ff6bc1faf8c2d661b2f61c16bdcd2e2d212295df32016825e7e2324b440c7a57",
           "Title": "openssl: OpenSSL: Denial of Service due to heap out-of-bounds read in CMS password-based decryption",
           "Description": "Issue summary: When CMS password-based decryption (RFC 3211 / PWRI key unwrap)\nprocesses attacker-supplied CMS data, an attacker-chosen stream-mode KEK\ncipher can trigger a heap out-of-bounds read in kek_unwrap_key().\n\nImpact summary: A heap buffer over-read may trigger a crash which leads to\nDenial of Service for an application if the input buffer ends at a memory\npage boundary and the following page is unmapped. There is no information\ndisclosure as the over-read bytes are not revealed to the attacker.\n\nThe key unwrapping function performs a check-byte test as specified in the\nRFC that reads 7 bytes from a heap allocation that is based on the wrapped\nkey length from the message. There is a minimum length check based on the\nblock length of the wrapping cipher. However the cipher is selected from\nan OID carried in the attacker's PWRI keyEncryptionAlgorithm with no\nrequirement that the cipher be a block cipher. When an attacker selects\na stream-mode cipher the guard will be ineffective and the allocated buffer\ncontaining the unwrapped key can be too small to fit the check-bytes\nspecified in the RFC and a buffer over-read can happen.\n\nApplications calling CMS_decrypt() or CMS_decrypt_set1_password()\n(equivalently openssl cms -decrypt -pwri_password ...) on untrusted CMS\ndata are vulnerable to this issue. No password knowledge is required: the\nover-read happens during the unwrap attempt before any authentication\nsucceeds.\n\nThe over-read is limited to a few bytes and is not written to output, so\nthere is no information disclosure. Triggering a crash requires the\nallocation to border unmapped memory, which is unlikely with the normal\nallocator.\n\nThe FIPS modules are not affected by this issue.",
           "Severity": "LOW",
@@ -4990,7 +4995,6 @@
             }
           },
           "References": [
-            "https://access.redhat.com/errata/RHSA-2026:25237",
             "https://access.redhat.com/errata/RHSA-2026:25239",
             "https://access.redhat.com/security/cve/CVE-2026-9076",
             "https://bugzilla.redhat.com/2481879",
@@ -5039,7 +5043,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/10/ALSA-2026-25237.html",
+            "https://errata.almalinux.org/9/ALSA-2026-25239.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-q98x-73c3-57gj",
             "https://github.com/openssl/openssl/commit/05b066366842f930fadd9a6e94df98030af431bb",
@@ -5075,8 +5079,8 @@
           "FixedVersion": "3.6.3-r5",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-14456",
           "DataSource": {
@@ -5084,7 +5088,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:f92ca210366d2ad5e0329a9bf50e75c329c82cfba71ad954d12eec4760028d4e",
+          "Fingerprint": "sha256:d0a8e41ddf0cd8d9832be9e16326a15392529e70fbd75d9088fa520a84d6b792",
           "Title": "openssl: OpenSSL: Denial of Service via unbounded memory growth in QUIC server",
           "Description": "Issue summary: When an OpenSSL QUIC server (Listener SSL object) processes\nvalid QUIC Initial packets for unknown destination connection IDs, it\ncan allocate and queue new incoming channels without enforcing any limit.\n\nImpact summary: A remote peer that can make many Initial packets reach the\nserver listener faster than the application accepts connections, can cause the\nmemory allocated to store the per-channel state to grow without any limits,\npotentially making the QUIC listener unavailable and causing Denial of Service.\n\nCWE: CWE-770: Allocation of Resources Without Limits or Throttling\n\nDescription: The function that handles inbound QUIC packets uses\nConnection-Id from the packet header to find an existing connection\n(QUIC channel). If no existing connection is found and the packet\ntype is INITIAL, the function treats the packet as a new connection. It\nallocates a new channel object and inserts it into a queue where it\nwaits to be accepted by the local application with SSL_accept(3ossl).\nThe memory occupied by these initial channel objects may grow\nwithout bounds if the application is not able to call SSL_accept()\nfrequently enough to serve these inbound connection requests.\n\nThe issue is present since OpenSSL 3.5 when the QUIC server implementation\nwas added.\n\nThe fix introduces a limit for pending connections. The default limit is set\nto 256 pending connections (waiting to be accepted by the local application).\nApplications may change the default by calling SSL_set_value_uint(3ossl).\n\nFIPS impact: no\nThe FIPS module is not affected as the QUIC implementation is outside of\nthe OpenSSL FIPS module boundary.",
           "Severity": "HIGH",
@@ -5108,7 +5112,6 @@
           },
           "References": [
             "http://www.openwall.com/lists/oss-security/2026/08/13/4",
-            "https://access.redhat.com/errata/RHSA-2026:67154",
             "https://access.redhat.com/errata/RHSA-2026:67165",
             "https://access.redhat.com/security/cve/CVE-2026-14456",
             "https://bugzilla.redhat.com/2515348",
@@ -5139,7 +5142,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-63074",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-63075",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-63076",
-            "https://errata.almalinux.org/10/ALSA-2026-67154.html",
+            "https://errata.almalinux.org/9/ALSA-2026-67165.html",
             "https://errata.rockylinux.org/RLSA-2026:67165",
             "https://github.com/openssl/openssl/commit/08e7756c3900bcfd77a720e7b74e27d6e4ed01a9",
             "https://github.com/openssl/openssl/commit/4084152e040329ca0194c4c1750b9b46d00a5b6b",
@@ -5166,8 +5169,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-45447",
           "DataSource": {
@@ -5175,7 +5178,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:c2bc35095f2bea35e7fd68f6dd89718be58493fb9147eee142c4784388792ac6",
+          "Fingerprint": "sha256:be31b3145c2ace4d8e707a16246b532b9e0bb3042893fb97feca1434c2c58a18",
           "Title": "openssl: Heap Use-After-Free in OpenSSL PKCS7_verify()",
           "Description": "Issue summary: A specially crafted PKCS#7 or S/MIME signed message could\ntrigger a use-after-free during PKCS#7 signature verification.\n\nImpact summary: A use-after-free may result in process crashes, heap\ncorruption, or potentially remote code execution.\n\nWhen processing a PKCS#7 or S/MIME signed message, if the SignedData\ndigestAlgorithms field is present as an empty ASN.1 SET, OpenSSL may\nincorrectly free a caller-owned BIO during PKCS7_verify(). A subsequent\nuse of the BIO by the calling application results in a use-after-free\ncondition.\n\nIn the common case this occurs when the application later calls\nBIO_free() on the BIO originally passed to PKCS7_verify(). Depending\non allocator behavior and application-specific BIO usage patterns, this\nmay result in a crash or other memory corruption. In some application\ncontexts this may potentially be exploitable for remote code execution.\n\nApplications that process PKCS#7 or S/MIME signed messages using OpenSSL\nPKCS#7 APIs may be affected. Applications using the CMS APIs for this\nprocessing are not affected.\n\nThe FIPS modules in 4.0, 3.6, 3.5, 3.4, and 3.0 are not affected by this\nissue, as the affected code is outside the OpenSSL FIPS module boundary.",
           "Severity": "HIGH",
@@ -5257,7 +5260,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/8/ALSA-2026-36215.html",
+            "https://errata.almalinux.org/9/ALSA-2026-44438.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-f684-cpcq-j565",
             "https://github.com/openssl/openssl/commit/3aad5eb7af4de4ee0633c30a8541a54d9bbde63c",
@@ -5294,8 +5297,8 @@
           "FixedVersion": "3.6.3-r4",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-54876",
           "DataSource": {
@@ -5303,7 +5306,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:f5fcc2975ac4c67502bc988469ec591bd1266936380632364b116489c6dadc37",
+          "Fingerprint": "sha256:279671954548a13358a8cc3334fe889e5c67b78311d13971d024932bab210e77",
           "Title": "openssl: openssl-src: OpenSSL: Memory leak leads to Denial of Service in OCSP response checking",
           "Description": "Issue summary: A malicious TLS server can cause a memory leak in a TLS\nclient that has enabled OCSP response checking by sending an OCSP\nresponse that contains no single response entries.\n\nImpact summary: An attacker can leak an attacker-tunable amount of memory\nper TLS handshake in a victim client application. A long-running client\nthat repeatedly connects to a malicious server can have its memory\nexhausted, resulting in a Denial of Service.\n\nCWE: CWE-401: Missing Release of Memory after Effective Lifetime\n\nDescription: The affected function is called during X.509 certificate\nchain verification when OCSP response checking is enabled\nwith the X509_V_FLAG_OCSP_RESP_CHECK or X509_V_FLAG_OCSP_RESP_CHECK_ALL\nverification flags, for example when a TLS client verifies an OCSP\nresponse stapled into the TLS handshake by the server.\n\nWhen the received BasicOCSPResponse contains an empty SEQUENCE OF\nSingleResponse, which is permitted on the wire and accepted by the\nOpenSSL decoder, the OCSP_BASICRESP structure allocated by\nOCSP_response_get1_basic() was not freed because an early return\nbypassed the cleanup code at the end of the function.\n\nThe amount of memory leaked per handshake can be amplified by the\nattacker by padding the certs field of the BasicOCSPResponse with\nbogus certificates, which are parsed and stored in the leaked\nstructure before the empty response check triggers the early return.\nA long-running TLS client that repeatedly connects to a malicious\nserver can have its memory exhausted over time.\n\nOCSP response checking is not enabled by default. Only client\napplications that explicitly enable the OCSP response check\nverification flags are affected.\n\nFIPS impact: no\n\nThe FIPS modules in 4.0 and 3.6 are not affected by this issue as the\naffected code is outside the OpenSSL FIPS module boundary.",
           "Severity": "HIGH",
@@ -5343,8 +5346,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-34182",
           "DataSource": {
@@ -5352,7 +5355,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:b48b0ed742e52abe75ee3ba696ece2aa19c488a4a82af81ba61163eae8b781f9",
+          "Fingerprint": "sha256:26e1394f9692cad43242ba64996a3a32a3cd139a97e990855b5a0ce89458c493",
           "Title": "openssl: CMS AuthEnvelopedData Processing May Accept Forged Messages",
           "Description": "Issue Summary: Cryptographic Message Services (CMS) processing fails to perform\nsufficient input validation on the cipher and tag length fields of\nAuthEnvelopedData containers, leading to various potential compromises.\n\nImpact Summary: Attackers making use of these vulnerabilities may achieve\nkey-equivalent functionality for a given CMS recipient and/or bypass integrity\nvalidation for a given message.\n\nIn one use case, an attacker may send a CMS message containing\nAuthEnvelopedData with the cipher specified as a non-AEAD cipher.  OpenSSL\nerroneously allows this selection, and attempts to decrypt and validate the\nmessage.\n\nAn on-path attacker who captures one legitimate AES-GCM AuthEnvelopedData\naddressed to the victim can re-emit it with the recipientInfos set left\nbyte-for-byte intact, so the victim's private key still unwraps the genuine CEK\n(the content-encryption key), but with the inner OID rewritten to AES-256-OFB\n(Output Feedback Mode, an unauthenticated keystream mode) and with an\nattacker-chosen IV and ciphertext. The victim initializes AES-256-OFB under the\nreal CEK, never consults the MAC field, and CMS_decrypt() returns success.\n\nIf the application under attack responds to the attacker with any indicator\nshowing success or failure of the decryption effort, it is possible for the\nattacker to use this as an oracle to obtain key equivalent functionality for the\nCEK used for the chosen recipient of the message.\n\nIn another use case, an attacker can reduce the tag length of the chosen AEAD\ncipher for a given AuthEnvelopedData container to be a single byte long,\nallowing an attacker to brute force CMS decryption, producing an integrity\nbypass for applications that trust CMS_decrypt() to reject modified content.\n\nThe FIPS modules are not affected by this issue.",
           "Severity": "MEDIUM",
@@ -5381,7 +5384,6 @@
             }
           },
           "References": [
-            "https://access.redhat.com/errata/RHSA-2026:25237",
             "https://access.redhat.com/errata/RHSA-2026:25239",
             "https://access.redhat.com/security/cve/CVE-2026-34182",
             "https://bugzilla.redhat.com/2481879",
@@ -5430,7 +5432,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/10/ALSA-2026-25237.html",
+            "https://errata.almalinux.org/9/ALSA-2026-25239.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-f9v2-4w9p-2cwc",
             "https://github.com/openssl/openssl/commit/03c1f4d45fb963aee7d5833390c507cd290182bc",
@@ -5466,8 +5468,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-34183",
           "DataSource": {
@@ -5475,7 +5477,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:8c88d67ccb4be1a196f86b09dca077c1b318079b9e3278669cd85c274e3f2977",
+          "Fingerprint": "sha256:e29ac137fbf0d4c35b227f57bf48718a2385c90cda4b15a9c3380c0067a347dd",
           "Title": "openssl: Unbounded Memory Growth in the QUIC PATH_CHALLENGE Handler",
           "Description": "Issue summary: Remote peer may exhaust heap memory of the QUIC\nserver or client by flooding it with packets containing PATH_CHALLENGE\nframes.\n\nImpact summary: A malicious remote peer can cause an unbounded\nmemory allocation which can lead to an abnormal termination of the\napplication acting as a QUIC client or server and a Denial of Service.\n\nA remote peer may exhaust heap memory by flooding the local\nQUIC stack with PATH_CHALLENGE frames. The local QUIC stack\nallocates a PATH_RESPONSE frame for every PATH_CHALLENGE it receives.\nThe allocated PATH_RESPONSE frame gets freed only when the remote\npeer acknowledges reception of the PATH_RESPONSE frame which will\nnot be done by a malicious peer.\n\nThe FIPS modules in 4.0, 3.6, 3.5, 3.4, and 3.0 are not affected by\nthis issue. The QUIC stack is outside of OpenSSL FIPS module\nboundary.",
           "Severity": "MEDIUM",
@@ -5504,7 +5506,6 @@
             }
           },
           "References": [
-            "https://access.redhat.com/errata/RHSA-2026:25237",
             "https://access.redhat.com/errata/RHSA-2026:25239",
             "https://access.redhat.com/security/cve/CVE-2026-34183",
             "https://bugzilla.redhat.com/2481879",
@@ -5553,7 +5554,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/10/ALSA-2026-25237.html",
+            "https://errata.almalinux.org/9/ALSA-2026-25239.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-f5vx-f6jp-89j6",
             "https://github.com/openssl/openssl/commit/5b306efb0b3779dfdd0803b4afc9d08c91f11517",
@@ -5586,8 +5587,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-35188",
           "DataSource": {
@@ -5595,7 +5596,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:07525cdfdc8655dfe407abc5cde3a3bc942d224e8a0d7c977cac91579a71eece",
+          "Fingerprint": "sha256:6c91c7914eca16329a067dea2c143db82a0404ae1fb0476891c044ae76d3c245",
           "Title": "openssl: Double-free When Checking OCSP Stapled Response",
           "Description": "Issue summary: A malicious server can exploit TLS OCSP stapling by delivering\na crafted response through the status_request extension, triggering a\ndouble-free in the client's certificate verification path.\n\nImpact summary: Successful exploitation allows an attacker to corrupt heap\nmemory via a double-free, potentially leading to a Denial of Service or\npossibly an attacker controlled code execution or other undefined behavior.\n\nIf OCSP stapling is enabled and the TLS client connects to a malicious server,\na crafted OCSP stapled response can trigger a double free in the TLS client\nwhen the stapled response is checked.\n\nThe OCSP stapling is not enabled by default. Reliable code execution\nthrough a double-free is technically complex and highly environment-dependent\nbut the Denial of Service impact is straightforward to achieve, warranting\nModerate severity.\n\nNo FIPS modules are affected by this issue as the affected code is outside\nthe OpenSSL FIPS module boundary.",
           "Severity": "MEDIUM",
@@ -5635,8 +5636,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42764",
           "DataSource": {
@@ -5644,7 +5645,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:7cfb538b37fd32e73743d67e382949db492aba6693162e0e4d59b5d677f1604f",
+          "Fingerprint": "sha256:22134d45d41858d42919edf8140a8bf717a05098e872e3b4dd2bf317a368f139",
           "Title": "openssl: NULL pointer dereference in QUIC server initial packet handling",
           "Description": "Issue summary: Receiving a QUIC initial packet with an invalid token may\ntrigger a NULL pointer dereference in the OpenSSL QUIC server with\naddress validation disabled.\n\nImpact summary: NULL pointer dereference typically causes abnormal termination\nof the affected QUIC server process and a Denial of Service.\n\nIf the address validation is disabled in the OpenSSL QUIC server\nimplementation, an attacker can crash the server by sending an initial\npacket with an invalid or expired token.\n\nBy default, the client address validation is enabled in the OpenSSL QUIC server\nimplementation, which makes the default configuration not vulnerable\nto this issue. However if the SSL_LISTENER_FLAG_NO_VALIDATE is used with\nthe SSL_new_listener() call, the address validation is disabled making the\nvulnerable code reachable.\n\nThe FIPS modules in 4.0, 3.6, 3.5, 3.4, and 3.0 are not affected by this\nissue, as the affected code is outside the OpenSSL FIPS module boundary.",
           "Severity": "MEDIUM",
@@ -5672,7 +5673,6 @@
             }
           },
           "References": [
-            "https://access.redhat.com/errata/RHSA-2026:25237",
             "https://access.redhat.com/errata/RHSA-2026:25239",
             "https://access.redhat.com/security/cve/CVE-2026-42764",
             "https://bugzilla.redhat.com/2481879",
@@ -5721,7 +5721,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/10/ALSA-2026-25237.html",
+            "https://errata.almalinux.org/9/ALSA-2026-25239.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-5pg7-f6xv-j6m4",
             "https://github.com/openssl/openssl/commit/5e3ed291b8af0b03d5d3b9e56a1da69a187e9729",
@@ -5752,8 +5752,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-45445",
           "DataSource": {
@@ -5761,7 +5761,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:9e3cc5bbde5900db700228746774391ccce37c2f8e52f0d661072ab5ef084ee1",
+          "Fingerprint": "sha256:6b7d60da73b34a80cb4328caa6e59a9cb9875fd2c3f8ea2e5c979bc23a04e429",
           "Title": "openssl: AES-OCB IV Ignored on EVP_Cipher() Path",
           "Description": "Issue summary: When an application drives an AES-OCB context through the\npublic EVP_Cipher() one-shot interface, the application-supplied\ninitialisation vector (IV) is silently discarded.\n\nImpact summary: Every message encrypted under the same key uses the\nsame effective nonce regardless of the IV supplied by the caller,\nresulting in (key, nonce) reuse and loss of confidentiality.  If the\nsame code path is used to compute the authentication tag, the tag\ndepends only on the (key, IV) pair and not on the plaintext or\nciphertext, allowing universal forgery of arbitrary ciphertext from a\nsingle captured message.\n\nOpenSSL provides two ways to drive a cipher: the documented streaming\ninterface (EVP_CipherUpdate / EVP_CipherFinal_ex) and a lower-level\none-shot, EVP_Cipher(), whose documentation explicitly recommends\nagainst use by applications in favour of EVP_CipherUpdate() and\nEVP_CipherFinal_ex().  The OCB provider's streaming handler flushes\nthe application-supplied IV into the OCB context before processing\ndata; the one-shot handler did not.  Every call to EVP_Cipher() on an\nAES-OCB context therefore ran with the all-zero key-derived offset\nstate left by cipher initialisation, regardless of the caller's IV.\n\nIf EVP_EncryptFinal_ex() is subsequently used to obtain the\nauthentication tag, the deferred IV setup runs at that point and\nclears the running checksum that should have been accumulated over the\nplaintext.  The resulting tag is a function of (key, IV) only and\nverifies against any ciphertext produced under the same (key, IV)\npair.\n\nThe OpenSSL SSL/TLS implementation is not affected: AES-OCB is not a\nTLS cipher suite, and libssl does not call EVP_Cipher() in any case.\nApplications that drive AES-OCB through the documented streaming AEAD\nAPI (EVP_CipherUpdate / EVP_CipherFinal_ex) are not affected.  Only\napplications that combine the AES-OCB cipher with the EVP_Cipher()\none-shot API are vulnerable.\n\nThe FIPS modules in 4.0, 3.6, 3.5, 3.4 and 3.0 are not affected by\nthis issue, as AES-OCB is outside the OpenSSL FIPS module boundary.",
           "Severity": "MEDIUM",
@@ -5790,7 +5790,6 @@
             }
           },
           "References": [
-            "https://access.redhat.com/errata/RHSA-2026:25237",
             "https://access.redhat.com/errata/RHSA-2026:25239",
             "https://access.redhat.com/security/cve/CVE-2026-45445",
             "https://bugzilla.redhat.com/2481879",
@@ -5839,7 +5838,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/10/ALSA-2026-25237.html",
+            "https://errata.almalinux.org/9/ALSA-2026-25239.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-v446-xwfm-x7mr",
             "https://github.com/openssl/openssl/commit/323f0b6e7d530a4cb4336d50c88cb70f3ac2a451",
@@ -5874,8 +5873,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-34180",
           "DataSource": {
@@ -5883,7 +5882,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:b22c9b0c63c10e0234581a4cd8f73f52be278fd1e48789e6fc2ef52fbfb3f3c8",
+          "Fingerprint": "sha256:4632f5c942d3108a4710bd2477119552a2b68bfa92def4751fbb91d359cd505b",
           "Title": "openssl: OpenSSL: Heap buffer over-read in ASN.1 decoding can lead to denial of service or information disclosure.",
           "Description": "Issue summary: Parsing a crafted DER-encoded ASN.1 structure with a primitive\nelement whose content exceeds 2 gigabytes in length may cause a heap buffer\nover-read on 64-bit Unix and Unix-like platforms.\n\nImpact summary: The heap buffer over-read may crash the application (Denial of\nService) or to load into the decoded ASN.1 object contents of memory beyond the\nend of the input buffer.  More typically such ASN.1 elements would instead be\ntruncated.\n\nAn integer truncation in OpenSSL's ASN.1 decoder causes the content length of\nan ASN.1 primitive element to be mishandled when it exceeds 2 gigabytes. In the\nworst case the truncated length is treated as a request to scan the binary\ncontent for a terminating zero byte, possibly causing OpenSSL to read either\nless than or beyond the end of the allocated buffer.\n\nApplications that pass attacker-supplied data to d2i_X509(), d2i_PKCS7(), or\nany other d2i_* decoding function are affected. OpenSSL's own command-line\ntools are not vulnerable, as data read through the BIO layer is checked before\nit reaches the affected code. The issue only affects 64-bit Unix and Unix-like\nplatforms; 32-bit platforms and 64-bit Windows are not affected.\n\nThe FIPS modules in 4.0, 3.6, 3.5, 3.4 and 3.0 are not affected by this issue,\nas the affected code is outside the OpenSSL FIPS module boundary.",
           "Severity": "LOW",
@@ -5912,7 +5911,6 @@
             }
           },
           "References": [
-            "https://access.redhat.com/errata/RHSA-2026:25237",
             "https://access.redhat.com/errata/RHSA-2026:25239",
             "https://access.redhat.com/security/cve/CVE-2026-34180",
             "https://bugzilla.redhat.com/2481879",
@@ -5961,7 +5959,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/10/ALSA-2026-25237.html",
+            "https://errata.almalinux.org/9/ALSA-2026-25239.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-3c8f-qq7h-7qv6",
             "https://github.com/openssl/openssl/commit/1c6908e4fa5fa568752221d8eaf561a809751e5d",
@@ -5997,8 +5995,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-34181",
           "DataSource": {
@@ -6006,7 +6004,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:5ef1983434b5c0ec2b7e9eff0f822079a8ba08898ce4c24e8808590eb357a86d",
+          "Fingerprint": "sha256:79aee4fad01a25ae16e9d51fa34b6bfa7d1879f5b0b7f4233ee084819fd38f76",
           "Title": "openssl: PKCS#12 Files with PBMAC1 Are Accepted with Short HMAC Keys",
           "Description": "Issue Summary: The PKCS#12 file processing fails to perform sufficient input\nvalidation for files that use Password-Based Message Authentication Code 1\n(PBMAC1) integrity mechanism allowing a certificate and private key forgery.\n\nImpact Summary: An attacker impersonating a user can cause a service reading\nPKCS#12 files to accept forged certificates and private keys with a 1 in 256\nprobability.\n\nIf a service accepting PKCS#12 files is using passwords for authenticating\nthe received files, the attacker can create unencrypted PKCS#12 files that\nuse PBMAC1 authentication that specifies an HMAC key of only one byte, allowing\nthem to craft a file that will be accepted with a 1 in 256 probability.\nThat would then cause the service to accept a certificate and private key\ncontrolled by the attacker.\n\nThe FIPS modules are not affected by this issue, as the affected code is\noutside the OpenSSL FIPS module boundary.",
           "Severity": "LOW",
@@ -6034,7 +6032,6 @@
             }
           },
           "References": [
-            "https://access.redhat.com/errata/RHSA-2026:25237",
             "https://access.redhat.com/errata/RHSA-2026:25239",
             "https://access.redhat.com/security/cve/CVE-2026-34181",
             "https://bugzilla.redhat.com/2481879",
@@ -6083,7 +6080,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/10/ALSA-2026-25237.html",
+            "https://errata.almalinux.org/9/ALSA-2026-25239.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-4jgc-cj59-f9mm",
             "https://github.com/openssl/openssl/commit/0300eb9ddce7a0895bf301a4b0c03a9da2313a0f",
@@ -6116,8 +6113,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42765",
           "DataSource": {
@@ -6125,7 +6122,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:7c62d69648d43f1a66a570100a22b647abc609ff60730c7d3de96bdcff1818b7",
+          "Fingerprint": "sha256:e11579b12edac2a0959a2aa3c095f297c98f313340fabf4b1101b7f0fa5d5bd7",
           "Title": "openssl: NULL Dereference in Certificate Verification with OCSP Checking",
           "Description": "Issue summary: When a partial-chain certificate verification is enabled\ntogether with OCSP response checking for the whole chain, a NULL dereference\nwill happen if the verified chain does not have a self-signed trusted anchor,\ncrashing the process.\n\nImpact summary: A NULL pointer dereference can trigger a crash which leads to a\nDenial of Service for an application.\n\nWhen performing OCSP response checking for certificates in the verification\nchain, the code always tries to access the next certificate as the issuer.\nThere is a check for a self-signed certificate. However with the partial\nchain verification enabled when the chain does not have a self-signed trusted\nanchor, the issuer will be NULL for the last certificate in the chain. A NULL\npointer dereference then happens.\n\nThis issue affects only applications which enable both OCSP verification\nof the certificate chain (X509_V_FLAG_OCSP_RESP_CHECK_ALL) and partial\nchain verification (X509_V_FLAG_PARTIAL_CHAIN) in the certificate\nverification. Both flags are disabled by default. For that reason, we have\nassigned Low severity to the issue.\n\nNo FIPS modules are affected by this issue as the affected code is outside\nthe OpenSSL FIPS module boundary.",
           "Severity": "LOW",
@@ -6166,8 +6163,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42766",
           "DataSource": {
@@ -6175,7 +6172,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:82be47b157436e2f682d967dbef803c235844dfe6d28edd8e143fc51f3807bee",
+          "Fingerprint": "sha256:a386c33355b5bd78a975367979c6fe38e845c4fe465e0e711da0c44a879cfbb2",
           "Title": "openssl: Possible NULL Dereference in Password-Based CMS Decryption",
           "Description": "Issue summary: A specially crafted password-encrypted CMS message\ncan trigger a NULL pointer dereference during CMS decryption.\n\nImpact summary: This NULL pointer dereference leads to an application crash\nand a Denial of Service.\n\nThe CMS PasswordRecipientInfo.keyDerivationAlgorithm field is defined as\nOPTIONAL in the ASN.1 specification and may therefore be absent in specially\ncrafted inputs. During the password-based CMS decryption the OpenSSL\nCMS implementation dereferences this field without first checking whether it\nwas present.\n\nAn attacker who supplies such a CMS message to an application performing\npassword-based CMS decryption can trigger an application crash, leading to\na Denial of Service.\n\nApplications that process password-encrypted CMS messages may be affected.\n\nThe FIPS modules in 4.0, 3.6, 3.5, 3.4, and 3.0 are not affected by this\nissue, as the affected code is outside the OpenSSL FIPS module boundary.",
           "Severity": "LOW",
@@ -6204,7 +6201,6 @@
             }
           },
           "References": [
-            "https://access.redhat.com/errata/RHSA-2026:25237",
             "https://access.redhat.com/errata/RHSA-2026:25239",
             "https://access.redhat.com/security/cve/CVE-2026-42766",
             "https://bugzilla.redhat.com/2481879",
@@ -6253,7 +6249,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/10/ALSA-2026-25237.html",
+            "https://errata.almalinux.org/9/ALSA-2026-25239.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-58mv-qqmv-gqgv",
             "https://github.com/openssl/openssl/commit/056d06c1918fafbb98c1c85a02e4c47cc4e199ce",
@@ -6289,8 +6285,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42767",
           "DataSource": {
@@ -6298,7 +6294,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:f7653f6dd5e9d5bf561db81046c799235380830a75d50775520faf6382fac255",
+          "Fingerprint": "sha256:cbfe951e2c6a6c3bae2816a51014a5ca24368ab0efd11ed4a1afa1a7dba3fc16",
           "Title": "openssl: NULL Pointer Dereference in CRMF EncryptedValue Decryption",
           "Description": "Issue summary: An attacker-controlled CMP (Certificate Management Protocol)\nserver could trigger a NULL pointer dereference in a CMP client application.\n\nImpact summary: A NULL pointer dereference causes a crash of the\napplication and a Denial of Service.\n\nAn attacker controlling a CMP server (or acting as a man-in-the-middle) could\ncraft a CMP response containing a CRMF (Certificate Request Message Format)\nCertRepMessage with an EncryptedValue structure where the symmAlg field\nhas an algorithm OID but no parameters field. When the OpenSSL CMP client\nprocesses this response, the NULL dereference occurs, causing a crash of\nthe CMP client.\n\nApplications that process untrusted CMP/CRMF messages may be affected.\n\nThe FIPS modules in 4.0, 3.6, 3.5, 3.4, and 3.0 are not affected by this\nissue, as the affected code is outside the OpenSSL FIPS module boundary.",
           "Severity": "LOW",
@@ -6327,7 +6323,6 @@
             }
           },
           "References": [
-            "https://access.redhat.com/errata/RHSA-2026:25237",
             "https://access.redhat.com/errata/RHSA-2026:25239",
             "https://access.redhat.com/security/cve/CVE-2026-42767",
             "https://bugzilla.redhat.com/2481879",
@@ -6376,7 +6371,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/10/ALSA-2026-25237.html",
+            "https://errata.almalinux.org/9/ALSA-2026-25239.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-gxhg-7jx8-m22j",
             "https://github.com/openssl/openssl/commit/61a86a8cd73546c9fea916f3d304c1293e05c046",
@@ -6411,8 +6406,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42768",
           "DataSource": {
@@ -6420,7 +6415,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:0fc6782df594c46957cdec86dabbe0e1ba99f40669a2192f3b3bc7e1aa1489bf",
+          "Fingerprint": "sha256:5c2b504c38559d03c7a22db774d6f9cc04ccdb35e1811a213f091bf2a8c9a7e4",
           "Title": "openssl: Multi-RecipientInfo Bleichenbacher Oracle in CMS_decrypt() and PKCS7_decrypt()",
           "Description": "Issue summary: The CMS_decrypt and PKCS7_decrypt functions are vulnerable to\nBleichenbacher-style attack when an attacker is able to provide the CMS or\nS/MIME messages and observe the error code and/or decryption output.\n\nImpact summary: The Bleichenbacher-style attack allows an attacker to use the\nvictim's vulnerable application as a way to decrypt or sign messages with the\nvictim's private RSA key.\n\nThe attack is possible in 2 variants.\n\n1. The decryption API (CMS_decrypt(), PKCS7_decrypt()) is used without\nproviding the recipient certificate. In this case OpenSSL iterates over every\nKeyTransRecipientInfo (KTRI) without stopping at the first success.\n\nAn attacker who authors a message with two KTRI entries — the first one\nwrapping a real CEK under the victim's public key, the second with an\narbitrary probe ciphertext — obtains opportunity to iterate the 2nd KTRI to\nget a valid PKCS#1 v1.5 padding if the error code of the application is\navailable.\n\nThat is a Bleichenbacher oracle (Bleichenbacher, CRYPTO '98): an\nadaptive-chosen-ciphertext side channel from which the attacker decrypts any\nRSA ciphertext to the victim's key or forges any PKCS#1 v1.5 signature under\nit.\n\n2. When the decryption API (CMS_decrypt(), PKCS7_decrypt()) is provided with\nthe recipient certificate, and the recipient is not found, a random\nkey is substituted.\n\nAn attacker who authors a message and is able to compare both error code and\nthe result of the decryption, can mount a Bleichenbacher oracle.\n\nWe are not aware of any applications that provide a remote attacker\nan opportunity to mount an attack described in these scenarios. We consider\nthe existence of such application very unlikely, and for this reason this\nCVE has been evaluated as Low severity.\n\nTo avoid these attacks, when RSA PKCS#1 v1.5 Key Transport is in use, the\ninvoked EVP_PKEY_decrypt() will use the implicit rejection mechanism described\nin draft-irtf-cfrg-rsa-guidance. In previous OpenSSL releases the implicit\nrejection was explicitly disabled.\n\nThe implicit rejection mechanism always returns a plaintext value,\nthe symmetric key. This result is deterministic for the ciphertext and the\nprivate key.  The length of the decryption result can happen to match the\nlength of the key of the symmetric cipher that was used for the content\nencryption. When a certificate is not provided, the last RecipientInfo\nproducing a key that looks valid will be used. It may cause getting garbage\ncontent on decryption. As a proper way to deal with this a recipient\ncertificate has to be provided to identify the particular RecipientInfo for\ndecryption.\n\nThe FIPS modules in 4.0, 3.6, 3.5, and 3.4 are not affected by this issue, as\nCMS and S/MIME processing happens outside the OpenSSL FIPS module boundary.",
           "Severity": "LOW",
@@ -6449,7 +6444,6 @@
             }
           },
           "References": [
-            "https://access.redhat.com/errata/RHSA-2026:25237",
             "https://access.redhat.com/errata/RHSA-2026:25239",
             "https://access.redhat.com/security/cve/CVE-2026-42768",
             "https://bugzilla.redhat.com/2481879",
@@ -6498,7 +6492,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/10/ALSA-2026-25237.html",
+            "https://errata.almalinux.org/9/ALSA-2026-25239.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-5m8f-m8jv-3rp3",
             "https://github.com/openssl/openssl/commit/a2ca7b2d73e0ffc1eae183fe6e1741dac767cb4f",
@@ -6531,8 +6525,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42769",
           "DataSource": {
@@ -6540,7 +6534,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:925b1dfbf6271b7055056adbd3274ddca0ccf00e675bd7f34cd6f5884baa5c97",
+          "Fingerprint": "sha256:2684cb173a2a7280e931c5c036a4f71e4c27b955a28298dbbac61702f64e35cf",
           "Title": "openssl: Trust-Anchor Substitution via cert/issuer Typo in CMP rootCaKeyUpdate",
           "Description": "Issue Summary: An error in the callback used to verify the certificate\nprovided in a Root CA key update Certificate Management Protocol (CMP)\nmessage response rendered the certificate validation ineffectual, which\ncould lead to escalation of credentials from the Registration Authority (RA)\nlevel to the root Certification Authority (root CA) level.\n\nImpact Summary: The Registration Autority could replace the root CA\ncertificate for the CMP clients with an arbitrary root CA certificate.\n\nOne of the parts of the Certificate Management Protocol (CMP), specified in\nRFC 9810, is Root Certification Authority (root CA) key Rollover,\nwhich is sent by the server in a message with type 'id-it-rootCaKeyUpdate'.\nAs part of these messages, 'newWithOld' certificate, the new root CA\ncertificate signed with the old root CA key, is provided, and verifying its\nsignature is crucial for transferring the trust from the old CA key to the\nnew one.\n\nThe 'id-it-rootCaKeyUpdate' messages are expected to be processed with\nOSSL_CMP_get1_rootCaKeyUpdate(), that is expected to verify the 'newWithOld'\ncertificate.  A typo in the certificate chain building code led to adding\nan incorrect certificate ('newWithOld' instead of 'oldRoot') to the\ncertificate chain, rendering the certificate verification process ineffectual\n(only the issuer name and the algorithm OIDs were verified by other parts\nof the verification code).\n\nAn attacker who already has credentials that satisfy the CMP message\nprotection checks can generate a new key pair and use a crafted self-signed\ncertificate in its 'id-it-rootCaKeyUpdate' CMP messages which affected CMP\nclients would accept as a new trust anchor.\n\nSignificant preconditions for the attack (having valid RA-level credentials)\nare the reason the issue was assigned Low severity.\n\nThe FIPS modules are not affected by this issue, as the affected code is\noutside the OpenSSL FIPS module boundary.",
           "Severity": "LOW",
@@ -6569,7 +6563,6 @@
             }
           },
           "References": [
-            "https://access.redhat.com/errata/RHSA-2026:25237",
             "https://access.redhat.com/errata/RHSA-2026:25239",
             "https://access.redhat.com/security/cve/CVE-2026-42769",
             "https://bugzilla.redhat.com/2481879",
@@ -6618,7 +6611,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/10/ALSA-2026-25237.html",
+            "https://errata.almalinux.org/9/ALSA-2026-25239.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-rpj2-p5pj-r33v",
             "https://github.com/openssl/openssl/commit/54d0989997e5fc26057009a9782c3441ce3842fb",
@@ -6651,8 +6644,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-42770",
           "DataSource": {
@@ -6660,7 +6653,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:650b6ea36166447b2dbef9acd7c6c75f4e398391b3357178fd9263ed5f4c9f04",
+          "Fingerprint": "sha256:e08fcece4c194e273e934e6e031521d7211c0d1fdf2a392c02bfd793ff35b937",
           "Title": "openssl: FFC-DH Peer Validation Uses Attacker-Supplied q",
           "Description": "Issue summary: When EVP_PKEY_derive_set_peer() is called with a DHX (X9.42)\npeer key, the peer key is not properly checked for the subgroup membership.\n\nImpact summary: A malicious peer which presents an X9.42 key carrying the\nvictim's p and g parameters, a forged q = r (a small prime factor of the\ncofactor (p−1)/q_local), and a public value Y of order r can recover the\nvictim's private key after a small number of key exchange attempts.\n\nWhen EVP_PKEY_derive_set_peer() is called with a DHX (X9.42) peer key, the\nsubgroup membership check Y^q ≡ 1 (mod p) is performed using the peer's\nown q parameter, not the local key's q. The peer's domain parameters are\nthen matched against the domain parameters of the private key, but the value\nof q is not compared.\n\nA malicious peer who presents an X9.42 key carrying the victim's p, g,\na forged q = r (a small prime factor of the cofactor), and a public\nvalue Y of order r passes all checks. The shared secret then takes only\nr distinct values, leaking priv mod r. Repeating for each small-prime\nfactor of the cofactor and combining via CRT recovers the full private\nkey (Lim–Lee / small-subgroup-confinement attack).\n\nThe realistic attack surface is narrow: principally CMP deployments with\nlong-lived RA/CA DHX keys and bespoke enterprise or government applications\nusing X9.42 DHX static keys with interactive protocols and therefore this\nissue was assigned Low severity.\n\nThe FIPS modules in 4.0, 3.6, 3.5, 3.4, 3.1.2 and 3.0 are affected by this\nissue.",
           "Severity": "LOW",
@@ -6689,7 +6682,6 @@
             }
           },
           "References": [
-            "https://access.redhat.com/errata/RHSA-2026:25237",
             "https://access.redhat.com/errata/RHSA-2026:25239",
             "https://access.redhat.com/security/cve/CVE-2026-42770",
             "https://bugzilla.redhat.com/2481879",
@@ -6738,7 +6730,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/10/ALSA-2026-25237.html",
+            "https://errata.almalinux.org/9/ALSA-2026-25239.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-3cxm-476w-ghm2",
             "https://github.com/openssl/openssl/commit/3da5a516cd2635a320ff748503db2cef7c4b0f02",
@@ -6773,8 +6765,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-45446",
           "DataSource": {
@@ -6782,7 +6774,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:cb9deeeb192bb31b5dd73ef8a942b6f599989f0eb5a2318c4d50becb3782fbed",
+          "Fingerprint": "sha256:f58b7fd132e383997300665a257b30f6694777179ca02e51e82febb765940f5d",
           "Title": "openssl: Incorrect Tag Processing for Empty Messages in AES-GCM-SIV and AES-SIV modes",
           "Description": "Issue summary: The implementations of AES-SIV (RFC 5297) and AES-GCM-SIV\n(RFC 8452) mishandle the authentication of AAD (Additional Authenticated\nData) with an empty ciphertext allowing a forgery of such messages.\n\nImpact summary: An attacker can forge empty messages with arbitrary AAD\nto the victim's application using these ciphers.\n\nAES-SIV (RFC 5297) and AES-GCM-SIV (RFC 8452) are nonce-misuse-resistant AEAD\nmodes: they accept a key, nonce, optional AAD (bytes that are authenticated\nbut not encrypted), and plaintext, and produces ciphertext plus a 16-byte\ntag. On decrypt, `EVP_DecryptFinal_ex()` is documented to return success only\nif the tag is verified succesfully.\n\nIn OpenSSL's provider implementation of these ciphers, the expected tag is\ncomputed only when decryption function is invoked with non-empty data.\nIf the caller supplies AAD and then calls `EVP_DecryptFinal_ex()` without\ninvocation of the ciphertext update, which can happen when the received\nciphertext length is zero, the tag is never recalculated and still holds its\nall-zeros value.\n\nWhen AES-GCM-SIV is used, an attacker who sends arbitrary AAD, empty\nciphertext, and all-zeros tag passes authentication under any key they do not\nknow, single-shot. When AES-SIV is used, for mounting the attack it's\nnecessary for the application to reuse the decryption context without\nresetting the key.\n\nAES-SIV is implemented since OpenSSL 3.0. AES-GCM-SIV is implemented since\nOpenSSL 3.2.\n\nNo protocols implemented in OpenSSL itself (TLS/CMS/PKCS7/HPKE/QUIC) support\neither AES-GCM-SIV or AES-SIV. To mount an attack, the applications must\nimplement their own protocol and use the EVP interface. Also they must skip the\nciphertext update when a message with an empty ciphertext arrives.\n\nThe FIPS modules in 4.0, 3.6, 3.5, 3.4, and 3.0 are not affected by this\nissue, as these algorithms are not FIPS approved and the affected code is\noutside the OpenSSL FIPS module boundary.",
           "Severity": "LOW",
@@ -6811,7 +6803,6 @@
             }
           },
           "References": [
-            "https://access.redhat.com/errata/RHSA-2026:25237",
             "https://access.redhat.com/errata/RHSA-2026:25239",
             "https://access.redhat.com/security/cve/CVE-2026-45446",
             "https://bugzilla.redhat.com/2481879",
@@ -6860,7 +6851,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/10/ALSA-2026-25237.html",
+            "https://errata.almalinux.org/9/ALSA-2026-25239.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-7phf-qpm5-q6p3",
             "https://github.com/openssl/openssl/commit/25b32cd9d41d2bc01b6abc425bb4baf2c2236fdc",
@@ -6895,8 +6886,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-7383",
           "DataSource": {
@@ -6904,7 +6895,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:d3a50aab4c13e16c72e2fa2b54c542be217b59b63b61c4ce9c296005d77b6a54",
+          "Fingerprint": "sha256:18286c869f1a448bfcc1b99b1cde9fbd7b836d5992f1be777d2fb95ebec6fbbc",
           "Title": "openssl: OpenSSL: Heap buffer overflow due to signed integer overflow in Unicode output sizing",
           "Description": "Issue summary: A signed integer overflow when sizing the destination\nbuffer for Unicode output in ASN1_mbstring_ncopy() can lead to a heap\nbuffer overflow.\n\nImpact summary: A heap buffer overflow may lead to a crash or possibly\nattacker controlled code execution or other undefined behaviour.\n\nIn ASN1_mbstring_copy() and ASN1_mbstring_ncopy() the destination\nsize for Unicode output is computed in a signed int: by left shift\nof the input character count for BMPSTRING (UTF-16) and\nUNIVERSALSTRING (UTF-32), and by summing per-character byte counts\nfor UTF8STRING. The calculation overflows when the input reaches\naround 2^30 characters. In the worst case (UNIVERSALSTRING at 2^30\ncharacters) the size wraps to zero, OPENSSL_malloc(1) is called, and\nthe subsequent character copy writes several gigabytes past the\none-byte allocation.\n\nX.509 certificate processing routes through ASN1_STRING_set_by_NID(),\nwhose DIRSTRING_TYPE mask excludes UNIVERSALSTRING and whose per-NID\nsize limits cap the input length; no network protocol or\ncertificate-handling path in OpenSSL exercises the overflow.\nTriggering the bug requires an application that calls\nASN1_mbstring_copy() or ASN1_mbstring_ncopy() directly, or registers\na custom string type via ASN1_STRING_TABLE_add(), with\nattacker-controlled input on the order of half a gigabyte or more.\nFor these reasons this issue was assigned Low severity.\n\nThe FIPS modules in 4.0, 3.6, 3.5, 3.4 and 3.0 are not affected by\nthis issue, as the affected code is outside the OpenSSL FIPS module\nboundary.",
           "Severity": "LOW",
@@ -6933,7 +6924,6 @@
             }
           },
           "References": [
-            "https://access.redhat.com/errata/RHSA-2026:25237",
             "https://access.redhat.com/errata/RHSA-2026:25239",
             "https://access.redhat.com/security/cve/CVE-2026-7383",
             "https://bugzilla.redhat.com/2481879",
@@ -6982,7 +6972,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/10/ALSA-2026-25237.html",
+            "https://errata.almalinux.org/9/ALSA-2026-25239.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-w853-v86g-gv7j",
             "https://github.com/openssl/openssl/commit/4f8d2bddaa2c8e06f9c33390ee1717059a6e4be6",
@@ -7018,8 +7008,8 @@
           "FixedVersion": "3.6.3-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-9076",
           "DataSource": {
@@ -7027,7 +7017,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:60e0b9472cdd93e2fe037bc522102c12a3d731809059d055b09c135b1c8d039d",
+          "Fingerprint": "sha256:6b20d3a5687a406a9e4d9221a40633219a423c355b41bb158bed40a9e093f397",
           "Title": "openssl: OpenSSL: Denial of Service due to heap out-of-bounds read in CMS password-based decryption",
           "Description": "Issue summary: When CMS password-based decryption (RFC 3211 / PWRI key unwrap)\nprocesses attacker-supplied CMS data, an attacker-chosen stream-mode KEK\ncipher can trigger a heap out-of-bounds read in kek_unwrap_key().\n\nImpact summary: A heap buffer over-read may trigger a crash which leads to\nDenial of Service for an application if the input buffer ends at a memory\npage boundary and the following page is unmapped. There is no information\ndisclosure as the over-read bytes are not revealed to the attacker.\n\nThe key unwrapping function performs a check-byte test as specified in the\nRFC that reads 7 bytes from a heap allocation that is based on the wrapped\nkey length from the message. There is a minimum length check based on the\nblock length of the wrapping cipher. However the cipher is selected from\nan OID carried in the attacker's PWRI keyEncryptionAlgorithm with no\nrequirement that the cipher be a block cipher. When an attacker selects\na stream-mode cipher the guard will be ineffective and the allocated buffer\ncontaining the unwrapped key can be too small to fit the check-bytes\nspecified in the RFC and a buffer over-read can happen.\n\nApplications calling CMS_decrypt() or CMS_decrypt_set1_password()\n(equivalently openssl cms -decrypt -pwri_password ...) on untrusted CMS\ndata are vulnerable to this issue. No password knowledge is required: the\nover-read happens during the unwrap attempt before any authentication\nsucceeds.\n\nThe over-read is limited to a few bytes and is not written to output, so\nthere is no information disclosure. Triggering a crash requires the\nallocation to border unmapped memory, which is unlikely with the normal\nallocator.\n\nThe FIPS modules are not affected by this issue.",
           "Severity": "LOW",
@@ -7056,7 +7046,6 @@
             }
           },
           "References": [
-            "https://access.redhat.com/errata/RHSA-2026:25237",
             "https://access.redhat.com/errata/RHSA-2026:25239",
             "https://access.redhat.com/security/cve/CVE-2026-9076",
             "https://bugzilla.redhat.com/2481879",
@@ -7105,7 +7094,7 @@
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-45447",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-7383",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2026-9076",
-            "https://errata.almalinux.org/10/ALSA-2026-25237.html",
+            "https://errata.almalinux.org/9/ALSA-2026-25239.html",
             "https://errata.rockylinux.org/RLSA-2026:25239",
             "https://github.com/advisories/GHSA-q98x-73c3-57gj",
             "https://github.com/openssl/openssl/commit/05b066366842f930fadd9a6e94df98030af431bb",
@@ -7141,8 +7130,8 @@
           "FixedVersion": "2.43-r10",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-6791",
           "DataSource": {
@@ -7150,7 +7139,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:0ea021214d22f8f3856016450d9054eeaccc18b921d66d1929360ded02b139d6",
+          "Fingerprint": "sha256:798c4eb0288b8339c738f6c4d5f2d0c4971f2398e5cc4934c2effcf937c3c5c8",
           "Title": "glibc: Glibc: Denial of Service via stack exhaustion during tilde expansion",
           "Description": "When expanding paths that begin with a tilde (~) followed by a username, the internal parse_tilde function extracts the username to determine the user's home directory.  The implementation allocates memory for this username directly on the stack using the strndupa macro. Because the size of this allocation was determined by the length of the user-supplied input without any bounds checks, passing an excessively long username e.g. thousands of characters, forces the thread to exhaust its stack space. Thus if an application passes untrusted, attacker-controlled input to the wordexp function, an attacker can trigger a stack clash.",
           "Severity": "MEDIUM",
@@ -7191,8 +7180,8 @@
           "FixedVersion": "2.43-r10",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-6791",
           "DataSource": {
@@ -7200,7 +7189,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:95b476affd2fbf6df70267410411e12ccb326c115b2960f5074429b47f8871b2",
+          "Fingerprint": "sha256:b1c3dd7d9fac3ef17a9deca25a215ffa5a14efa287b6f1720df9b41803c1acaf",
           "Title": "glibc: Glibc: Denial of Service via stack exhaustion during tilde expansion",
           "Description": "When expanding paths that begin with a tilde (~) followed by a username, the internal parse_tilde function extracts the username to determine the user's home directory.  The implementation allocates memory for this username directly on the stack using the strndupa macro. Because the size of this allocation was determined by the length of the user-supplied input without any bounds checks, passing an excessively long username e.g. thousands of characters, forces the thread to exhaust its stack space. Thus if an application passes untrusted, attacker-controlled input to the wordexp function, an attacker can trigger a stack clash.",
           "Severity": "MEDIUM",
@@ -7241,8 +7230,8 @@
           "FixedVersion": "1.3.2.1_rc20260601-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:a032c5a3a02df876fd15348e58a8de041a2b224d0fce80b95a170f9e698dff2f",
-            "DiffID": "sha256:9ee876dc7d714d12b2bf504dcf0766c791d319457923ec0db136db4368bd09be"
+            "Digest": "sha256:487efc791f082bde77bd3d10528073ae27e3d628f0ffbf90ac7b36440f46cdac",
+            "DiffID": "sha256:a7278b834c19c9f073bb2d2947ba2300e963990cb464146926d238ac7e8ae06d"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-85091",
           "DataSource": {
@@ -7250,7 +7239,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:cae4aaf90b6868c6579296b8bfbc64c3e3a1ae221f4281bf08b1cad032b05dde",
+          "Fingerprint": "sha256:fc482e654ba07d4a95ef12a656c6d7143245671688b060f95c6189b824b81433",
           "Title": "zlib versions 1.3.1.2 through 1.3.2 contain a heap buffer overflow vul ...",
           "Description": "zlib versions 1.3.1.2 through 1.3.2 contain a heap buffer overflow vulnerability in the gz_vacate() function when processing non-blocking gzwrite() operations with stale external buffer pointers. Attackers can trigger the overflow by calling gzprintf() or gzvprintf() after a write stall, causing an unchecked memmove() to write beyond the internal input buffer boundary.",
           "Severity": "MEDIUM",
@@ -7285,8 +7274,8 @@
           },
           "Version": "2.1.2",
           "Layer": {
-            "Digest": "sha256:911013b1b89d54cdeeb8d6508644bae549c2d6df44aef76e792270fa181c1522",
-            "DiffID": "sha256:fd8676f22a0bcdff28f4ae475696510620c59d7bddf395e7427a70ac37a79800"
+            "Digest": "sha256:29af36485535b90d47be5c2763ea7e4acd3293e9e8219e8165bab7e6dbd52b39",
+            "DiffID": "sha256:297bfd229fee15d3356f4b4a8659f42d42fd55460ec8b0753136bbac030b964f"
           },
           "FilePath": "opt/java/lib/bc-fips.jar",
           "AnalyzedBy": "jar"
@@ -7299,8 +7288,8 @@
           },
           "Version": "2.1.22",
           "Layer": {
-            "Digest": "sha256:911013b1b89d54cdeeb8d6508644bae549c2d6df44aef76e792270fa181c1522",
-            "DiffID": "sha256:fd8676f22a0bcdff28f4ae475696510620c59d7bddf395e7427a70ac37a79800"
+            "Digest": "sha256:29af36485535b90d47be5c2763ea7e4acd3293e9e8219e8165bab7e6dbd52b39",
+            "DiffID": "sha256:297bfd229fee15d3356f4b4a8659f42d42fd55460ec8b0753136bbac030b964f"
           },
           "FilePath": "opt/java/lib/bctls-fips.jar",
           "AnalyzedBy": "jar"
@@ -7316,8 +7305,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:911013b1b89d54cdeeb8d6508644bae549c2d6df44aef76e792270fa181c1522",
-            "DiffID": "sha256:fd8676f22a0bcdff28f4ae475696510620c59d7bddf395e7427a70ac37a79800"
+            "Digest": "sha256:29af36485535b90d47be5c2763ea7e4acd3293e9e8219e8165bab7e6dbd52b39",
+            "DiffID": "sha256:297bfd229fee15d3356f4b4a8659f42d42fd55460ec8b0753136bbac030b964f"
           },
           "FilePath": "opt/java/lib/bcutil-fips.jar",
           "AnalyzedBy": "jar"
@@ -7339,8 +7328,8 @@
           "FixedVersion": "1.0.2.7, 2.0.2, 2.1.3",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:911013b1b89d54cdeeb8d6508644bae549c2d6df44aef76e792270fa181c1522",
-            "DiffID": "sha256:fd8676f22a0bcdff28f4ae475696510620c59d7bddf395e7427a70ac37a79800"
+            "Digest": "sha256:29af36485535b90d47be5c2763ea7e4acd3293e9e8219e8165bab7e6dbd52b39",
+            "DiffID": "sha256:297bfd229fee15d3356f4b4a8659f42d42fd55460ec8b0753136bbac030b964f"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-8763",
@@ -7349,7 +7338,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:da0bfbd37a909b05527d911df2926f9ccb3ca331f359e3614ee612f86c18ce72",
+          "Fingerprint": "sha256:6c619aa0f2eca790dd0b5c0411a4d4d03eaa99f94af48dadbcd983c1231fea5e",
           "Title": "org.bouncycastle/bcprov-jdk15on: org.bouncycastle/bcpkix-jdk15on: Bouncy Castle for Java: Name Constraints bypass via trailing dot in rfc822Name and URI",
           "Description": "In Bouncy Castle for Java before 1.85, Name Constraints bypass via trailing dot in rfc822Name and URI. This issue also affects Bouncy Castle for Java LTS before 2.73.12, and Bouncy Castle for Java FIPS (BC-FJA) before bc-fips 1.0.2.7 (1.0.X series), 2.0.2 (2.0.X series) and 2.1.3 (2.1.X series).",
           "Severity": "CRITICAL",
@@ -7406,8 +7395,8 @@
           "FixedVersion": "1.0.2.7, 2.0.2, 2.1.3",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:911013b1b89d54cdeeb8d6508644bae549c2d6df44aef76e792270fa181c1522",
-            "DiffID": "sha256:fd8676f22a0bcdff28f4ae475696510620c59d7bddf395e7427a70ac37a79800"
+            "Digest": "sha256:29af36485535b90d47be5c2763ea7e4acd3293e9e8219e8165bab7e6dbd52b39",
+            "DiffID": "sha256:297bfd229fee15d3356f4b4a8659f42d42fd55460ec8b0753136bbac030b964f"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-13505",
@@ -7416,7 +7405,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:2f20596edcc5aee48705e337485c9ee8abec34dc94f0baddfd49b5ed1b7f3f5f",
+          "Fingerprint": "sha256:bd7bad2d365a4f98fc291bae2c695e40e3085b632b9ec7c09aa38a89b207727d",
           "Title": "org.bouncycastle/bc-fips: Bouncy Castle for Java FIPS: Sensitive key material remains in memory due to delayed zeroisation",
           "Description": "In Bouncy Castle for Java FIPS (BC-FJA) before bc-fips 1.0.2.7 (1.0.X series), 2.0.2 (2.0.X series) and 2.1.3 (2.1.X series), sensitive key material held by the AES and DESede engines, the SP 800-90A DRBGs, SymmetricSecretKey and the PBKD and scrypt parameter classes was zeroised on garbage collection by overriding Object.finalize. Finalization runs at an unspecified time and in an unspecified order and is serviced by a single finalizer thread, so where objects carrying a finalizer are allocated faster than that thread retires them the pending-finalization queue grows without bound: disposal falls arbitrarily far behind, which can contribute to an OutOfMemoryError under load, and the key material those objects hold stays resident in the heap for as long as they are queued, defeating the purpose of the zeroisation. The behaviour was not a problem on Java 8 or Java 11; it is later JVMs, on which finalization has been deprecated and progressively de-emphasised, where it becomes one. Disposal of these classes now runs from a java.lang.ref.Cleaner registered in the multi-release jdk1.9 overlay, so on Java 9 and later it no longer depends on the finalizer being scheduled. Bouncy Castle for Java (bcprov) and Bouncy Castle for Java LTS are not affected, as neither implements the finalizer-based zeroisation scheme.",
           "Severity": "HIGH",
@@ -7462,8 +7451,8 @@
           "FixedVersion": "1.0.2.7, 2.0.2, 2.1.3",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:911013b1b89d54cdeeb8d6508644bae549c2d6df44aef76e792270fa181c1522",
-            "DiffID": "sha256:fd8676f22a0bcdff28f4ae475696510620c59d7bddf395e7427a70ac37a79800"
+            "Digest": "sha256:29af36485535b90d47be5c2763ea7e4acd3293e9e8219e8165bab7e6dbd52b39",
+            "DiffID": "sha256:297bfd229fee15d3356f4b4a8659f42d42fd55460ec8b0753136bbac030b964f"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-13506",
@@ -7472,7 +7461,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:44ad17a6f04e099858d65e2e9d0812f6de9c1e0cc669427ee8eaa3348c87c976",
+          "Fingerprint": "sha256:05df2796441929ae39ec0f6aba2174df7b2fc511a0ba53bee2915e26a2e0bd00",
           "Title": "bouncycastle: Bouncy Castle for Java: Denial of Service via lazy ASN.1 sequence processing",
           "Description": "In Bouncy Castle for Java before 1.85, Lazy ASN.1 sequence forcing resets nesting-depth guard. This issue also affects Bouncy Castle for Java LTS before 2.73.12, and Bouncy Castle for Java FIPS (BC-FJA) before bc-fips 1.0.2.7 (1.0.X series), 2.0.2 (2.0.X series) and 2.1.3 (2.1.X series).",
           "Severity": "HIGH",
@@ -7527,8 +7516,8 @@
           "FixedVersion": "2.1.3",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:911013b1b89d54cdeeb8d6508644bae549c2d6df44aef76e792270fa181c1522",
-            "DiffID": "sha256:fd8676f22a0bcdff28f4ae475696510620c59d7bddf395e7427a70ac37a79800"
+            "Digest": "sha256:29af36485535b90d47be5c2763ea7e4acd3293e9e8219e8165bab7e6dbd52b39",
+            "DiffID": "sha256:297bfd229fee15d3356f4b4a8659f42d42fd55460ec8b0753136bbac030b964f"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-8798",
@@ -7537,7 +7526,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:be7a30c9b5f298b8e2bc8fb2722b2e3f9faffe63eabc0f03c7ebb80e95fb3166",
+          "Fingerprint": "sha256:dfa0a8ab8081c792fe06b8887886c6ff396da5e8902278987b43fec0b56181f6",
           "Title": "Bouncy Castle: the native entropy source used on Intel platforms retried the CPU entropy instructions without any bound",
           "Description": "In Bouncy Castle for Java FIPS (BC-FJA) before bc-fips 2.1.3, the native entropy source used on Intel platforms retried the CPU entropy instructions without any bound. RDSEED and RDRAND report failure through their carry flag, and the JNI seeding routine spun re-issuing the instruction for as long as that flag stayed clear, so a persistent failure of the on-chip entropy source - whether from a hardware fault, from the underlying DRBG being exhausted by contention across many cores, or from a hypervisor that does not provide the instruction - left the calling thread looping indefinitely inside the JNI call, where it could be neither interrupted nor timed out. Any operation drawing from the native entropy source could therefore hang, denying service to the application. The retry loops are now bounded (200 attempts for RDSEED and 20 for RDRAND, twice the baselines given in Intel's Digital Random Number Generator software implementation guide), pausing between attempts and, on exhaustion, clearing any partially written buffer and throwing rather than continuing to spin. The clear is performed by an un-elidable memzero, which uses a volatile pointer and an assembly memory barrier so that a compiler cannot optimise the erase away as a dead store. Bouncy Castle for Java (bcprov) is not affected, as it has no native entropy source; the 1.0.X and 2.0.X FIPS series are not affected.",
           "Severity": "HIGH",

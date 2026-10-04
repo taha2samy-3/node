@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "serialNumber": "urn:uuid:96a72d51-f822-4cf8-ad4b-50d773e3decb",
+  "serialNumber": "urn:uuid:2a3dba33-c901-4598-9316-8f94ac412ac6",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-10-04T00:50:08+00:00",
+    "timestamp": "2026-10-04T03:22:53+00:00",
     "tools": {
       "components": [
         {
@@ -20,10 +20,10 @@
       ]
     },
     "component": {
-      "bom-ref": "pkg:oci/node@sha256:bc44a55ab8e661c378b2848d3b743a315b7a0bafe45348f5ba7f470849d9be45?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fnode",
+      "bom-ref": "pkg:oci/node@sha256:89290717641068b47138cf3cc262f74bc81e492a7c033ddc115ae8d3fc8caae7?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fnode",
       "type": "container",
       "name": "ghcr.io/taha2samy-3/node:20-dev",
-      "purl": "pkg:oci/node@sha256:bc44a55ab8e661c378b2848d3b743a315b7a0bafe45348f5ba7f470849d9be45?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fnode",
+      "purl": "pkg:oci/node@sha256:89290717641068b47138cf3cc262f74bc81e492a7c033ddc115ae8d3fc8caae7?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fnode",
       "properties": [
         {
           "name": "aquasecurity:trivy:DiffID",
@@ -95,11 +95,15 @@
         },
         {
           "name": "aquasecurity:trivy:ImageID",
-          "value": "sha256:e2b14829b993468e2b5fa28e4bd2f313bcbfda3fca44c572b7bac76f220bd0ef"
+          "value": "sha256:6376bc6b94fbaeea552a0e269045f4ae1bbdfc9fb1a117bd10a99b0f52834385"
         },
         {
           "name": "aquasecurity:trivy:Labels:dev.chainguard.image.title",
           "value": "wolfi-base"
+        },
+        {
+          "name": "aquasecurity:trivy:Labels:io.github.taha2samy-3.build.fingerprint",
+          "value": "47acfa258e989564f8c321932f192fd7"
         },
         {
           "name": "aquasecurity:trivy:Labels:org.opencontainers.image.authors",
@@ -135,7 +139,7 @@
         },
         {
           "name": "aquasecurity:trivy:RepoDigest",
-          "value": "ghcr.io/taha2samy-3/node@sha256:bc44a55ab8e661c378b2848d3b743a315b7a0bafe45348f5ba7f470849d9be45"
+          "value": "ghcr.io/taha2samy-3/node@sha256:89290717641068b47138cf3cc262f74bc81e492a7c033ddc115ae8d3fc8caae7"
         },
         {
           "name": "aquasecurity:trivy:RepoTag",
@@ -154,7 +158,7 @@
   },
   "components": [
     {
-      "bom-ref": "d48b38e8-89a8-40fd-a790-eba0c5e69a08",
+      "bom-ref": "cf0200b0-1dba-441a-81ca-3ee3eea92b06",
       "type": "application",
       "name": "usr/bin/secrets-entrypoint",
       "properties": [
@@ -169,7 +173,7 @@
       ]
     },
     {
-      "bom-ref": "d692cd81-1ac1-4927-bf05-4646da6b0073",
+      "bom-ref": "d1112656-2785-45eb-878b-e214434b0f11",
       "type": "operating-system",
       "name": "wolfi",
       "version": "20230201",
@@ -1720,13 +1724,13 @@
   ],
   "dependencies": [
     {
-      "ref": "d48b38e8-89a8-40fd-a790-eba0c5e69a08",
+      "ref": "cf0200b0-1dba-441a-81ca-3ee3eea92b06",
       "dependsOn": [
         "pkg:golang/secrets-entrypoint@v1.0.0%2Bdirty"
       ]
     },
     {
-      "ref": "d692cd81-1ac1-4927-bf05-4646da6b0073",
+      "ref": "d1112656-2785-45eb-878b-e214434b0f11",
       "dependsOn": [
         "pkg:apk/wolfi/npm-12@12.2.0-r1?arch=x86_64&distro=20230201",
         "pkg:apk/wolfi/wolfi-base@1-r7?arch=x86_64&distro=20230201"
@@ -1963,10 +1967,10 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:oci/node@sha256:bc44a55ab8e661c378b2848d3b743a315b7a0bafe45348f5ba7f470849d9be45?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fnode",
+      "ref": "pkg:oci/node@sha256:89290717641068b47138cf3cc262f74bc81e492a7c033ddc115ae8d3fc8caae7?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fnode",
       "dependsOn": [
-        "d48b38e8-89a8-40fd-a790-eba0c5e69a08",
-        "d692cd81-1ac1-4927-bf05-4646da6b0073"
+        "cf0200b0-1dba-441a-81ca-3ee3eea92b06",
+        "d1112656-2785-45eb-878b-e214434b0f11"
       ]
     }
   ],

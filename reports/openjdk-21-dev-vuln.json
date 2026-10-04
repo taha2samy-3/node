@@ -3,9 +3,9 @@
   "Trivy": {
     "Version": "0.75.0"
   },
-  "ReportID": "01a10464-2e88-7a90-8ad6-8585daf5124b",
-  "CreatedAt": "2026-10-04T00:50:36.808693925Z",
-  "ArtifactID": "sha256:b560b3291ca460a478f2c18b80397c93f4b78fa31ecfa9776a130cb8a5bce191",
+  "ReportID": "01a104f0-47c4-7686-b1c0-2c4b0db5a689",
+  "CreatedAt": "2026-10-04T03:23:38.308429196Z",
+  "ArtifactID": "sha256:1d3e3698183c83083aa68fbb925e34557d53577f9a1c6c48966903cba9a28211",
   "ArtifactName": "ghcr.io/taha2samy-3/wolfi-openjdk-fips:21-dev",
   "ArtifactType": "container_image",
   "Metadata": {
@@ -14,94 +14,106 @@
       "Family": "wolfi",
       "Name": "20230201"
     },
-    "ImageID": "sha256:0c69e9f070d22e64f0dc88992101139bfae10535c387d2be4e9a5795d1cc35e3",
+    "ImageID": "sha256:96ce4cdc8fb854536d73388615b96d5b57ebac0c1b20eff5f929216265528ee4",
     "DiffIDs": [
-      "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79",
-      "sha256:9cef4c6218876cb34e4dee12031bb2bbca59dc251c41e74f4dd7a518351109e7",
+      "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409",
+      "sha256:ad01c03de63b612a7ebfeefa2767e3d1cf756a2060cbd10b7ca8e49d1d2bd29e",
       "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
     ],
     "RepoTags": [
       "ghcr.io/taha2samy-3/wolfi-openjdk-fips:21-dev"
     ],
     "RepoDigests": [
-      "ghcr.io/taha2samy-3/wolfi-openjdk-fips@sha256:c61c07e59b4e35864a7471e464b8e578e904985ca09c33e47bda495b7ced231e"
+      "ghcr.io/taha2samy-3/wolfi-openjdk-fips@sha256:2abce2e70fd77850c7646ec623f8dad4578626f1b0290ee51f4536cc41e8f87b"
     ],
     "Reference": "ghcr.io/taha2samy-3/wolfi-openjdk-fips:21-dev",
     "ImageConfig": {
       "architecture": "amd64",
-      "created": "2026-10-03T14:51:26.249639395Z",
+      "created": "2026-10-04T00:50:55.633376203Z",
       "history": [
         {
-          "created": "2026-10-03T14:51:09.554729555Z",
+          "created": "2026-10-04T00:50:40.971480043Z",
           "created_by": "COPY / / # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-03T14:51:26.10647665Z",
+          "created": "2026-10-04T00:50:55.612190182Z",
           "created_by": "COPY /opt/jdk /opt/java # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-03T14:51:26.249639395Z",
+          "created": "2026-10-04T00:50:55.633376203Z",
           "created_by": "ENV JAVA_HOME=/opt/java PATH=/opt/java/bin:/usr/local/bin:/usr/bin:/bin LANG=C.UTF-8 TZ=UTC",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-03T14:51:26.249639395Z",
+          "created": "2026-10-04T00:50:55.633376203Z",
           "created_by": "ARG KEYSTORE_PWD=changeit",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-03T14:51:26.249639395Z",
+          "created": "2026-10-04T00:50:55.633376203Z",
+          "created_by": "ARG JDK_TRUSTSTORE",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-04T00:50:55.633376203Z",
+          "created_by": "ARG JDK_BC_DIR",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-04T00:50:55.633376203Z",
           "created_by": "ENV JAVA_TOOL_OPTIONS=-Dorg.bouncycastle.fips.approved_only=true -Dorg.bouncycastle.jsse.client.assumeExtendedKeyUsage=false -Dorg.bouncycastle.jsse.trustManager.checkEKU=true -Djdk.tls.trustNameService=true -Dkeystore.type=BCFKS -Djavax.net.ssl.trustStore=/opt/java/lib/security/cacerts -Djavax.net.ssl.trustStoreType=BCFKS -Djavax.net.ssl.trustStorePassword=changeit -Xbootclasspath/a:/opt/java/lib/bc-fips.jar:/opt/java/lib/bcutil-fips.jar:/opt/java/lib/bctls-fips.jar",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-03T14:51:26.249639395Z",
+          "created": "2026-10-04T00:50:55.633376203Z",
           "created_by": "ARG JAVA_VERSION=21",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-03T14:51:26.249639395Z",
+          "created": "2026-10-04T00:50:55.633376203Z",
           "created_by": "ARG JAVA_FULL_VERSION=21.0.11+10-LTS",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-03T14:51:26.249639395Z",
+          "created": "2026-10-04T00:50:55.633376203Z",
           "created_by": "ARG BC_FIPS_VERSION=2.1.2",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-03T14:51:26.249639395Z",
+          "created": "2026-10-04T00:50:55.633376203Z",
           "created_by": "LABEL org.opencontainers.image.authors=Taha Samy org.opencontainers.image.source=https://github.com/taha2samy-3/node org.opencontainers.image.version=21.0.11+10-LTS org.opencontainers.image.vendor=taha2samy-3 org.opencontainers.image.title=Wolfi OpenJDK 21 JDK FIPS (Development) org.opencontainers.image.description=Hardened OpenJDK 21 JDK with Bouncy Castle FIPS 2.1.2 on Wolfi OS com.taha2samy.fips.version=2.1.2",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-03T14:51:26.249639395Z",
+          "created": "2026-10-04T00:50:55.633376203Z",
           "created_by": "HEALTHCHECK \u0026{[\"CMD\" \"/opt/java/bin/java\" \"-version\"] \"30s\" \"5s\" \"10s\" \"0s\" '\\x03'}",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-03T14:51:26.249639395Z",
+          "created": "2026-10-04T00:50:55.633376203Z",
           "created_by": "USER 1001",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-03T14:51:26.249639395Z",
+          "created": "2026-10-04T00:50:55.633376203Z",
           "created_by": "WORKDIR /home/java",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-03T14:51:26.249639395Z",
+          "created": "2026-10-04T00:50:55.633376203Z",
           "created_by": "ENTRYPOINT []",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
@@ -111,8 +123,8 @@
       "rootfs": {
         "type": "layers",
         "diff_ids": [
-          "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79",
-          "sha256:9cef4c6218876cb34e4dee12031bb2bbca59dc251c41e74f4dd7a518351109e7",
+          "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409",
+          "sha256:ad01c03de63b612a7ebfeefa2767e3d1cf756a2060cbd10b7ca8e49d1d2bd29e",
           "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
         ]
       },
@@ -137,10 +149,11 @@
         ],
         "Labels": {
           "com.taha2samy.fips.version": "2.1.2",
+          "io.github.taha2samy-3.build.fingerprint": "dafbcf6226e1e61355f3cdb16953b2f6",
           "org.opencontainers.image.authors": "Taha Samy",
           "org.opencontainers.image.description": "Hardened FIPS 140-3 compliant OpenJDK development SDK image on Wolfi",
           "org.opencontainers.image.licenses": "Apache-2.0",
-          "org.opencontainers.image.source": "https://github.com/taha2samy-3/wolfi-openjdk-fips",
+          "org.opencontainers.image.source": "https://github.com/taha2samy-3/node",
           "org.opencontainers.image.title": "Wolfi OpenJDK 21 JDK FIPS (Development)",
           "org.opencontainers.image.vendor": "taha2samy-3",
           "org.opencontainers.image.version": "21.0.11+10-LTS"
@@ -152,13 +165,13 @@
     "Layers": [
       {
         "Size": 52238848,
-        "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-        "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+        "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+        "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
       },
       {
         "Size": 372375552,
-        "Digest": "sha256:812344c39549f7b3deb1d233c2b71d96ad28ebff3f3954b36ab6b90032eb3217",
-        "DiffID": "sha256:9cef4c6218876cb34e4dee12031bb2bbca59dc251c41e74f4dd7a518351109e7"
+        "Digest": "sha256:e16d0bc226a9caf15423420355b5133c4c3c558efe1aeccb833975d992c49437",
+        "DiffID": "sha256:ad01c03de63b612a7ebfeefa2767e3d1cf756a2060cbd10b7ca8e49d1d2bd29e"
       },
       {
         "Size": 1024,
@@ -198,8 +211,8 @@
             "zlib@1.3.2-r3"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:3bc709141fbb69832958272c22775caaafe2b9ee",
           "InstalledFiles": [
@@ -232,8 +245,8 @@
             "wolfi-baselayout@20230201-r29"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:3223ff39fbc888a28079e619c19f5311950c51eb",
           "InstalledFiles": [
@@ -264,8 +277,8 @@
             "wolfi-baselayout@20230201-r29"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:c82919b15fd7d50d6ffd2d26f809e258026f3c3e",
           "InstalledFiles": [
@@ -299,8 +312,8 @@
             "wolfi-baselayout@20230201-r29"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:c9c598896adb1fa5bba9ce4de8b59714054a2434",
           "InstalledFiles": [
@@ -478,8 +491,8 @@
             "wolfi-baselayout@20230201-r29"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:cdbb31b944f2686b23aa355d9f68134437d9b3af",
           "InstalledFiles": [
@@ -513,8 +526,8 @@
             "zlib@1.3.2-r3"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:f6d18bd899a9c1c86e22177d3e6ad8e9f132abfc",
           "InstalledFiles": [
@@ -547,8 +560,8 @@
             "sqlite-libs@3.53.4-r2"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:0c2f58c38a4c551cdf0e90b775a418cdb5f6e4cc",
           "InstalledFiles": [
@@ -608,8 +621,8 @@
             "ld-linux@2.43-r8"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:f5cba4b67bea48fc181eab8f35e58c3ad546c258",
           "InstalledFiles": [
@@ -662,8 +675,8 @@
             "wolfi-baselayout@20230201-r29"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:5595c61bf245289ab1122998f3fc2a5bb2bfc8cb",
           "InstalledFiles": [
@@ -711,8 +724,8 @@
             "wolfi-baselayout@20230201-r29"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:d6684749a7ae0401c2660625c2184d4aa703e37d",
           "InstalledFiles": [
@@ -755,8 +768,8 @@
             "wolfi-baselayout@20230201-r29"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:e02ba517ef083389c92de69fc488cfa7172bc2d9",
           "InstalledFiles": [
@@ -819,8 +832,8 @@
             "wolfi-baselayout@20230201-r29"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:ec86fe4a08fc19e502a874ead30b0fd97f107a1a",
           "InstalledFiles": [
@@ -846,8 +859,8 @@
           ],
           "Maintainer": "wolfi",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:45afaf97994b044c8e846f1061d3dfc20f707608",
           "InstalledFiles": [
@@ -882,8 +895,8 @@
             "wolfi-baselayout@20230201-r29"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:f1214050bf5ac7367ace973b59eed04e45b94644",
           "InstalledFiles": [
@@ -934,8 +947,8 @@
             "wolfi-baselayout@20230201-r29"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:a72f5a0796b7154b6a371ef31470f77cacf06416",
           "InstalledFiles": [
@@ -965,8 +978,8 @@
             "glibc@2.43-r8"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:89c83360afde6a2c88ddf322bdce72117f7a30cd",
           "InstalledFiles": [
@@ -996,8 +1009,8 @@
             "libbrotlicommon1@1.2.0-r5"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:813326b3b97f3136350e7ba1d638ea4819e904fc",
           "InstalledFiles": [
@@ -1027,8 +1040,8 @@
             "libbrotlicommon1@1.2.0-r5"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:1e0e7d700cbc020cacc05cf0f5e5184a9112fe81",
           "InstalledFiles": [
@@ -1062,8 +1075,8 @@
             "wolfi-baselayout@20230201-r29"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:abceffe6e6cfec03b6ca82cfc707decf3c186b6a",
           "InstalledFiles": [
@@ -1094,8 +1107,8 @@
             "wolfi-baselayout@20230201-r29"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:10e2afe4f76a0f76f1a17f4235517942aa018f4d",
           "InstalledFiles": [
@@ -1124,8 +1137,8 @@
             "openssl-provider-legacy-allowed@4.0.2-r3"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:d0dbcaa0c8a0e2003e4b4bd47b9b062a09cfc8d4",
           "InstalledFiles": [
@@ -1163,8 +1176,8 @@
             "zlib@1.3.2-r3"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:0ca5e0c8b53f2aede235e8d41cc34ab26f31b13e",
           "InstalledFiles": [
@@ -1194,8 +1207,8 @@
             "ld-linux@2.43-r8"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:8f458615e803232f67222141610a9a93df1db7ab",
           "InstalledFiles": [
@@ -1226,8 +1239,8 @@
             "libunistring@1.4.2-r3"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:ca7262dbd88cbbd4db0747b6400758f6b6c04a44",
           "InstalledFiles": [
@@ -1260,8 +1273,8 @@
             "wolfi-baselayout@20230201-r29"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:78a04538888e169fed69887300a9d15bd0cf61c8",
           "InstalledFiles": [
@@ -1293,8 +1306,8 @@
             "glibc@2.43-r8"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:491df4cc9bebfcd82c814861c168f988757093db",
           "InstalledFiles": [
@@ -1325,8 +1338,8 @@
             "libunistring@1.4.2-r3"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:4b74125627b8ce4fd3fa5ad1ecc23d6f5d50bee6",
           "InstalledFiles": [
@@ -1357,8 +1370,8 @@
             "openssl-4.0-libssl@4.0.3-r2"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:a518de554257547507220e8f833699c5c1456082",
           "InstalledFiles": [
@@ -1388,8 +1401,8 @@
             "libgcc@16.1.0-r2"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:a4a41d4653c95f9e1939e58af47a21ac3b1f0307",
           "InstalledFiles": [
@@ -1420,8 +1433,8 @@
             "glibc@2.43-r8"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:5672c4fc21011ab3c4f6590e257fe0001bd99622",
           "InstalledFiles": [
@@ -1450,8 +1463,8 @@
             "glibc@2.43-r8"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:a5f137963f86499cf38d0451ef7a6320aba5c176",
           "InstalledFiles": [
@@ -1478,8 +1491,8 @@
           ],
           "Maintainer": "wolfi",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:4c299ee2dc24d60b39cdcc45232413a4ce8095e6",
           "InstalledFiles": [
@@ -1510,8 +1523,8 @@
             "ncurses-terminfo-base@6.6.20260926-r0"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:7fce7dad7d960ea58e474fe40d48a421c2fa1ca5",
           "InstalledFiles": [
@@ -1570,8 +1583,8 @@
           ],
           "Maintainer": "wolfi",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:6fe84e294b2c36936db11ec291f70a5605e07085",
           "InstalledFiles": [
@@ -1908,8 +1921,8 @@
             "glibc@2.43-r8"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:bd1500f49960287244741a294f324b509dd969af",
           "InstalledFiles": [
@@ -1941,8 +1954,8 @@
             "openssl-4.0-libssl@4.0.3-r2"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:1e1eef92675cce90b7a2e9b3d27693cfc9cb6740",
           "InstalledFiles": [
@@ -1977,8 +1990,8 @@
             "openssl-provider-legacy-allowed@4.0.2-r3"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:8dc2f6295c4429868ebb5bf2a1d82f4c5c53a94f",
           "InstalledFiles": [
@@ -2009,8 +2022,8 @@
             "openssl-4.0-libcrypto@4.0.3-r2"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:4a1e34a085209f28392d7b073bac80e1fb189840",
           "InstalledFiles": [
@@ -2038,8 +2051,8 @@
             "glibc@2.43-r8"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:266ec427fb01f42027a23b0f0cbd7a0119fcbdf3",
           "InstalledFiles": [
@@ -2070,8 +2083,8 @@
             "wolfi-baselayout@20230201-r29"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:c4bae7dc5db530b252cdf0fd900c3dffa460f011",
           "InstalledFiles": [
@@ -2101,8 +2114,8 @@
             "wolfi-baselayout@20230201-r29"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:aff1dfc9e000927c9200c1e6f5b4d5128f24906b",
           "InstalledFiles": [
@@ -2138,8 +2151,8 @@
             "ncurses@6.6.20260926-r0"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:0e90fb81a256ecd7e14ba51780ea89fddf4b9417",
           "InstalledFiles": [
@@ -2173,8 +2186,8 @@
             "glibc@2.43-r8"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:36e7e66579530fa611fd904c2d237854236abe0d",
           "InstalledFiles": [
@@ -2200,8 +2213,8 @@
           ],
           "Maintainer": "wolfi",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:5c9765855f63ec2325e1cb86ea3f0d4b6f20e913",
           "InstalledFiles": [
@@ -3429,8 +3442,8 @@
             "ca-certificates-bundle@20260909-r2"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:9b1560903e3eaf5712512796a3a0a5920351d480",
           "InstalledFiles": [
@@ -3479,8 +3492,8 @@
           ],
           "Maintainer": "wolfi",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:c9e9f5b4a87785ae4aae9539e439d85b22c7390d",
           "InstalledFiles": [
@@ -3512,8 +3525,8 @@
             "wolfi-baselayout@20230201-r29"
           ],
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "Digest": "sha1:77ec609e1bf6aa69a7c94a6420430bbff09c7edb",
           "InstalledFiles": [
@@ -3537,8 +3550,8 @@
           "FixedVersion": "1.38.0-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-38754",
           "DataSource": {
@@ -3546,7 +3559,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:ae0228b9c87ba5db1d951c25191abbc2c23165ab7bbf8d45071ecc75ce005bee",
+          "Fingerprint": "sha256:b54567dcc87d617b61b2858752241335a56ac2b70f879c310103aa38074b1f4c",
           "Title": "busybox: Busybox: Denial of Service via heap overflow in ifsbreakup() function",
           "Description": "A heap overflow in the ifsbreakup() function (shell/ash.c) of Busybox v1.38.0 allows attackers to cause a Denial of Service (DoS) via supplying a crafted input.",
           "Severity": "HIGH",
@@ -3587,8 +3600,8 @@
           "FixedVersion": "1.38.0-r1",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-38752",
           "DataSource": {
@@ -3596,7 +3609,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:4629bbfd96057107cbd6517cbe663f0c6b0510c9d693997644940db1cc3b3211",
+          "Fingerprint": "sha256:b01377616bcb0a4793ca80b33dced3a180ce0a341d167afe8a844ae658157a21",
           "Title": "busybox: BusyBox: Denial of Service via crafted AWK script",
           "Description": "A stack overflow in the evaluate() function (editors/awk.c) of BusyBox commit 371fe9 allows attackers to cause a Denial of Service (DoS) via supplying a crafted AWK script.",
           "Severity": "MEDIUM",
@@ -3637,8 +3650,8 @@
           "FixedVersion": "1.38.0-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-38753",
           "DataSource": {
@@ -3646,7 +3659,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:4cfbe9e218bee3bc441956d0e9bb8b0396147a7be79305d703fe0c317d65d3e4",
+          "Fingerprint": "sha256:78831f26b3cb9a868f92a94047c68490da3ba84b9ca94e2a76ceaafc67fa3096",
           "Title": "busybox: Busybox: Denial of Service via crafted AWK script in awk_sub() function",
           "Description": "A use-after-free in the awk_sub() function (editors/awk.c) of Busybox v1.38.0 allows attackers to cause a Denial of Service (DoS) via supplying a crafted AWK script.",
           "Severity": "MEDIUM",
@@ -3686,8 +3699,8 @@
           "FixedVersion": "1.38.0-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-38755",
           "DataSource": {
@@ -3695,7 +3708,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:d067c72e40ce2abb5d232a9789e94a8a388e45428132a91b62ee0d3c5ce594a5",
+          "Fingerprint": "sha256:9cb9583c28cf2d8e8eae7b57333dd830a223c00410c09c1017c71b14a812caf3",
           "Title": "busybox: Busybox: Denial of Service via heap overflow in evalcommand() function",
           "Description": "A heap overflow in the evalcommand() function (shell/ash.c) of Busybox v1.38.0 allows attackers to cause a Denial of Service (DoS) via supplying a crafted input.",
           "Severity": "MEDIUM",
@@ -3736,8 +3749,8 @@
           "FixedVersion": "8.22.0-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-19931",
           "DataSource": {
@@ -3745,7 +3758,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:430b4aaeb5ed359bb8c5f612fc2762ecac75c946737aeaa2335c48fb822d41f2",
+          "Fingerprint": "sha256:32528d337e2349d5017740afa65bb07fee6f21c9197248f0437789466e6193d1",
           "Title": "curl: libcurl: Information disclosure via incorrect connection reuse with Negotiate authentication",
           "Description": "A flaw in libcurl makes it wrongly reuse an HTTP connection setup for a given\nhostname using Negotiate authentication, when the initial request is done\nusing empty credentials. This can make user B's request get sent over user A's\npreviously authenticated connection.",
           "Severity": "MEDIUM",
@@ -3785,8 +3798,8 @@
           "FixedVersion": "8.22.0-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-80229",
           "DataSource": {
@@ -3794,7 +3807,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:46dd7fe098aaab7e2f0ba505cd788cfc94d0286b4ce04ca06784d7a07fb06d42",
+          "Fingerprint": "sha256:00f3afbc5f9cf95dd556430650cae9f08adcb3116310f26f5e75c6af5c2e4640",
           "Title": "When performing transfers via libcurl\\u2019s multi interface, pooled T ...",
           "Description": "When performing transfers via libcurl’s multi interface, pooled TLS\nconnections can outlive their originating easy handles. In OpenSSL 3 provider\nconfigurations, libcurl attaches an allocated library context to the easy\nhandle's state and passes it to OpenSSL without acquiring an ownership\nreference; destroying the easy handle prematurely frees this context while the\nactive connection retains a dangling pointer, leading to a heap-use-after-free\nupon subsequent I/O or post-handshake operations.",
           "Severity": "MEDIUM",
@@ -3828,8 +3841,8 @@
           "FixedVersion": "8.22.0-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-82208",
           "DataSource": {
@@ -3837,7 +3850,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:bfad8e3d64af3195f4fe9a415d01efee83ded25c85b35c1ae64474661b3711a8",
+          "Fingerprint": "sha256:97594dd67a5fa48f14b96600d7438641f783df7097aca63d8c32dd599400cd9b",
           "Title": "curl: libcurl: Improper certificate validation when using wolfSSL CA cache",
           "Description": "With the wolfSSL backend, when CA caching is enabled and an\n`CURLOPT_SSL_CTX_FUNCTION` callback replaces the trust store, libcurl can\nsilently reinstall the cached store after the callback returns. A certificate\ntrusted by the cached store but rejected by the callback-selected store is\nthen incorrectly accepted.",
           "Severity": "MEDIUM",
@@ -3877,8 +3890,8 @@
           "FixedVersion": "8.22.0-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-13608",
           "DataSource": {
@@ -3886,7 +3899,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:14404d9a3c25b7e42caa07ac06090aa9f41d09c99ce403af4feb50fd964c46ec",
+          "Fingerprint": "sha256:dc2f6f6355380db8b46a23beeef4b7af7926dcc12464f7bce36cd9a5ea47b46c",
           "Title": "curl: curl: Authentication bypass in OpenLDAP SASL negotiation via Man-in-the-Middle (MITM) attack",
           "Description": "A flaw in the libcurl SASL negotiation for LDAP authentication allows an\nincomplete handshake sequence to be misinterpreted as a successful\ncryptographic verification. An attacker executing a Man-in-the-Middle (MITM)\nattack can inject a premature or shortcut response that bypasses complete peer\nvalidation.",
           "Severity": "LOW",
@@ -3930,8 +3943,8 @@
           "FixedVersion": "8.22.0-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-18924",
           "DataSource": {
@@ -3939,7 +3952,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:97bd40cfa6c73e2a5931f43e0efb03aed963e8075f5f26f6ab318f204d545e61",
+          "Fingerprint": "sha256:12d8c2ab55b12ae9e1295ac6c71da6b23a1c7766a72269dd8c97c4aee292f64d",
           "Title": "curl: libcurl: Use-after-free in HTTP/2 Server Push with shared connections",
           "Description": "A flaw in libcurl's handling of HTTP/2 Server Push streams, when the parent\nhandle is set to share connections with other handles, can lead to\nuse-after-free in the cleanup process.",
           "Severity": "LOW",
@@ -3982,8 +3995,8 @@
           "FixedVersion": "8.22.0-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-80230",
           "DataSource": {
@@ -3991,7 +4004,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:e8ab96c8cf9244369ebb3cc5bd091d4aaedf126f24279898dbe8188740bf182f",
+          "Fingerprint": "sha256:a2584cc22d3403be3a768f5d047a6342d7d915e485bbeab129fe2edbea05e166",
           "Title": "curl: curl: Public key pinning bypass allows unauthenticated connections",
           "Description": "When `CURLOPT_PINNEDPUBLICKEY` is configured alongside options that disable\nstandard peer verification (`CURLOPT_SSL_VERIFYPEER = 0` and\n`CURLOPT_SSL_VERIFYHOST = 0`), libcurl fails to enforce public key pinning on\nconnections established without a presented server certificate. Bypassing the\npinning check under these disabled-verification conditions allows\nunauthenticated connections to succeed when they should be rejected.",
           "Severity": "LOW",
@@ -4035,8 +4048,8 @@
           "FixedVersion": "8.22.0-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-80231",
           "DataSource": {
@@ -4044,7 +4057,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:f08ac0e46f5d66cb9cb20e8e13caeba0a163730f7a363558149fe8ac77c7f783",
+          "Fingerprint": "sha256:8ecd40f8da3cd045a738deed2b0ac08603e9631acf74e1439298738c78a609ed",
           "Title": "curl: curl: Incorrect HTTPS connection reuse with Native CA Store",
           "Description": "A flaw in libcurl makes it wrongly reuse an existing HTTPS connection setup\nfor a given hostname even when using a different Native CA Store setting\n(`CURLSSLOPT_NATIVE_CA`) than when the connection was created.",
           "Severity": "LOW",
@@ -4084,8 +4097,8 @@
           "FixedVersion": "8.22.0-r2",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-82209",
           "DataSource": {
@@ -4093,7 +4106,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:1d9fcb319c8ce8503f51ad5fa3854ba3c88f7380e21400d46bd2f2531458cb78",
+          "Fingerprint": "sha256:ee5f1d75e586e898f426f024604fe819612f7edf63b4b79758e71026a77d4826",
           "Title": "curl: libcurl: Information disclosure via improper Public Suffix List boundary check",
           "Description": "When libpsl support is enabled, libcurl fails to enforce the Public Suffix\nList boundary check when processing a `Set-Cookie` header where the `Domain`\nattribute explicitly matches an origin host that is itself a public suffix\n(e.g., `Domain=co.uk` set by `co.uk`).\n\nInstead of coercing it into a strict host-only cookie, libcurl saves the\ncookie with wildcard domain scope (`.co.uk`). Consequently, the cookie is\ninappropriately included in subsequent outbound requests or HTTP redirects to\narbitrary sibling subdomains under the same public suffix (e.g.,\n`attacker.co.uk`).",
           "Severity": "LOW",
@@ -4136,8 +4149,8 @@
           "FixedVersion": "2.43-r10",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-6791",
           "DataSource": {
@@ -4145,7 +4158,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:0b80b3fd176df7098a960865070b2958fb5c11281ecd4f96f8992e4f1d8fe337",
+          "Fingerprint": "sha256:bc3b58232627fb15beb12b8601230a6ce659941dbc92526157688802b987f152",
           "Title": "glibc: Glibc: Denial of Service via stack exhaustion during tilde expansion",
           "Description": "When expanding paths that begin with a tilde (~) followed by a username, the internal parse_tilde function extracts the username to determine the user's home directory.  The implementation allocates memory for this username directly on the stack using the strndupa macro. Because the size of this allocation was determined by the length of the user-supplied input without any bounds checks, passing an excessively long username e.g. thousands of characters, forces the thread to exhaust its stack space. Thus if an application passes untrusted, attacker-controlled input to the wordexp function, an attacker can trigger a stack clash.",
           "Severity": "MEDIUM",
@@ -4186,8 +4199,8 @@
           "FixedVersion": "2.43-r10",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-6791",
           "DataSource": {
@@ -4195,7 +4208,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:ef921e8cdddfcd6c4ba68c2d514bb45fa63b0936306bf006ea6a108cb84ec96d",
+          "Fingerprint": "sha256:8d4f74af94916a6f29e6f1f831afc65d1c6197809b06e460ecfb88474e1f8157",
           "Title": "glibc: Glibc: Denial of Service via stack exhaustion during tilde expansion",
           "Description": "When expanding paths that begin with a tilde (~) followed by a username, the internal parse_tilde function extracts the username to determine the user's home directory.  The implementation allocates memory for this username directly on the stack using the strndupa macro. Because the size of this allocation was determined by the length of the user-supplied input without any bounds checks, passing an excessively long username e.g. thousands of characters, forces the thread to exhaust its stack space. Thus if an application passes untrusted, attacker-controlled input to the wordexp function, an attacker can trigger a stack clash.",
           "Severity": "MEDIUM",
@@ -4236,8 +4249,8 @@
           "FixedVersion": "2.43-r10",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-6791",
           "DataSource": {
@@ -4245,7 +4258,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:ae3689c1fc9f076e0c96a95d41d8edd2c85fb4567e48c10e809a3620ca01582e",
+          "Fingerprint": "sha256:defaf3d7ce9da301157d2ba297916457983609be71ad449e14dc7dd1092c7a30",
           "Title": "glibc: Glibc: Denial of Service via stack exhaustion during tilde expansion",
           "Description": "When expanding paths that begin with a tilde (~) followed by a username, the internal parse_tilde function extracts the username to determine the user's home directory.  The implementation allocates memory for this username directly on the stack using the strndupa macro. Because the size of this allocation was determined by the length of the user-supplied input without any bounds checks, passing an excessively long username e.g. thousands of characters, forces the thread to exhaust its stack space. Thus if an application passes untrusted, attacker-controlled input to the wordexp function, an attacker can trigger a stack clash.",
           "Severity": "MEDIUM",
@@ -4286,8 +4299,8 @@
           "FixedVersion": "8.22.0-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-19931",
           "DataSource": {
@@ -4295,7 +4308,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:d475129f062ca1bea45339637d22f603baa3c65668aecf969b899c08efb25607",
+          "Fingerprint": "sha256:6f230906ebebcbdb72f715b8e77ff9ade4a7eca057cfb8de4f16569651e40b81",
           "Title": "curl: libcurl: Information disclosure via incorrect connection reuse with Negotiate authentication",
           "Description": "A flaw in libcurl makes it wrongly reuse an HTTP connection setup for a given\nhostname using Negotiate authentication, when the initial request is done\nusing empty credentials. This can make user B's request get sent over user A's\npreviously authenticated connection.",
           "Severity": "MEDIUM",
@@ -4335,8 +4348,8 @@
           "FixedVersion": "8.22.0-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-80229",
           "DataSource": {
@@ -4344,7 +4357,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:8dfae7b191dfd472f3571d80ad805c574a166a16ded955b6d5746dfe69fa68fb",
+          "Fingerprint": "sha256:b91cc732f54e54efa6faf44a52b643521964e070ef2c8a11e2e44fc8c184a49e",
           "Title": "When performing transfers via libcurl\\u2019s multi interface, pooled T ...",
           "Description": "When performing transfers via libcurl’s multi interface, pooled TLS\nconnections can outlive their originating easy handles. In OpenSSL 3 provider\nconfigurations, libcurl attaches an allocated library context to the easy\nhandle's state and passes it to OpenSSL without acquiring an ownership\nreference; destroying the easy handle prematurely frees this context while the\nactive connection retains a dangling pointer, leading to a heap-use-after-free\nupon subsequent I/O or post-handshake operations.",
           "Severity": "MEDIUM",
@@ -4378,8 +4391,8 @@
           "FixedVersion": "8.22.0-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-82208",
           "DataSource": {
@@ -4387,7 +4400,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:c48c798dc8654872d6ba071c8ee83854f89e50db7e76f74e4dd2b5837ad85594",
+          "Fingerprint": "sha256:cd53dfe7d523ea338374f4248fab4f4e3c4606a4385cdf66d91cfd96fc1b132b",
           "Title": "curl: libcurl: Improper certificate validation when using wolfSSL CA cache",
           "Description": "With the wolfSSL backend, when CA caching is enabled and an\n`CURLOPT_SSL_CTX_FUNCTION` callback replaces the trust store, libcurl can\nsilently reinstall the cached store after the callback returns. A certificate\ntrusted by the cached store but rejected by the callback-selected store is\nthen incorrectly accepted.",
           "Severity": "MEDIUM",
@@ -4427,8 +4440,8 @@
           "FixedVersion": "8.22.0-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-13608",
           "DataSource": {
@@ -4436,7 +4449,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:fdace14940cb790e3730710bdf674b7cde8a30fe563167d6b87bdfc71fcd383a",
+          "Fingerprint": "sha256:9eb7dc676d897cfc7129c3870781f3e88422f262eb4044d02e146c21482b398b",
           "Title": "curl: curl: Authentication bypass in OpenLDAP SASL negotiation via Man-in-the-Middle (MITM) attack",
           "Description": "A flaw in the libcurl SASL negotiation for LDAP authentication allows an\nincomplete handshake sequence to be misinterpreted as a successful\ncryptographic verification. An attacker executing a Man-in-the-Middle (MITM)\nattack can inject a premature or shortcut response that bypasses complete peer\nvalidation.",
           "Severity": "LOW",
@@ -4480,8 +4493,8 @@
           "FixedVersion": "8.22.0-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-18924",
           "DataSource": {
@@ -4489,7 +4502,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:4726998b8c997775ffc2bbc283989d01b50f6dde1df5f5228c8b1770afda3481",
+          "Fingerprint": "sha256:771a2fea46d603069c6be3bdf22842b1c0a500c1ddb2e3c778fd48e5a02f1e7d",
           "Title": "curl: libcurl: Use-after-free in HTTP/2 Server Push with shared connections",
           "Description": "A flaw in libcurl's handling of HTTP/2 Server Push streams, when the parent\nhandle is set to share connections with other handles, can lead to\nuse-after-free in the cleanup process.",
           "Severity": "LOW",
@@ -4532,8 +4545,8 @@
           "FixedVersion": "8.22.0-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-80230",
           "DataSource": {
@@ -4541,7 +4554,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:b03776e94c4fe3f6492aeb29958b9dc0148b0107785964ad785516a4189b74b6",
+          "Fingerprint": "sha256:4975047780de99242ad0dd620ad205ba98efb1752fc26d74d8844bf661e58666",
           "Title": "curl: curl: Public key pinning bypass allows unauthenticated connections",
           "Description": "When `CURLOPT_PINNEDPUBLICKEY` is configured alongside options that disable\nstandard peer verification (`CURLOPT_SSL_VERIFYPEER = 0` and\n`CURLOPT_SSL_VERIFYHOST = 0`), libcurl fails to enforce public key pinning on\nconnections established without a presented server certificate. Bypassing the\npinning check under these disabled-verification conditions allows\nunauthenticated connections to succeed when they should be rejected.",
           "Severity": "LOW",
@@ -4585,8 +4598,8 @@
           "FixedVersion": "8.22.0-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-80231",
           "DataSource": {
@@ -4594,7 +4607,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:517faff931af1d0ebf9d6d74471fd6fbbaa06522c3c7efca01edb5298dde48a8",
+          "Fingerprint": "sha256:a01ad07d997ae1cf82557b1317b0c2fa5fae98ecb26e88c61fe06410d159c67f",
           "Title": "curl: curl: Incorrect HTTPS connection reuse with Native CA Store",
           "Description": "A flaw in libcurl makes it wrongly reuse an existing HTTPS connection setup\nfor a given hostname even when using a different Native CA Store setting\n(`CURLSSLOPT_NATIVE_CA`) than when the connection was created.",
           "Severity": "LOW",
@@ -4634,8 +4647,8 @@
           "FixedVersion": "8.22.0-r2",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-82209",
           "DataSource": {
@@ -4643,7 +4656,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:f4d4294b1679b222664026e71c42e9122d8969e8ff708fbf3397a5ae3382f5d1",
+          "Fingerprint": "sha256:9b6057d017191a9ddfb0f5079413fda419ecaea2b6124eac16bdc4eefed908d5",
           "Title": "curl: libcurl: Information disclosure via improper Public Suffix List boundary check",
           "Description": "When libpsl support is enabled, libcurl fails to enforce the Public Suffix\nList boundary check when processing a `Set-Cookie` header where the `Domain`\nattribute explicitly matches an origin host that is itself a public suffix\n(e.g., `Domain=co.uk` set by `co.uk`).\n\nInstead of coercing it into a strict host-only cookie, libcurl saves the\ncookie with wildcard domain scope (`.co.uk`). Consequently, the cookie is\ninappropriately included in subsequent outbound requests or HTTP redirects to\narbitrary sibling subdomains under the same public suffix (e.g.,\n`attacker.co.uk`).",
           "Severity": "LOW",
@@ -4686,8 +4699,8 @@
           "FixedVersion": "2.43-r10",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-6791",
           "DataSource": {
@@ -4695,7 +4708,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:6c88d24a21b11a2d7a2ccb24a9a6cf436e0cd203b0b86a9d36dfe134a70a4aa0",
+          "Fingerprint": "sha256:b6d8b9001499470568f342f4f2f3d759db8df708f8864b7677823530d91178d7",
           "Title": "glibc: Glibc: Denial of Service via stack exhaustion during tilde expansion",
           "Description": "When expanding paths that begin with a tilde (~) followed by a username, the internal parse_tilde function extracts the username to determine the user's home directory.  The implementation allocates memory for this username directly on the stack using the strndupa macro. Because the size of this allocation was determined by the length of the user-supplied input without any bounds checks, passing an excessively long username e.g. thousands of characters, forces the thread to exhaust its stack space. Thus if an application passes untrusted, attacker-controlled input to the wordexp function, an attacker can trigger a stack clash.",
           "Severity": "MEDIUM",
@@ -4736,8 +4749,8 @@
           "FixedVersion": "2.43-r10",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-6791",
           "DataSource": {
@@ -4745,7 +4758,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:77b8de0e8d02181ed40098be616b3cdb80c18c6ac9d5e9fa6d303f1d5eeb1da9",
+          "Fingerprint": "sha256:62d8343d1acd0e92150f728494e5a10a4b6f57058d5f3ab8910a35ab8575f733",
           "Title": "glibc: Glibc: Denial of Service via stack exhaustion during tilde expansion",
           "Description": "When expanding paths that begin with a tilde (~) followed by a username, the internal parse_tilde function extracts the username to determine the user's home directory.  The implementation allocates memory for this username directly on the stack using the strndupa macro. Because the size of this allocation was determined by the length of the user-supplied input without any bounds checks, passing an excessively long username e.g. thousands of characters, forces the thread to exhaust its stack space. Thus if an application passes untrusted, attacker-controlled input to the wordexp function, an attacker can trigger a stack clash.",
           "Severity": "MEDIUM",
@@ -4786,8 +4799,8 @@
           "FixedVersion": "1.3.2.1_rc20260601-r0",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:eef1d4013882fe5fe74a7786ea32eb9753c49a4e192b780112b1010e8e477d95",
-            "DiffID": "sha256:81d5d1edc92739843e8479b2a814aa2358274cf64288bacfd0d8bccc530dfe79"
+            "Digest": "sha256:0d15804f37b1bcc242e32d14560612c2e1fe8b9aa903207a72a12da50db808e4",
+            "DiffID": "sha256:c279072a6a7e9b5ec73c2e25e8a61129bcbd5428b6e9c4a28ad2f8d434f69409"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-85091",
           "DataSource": {
@@ -4795,7 +4808,7 @@
             "Name": "Wolfi Secdb",
             "URL": "https://packages.wolfi.dev/os/security.json"
           },
-          "Fingerprint": "sha256:4f469fd266d9feec016a7b79bf788b1adfc6a64dc2ccf5fd2d70ed3297804095",
+          "Fingerprint": "sha256:287a535fbd92786c9ca03aadf304fe101fa66e4603f816e9d67dbfdc35df8961",
           "Title": "zlib versions 1.3.1.2 through 1.3.2 contain a heap buffer overflow vul ...",
           "Description": "zlib versions 1.3.1.2 through 1.3.2 contain a heap buffer overflow vulnerability in the gz_vacate() function when processing non-blocking gzwrite() operations with stale external buffer pointers. Attackers can trigger the overflow by calling gzprintf() or gzvprintf() after a write stall, causing an unchecked memmove() to write beyond the internal input buffer boundary.",
           "Severity": "MEDIUM",
@@ -4830,8 +4843,8 @@
           },
           "Version": "2.1.2",
           "Layer": {
-            "Digest": "sha256:812344c39549f7b3deb1d233c2b71d96ad28ebff3f3954b36ab6b90032eb3217",
-            "DiffID": "sha256:9cef4c6218876cb34e4dee12031bb2bbca59dc251c41e74f4dd7a518351109e7"
+            "Digest": "sha256:e16d0bc226a9caf15423420355b5133c4c3c558efe1aeccb833975d992c49437",
+            "DiffID": "sha256:ad01c03de63b612a7ebfeefa2767e3d1cf756a2060cbd10b7ca8e49d1d2bd29e"
           },
           "FilePath": "opt/java/lib/bc-fips.jar",
           "AnalyzedBy": "jar"
@@ -4844,8 +4857,8 @@
           },
           "Version": "2.1.22",
           "Layer": {
-            "Digest": "sha256:812344c39549f7b3deb1d233c2b71d96ad28ebff3f3954b36ab6b90032eb3217",
-            "DiffID": "sha256:9cef4c6218876cb34e4dee12031bb2bbca59dc251c41e74f4dd7a518351109e7"
+            "Digest": "sha256:e16d0bc226a9caf15423420355b5133c4c3c558efe1aeccb833975d992c49437",
+            "DiffID": "sha256:ad01c03de63b612a7ebfeefa2767e3d1cf756a2060cbd10b7ca8e49d1d2bd29e"
           },
           "FilePath": "opt/java/lib/bctls-fips.jar",
           "AnalyzedBy": "jar"
@@ -4861,8 +4874,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:812344c39549f7b3deb1d233c2b71d96ad28ebff3f3954b36ab6b90032eb3217",
-            "DiffID": "sha256:9cef4c6218876cb34e4dee12031bb2bbca59dc251c41e74f4dd7a518351109e7"
+            "Digest": "sha256:e16d0bc226a9caf15423420355b5133c4c3c558efe1aeccb833975d992c49437",
+            "DiffID": "sha256:ad01c03de63b612a7ebfeefa2767e3d1cf756a2060cbd10b7ca8e49d1d2bd29e"
           },
           "FilePath": "opt/java/lib/bcutil-fips.jar",
           "AnalyzedBy": "jar"
@@ -4884,8 +4897,8 @@
           "FixedVersion": "1.0.2.7, 2.0.2, 2.1.3",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:812344c39549f7b3deb1d233c2b71d96ad28ebff3f3954b36ab6b90032eb3217",
-            "DiffID": "sha256:9cef4c6218876cb34e4dee12031bb2bbca59dc251c41e74f4dd7a518351109e7"
+            "Digest": "sha256:e16d0bc226a9caf15423420355b5133c4c3c558efe1aeccb833975d992c49437",
+            "DiffID": "sha256:ad01c03de63b612a7ebfeefa2767e3d1cf756a2060cbd10b7ca8e49d1d2bd29e"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-8763",
@@ -4894,7 +4907,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:80a1db15e39e4c85cf290f41828884b7f500ab3eac860fa046ad3cef8eee77c5",
+          "Fingerprint": "sha256:b2cc6243563d4f6b11c670657ee030466d36940ca66070ea90f946528c468df2",
           "Title": "org.bouncycastle/bcprov-jdk15on: org.bouncycastle/bcpkix-jdk15on: Bouncy Castle for Java: Name Constraints bypass via trailing dot in rfc822Name and URI",
           "Description": "In Bouncy Castle for Java before 1.85, Name Constraints bypass via trailing dot in rfc822Name and URI. This issue also affects Bouncy Castle for Java LTS before 2.73.12, and Bouncy Castle for Java FIPS (BC-FJA) before bc-fips 1.0.2.7 (1.0.X series), 2.0.2 (2.0.X series) and 2.1.3 (2.1.X series).",
           "Severity": "CRITICAL",
@@ -4951,8 +4964,8 @@
           "FixedVersion": "1.0.2.7, 2.0.2, 2.1.3",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:812344c39549f7b3deb1d233c2b71d96ad28ebff3f3954b36ab6b90032eb3217",
-            "DiffID": "sha256:9cef4c6218876cb34e4dee12031bb2bbca59dc251c41e74f4dd7a518351109e7"
+            "Digest": "sha256:e16d0bc226a9caf15423420355b5133c4c3c558efe1aeccb833975d992c49437",
+            "DiffID": "sha256:ad01c03de63b612a7ebfeefa2767e3d1cf756a2060cbd10b7ca8e49d1d2bd29e"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-13505",
@@ -4961,7 +4974,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:ff2fb66079ee8872df93a1103fc38d19d10eae247f23ef95970f85b163b7f372",
+          "Fingerprint": "sha256:e246e01e36b318770cc349776c865ebe2b84063fcbf43cfbb429b43093ad4ad1",
           "Title": "org.bouncycastle/bc-fips: Bouncy Castle for Java FIPS: Sensitive key material remains in memory due to delayed zeroisation",
           "Description": "In Bouncy Castle for Java FIPS (BC-FJA) before bc-fips 1.0.2.7 (1.0.X series), 2.0.2 (2.0.X series) and 2.1.3 (2.1.X series), sensitive key material held by the AES and DESede engines, the SP 800-90A DRBGs, SymmetricSecretKey and the PBKD and scrypt parameter classes was zeroised on garbage collection by overriding Object.finalize. Finalization runs at an unspecified time and in an unspecified order and is serviced by a single finalizer thread, so where objects carrying a finalizer are allocated faster than that thread retires them the pending-finalization queue grows without bound: disposal falls arbitrarily far behind, which can contribute to an OutOfMemoryError under load, and the key material those objects hold stays resident in the heap for as long as they are queued, defeating the purpose of the zeroisation. The behaviour was not a problem on Java 8 or Java 11; it is later JVMs, on which finalization has been deprecated and progressively de-emphasised, where it becomes one. Disposal of these classes now runs from a java.lang.ref.Cleaner registered in the multi-release jdk1.9 overlay, so on Java 9 and later it no longer depends on the finalizer being scheduled. Bouncy Castle for Java (bcprov) and Bouncy Castle for Java LTS are not affected, as neither implements the finalizer-based zeroisation scheme.",
           "Severity": "HIGH",
@@ -5007,8 +5020,8 @@
           "FixedVersion": "1.0.2.7, 2.0.2, 2.1.3",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:812344c39549f7b3deb1d233c2b71d96ad28ebff3f3954b36ab6b90032eb3217",
-            "DiffID": "sha256:9cef4c6218876cb34e4dee12031bb2bbca59dc251c41e74f4dd7a518351109e7"
+            "Digest": "sha256:e16d0bc226a9caf15423420355b5133c4c3c558efe1aeccb833975d992c49437",
+            "DiffID": "sha256:ad01c03de63b612a7ebfeefa2767e3d1cf756a2060cbd10b7ca8e49d1d2bd29e"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-13506",
@@ -5017,7 +5030,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:fa72becab90851cd9bdb80abccf30a493d85e7d18f2f98d75fb5a1ec087fa819",
+          "Fingerprint": "sha256:64c94352b9eb02474bfb52e2d401c3c1bc17fb0fd52f0c6f1b39a77f41a1084f",
           "Title": "bouncycastle: Bouncy Castle for Java: Denial of Service via lazy ASN.1 sequence processing",
           "Description": "In Bouncy Castle for Java before 1.85, Lazy ASN.1 sequence forcing resets nesting-depth guard. This issue also affects Bouncy Castle for Java LTS before 2.73.12, and Bouncy Castle for Java FIPS (BC-FJA) before bc-fips 1.0.2.7 (1.0.X series), 2.0.2 (2.0.X series) and 2.1.3 (2.1.X series).",
           "Severity": "HIGH",
@@ -5072,8 +5085,8 @@
           "FixedVersion": "2.1.3",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:812344c39549f7b3deb1d233c2b71d96ad28ebff3f3954b36ab6b90032eb3217",
-            "DiffID": "sha256:9cef4c6218876cb34e4dee12031bb2bbca59dc251c41e74f4dd7a518351109e7"
+            "Digest": "sha256:e16d0bc226a9caf15423420355b5133c4c3c558efe1aeccb833975d992c49437",
+            "DiffID": "sha256:ad01c03de63b612a7ebfeefa2767e3d1cf756a2060cbd10b7ca8e49d1d2bd29e"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-8798",
@@ -5082,7 +5095,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:d8f73cc33e87a79a047e4fe039ebc49504e759b486699b0ba4c9127d609b9f7a",
+          "Fingerprint": "sha256:dae97447996dc627473fb25308e72db35a9c450398ce5c7136c10d165c53afc9",
           "Title": "Bouncy Castle: the native entropy source used on Intel platforms retried the CPU entropy instructions without any bound",
           "Description": "In Bouncy Castle for Java FIPS (BC-FJA) before bc-fips 2.1.3, the native entropy source used on Intel platforms retried the CPU entropy instructions without any bound. RDSEED and RDRAND report failure through their carry flag, and the JNI seeding routine spun re-issuing the instruction for as long as that flag stayed clear, so a persistent failure of the on-chip entropy source - whether from a hardware fault, from the underlying DRBG being exhausted by contention across many cores, or from a hypervisor that does not provide the instruction - left the calling thread looping indefinitely inside the JNI call, where it could be neither interrupted nor timed out. Any operation drawing from the native entropy source could therefore hang, denying service to the application. The retry loops are now bounded (200 attempts for RDSEED and 20 for RDRAND, twice the baselines given in Intel's Digital Random Number Generator software implementation guide), pausing between attempts and, on exhaustion, clearing any partially written buffer and throwing rather than continuing to spin. The clear is performed by an un-elidable memzero, which uses a volatile pointer and an assembly memory barrier so that a compiler cannot optimise the erase away as a dead store. Bouncy Castle for Java (bcprov) is not affected, as it has no native entropy source; the 1.0.X and 2.0.X FIPS series are not affected.",
           "Severity": "HIGH",
