@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "serialNumber": "urn:uuid:18bac895-1a16-4537-b929-93d9b19261fa",
+  "serialNumber": "urn:uuid:279fef76-a561-4e01-b45d-74b637d1adaf",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-10-04T09:22:51+00:00",
+    "timestamp": "2026-10-04T09:41:44+00:00",
     "tools": {
       "components": [
         {
@@ -170,22 +170,7 @@
   },
   "components": [
     {
-      "bom-ref": "d8b8074a-2df0-4e4f-87f6-5a056c9cf443",
-      "type": "application",
-      "name": "usr/bin/secrets-entrypoint",
-      "properties": [
-        {
-          "name": "aquasecurity:trivy:Class",
-          "value": "lang-pkgs"
-        },
-        {
-          "name": "aquasecurity:trivy:Type",
-          "value": "gobinary"
-        }
-      ]
-    },
-    {
-      "bom-ref": "fa06f9dd-487e-4256-b242-5effc0ae43cd",
+      "bom-ref": "304896be-4e3c-46d2-b845-88bfdbf5a105",
       "type": "operating-system",
       "name": "wolfi",
       "version": "20230201",
@@ -197,6 +182,21 @@
         {
           "name": "aquasecurity:trivy:Type",
           "value": "wolfi"
+        }
+      ]
+    },
+    {
+      "bom-ref": "f2ef993a-f47e-4102-b19b-b5718d92a395",
+      "type": "application",
+      "name": "usr/bin/secrets-entrypoint",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:Class",
+          "value": "lang-pkgs"
+        },
+        {
+          "name": "aquasecurity:trivy:Type",
+          "value": "gobinary"
         }
       ]
     },
@@ -1736,16 +1736,16 @@
   ],
   "dependencies": [
     {
-      "ref": "d8b8074a-2df0-4e4f-87f6-5a056c9cf443",
-      "dependsOn": [
-        "pkg:golang/secrets-entrypoint@v1.0.0%2Bdirty"
-      ]
-    },
-    {
-      "ref": "fa06f9dd-487e-4256-b242-5effc0ae43cd",
+      "ref": "304896be-4e3c-46d2-b845-88bfdbf5a105",
       "dependsOn": [
         "pkg:apk/wolfi/npm-12@12.2.0-r1?arch=x86_64&distro=20230201",
         "pkg:apk/wolfi/wolfi-base@1-r7?arch=x86_64&distro=20230201"
+      ]
+    },
+    {
+      "ref": "f2ef993a-f47e-4102-b19b-b5718d92a395",
+      "dependsOn": [
+        "pkg:golang/secrets-entrypoint@v1.0.0%2Bdirty"
       ]
     },
     {
@@ -1982,8 +1982,8 @@
     {
       "ref": "pkg:oci/node-fips@sha256:18204b640f07bd61591cf1c07522327470e771925f9093940d8dac101f4443c6?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fnode-fips",
       "dependsOn": [
-        "d8b8074a-2df0-4e4f-87f6-5a056c9cf443",
-        "fa06f9dd-487e-4256-b242-5effc0ae43cd"
+        "304896be-4e3c-46d2-b845-88bfdbf5a105",
+        "f2ef993a-f47e-4102-b19b-b5718d92a395"
       ]
     }
   ],
