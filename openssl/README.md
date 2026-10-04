@@ -15,9 +15,9 @@ A high-assurance container runtime delivering **OpenSSL 3.5.x** with the **FIPS 
 - **Strict FIPS Configuration:** Hardened `openssl.cnf` and `fipsmodule.cnf` setting the `fips` provider as default with strict fallback rejection.
 - **Wolfi Minimal Attack Surface:** Glibc-based zero-known-CVE OS layer with isolated development toolchains.
 - **Multi-Stage Flavors:**
-  - **`openssl-dev` (`3.5.5-dev`):** OpenSSL binaries + C headers, compilers, build utilities, and test suites.
-  - **`openssl-standard` (`3.5.5`):** OpenSSL CLI + runtime libraries + basic shell.
-  - **`openssl-prod` (`3.5.5-distroless`):** Distroless container running as non-root UID/GID `65532:65532` without shells or package managers.
+  - **`openssl-dev` (`3.5.9-dev`):** OpenSSL binaries + C headers, compilers, build utilities, and test suites.
+  - **`openssl-standard` (`3.5.9`):** OpenSSL CLI + runtime libraries + basic shell.
+  - **`openssl-prod` (`3.5.9-distroless`):** Distroless container running as non-root UID/GID `65532:65532` without shells or package managers.
 
 ---
 
@@ -25,9 +25,9 @@ A high-assurance container runtime delivering **OpenSSL 3.5.x** with the **FIPS 
 
 | Target | Image Tag | Description |
 | :--- | :--- | :--- |
-| `openssl-dev` | `ghcr.io/taha2samy-3/openssl-fips:3.5.5-dev` | Development image with C headers, compiler, and debug tools |
-| `openssl-standard` | `ghcr.io/taha2samy-3/openssl-fips:3.5.5` | Standard runtime with OpenSSL binary and core shared libs |
-| `openssl-prod` | `ghcr.io/taha2samy-3/openssl-fips:3.5.5-distroless` | Hardened distroless container for secure microservices |
+| `openssl-dev` | `ghcr.io/taha2samy-3/openssl-fips:3.5.9-dev` | Development image with C headers, compiler, and debug tools |
+| `openssl-standard` | `ghcr.io/taha2samy-3/openssl-fips:3.5.9` | Standard runtime with OpenSSL binary and core shared libs |
+| `openssl-prod` | `ghcr.io/taha2samy-3/openssl-fips:3.5.9-distroless` | Hardened distroless container for secure microservices |
 
 ---
 
@@ -35,10 +35,10 @@ A high-assurance container runtime delivering **OpenSSL 3.5.x** with the **FIPS 
 
 ```bash
 # Pull production distroless image
-docker pull ghcr.io/taha2samy-3/openssl-fips:3.5.5-distroless
+docker pull ghcr.io/taha2samy-3/openssl-fips:3.5.9-distroless
 
 # Verify FIPS provider status
-docker run --rm ghcr.io/taha2samy-3/openssl-fips:3.5.5 openssl list -providers -verbose
+docker run --rm ghcr.io/taha2samy-3/openssl-fips:3.5.9 openssl list -providers -verbose
 ```
 
 ---
@@ -59,7 +59,7 @@ Located under `openssl/tests/`:
 python .github/scripts/fips_tests.py --unit openssl-3.5 --arch amd64 --out fips-results
 
 # Including the internet-dependent TLS tests
-cd openssl/tests && pytest -v --image ghcr.io/taha2samy-3/openssl-fips:3.5.5
+cd openssl/tests && pytest -v --image ghcr.io/taha2samy-3/openssl-fips:3.5.9
 ```
 
 Three tests are marked `xfail(strict=True)`: the certified 3.1.2 provider does not enforce a minimum HMAC key length (added in the 3.4 provider) and offers X25519 under `fips=yes`. They are shown as **known limitations** on the dashboard and turn into failures if a future provider changes that behaviour.

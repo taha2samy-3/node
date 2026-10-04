@@ -397,9 +397,31 @@ def remote_tree_matches_head(branch):
     return run(["git", "rev-parse", "FETCH_HEAD^{tree}"], capture=True).stdout == run(["git", "rev-parse", "HEAD^{tree}"], capture=True).stdout
 
 
-def sync_pull_request(branch, base, pr_title, body, message):
+def sync_catalog(updates):
+    if not os.path.exists(plan_images.RUNTIMES_FILE):
+        return False
+    with open(plan_images.RUNTIMES_FILE, "r", encoding="utf-8") as f:
+        content = f.read()
+    changed = False
+    for update in updates:
+        if update.get("variable") == "OPENSSL_CORE_VERSION":
+            old_tag = f":{update['old']}"
+            new_tag = f":{update['new']}"
+            if old_tag in content:
+                content = content.replace(old_tag, new_tag)
+                changed = True
+    if changed:
+        with open(plan_images.RUNTIMES_FILE, "w", encoding="utf-8") as f:
+            f.write(content)
+    return changed
+
+
+def sync_pull_request(branch, base, pr_title, body, message, catalog_changed=False):
     run(["git", "checkout", "-B", branch])
-    run(["git", "add", BAKE_FILE])
+    files_to_add = [BAKE_FILE]
+    if catalog_changed and os.path.exists(plan_images.RUNTIMES_FILE):
+        files_to_add.append(plan_images.RUNTIMES_FILE)
+    run(["git", "add"] + files_to_add)
     run(["git", "commit", "-m", message])
     open_pr = find_open_pr(branch, base)
     if open_pr:
@@ -490,11 +512,14 @@ def main():
             body = render_body(group, group_title, updates, images, certified, args.base, base_sha)
             with open(BAKE_FILE, "w", encoding="utf-8") as f:
                 f.write(updated)
+            catalog_changed = sync_catalog(updates)
             try:
-                sync_pull_request(branch, args.base, title(group_title, updates), body, commit_message(group_title, updates))
+                sync_pull_request(branch, args.base, title(group_title, updates), body, commit_message(group_title, updates), catalog_changed=catalog_changed)
             finally:
                 run(["git", "checkout", "-q", args.base])
                 run(["git", "checkout", "-q", "--", BAKE_FILE])
+                if catalog_changed and os.path.exists(plan_images.RUNTIMES_FILE):
+                    run(["git", "checkout", "-q", "--", plan_images.RUNTIMES_FILE])
 
     if args.pull_request:
         close_legacy(args.base)

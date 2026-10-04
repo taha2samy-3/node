@@ -16,7 +16,7 @@ A collection of **enterprise-grade, zero-CVE, FIPS 140-3 compliant container bas
 | Runtime | Versions | Flavors Available | FIPS 140-3 Compliant | Base OS |
 | :--- | :--- | :--- | :---: | :--- |
 | **OpenJDK** | `8`, `17`, `21`, `25` (LTS) | `dev`, `standard`, `distroless` | ✅ | Wolfi Linux + BCFIPS |
-| **OpenSSL** | `3.5.5` | `dev`, `standard`, `distroless` | ✅ | Wolfi Linux + FIPS Module |
+| **OpenSSL** | `3.5.9` | `dev`, `standard`, `distroless` | ✅ | Wolfi Linux + FIPS Module |
 | **Node.js FIPS** | `22`, `24` | `dev`, `standard`, `distroless` | ✅ | Wolfi Linux + OpenSSL FIPS Module |
 | **Node.js** | `18`, `20`, `22`, `24`, `26` | `dev`, `prod` | Optional | Wolfi Linux |
 | **Go** | `1.22`, `1.23`, `1.24` | `dev`, `prod` | Optional | Wolfi Linux |
@@ -54,7 +54,7 @@ All images are built directly on Wolfi Linux, a declarative Linux undistro optim
 docker pull ghcr.io/taha2samy-3/wolfi-openjdk-fips:21-distroless
 
 # OpenSSL 3.5 FIPS (Production Distroless)
-docker pull ghcr.io/taha2samy-3/openssl-fips:3.5.5-distroless
+docker pull ghcr.io/taha2samy-3/openssl-fips:3.5.9-distroless
 
 # Node.js 22 (Production)
 docker pull ghcr.io/taha2samy-3/node:22
@@ -107,7 +107,7 @@ python .github/scripts/fips_tests.py --unit openjdk-21 --arch amd64 --out fips-r
 python .github/scripts/fips_tests.py --unit node-fips-24 --arch amd64 --out fips-results
 
 # Or call pytest directly against one image
-pytest openssl/tests -m "not network" --image ghcr.io/taha2samy-3/openssl-fips:3.5.5
+pytest openssl/tests -m "not network" --image ghcr.io/taha2samy-3/openssl-fips:3.5.9
 pytest nodejs/fips/tests --image ghcr.io/taha2samy-3/node-fips:24-distroless --flavor prod
 ```
 
