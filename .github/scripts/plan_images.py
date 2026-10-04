@@ -293,13 +293,16 @@ def write_summary(markdown):
     print(markdown)
 
 
-def build_entries(targets_by_unit, fingerprints, requires=None):
+def build_entries(targets_by_unit, fingerprints, targets, requires=None):
     """One job per unit and architecture; each pushes its images by digest for the merge job."""
     entries = []
     for unit, names in targets_by_unit.items():
         for arch, spec in ARCHES.items():
             lines = [f"*.platform={spec['platform']}"]
             for name in names:
+                tags = targets[name].get("tags", [])
+                if tags:
+                    lines.append(f"{name}.tags={tags[0].rsplit(':', 1)[0]}")
                 lines += [
                     f"{name}.labels.{FINGERPRINT_LABEL}={fingerprints[name]}",
                     f"{name}.cache-from=type=gha,scope={name}-{arch}",
@@ -378,9 +381,9 @@ def cmd_build(args):
     write_summary(f"### Build plan: {len(rebuilt)} of {len(images)} images\n\n" + "\n".join(rows))
 
     write_outputs({
-        "build": build_entries(stage1, fingerprints),
+        "build": build_entries(stage1, fingerprints, targets),
         "merge": [{"unit": u, "targets": ",".join(n)} for u, n in stage1.items()],
-        "build_dependents": build_entries(stage2, fingerprints, requires),
+        "build_dependents": build_entries(stage2, fingerprints, targets, requires),
         "merge_dependents": [{"unit": u, "targets": ",".join(n)} for u, n in stage2.items()],
         "images": attest,
         "tests": tests,
