@@ -1,0 +1,1 @@
+var e={CreatedAt:`2026-10-04T12:59:20.069711264Z`,Results:[{Target:`ghcr.io/taha2samy-3/node:20-dev (wolfi 20230201)`,Vulnerabilities:[]},{Target:`usr/bin/secrets-entrypoint`,Vulnerabilities:[]}]};export{e as default};

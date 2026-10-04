@@ -1,0 +1,241 @@
+{
+ "image": "ghcr.io/taha2samy-3/wolfi-openjdk-fips:8-distroless",
+ "flavor": "prod",
+ "arch": "arm64",
+ "suite": "openjdk/tests",
+ "ran_at": "2026-10-04T12:53:55+00:00",
+ "summary": {
+  "passed": 13,
+  "failed": 19,
+  "xfail": 0,
+  "skipped": 0,
+  "total": 32,
+  "duration": 45.78
+ },
+ "tests": [
+  {
+   "name": "test_approved_mode",
+   "classname": "TestCoreFipsEnvironment",
+   "outcome": "passed",
+   "duration": 0.762,
+   "message": ""
+  },
+  {
+   "name": "test_provider_priority",
+   "classname": "TestCoreFipsEnvironment",
+   "outcome": "passed",
+   "duration": 1.051,
+   "message": ""
+  },
+  {
+   "name": "test_reject_md5",
+   "classname": "TestCryptoNegative",
+   "outcome": "passed",
+   "duration": 1.019,
+   "message": ""
+  },
+  {
+   "name": "test_reject_des",
+   "classname": "TestCryptoNegative",
+   "outcome": "passed",
+   "duration": 1.01,
+   "message": ""
+  },
+  {
+   "name": "test_reject_short_rsa",
+   "classname": "TestCryptoNegative",
+   "outcome": "failed",
+   "duration": 1.065,
+   "message": "assert False\n +  where False = any(<generator object TestCryptoNegative.test_reject_short_rsa.<locals>.<genexpr> at 0xff583c0125e0>)"
+  },
+  {
+   "name": "test_reject_sha1_signing",
+   "classname": "TestCryptoNegative",
+   "outcome": "failed",
+   "duration": 1.094,
+   "message": "assert False\n +  where False = any(<generator object TestCryptoNegative.test_reject_sha1_signing.<locals>.<genexpr> at 0xff583c074200>)"
+  },
+  {
+   "name": "test_reject_dsa_1024",
+   "classname": "TestCryptoNegative",
+   "outcome": "passed",
+   "duration": 1.01,
+   "message": ""
+  },
+  {
+   "name": "test_reject_rsa_pkcs1_encryption",
+   "classname": "TestCryptoNegative",
+   "outcome": "failed",
+   "duration": 1.094,
+   "message": "assert False\n +  where False = any(<generator object TestCryptoNegative.test_reject_rsa_pkcs1_encryption.<locals>.<genexpr> at 0xff583c0744a0>)"
+  },
+  {
+   "name": "test_reject_short_salt_pbkdf2",
+   "classname": "TestCryptoNegative",
+   "outcome": "passed",
+   "duration": 1.164,
+   "message": ""
+  },
+  {
+   "name": "test_reject_md4",
+   "classname": "TestCryptoNegative",
+   "outcome": "passed",
+   "duration": 1.029,
+   "message": ""
+  },
+  {
+   "name": "test_reject_non_nist_curve",
+   "classname": "TestCryptoNegative",
+   "outcome": "failed",
+   "duration": 1.235,
+   "message": "assert False\n +  where False = any(<generator object TestCryptoNegative.test_reject_non_nist_curve.<locals>.<genexpr> at 0xff583c075000>)"
+  },
+  {
+   "name": "test_reject_short_hmac_key",
+   "classname": "TestCryptoNegative",
+   "outcome": "passed",
+   "duration": 1.163,
+   "message": ""
+  },
+  {
+   "name": "test_reject_triple_des_encryption",
+   "classname": "TestCryptoNegative",
+   "outcome": "failed",
+   "duration": 1.249,
+   "message": "assert False\n +  where False = any(<generator object TestCryptoNegative.test_reject_triple_des_encryption.<locals>.<genexpr> at 0xff583c075620>)"
+  },
+  {
+   "name": "test_allow_aes_gcm",
+   "classname": "TestCryptoPositive",
+   "outcome": "failed",
+   "duration": 1.233,
+   "message": "assert 1 == 0"
+  },
+  {
+   "name": "test_allow_sha256",
+   "classname": "TestCryptoPositive",
+   "outcome": "passed",
+   "duration": 0.999,
+   "message": ""
+  },
+  {
+   "name": "test_rsa_2048_gen",
+   "classname": "TestCryptoPositive",
+   "outcome": "failed",
+   "duration": 1.087,
+   "message": "assert 1 == 0"
+  },
+  {
+   "name": "test_ec_p256_gen",
+   "classname": "TestCryptoPositive",
+   "outcome": "failed",
+   "duration": 1.255,
+   "message": "assert 1 == 0"
+  },
+  {
+   "name": "test_hmac_sha256",
+   "classname": "TestCryptoPositive",
+   "outcome": "failed",
+   "duration": 1.228,
+   "message": "assert 1 == 0"
+  },
+  {
+   "name": "test_pbkdf2",
+   "classname": "TestCryptoPositive",
+   "outcome": "failed",
+   "duration": 1.236,
+   "message": "assert 1 == 0"
+  },
+  {
+   "name": "test_ecdh_key_agreement",
+   "classname": "TestCryptoPositive",
+   "outcome": "failed",
+   "duration": 1.266,
+   "message": "assert 1 == 0"
+  },
+  {
+   "name": "test_allow_aes_cbc",
+   "classname": "TestCryptoPositive",
+   "outcome": "failed",
+   "duration": 1.291,
+   "message": "assert 1 == 0"
+  },
+  {
+   "name": "test_bcfks_load",
+   "classname": "TestKeystoreBoundary",
+   "outcome": "failed",
+   "duration": 1.114,
+   "message": "assert 1 == 0"
+  },
+  {
+   "name": "test_jks_rejection",
+   "classname": "TestKeystoreBoundary",
+   "outcome": "passed",
+   "duration": 1.028,
+   "message": ""
+  },
+  {
+   "name": "test_tls13_connection",
+   "classname": "TestNetworkSecurity",
+   "outcome": "failed",
+   "duration": 1.1,
+   "message": "assert 1 == 0"
+  },
+  {
+   "name": "test_reject_weak_tls",
+   "classname": "TestNetworkSecurity",
+   "outcome": "failed",
+   "duration": 1.094,
+   "message": "AssertionError: assert ('SSLHandshakeException' in 'Picked up JAVA_TOOL_OPTIONS: -Dorg.bouncycastle.fips.approved_only=true -Dorg.bouncycastle.jsse.client.assumeExtended...urce)\\n\\tat org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider$PooledSecureRandomProvider.get(Unknown Source)\\n' or 'protocol not enabled' in 'Picked up JAVA_TOOL_OPTIONS: -Dorg.bouncycastle.fips.approved_only=true -Dorg.bouncycastle.jsse.client.assumeExtended...urce)\\n\\tat org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider$PooledSecureRandomProvider.get(Unknown Source)\\n' or 'No appropriate protocol' in 'Picked up JAVA_TOOL_OPTIONS: -Dorg.bouncycastle.fips.approved_only=true -Dorg.bouncycastle.jsse.client.assumeExtended...urce)\\n\\tat org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider$PooledSecureRandomProvider.get(Unknown Source)\\n' or 'No usable protocols enabled' in 'Picked up JAVA_TOOL_OPTIONS: -Dorg.bouncycastle.fips.approved_only=true -Dorg.bouncycastle.jsse.client.assumeExtended...urce)\\n\\tat org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider$PooledSecureRandomProvider.get(Unknown Source)\\n')"
+  },
+  {
+   "name": "test_reject_anonymous_cipher",
+   "classname": "TestNetworkSecurity",
+   "outcome": "failed",
+   "duration": 1.077,
+   "message": "AssertionError: assert 'RESULT_SUCCESS_FIPS_ENFORCED' in ''"
+  },
+  {
+   "name": "test_default_ssl_context_provider",
+   "classname": "TestNetworkSecurity",
+   "outcome": "failed",
+   "duration": 11.658,
+   "message": "assert 1 == 0"
+  },
+  {
+   "name": "test_reject_rc4_cipher",
+   "classname": "TestNetworkSecurity",
+   "outcome": "failed",
+   "duration": 1.104,
+   "message": "AssertionError: assert 'RESULT_SUCCESS_FIPS_ENFORCED' in ''"
+  },
+  {
+   "name": "test_reject_null_cipher",
+   "classname": "TestNetworkSecurity",
+   "outcome": "failed",
+   "duration": 1.134,
+   "message": "AssertionError: assert 'RESULT_SUCCESS_FIPS_ENFORCED' in ''"
+  },
+  {
+   "name": "test_enforce_bcfks_default_keystore",
+   "classname": "TestNetworkSecurity",
+   "outcome": "passed",
+   "duration": 0.692,
+   "message": ""
+  },
+  {
+   "name": "test_approved_drbg",
+   "classname": "TestRNGSecurity",
+   "outcome": "passed",
+   "duration": 1.195,
+   "message": ""
+  },
+  {
+   "name": "test_reject_sha1prng",
+   "classname": "TestRNGSecurity",
+   "outcome": "passed",
+   "duration": 1.041,
+   "message": ""
+  }
+ ]
+}
