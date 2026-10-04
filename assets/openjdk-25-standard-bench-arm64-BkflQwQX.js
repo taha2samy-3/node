@@ -1,0 +1,1 @@
+var e={unit:`openjdk-25`,arch:`arm64`,image:`ghcr.io/taha2samy-3/wolfi-openjdk-fips:25`,baseline:{name:`Eclipse Temurin 25 (SunJCE, not FIPS)`,image:`eclipse-temurin:25-jre`},cpu:`Neoverse-N2`,runs:3,seconds:1,ran_at:`2026-10-04T13:05:25+00:00`,results:[]};export{e as default};

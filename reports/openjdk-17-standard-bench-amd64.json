@@ -1,0 +1,63 @@
+{
+ "unit": "openjdk-17",
+ "arch": "amd64",
+ "image": "ghcr.io/taha2samy-3/wolfi-openjdk-fips:17",
+ "baseline": {
+  "name": "Eclipse Temurin 17 (SunJCE, not FIPS)",
+  "image": "eclipse-temurin:17-jre"
+ },
+ "cpu": "AMD EPYC 7763 64-Core Processor",
+ "runs": 3,
+ "seconds": 1.0,
+ "ran_at": "2026-10-04T13:05:47+00:00",
+ "results": [
+  {
+   "name": "SHA-256",
+   "metric": "MB/s",
+   "fips": 1447.94,
+   "baseline": 1554.39
+  },
+  {
+   "name": "SHA-512",
+   "metric": "MB/s",
+   "fips": 224.3,
+   "baseline": 659.24
+  },
+  {
+   "name": "HMAC-SHA256",
+   "metric": "MB/s",
+   "fips": 1393.84,
+   "baseline": 1544.47
+  },
+  {
+   "name": "AES-256-GCM encrypt",
+   "metric": "MB/s",
+   "fips": 579.97,
+   "baseline": 573.88
+  },
+  {
+   "name": "ECDSA P-256 sign",
+   "metric": "ops/s",
+   "fips": 1067.77,
+   "baseline": 1418.74
+  },
+  {
+   "name": "ECDSA P-256 verify",
+   "metric": "ops/s",
+   "fips": 1248.83,
+   "baseline": 807.57
+  },
+  {
+   "name": "RSA-2048 sign",
+   "metric": "ops/s",
+   "fips": 574.89,
+   "baseline": 858.54
+  },
+  {
+   "name": "RSA-2048 verify",
+   "metric": "ops/s",
+   "fips": 16755.85,
+   "baseline": 20371.2
+  }
+ ]
+}

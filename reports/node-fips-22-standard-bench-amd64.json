@@ -1,0 +1,63 @@
+{
+ "unit": "node-fips-22",
+ "arch": "amd64",
+ "image": "ghcr.io/taha2samy-3/node-fips:22",
+ "baseline": {
+  "name": "Node.js 22 without FIPS (this repository's regular image)",
+  "image": "ghcr.io/taha2samy-3/node:22"
+ },
+ "cpu": "AMD EPYC 7763 64-Core Processor",
+ "runs": 3,
+ "seconds": 1.0,
+ "ran_at": "2026-10-04T13:05:35+00:00",
+ "results": [
+  {
+   "name": "SHA-256",
+   "metric": "MB/s",
+   "fips": 1332.63,
+   "baseline": 1339.78
+  },
+  {
+   "name": "SHA-512",
+   "metric": "MB/s",
+   "fips": 677.26,
+   "baseline": 690.63
+  },
+  {
+   "name": "HMAC-SHA256",
+   "metric": "MB/s",
+   "fips": 1254.47,
+   "baseline": 1273.48
+  },
+  {
+   "name": "AES-256-GCM encrypt",
+   "metric": "MB/s",
+   "fips": 1273.52,
+   "baseline": 1352.26
+  },
+  {
+   "name": "ECDSA P-256 sign",
+   "metric": "ops/s",
+   "fips": 25123.8,
+   "baseline": 24925.11
+  },
+  {
+   "name": "ECDSA P-256 verify",
+   "metric": "ops/s",
+   "fips": 11814.46,
+   "baseline": 11804.78
+  },
+  {
+   "name": "RSA-2048 sign",
+   "metric": "ops/s",
+   "fips": 1474.05,
+   "baseline": 1468.28
+  },
+  {
+   "name": "RSA-2048 verify",
+   "metric": "ops/s",
+   "fips": 29567.43,
+   "baseline": 29339.68
+  }
+ ]
+}
