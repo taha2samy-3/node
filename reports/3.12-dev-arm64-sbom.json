@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "serialNumber": "urn:uuid:46269cd1-49ff-4599-9804-086444a2472d",
+  "serialNumber": "urn:uuid:10463a59-fb41-4a5d-b5b1-a4b94e1bd115",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-10-04T08:20:52+00:00",
+    "timestamp": "2026-10-04T09:25:26+00:00",
     "tools": {
       "components": [
         {
@@ -154,22 +154,7 @@
   },
   "components": [
     {
-      "bom-ref": "bdde21cb-77ad-4c7a-b486-36a1e5055aed",
-      "type": "application",
-      "name": "usr/bin/secrets-entrypoint",
-      "properties": [
-        {
-          "name": "aquasecurity:trivy:Class",
-          "value": "lang-pkgs"
-        },
-        {
-          "name": "aquasecurity:trivy:Type",
-          "value": "gobinary"
-        }
-      ]
-    },
-    {
-      "bom-ref": "d45acbac-10b0-450f-86d4-ae4195482847",
+      "bom-ref": "ccad7865-852b-45a6-aa30-ef23f536dff3",
       "type": "operating-system",
       "name": "wolfi",
       "version": "20230201",
@@ -181,6 +166,21 @@
         {
           "name": "aquasecurity:trivy:Type",
           "value": "wolfi"
+        }
+      ]
+    },
+    {
+      "bom-ref": "ddc7cbb5-e282-44d5-8561-290dc5b989ac",
+      "type": "application",
+      "name": "usr/bin/secrets-entrypoint",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:Class",
+          "value": "lang-pkgs"
+        },
+        {
+          "name": "aquasecurity:trivy:Type",
+          "value": "gobinary"
         }
       ]
     },
@@ -3096,19 +3096,19 @@
   ],
   "dependencies": [
     {
-      "ref": "bdde21cb-77ad-4c7a-b486-36a1e5055aed",
-      "dependsOn": [
-        "pkg:golang/secrets-entrypoint@v1.0.0%2Bdirty"
-      ]
-    },
-    {
-      "ref": "d45acbac-10b0-450f-86d4-ae4195482847",
+      "ref": "ccad7865-852b-45a6-aa30-ef23f536dff3",
       "dependsOn": [
         "pkg:apk/wolfi/build-base@1-r9?arch=aarch64&distro=20230201",
         "pkg:apk/wolfi/py3.12-pip@26.2.1-r2?arch=aarch64&distro=20230201",
         "pkg:apk/wolfi/python-3.12@3.12.15-r1?arch=aarch64&distro=20230201",
         "pkg:apk/wolfi/tini@0.19.0-r26?arch=aarch64&distro=20230201",
         "pkg:apk/wolfi/wolfi-base@1-r7?arch=aarch64&distro=20230201"
+      ]
+    },
+    {
+      "ref": "ddc7cbb5-e282-44d5-8561-290dc5b989ac",
+      "dependsOn": [
+        "pkg:golang/secrets-entrypoint@v1.0.0%2Bdirty"
       ]
     },
     {
@@ -3563,8 +3563,8 @@
     {
       "ref": "pkg:oci/python@sha256:148191ea12145738e6a8e0e33bd21f1b0957bab9179a71d660bd4170dd1aa4b9?arch=arm64&repository_url=ghcr.io%2Ftaha2samy-3%2Fpython",
       "dependsOn": [
-        "bdde21cb-77ad-4c7a-b486-36a1e5055aed",
-        "d45acbac-10b0-450f-86d4-ae4195482847"
+        "ccad7865-852b-45a6-aa30-ef23f536dff3",
+        "ddc7cbb5-e282-44d5-8561-290dc5b989ac"
       ]
     }
   ],
