@@ -3,9 +3,9 @@
   "Trivy": {
     "Version": "0.75.0"
   },
-  "ReportID": "01a11044-f16d-71b8-921b-a48e6bd9ac6b",
-  "CreatedAt": "2026-10-06T08:11:56.141114595Z",
-  "ArtifactID": "sha256:14caa79faf346ac3f326ac24381302becf6fd86efc64584228195c4bfb70da6c",
+  "ReportID": "01a1104f-1884-77e2-8cc6-f49c88f3d589",
+  "CreatedAt": "2026-10-06T08:23:01.508517917Z",
+  "ArtifactID": "sha256:aa9ca2b27c395dd1cc2ef5a5b4f45b66035155fcde8517bdd03ba8c0537e945d",
   "ArtifactName": "ghcr.io/taha2samy-3/node-fips:22-distroless",
   "ArtifactType": "container_image",
   "Metadata": {
@@ -14,7 +14,7 @@
       "Family": "wolfi",
       "Name": "20230201"
     },
-    "ImageID": "sha256:c0797d118a6f069dbc3fc2b93df2cb63070aaf4883db8c1af142cbdd5f8c4eb1",
+    "ImageID": "sha256:6859177e958fd0bd23914e52ab459195ef1a06720387fec0574e491ddf6a5713",
     "DiffIDs": [
       "sha256:b93232c17171bc5da620d71362141490beae9bb0408f6c5a31f7beceeff20ecb",
       "sha256:bab2f8a5c53c68aefec98f94b7f74edf47bba4e662e3b5c9fcdd744e0f2b504f",
@@ -26,7 +26,7 @@
       "ghcr.io/taha2samy-3/node-fips:22-distroless"
     ],
     "RepoDigests": [
-      "ghcr.io/taha2samy-3/node-fips@sha256:6dde39b3badade76487da42bb43ca8ecc0c371705f2a5ac86dc3b9f69834801e"
+      "ghcr.io/taha2samy-3/node-fips@sha256:a41dc485ad7316b6b1d506edb78267bf78d5eb43a71891902e94681239deab3d"
     ],
     "Reference": "ghcr.io/taha2samy-3/node-fips:22-distroless",
     "ImageConfig": {
@@ -49,13 +49,13 @@
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-06T07:58:18.494811438Z",
+          "created": "2026-10-06T07:58:18.505389474Z",
           "created_by": "ENV NODE_ENV=production OPENSSL_CONF=/etc/ssl/fips/openssl-fips.cnf OPENSSL_MODULES=/usr/lib/ossl-modules-fips NODE_OPTIONS=--force-fips",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-06T07:58:18.494811438Z",
+          "created": "2026-10-06T07:58:18.505389474Z",
           "created_by": "RUN /usr/bin/node /usr/share/nodejs-fips/fips-check.js # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
@@ -102,7 +102,7 @@
           "NODE_OPTIONS=--force-fips"
         ],
         "Labels": {
-          "io.github.taha2samy-3.build.fingerprint": "664ab71ec1fbfa66fbde8d0adc04ceb4",
+          "io.github.taha2samy-3.build.fingerprint": "221d2b573be733a38dbb6070f5e0605d",
           "org.opencontainers.image.authors": "Taha Samy",
           "org.opencontainers.image.description": "Distroless Node.js runtime (no shell) with the OpenSSL FIPS 140-3 provider enforced, on Wolfi (Node.js 22.23.2-r1)",
           "org.opencontainers.image.licenses": "Apache-2.0",
@@ -170,15 +170,15 @@
           "ID": "ca-certificates-bundle@20260909-r2",
           "Name": "ca-certificates-bundle",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/ca-certificates-bundle@20260909-r2?arch=x86_64\u0026distro=wolfi",
-            "UID": "e4887bb64ebb48bd"
+            "PURL": "pkg:apk/wolfi/ca-certificates-bundle@20260909-r2?arch=x86_64\u0026origin=ca-certificates",
+            "UID": "f440829331cf60a6"
           },
           "Version": "20260909-r2",
           "Arch": "x86_64",
           "SrcName": "ca-certificates-bundle",
           "SrcVersion": "20260909-r2",
           "Licenses": [
-            "MPL-2.0 AND MIT"
+            "(MPL-2.0 AND MIT)"
           ],
           "Layer": {
             "Digest": "sha256:565fa320974c1a71cb87f8f751562bee3b82ecbfb5e38b6abce10874ef358450",
@@ -210,8 +210,8 @@
           "ID": "glibc-2.44-locale-posix@2.44-r7",
           "Name": "glibc-2.44-locale-posix",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/glibc-2.44-locale-posix@2.44-r7?arch=x86_64\u0026origin=glibc-2.44",
-            "UID": "f01984f1a6eda3cd"
+            "PURL": "pkg:apk/wolfi/glibc-2.44-locale-posix@2.44-r7?arch=x86_64\u0026distro=wolfi",
+            "UID": "b0c6df4a17910a53"
           },
           "Version": "2.44-r7",
           "Arch": "x86_64",
@@ -230,8 +230,8 @@
           "ID": "icu78-data-full@78.3-r4",
           "Name": "icu78-data-full",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/icu78-data-full@78.3-r4?arch=x86_64\u0026distro=wolfi",
-            "UID": "d418e195f388ae6e"
+            "PURL": "pkg:apk/wolfi/icu78-data-full@78.3-r4?arch=x86_64\u0026origin=icu",
+            "UID": "4ae696a2adc4b186"
           },
           "Version": "78.3-r4",
           "Arch": "x86_64",
@@ -250,8 +250,8 @@
           "ID": "ld-linux-2.44@2.44-r7",
           "Name": "ld-linux-2.44",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/ld-linux-2.44@2.44-r7?arch=x86_64\u0026distro=wolfi",
-            "UID": "c4a2bfc5c7358020"
+            "PURL": "pkg:apk/wolfi/ld-linux-2.44@2.44-r7?arch=x86_64\u0026origin=glibc-2.44",
+            "UID": "7fb086b19a2f79a"
           },
           "Version": "2.44-r7",
           "Arch": "x86_64",
@@ -270,8 +270,8 @@
           "ID": "libbrotlicommon1@1.2.0-r5",
           "Name": "libbrotlicommon1",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/libbrotlicommon1@1.2.0-r5?arch=x86_64\u0026origin=brotli",
-            "UID": "a66222810b31c53c"
+            "PURL": "pkg:apk/wolfi/libbrotlicommon1@1.2.0-r5?arch=x86_64\u0026distro=wolfi",
+            "UID": "99b6af895d403489"
           },
           "Version": "1.2.0-r5",
           "Arch": "x86_64",
@@ -310,8 +310,8 @@
           "ID": "libbrotlienc1@1.2.0-r5",
           "Name": "libbrotlienc1",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/libbrotlienc1@1.2.0-r5?arch=x86_64\u0026origin=brotli",
-            "UID": "4fdab168e60a74c7"
+            "PURL": "pkg:apk/wolfi/libbrotlienc1@1.2.0-r5?arch=x86_64\u0026distro=wolfi",
+            "UID": "d4c71ddf468a346a"
           },
           "Version": "1.2.0-r5",
           "Arch": "x86_64",
@@ -410,8 +410,8 @@
           "ID": "libssl3@3.6.5-r1",
           "Name": "libssl3",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/libssl3@3.6.5-r1?arch=x86_64\u0026distro=wolfi",
-            "UID": "d32e1a5abedf7eaf"
+            "PURL": "pkg:apk/wolfi/libssl3@3.6.5-r1?arch=x86_64\u0026origin=openssl",
+            "UID": "b0686cc8de9838e4"
           },
           "Version": "3.6.5-r1",
           "Arch": "x86_64",
@@ -430,15 +430,15 @@
           "ID": "libstdc++@16.2.0-r1",
           "Name": "libstdc++",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/libstdc%2B%2B@16.2.0-r1?arch=x86_64\u0026origin=gcc",
-            "UID": "4120513ddec00b45"
+            "PURL": "pkg:apk/wolfi/libstdc%2B%2B@16.2.0-r1?arch=x86_64\u0026distro=wolfi",
+            "UID": "901cdaa17f718550"
           },
           "Version": "16.2.0-r1",
           "Arch": "x86_64",
           "SrcName": "libstdc++",
           "SrcVersion": "16.2.0-r1",
           "Licenses": [
-            "(GPL-3.0-or-later WITH GCC-exception-3.1)"
+            "GPL-3.0-or-later WITH GCC-exception-3.1"
           ],
           "Layer": {
             "Digest": "sha256:565fa320974c1a71cb87f8f751562bee3b82ecbfb5e38b6abce10874ef358450",
@@ -470,8 +470,8 @@
           "ID": "nodejs-22-minimal@22.23.2-r1",
           "Name": "nodejs-22-minimal",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/nodejs-22-minimal@22.23.2-r1?arch=x86_64\u0026distro=wolfi",
-            "UID": "925c3c02bed9e45d"
+            "PURL": "pkg:apk/wolfi/nodejs-22-minimal@22.23.2-r1?arch=x86_64\u0026origin=nodejs-22",
+            "UID": "ad140d3467a1bb8f"
           },
           "Version": "22.23.2-r1",
           "Arch": "x86_64",
@@ -490,8 +490,8 @@
           "ID": "nodejs-22-minimal-compat@22.23.2-r1",
           "Name": "nodejs-22-minimal-compat",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/nodejs-22-minimal-compat@22.23.2-r1?arch=x86_64\u0026distro=wolfi",
-            "UID": "1427669b60666081"
+            "PURL": "pkg:apk/wolfi/nodejs-22-minimal-compat@22.23.2-r1?arch=x86_64\u0026origin=nodejs-22",
+            "UID": "e8ac91542c0b1c4a"
           },
           "Version": "22.23.2-r1",
           "Arch": "x86_64",
@@ -550,8 +550,8 @@
           "ID": "openssl-provider-legacy-allowed@4.0.2-r3",
           "Name": "openssl-provider-legacy-allowed",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/openssl-provider-legacy-allowed@4.0.2-r3?arch=x86_64\u0026origin=openssl-provider-legacy-allowed",
-            "UID": "9f6d714434cde432"
+            "PURL": "pkg:apk/wolfi/openssl-provider-legacy-allowed@4.0.2-r3?arch=x86_64\u0026distro=wolfi",
+            "UID": "c5916d58750d2398"
           },
           "Version": "4.0.2-r3",
           "Arch": "x86_64",
