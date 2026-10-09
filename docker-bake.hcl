@@ -130,7 +130,7 @@ variable "OPENSSL_FIPS_SHA256" {
 variable "OPENSSL_STATIC_IMAGE" {
   default = "cgr.dev/chainguard/static@sha256:fe55470f22d3259488d9d3739168d8f04da67755f0b69382bc26eda4a7d3d327"
 }
-variable "OPENSSL_BUILD_BASE_VER" { default = "1-r9" }
+variable "OPENSSL_BUILD_BASE_VER" { default = "1-r10" }
 variable "OPENSSL_PERL_VER" { default = "5.44.0-r1" }
 variable "OPENSSL_LINUX_HEADERS_VER" { default = "7.2.9-r0" }
 variable "OPENSSL_WGET_VER" { default = "1.25.0-r20" }
@@ -139,15 +139,15 @@ variable "OPENSSL_LIBSTDC_PLUS_PLUS_VER" { default = "16.2.0-r1" }
 variable "OPENSSL_ZLIB_VER" { default = "1.3.2.1_rc20260917-r0" }
 variable "OPENSSL_TZDATA_VER" { default = "2026e-r0" }
 variable "OPENSSL_POSIX_LIBC_UTILS_VER" { default = "2.43-r13" }
-variable "OPENSSL_PKGCONF_VER" { default = "3.0.7-r0" }
+variable "OPENSSL_PKGCONF_VER" { default = "3.0.8-r0" }
 variable "OPENSSL_PCRE_DEV_VER" { default = "8.45-r11" }
 variable "OPENSSL_ZLIB_DEV_VER" { default = "1.3.2.1_rc20260917-r0" }
-variable "OPENSSL_BASH_VER" { default = "5.3-r13" }
+variable "OPENSSL_BASH_VER" { default = "5.3-r14" }
 variable "OPENSSL_CURL_VER" { default = "8.22.0-r4" }
 variable "OPENSSL_JQ_VER" { default = "1.8.2-r2" }
 variable "OPENSSL_UNZIP_VER" { default = "6.0-r8" }
 variable "OPENSSL_APK_TOOLS_VER" { default = "2.14.10-r17" }
-variable "OPENSSL_BUSYBOX_VER" { default = "1.38.0-r2" }
+variable "OPENSSL_BUSYBOX_VER" { default = "1.38.0-r3" }
 variable "OPENSSL_GLIBC_VER" { default = "2.43-r13" }
 variable "OPENSSL_GLIBC_LOCALE_POSIX_VER" { default = "2.43-r13" }
 variable "OPENSSL_LD_LINUX_VER" { default = "2.43-r13" }
