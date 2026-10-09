@@ -77,7 +77,7 @@ variable "BUN_REPO" {
 }
 
 variable "BUN_1_FULL_VERSION" {
-  default = "1.4.2-r0"
+  default = "1.4.2-r1"
 }
 
 # ==========================================
