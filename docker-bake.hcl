@@ -231,8 +231,8 @@ variable "OPENJDK_KEYSTORE_PWD" { default = "changeit" }
 
 # Image used only to download and verify the Temurin archives
 variable "OPENJDK_ALPINE_IMAGE" { default = "alpine@sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6" }
-variable "OPENJDK_LIBCRYPTO3_VER" { default = "3.6.5-r1" }
-variable "OPENJDK_LIBSSL3_VER" { default = "3.6.5-r1" }
+variable "OPENJDK_LIBCRYPTO3_VER" { default = "3.6.5-r2" }
+variable "OPENJDK_LIBSSL3_VER" { default = "3.6.5-r2" }
 variable "OPENJDK_NCURSES_VER" { default = "6.6.20260926-r0" }
 
 
