@@ -87,8 +87,6 @@ def openssl_smoke(tag):
 def run_flavor(runtime, flavor, tags_by_flavor):
     tag = tags_by_flavor[flavor]
     if runtime == "openssl":
-        if flavor == "dev":
-            return "openssl smoke check", openssl_smoke(tag)
         # Tests that depend on public internet hosts are left out of the gate (run them by hand with -m network)
         return "openssl/tests", pytest_suite("openssl/tests", ["--image", tag, "-m", "not network"])
     if runtime == "openjdk":

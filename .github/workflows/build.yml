@@ -415,10 +415,22 @@ jobs:
         if: steps.verify.outputs.built == 'true'
         run: python .github/scripts/fips_tests.py --unit "${{ matrix.unit }}" --arch "${{ matrix.arch }}" --out fips-results
 
+      - name: Run FIPS Benchmarks
+        if: steps.verify.outputs.built == 'true'
+        run: python .github/scripts/run_benchmarks.py --unit "${{ matrix.unit }}" --arch "${{ matrix.arch }}" --runs 1 --seconds 1 --out benchmarks
+
       - name: Upload Test Results
         if: always() && steps.verify.outputs.built == 'true'
         uses: actions/upload-artifact@v7
         with:
           name: fips-tests-${{ matrix.unit }}-${{ matrix.arch }}
           path: fips-results/
+          retention-days: 7
+
+      - name: Upload Benchmark Results
+        if: always() && steps.verify.outputs.built == 'true'
+        uses: actions/upload-artifact@v7
+        with:
+          name: fips-benchmarks-${{ matrix.unit }}-${{ matrix.arch }}
+          path: benchmarks/
           retention-days: 7

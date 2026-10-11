@@ -26,9 +26,31 @@ import plan_images  # noqa: E402
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 BENCH_DIR = os.path.join(ROOT, ".github", "scripts", "bench")
-OPENSSL_BASELINE = "bench-baseline-openssl"
-OPENSSL_EVP = [("AES-256-GCM encrypt", "aes-256-gcm"), ("SHA-256", "sha256"), ("SHA-512", "sha512"), ("SHA3-256", "sha3-256")]
-OPENSSL_ASYM = [("RSA-2048", "rsa2048"), ("ECDSA P-256", "ecdsap256")]
+OPENSSL_BASELINE_IMAGE = "buildpack-deps:bookworm-curl"
+OPENSSL_EVP = [
+    ("AES-128-GCM encrypt", "aes-128-gcm"),
+    ("AES-256-GCM encrypt", "aes-256-gcm"),
+    ("AES-128-CBC encrypt", "aes-128-cbc"),
+    ("AES-256-CBC encrypt", "aes-256-cbc"),
+    ("AES-128-CTR encrypt", "aes-128-ctr"),
+    ("AES-256-CTR encrypt", "aes-256-ctr"),
+    ("SHA-224", "sha224"),
+    ("SHA-256", "sha256"),
+    ("SHA-384", "sha384"),
+    ("SHA-512", "sha512"),
+    ("SHA3-224", "sha3-224"),
+    ("SHA3-256", "sha3-256"),
+    ("SHA3-384", "sha3-384"),
+    ("SHA3-512", "sha3-512"),
+]
+OPENSSL_ASYM = [
+    ("RSA-2048", "rsa2048"),
+    ("RSA-3072", "rsa3072"),
+    ("RSA-4096", "rsa4096"),
+    ("ECDSA P-256", "ecdsap256"),
+    ("ECDSA P-384", "ecdsap384"),
+    ("ECDSA P-521", "ecdsap521"),
+]
 
 
 def run(cmd, **kwargs):
@@ -67,9 +89,16 @@ def parse_asym(output):
 
 
 def openssl_suite(fips_image):
-    subprocess.run(["docker", "build", "-q", "-t", OPENSSL_BASELINE, "-"], input="FROM alpine:3\nRUN apk add --no-cache openssl\n",
-                   text=True, check=True, capture_output=True, timeout=600)
-    images = {"fips": (fips_image, "/usr/local/bin/openssl"), "baseline": (OPENSSL_BASELINE, "openssl")}
+    baseline_img = OPENSSL_BASELINE_IMAGE
+    inspect_res = run(["docker", "image", "inspect", baseline_img])
+    if inspect_res.returncode != 0:
+        pull_res = run(["docker", "pull", "-q", baseline_img])
+        if pull_res.returncode != 0:
+            baseline_img = "bench-baseline-debian"
+            subprocess.run(["docker", "build", "-q", "-t", baseline_img, "-"],
+                           input="FROM debian:bookworm-slim\nRUN apt-get update && apt-get install -y openssl\n",
+                           text=True, check=True, capture_output=True, timeout=600)
+    images = {"fips": (fips_image, "/usr/local/bin/openssl"), "baseline": (baseline_img, "openssl")}
 
     def once(which):
         image, entrypoint = images[which]
@@ -82,8 +111,8 @@ def openssl_suite(fips_image):
             results[f"{name} verify"] = ("ops/s", columns.get("verify/s"))
         return results
 
-    version = run(["docker", "run", "--rm", "--entrypoint", "openssl", OPENSSL_BASELINE, "version"]).stdout.split()
-    return once, {"name": f"OpenSSL {version[1] if len(version) > 1 else ''} on Alpine (default provider)", "image": "alpine:3"}
+    version = run(["docker", "run", "--rm", "--entrypoint", "openssl", baseline_img, "version"]).stdout.split()
+    return once, {"name": f"OpenSSL {version[1] if len(version) > 1 else ''} on Debian Bookworm (default provider)", "image": baseline_img}
 
 
 # ==========================================
@@ -134,14 +163,17 @@ def main():
     parser.add_argument("--runs", type=int, default=3)
     parser.add_argument("--seconds", type=float, default=1.0)
     args = parser.parse_args()
-    SECONDS = args.seconds
+    SECONDS = max(1, int(args.seconds))
 
     os.chdir(ROOT)
     images = {i["flavor"]: i for i in plan_images.load_images() if i["unit"] == args.unit}
     if "standard" not in images:
         sys.exit(f"{args.unit}: no standard flavor to benchmark")
     standard = images["standard"]
-    for image in {standard["tag"], images.get("dev", standard)["tag"]}:
+    images_to_pull = {standard["tag"]}
+    if standard["runtime"] == "openjdk" and "dev" in images:
+        images_to_pull.add(images["dev"]["tag"])
+    for image in images_to_pull:
         run(["docker", "pull", "-q", image])
 
     if standard["runtime"] == "openssl":

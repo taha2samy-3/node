@@ -92,10 +92,22 @@ jobs:
         if: matrix.fips
         run: python .github/scripts/fips_tests.py --unit "${{ matrix.unit }}" --arch amd64 --out fips-results
 
+      - name: Run FIPS Benchmarks
+        if: matrix.fips
+        run: python .github/scripts/run_benchmarks.py --unit "${{ matrix.unit }}" --arch amd64 --runs 1 --seconds 1 --out benchmarks
+
       - name: Upload Test Results
         if: always() && matrix.fips
         uses: actions/upload-artifact@v7
         with:
           name: pr-fips-tests-${{ matrix.unit }}
           path: fips-results/
+          retention-days: 7
+
+      - name: Upload Benchmark Results
+        if: always() && matrix.fips
+        uses: actions/upload-artifact@v7
+        with:
+          name: pr-benchmarks-${{ matrix.unit }}
+          path: benchmarks/
           retention-days: 7

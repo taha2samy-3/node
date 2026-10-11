@@ -126,7 +126,7 @@ class TestAESEncryption:
 
         with allure.step("Performing encryption via stdin pipe"):
             enc_cmd = [
-                "docker", "run", "-i", "--rm", image_tag,
+                "docker", "run", "-i", "--rm", "--entrypoint", "/usr/local/bin/openssl", image_tag,
                 "enc", "-aes-128-cbc", "-e", "-propquery", "fips=yes",
                 "-K", test_key, "-iv", test_iv, "-nosalt"
             ]
@@ -138,7 +138,7 @@ class TestAESEncryption:
 
         with allure.step("Performing decryption via stdin pipe"):
             dec_cmd = [
-                "docker", "run", "-i", "--rm", image_tag,
+                "docker", "run", "-i", "--rm", "--entrypoint", "/usr/local/bin/openssl", image_tag,
                 "enc", "-aes-128-cbc", "-d", "-propquery", "fips=yes",
                 "-K", test_key, "-iv", test_iv, "-nosalt"
             ]
@@ -204,7 +204,7 @@ class TestLegacyCipherPolicies:
 
         with allure.step("Attempting to initialize 3DES encryption (des-ede3-cbc)"):
             cmd = [
-                "docker", "run", "-i", "--rm", image_tag,
+                "docker", "run", "-i", "--rm", "--entrypoint", "/usr/local/bin/openssl", image_tag,
                 "enc", "-des-ede3-cbc", "-e", "-propquery", "fips=yes",
                 "-K", test_key, "-iv", test_iv, "-nosalt"
             ]
@@ -235,7 +235,7 @@ class TestLegacyCipherPolicies:
     def test_des_algorithm_absence(self, image_tag):
         with allure.step("Attempting to invoke single DES cipher"):
             cmd = [
-                "docker", "run", "--rm", image_tag,
+                "docker", "run", "--rm", "--entrypoint", "/usr/local/bin/openssl", image_tag,
                 "enc", "-des-cbc", "-e", "-propquery", "fips=yes"
             ]
             
@@ -248,3 +248,106 @@ class TestLegacyCipherPolicies:
             error_msg = result.stderr.lower()
             assert any(x in error_msg for x in ["unknown cipher", "invalid", "unsupported"]), \
                 f"DES did not return the expected error. Stderr: {result.stderr}"
+
+    @allure.story("Unapproved Symmetric Cipher Rejection")
+    @allure.title("Verify Strict Rejection of Non-Approved Ciphers")
+    @allure.description("""
+        Validates NIST SP 800-131A boundary enforcement: all unapproved symmetric ciphers
+        (ChaCha20, ChaCha20-Poly1305, RC4, Blowfish, CAST5, IDEA, Camellia, ARIA, SM4, RC2)
+        must be strictly blocked in FIPS mode.
+    """)
+    @pytest.mark.parametrize("cipher", [
+        "chacha20", "chacha20-poly1305", "rc4", "bf-cbc", "cast5-cbc",
+        "idea-cbc", "camellia-128-cbc", "aria-128-cbc", "sm4-cbc", "rc2-cbc"
+    ])
+    def test_unapproved_symmetric_ciphers_rejection(self, cipher, image_tag):
+        with allure.step(f"Attempting encryption with unapproved cipher: {cipher}"):
+            cmd = [
+                "docker", "run", "--rm", "--entrypoint", "/usr/local/bin/openssl", image_tag,
+                "enc", f"-{cipher}", "-e", "-propquery", "fips=yes", "-in", "/dev/null"
+            ]
+            result = subprocess.run(cmd, capture_output=True, text=True)
+            allure.attach(result.stderr, name=f"{cipher} Rejection Log")
+
+        with allure.step(f"Verifying {cipher} is strictly rejected by FIPS provider"):
+            assert result.returncode != 0, f"Security Breach: Unapproved cipher {cipher} was allowed in FIPS mode!"
+            err = result.stderr.lower()
+            assert any(x in err for x in ["unknown", "unsupported", "invalid", "error", "fetch failed"]), \
+                f"Unexpected error for {cipher}: {result.stderr}"
+
+    @allure.story("Approved Symmetric Cipher Modes")
+    @allure.title("Verify FIPS 140-3 Approved AES Cipher Modes Availability")
+    @allure.description("""
+        Validates that standard FIPS-approved AES cipher modes (CTR, OFB, CFB, ECB)
+        are fully functional within the cryptographic boundary.
+    """)
+    @pytest.mark.parametrize("mode,key_len", [
+        ("aes-128-ctr", 32), ("aes-256-ctr", 64),
+        ("aes-128-ofb", 32), ("aes-256-ofb", 64),
+        ("aes-128-cfb", 32), ("aes-256-cfb", 64),
+        ("aes-128-ecb", 32), ("aes-256-ecb", 64)
+    ])
+    def test_approved_aes_cipher_modes(self, mode, key_len, image_tag):
+        key = "01" * (key_len // 2)
+        iv = "02" * 16
+        plaintext = b"NIST-FIPS-APPROVED-MODE-CHECK\n"
+        
+        args = ["enc", f"-{mode}", "-e", "-propquery", "fips=yes", "-K", key, "-nosalt"]
+        if "ecb" not in mode:
+            args.extend(["-iv", iv])
+
+        cmd = ["docker", "run", "-i", "--rm", "--entrypoint", "/usr/local/bin/openssl", image_tag, *args]
+        enc_proc = subprocess.run(cmd, input=plaintext, capture_output=True)
+        assert enc_proc.returncode == 0, f"Encryption failed for {mode}. Stderr: {enc_proc.stderr.decode()}"
+        assert len(enc_proc.stdout) > 0, f"Ciphertext was empty for {mode}"
+
+    @allure.story("Known Answer Tests (KAT)")
+    @allure.title("Verify NIST SP 800-38A Known Answer Test for AES-128-CBC")
+    @allure.description("""
+        Validates bit-for-bit compliance against official NIST SP 800-38A test vector:
+        Key: 2b7e151628aed2a6abf7158809cf4f3c
+        IV:  000102030405060708090a0b0c0d0e0f
+        PT:  6bc1bee22e409f96e93d7e117393172a
+        Expected CT: 7649abac8119b246cee98e9b12e9197d
+    """)
+    def test_nist_aes_cbc_known_answer_vector(self, image_tag):
+        key = "2b7e151628aed2a6abf7158809cf4f3c"
+        iv = "000102030405060708090a0b0c0d0e0f"
+        raw_pt = bytes.fromhex("6bc1bee22e409f96e93d7e117393172a")
+
+        cmd = [
+            "docker", "run", "-i", "--rm", "--entrypoint", "/usr/local/bin/openssl", image_tag,
+            "enc", "-aes-128-cbc", "-e", "-propquery", "fips=yes",
+            "-K", key, "-iv", iv, "-nopad"
+        ]
+        res = subprocess.run(cmd, input=raw_pt, capture_output=True)
+        assert res.returncode == 0, f"AES-128-CBC KAT execution failed: {res.stderr.decode()}"
+        ct_hex = res.stdout.hex().lower()
+        expected = "7649abac8119b246cee98e9b12e9197d"
+        assert ct_hex == expected, f"NIST SP 800-38A KAT mismatch! Got {ct_hex}, expected {expected}"
+
+    @allure.story("Cipher Suite Availability")
+    @allure.title("Verify NIST SP 800-38C CCM and SP 800-38A CTS Modes in FIPS Provider")
+    @allure.description("""
+        Validates that AES-CCM (Counter with CBC-MAC) and AES-CTS (Ciphertext Stealing)
+        are registered and available under fips=yes.
+    """)
+    def test_nist_aes_ccm_and_cts_availability(self, run_docker, image_tag):
+        result = run_docker(image_tag, ["list", "-cipher-algorithms", "-propquery", "fips=yes"])
+        assert result.returncode == 0, f"Failed to list ciphers: {result.stderr}"
+        out = result.stdout.upper()
+        for cipher in ["AES-128-CCM", "AES-256-CCM", "AES-128-CBC-CTS", "AES-256-CBC-CTS"]:
+            assert cipher in out, f"Mandatory cipher missing from FIPS provider: {cipher}"
+
+    @allure.story("AES-XTS Security Boundary")
+    @allure.title("Verify Rejection of Invalid Key Lengths for AES-XTS")
+    @allure.description("""
+        Validates NIST SP 800-38E: AES-XTS requires dual keys (256-bit or 512-bit).
+        Any single 128-bit key attempt must be rejected.
+    """)
+    def test_aes_xts_invalid_key_length(self, run_docker, image_tag):
+        result = run_docker(image_tag, [
+            "enc", "-aes-256-xts", "-e", "-propquery", "fips=yes",
+            "-K", "01" * 16, "-iv", "00" * 16, "-in", "/dev/null"
+        ])
+        assert result.returncode != 0, "Security Breach: AES-XTS accepted 128-bit key (requires 512-bit)!"

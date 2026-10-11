@@ -26,9 +26,10 @@ def image_tag(request):
 
 @pytest.fixture(scope="session")
 def run_docker():
-    def _executor(image: str, args: list):
+    def _executor(image: str, args: list, input_data: bytes = None):
         docker_options = []  
         container_cmd = []  
+        entrypoint = "/usr/local/bin/openssl"
         
         i = 0
         while i < len(args):
@@ -36,17 +37,24 @@ def run_docker():
             if arg == "-v" and i + 1 < len(args):
                 docker_options.extend(["-v", args[i+1]])
                 i += 2
+            elif arg == "--entrypoint" and i + 1 < len(args):
+                entrypoint = args[i+1]
+                i += 2
             else:
                 container_cmd.append(arg)
                 i += 1
         label = f"fips-test={uuid.uuid4().hex}"
-        cmd = ["docker", "run", "--user", "0", "--rm", "--label", label] + docker_options + [image] + container_cmd
+        cmd = ["docker", "run"]
+        if input_data is not None:
+            cmd.append("-i")
+        cmd += ["--user", "0", "--rm", "--entrypoint", entrypoint, "--label", label] + docker_options + [image] + container_cmd
         
         logger.info(f"Executing: {' '.join(cmd)}")
         
         try:
             result = subprocess.run(
                 cmd,
+                input=input_data,
                 capture_output=True,
                 text=False,
                 check=False,

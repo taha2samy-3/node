@@ -116,6 +116,62 @@ class TestCorePolicyAndIntegrity:
             allure.dynamic.parameter("Validated Version", "3.1.2")
             allure.dynamic.parameter("Provider Name", "OpenSSL FIPS Provider")
 
+    @allure.story("Integrity & Tamper Resistance")
+    @allure.title("Verify FIPS Provider Rejection on Configuration Tampering")
+    @allure.description("""
+        Simulates an unauthorized tampering attack on the FIPS cryptographic module:
+        1. Extracts fipsmodule.cnf from the container via openssl base64.
+        2. Deliberately corrupts the 'module-mac' checksum value.
+        3. Mounts the tampered configuration back into the container.
+        4. Validates that the FIPS provider's power-up integrity self-test detects
+           the violation and strictly refuses to enter the 'active' operational state.
+    """)
+    @allure.severity(allure.severity_level.BLOCKER)
+    @allure.tag("integrity", "tamper-detection", "module-mac", "self-test")
+    def test_integrity_check_tampering(self, image_tag):
+        target_path = "/usr/local/ssl/fipsmodule.cnf"
+
+        with allure.step("Extracting and decoding FIPS module configuration via OpenSSL"):
+            extract_cmd = [
+                "docker", "run", "--user", "0", "--rm", "--entrypoint", "/usr/local/bin/openssl",
+                image_tag, "base64", "-in", target_path
+            ]
+            result = subprocess.run(extract_cmd, capture_output=True, text=True)
+            assert result.returncode == 0, f"Failed to extract configuration: {result.stderr}"
+            import base64
+            original_content = base64.b64decode(result.stdout).decode("utf-8")
+
+        with allure.step("Injecting corrupted MAC to simulate unauthorized modification"):
+            assert "module-mac =" in original_content, "Could not locate 'module-mac' in fipsmodule.cnf"
+            corrupted_mac = "00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00"
+            corrupted_content = re.sub(r"(module-mac\s*=\s*)[0-9a-fA-F:]+", r"\g<1>" + corrupted_mac, original_content)
+            allure.attach(corrupted_content, name="Corrupted Config Preview", attachment_type=allure.attachment_type.TEXT)
+
+        with tempfile.NamedTemporaryFile(mode="w", delete=False) as f:
+            f.write(corrupted_content)
+            temp_config_path = f.name
+
+        try:
+            with allure.step("Verifying provider status with corrupted MAC"):
+                test_cmd = [
+                    "docker", "run", "--user", "0", "--rm", "--entrypoint", "/usr/local/bin/openssl",
+                    "-v", f"{temp_config_path}:{target_path}",
+                    image_tag, "list", "-providers", "-verbose"
+                ]
+                final_check = subprocess.run(test_cmd, capture_output=True, text=True)
+                allure.attach(final_check.stdout, name="Module Status Output")
+                allure.attach(final_check.stderr, name="Integrity Error Logs")
+
+                is_fips_active = "fips" in final_check.stdout.lower() and "status: active" in final_check.stdout.lower()
+                assert not is_fips_active, "Security Breach: FIPS module entered 'active' state despite tampered MAC!"
+        finally:
+            if os.path.exists(temp_config_path):
+                os.remove(temp_config_path)
+
+        with allure.step("Tamper resistance verified"):
+            allure.dynamic.parameter("Tampered Field", "module-mac")
+            allure.dynamic.parameter("System Response", "Module Load Rejected (Inactive)")
+
     # ==========================================================================
     # SECTION 2: GLOBAL POLICY ENFORCEMENT (Files: 9, 20)
     # ==========================================================================
@@ -242,3 +298,31 @@ class TestCorePolicyAndIntegrity:
         with allure.step("Provider isolation successfully verified"):
             allure.dynamic.parameter("Tested Algorithm", "MD5 (Non-Approved)")
             allure.dynamic.parameter("Isolation Status", "Strictly Enforced")
+
+    @allure.story("Provider Isolation")
+    @allure.title("Verify Default Provider is Completely Unloaded")
+    @allure.description("""
+        Validates that the 'default' provider is not loaded in OpenSSL configuration.
+        Only the FIPS provider ('fips') and the auxiliary Base provider ('base')
+        must be present in active providers list.
+    """)
+    def test_default_provider_strictly_unloaded(self, run_docker, image_tag):
+        result = run_docker(image_tag, ["list", "-providers"])
+        assert result.returncode == 0, f"Failed to list providers: {result.stderr}"
+        stdout = result.stdout.lower()
+        assert "default" not in stdout.split(), f"Architecture Violation: Default provider is loaded: {result.stdout}"
+        assert "fips" in stdout, "Missing FIPS provider in provider list"
+
+    @allure.story("FIPS 140-3 Service Indicators")
+    @allure.title("Verify FIPS Provider Gettable Parameter Indicators")
+    @allure.description("""
+        Validates that the FIPS provider exports mandatory indicator parameters:
+        security-checks, tls1-prf-ems-check, and drbg-no-trunc-md as per FIPS 140-3 policy.
+    """)
+    def test_fips_provider_gettable_parameters(self, run_docker, image_tag):
+        result = run_docker(image_tag, ["list", "-providers", "-verbose"])
+        assert result.returncode == 0, f"Failed to list providers: {result.stderr}"
+        out = result.stdout.lower()
+        mandatory_params = ["security-checks", "tls1-prf-ems-check", "drbg-no-trunc-md"]
+        for param in mandatory_params:
+            assert param in out, f"FIPS parameter indicator missing: {param}"
