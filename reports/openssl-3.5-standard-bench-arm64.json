@@ -1,63 +1,171 @@
 {
  "unit": "openssl-3.5",
  "arch": "arm64",
- "image": "ghcr.io/taha2samy-3/openssl-fips:3.5.5",
+ "image": "ghcr.io/taha2samy-3/openssl-fips:3.5.9",
  "baseline": {
-  "name": "OpenSSL 3.5.9 on Alpine (default provider)",
-  "image": "alpine:3"
+  "name": "OpenSSL 3.0.22 on Debian Bookworm (default provider)",
+  "image": "buildpack-deps:bookworm-curl"
  },
  "cpu": "Neoverse-N2",
  "runs": 3,
  "seconds": 1.0,
- "ran_at": "2026-10-04T13:05:12+00:00",
+ "ran_at": "2026-10-11T09:40:01+00:00",
  "results": [
+  {
+   "name": "AES-128-GCM encrypt",
+   "metric": "MB/s",
+   "fips": 4386.23,
+   "baseline": 3286.93
+  },
   {
    "name": "AES-256-GCM encrypt",
    "metric": "MB/s",
-   "fips": null,
-   "baseline": null
+   "fips": 3727.8,
+   "baseline": 2964.36
+  },
+  {
+   "name": "AES-128-CBC encrypt",
+   "metric": "MB/s",
+   "fips": 2697.0,
+   "baseline": 2693.41
+  },
+  {
+   "name": "AES-256-CBC encrypt",
+   "metric": "MB/s",
+   "fips": 1918.06,
+   "baseline": 1924.43
+  },
+  {
+   "name": "AES-128-CTR encrypt",
+   "metric": "MB/s",
+   "fips": 6699.42,
+   "baseline": 6723.67
+  },
+  {
+   "name": "AES-256-CTR encrypt",
+   "metric": "MB/s",
+   "fips": 5314.66,
+   "baseline": 5301.98
+  },
+  {
+   "name": "SHA-224",
+   "metric": "MB/s",
+   "fips": 2133.39,
+   "baseline": 2126.33
   },
   {
    "name": "SHA-256",
    "metric": "MB/s",
-   "fips": null,
-   "baseline": null
+   "fips": 2133.0,
+   "baseline": 2126.32
+  },
+  {
+   "name": "SHA-384",
+   "metric": "MB/s",
+   "fips": 1304.67,
+   "baseline": 1302.89
   },
   {
    "name": "SHA-512",
    "metric": "MB/s",
-   "fips": null,
-   "baseline": null
+   "fips": 1304.82,
+   "baseline": 1302.68
+  },
+  {
+   "name": "SHA3-224",
+   "metric": "MB/s",
+   "fips": 582.39,
+   "baseline": 581.81
   },
   {
    "name": "SHA3-256",
    "metric": "MB/s",
-   "fips": null,
-   "baseline": null
+   "fips": 549.32,
+   "baseline": 548.86
+  },
+  {
+   "name": "SHA3-384",
+   "metric": "MB/s",
+   "fips": 423.13,
+   "baseline": 422.95
+  },
+  {
+   "name": "SHA3-512",
+   "metric": "MB/s",
+   "fips": 294.8,
+   "baseline": 294.62
   },
   {
    "name": "RSA-2048 sign",
    "metric": "ops/s",
-   "fips": null,
-   "baseline": null
+   "fips": 1312.0,
+   "baseline": 1303.0
   },
   {
    "name": "RSA-2048 verify",
    "metric": "ops/s",
-   "fips": null,
-   "baseline": null
+   "fips": 52292.0,
+   "baseline": 52353.0
+  },
+  {
+   "name": "RSA-3072 sign",
+   "metric": "ops/s",
+   "fips": 444.0,
+   "baseline": 442.0
+  },
+  {
+   "name": "RSA-3072 verify",
+   "metric": "ops/s",
+   "fips": 24132.0,
+   "baseline": 24214.0
+  },
+  {
+   "name": "RSA-4096 sign",
+   "metric": "ops/s",
+   "fips": 200.0,
+   "baseline": 199.0
+  },
+  {
+   "name": "RSA-4096 verify",
+   "metric": "ops/s",
+   "fips": 13819.0,
+   "baseline": 13856.0
   },
   {
    "name": "ECDSA P-256 sign",
    "metric": "ops/s",
-   "fips": null,
-   "baseline": null
+   "fips": 51566.3,
+   "baseline": 49554.0
   },
   {
    "name": "ECDSA P-256 verify",
    "metric": "ops/s",
-   "fips": null,
-   "baseline": null
+   "fips": 16049.0,
+   "baseline": 16040.0
+  },
+  {
+   "name": "ECDSA P-384 sign",
+   "metric": "ops/s",
+   "fips": 1217.0,
+   "baseline": 1185.0
+  },
+  {
+   "name": "ECDSA P-384 verify",
+   "metric": "ops/s",
+   "fips": 1467.0,
+   "baseline": 1426.0
+  },
+  {
+   "name": "ECDSA P-521 sign",
+   "metric": "ops/s",
+   "fips": 501.0,
+   "baseline": 492.0
+  },
+  {
+   "name": "ECDSA P-521 verify",
+   "metric": "ops/s",
+   "fips": 641.0,
+   "baseline": 623.0
   }
  ]
 }
