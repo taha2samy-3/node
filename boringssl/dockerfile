@@ -150,6 +150,7 @@ COPY --from=producer /rootfs/standard /
 ENV PATH="/usr/local/bin:${PATH}" \
     LD_LIBRARY_PATH="/usr/local/lib:/usr/lib:/lib" \
     SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
+    OPENSSL_CONF=/etc/ssl/openssl.cnf \
     TZ=UTC \
     LANG=C.UTF-8
 
@@ -178,6 +179,7 @@ COPY --from=producer /rootfs/distroless /
 ENV PATH="/usr/local/bin:${PATH}" \
     LD_LIBRARY_PATH="/usr/local/lib:/usr/lib:/lib" \
     SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
+    OPENSSL_CONF=/etc/ssl/openssl.cnf \
     TZ=UTC \
     LANG=C.UTF-8
 
@@ -206,6 +208,7 @@ COPY --from=producer /rootfs/development /
 ENV PATH="/usr/local/bin:${PATH}" \
     LD_LIBRARY_PATH="/usr/local/lib:/usr/lib:/lib" \
     SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
+    OPENSSL_CONF=/etc/ssl/openssl.cnf \
     TZ=UTC \
     LANG=C.UTF-8
 

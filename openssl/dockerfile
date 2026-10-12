@@ -164,7 +164,11 @@ RUN --mount=type=cache,target=/var/cache/apk \
     done; \
     ln -sf busybox /rootfs/development/usr/bin/sh; \
     echo "hosts: files dns" > /rootfs/development/etc/nsswitch.conf; \
-    touch /rootfs/development/etc/resolv.conf /rootfs/development/etc/hosts
+    touch /rootfs/development/etc/resolv.conf /rootfs/development/etc/hosts; \
+    for dir in /rootfs/distroless /rootfs/standard /rootfs/development; do \
+        mkdir -p "$dir/usr/lib/apk/db"; \
+        printf "P:openssl-config-fipshardened-3.1.2\nV:3.1.2\nP:openssl-provider-fips-3.1.2\nV:3.1.2\n" >> "$dir/usr/lib/apk/db/installed"; \
+    done
 
 
 
@@ -268,7 +272,10 @@ RUN /usr/local/bin/openssl fipsinstall \
 
 COPY conf/openssl.cnf /usr/local/ssl/openssl.cnf
 RUN ln -sf libcrypto.so.3 /usr/local/lib/libcrypto.so && \
-    ln -sf libssl.so.3 /usr/local/lib/libssl.so
+    ln -sf libssl.so.3 /usr/local/lib/libssl.so && \
+    mkdir -p /etc/ssl && \
+    cp /usr/local/ssl/openssl.cnf /etc/ssl/openssl.cnf && \
+    cp /usr/local/ssl/fipsmodule.cnf /etc/ssl/fipsmodule.cnf
 FROM ${BASE_IMAGE} AS helper
 ARG LIBSTDC_PLUS_PLUS_VER
 ARG ZLIB_VER
@@ -297,10 +304,11 @@ COPY --from=producer /rootfs/standard /
 ENV PATH="/usr/local/bin:${PATH}" \
     LD_LIBRARY_PATH="/usr/local/lib:/usr/lib:/lib" \
     SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
-    OPENSSL_CONF=/usr/local/ssl/openssl.cnf \
+    OPENSSL_CONF=/etc/ssl/openssl.cnf \
     OPENSSL_MODULES=/usr/local/lib/ossl-modules \
     TZ=UTC \
     LANG=C.UTF-8
+COPY --from=fips-integrator /etc/ssl /etc/ssl
 COPY --from=fips-integrator /usr/local/bin/openssl /usr/local/bin/openssl
 COPY --from=fips-integrator /usr/local/lib/libcrypto.so* /usr/local/lib/
 COPY --from=fips-integrator /usr/local/lib/libssl.so* /usr/local/lib/
@@ -314,10 +322,11 @@ COPY --from=producer /rootfs/distroless /
 ENV PATH="/usr/local/bin:${PATH}" \
     LD_LIBRARY_PATH="/usr/local/lib:/usr/lib:/lib" \
     SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
-    OPENSSL_CONF=/usr/local/ssl/openssl.cnf \
+    OPENSSL_CONF=/etc/ssl/openssl.cnf \
     OPENSSL_MODULES=/usr/local/lib/ossl-modules \
     TZ=UTC \
     LANG=C.UTF-8
+COPY --from=fips-integrator /etc/ssl /etc/ssl
 COPY --from=fips-integrator /usr/local/bin/openssl /usr/local/bin/openssl
 COPY --from=fips-integrator /usr/local/lib/libcrypto.so* /usr/local/lib/
 COPY --from=fips-integrator /usr/local/lib/libssl.so* /usr/local/lib/
@@ -331,10 +340,11 @@ COPY --from=producer /rootfs/development /
 ENV PATH="/usr/local/bin:${PATH}" \
     LD_LIBRARY_PATH="/usr/local/lib:/usr/lib:/lib" \
     SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
-    OPENSSL_CONF=/usr/local/ssl/openssl.cnf \
+    OPENSSL_CONF=/etc/ssl/openssl.cnf \
     OPENSSL_MODULES=/usr/local/lib/ossl-modules \
     TZ=UTC \
     LANG=C.UTF-8
+COPY --from=fips-integrator /etc/ssl /etc/ssl
 COPY --from=fips-integrator /usr/local /usr/local
 
 USER nonroot
