@@ -101,6 +101,9 @@ variable "GO_REPO" {
 variable "GO_1_22_FULL_VERSION" { default = "1.22.12-r8" }
 variable "GO_1_23_FULL_VERSION" { default = "1.23.12-r1" }
 variable "GO_1_24_FULL_VERSION" { default = "1.24.13-r3" }
+variable "GO_1_25_FULL_VERSION" { default = "1.25.12-r1" }
+variable "GO_1_26_FULL_VERSION" { default = "1.26.9-r0" }
+variable "GO_1_27_FULL_VERSION" { default = "1.27.2-r0" }
 
 # ==========================================
 # OpenSSL FIPS Versions
@@ -627,7 +630,10 @@ target "go-dev" {
     item = [
       { version = "1.22", full_version = GO_1_22_FULL_VERSION },
       { version = "1.23", full_version = GO_1_23_FULL_VERSION },
-      { version = "1.24", full_version = GO_1_24_FULL_VERSION }
+      { version = "1.24", full_version = GO_1_24_FULL_VERSION },
+      { version = "1.25", full_version = GO_1_25_FULL_VERSION },
+      { version = "1.26", full_version = GO_1_26_FULL_VERSION },
+      { version = "1.27", full_version = GO_1_27_FULL_VERSION }
     ]
   }
   context = "."
@@ -664,7 +670,10 @@ target "go-prod" {
     item = [
       { version = "1.22", full_version = GO_1_22_FULL_VERSION },
       { version = "1.23", full_version = GO_1_23_FULL_VERSION },
-      { version = "1.24", full_version = GO_1_24_FULL_VERSION }
+      { version = "1.24", full_version = GO_1_24_FULL_VERSION },
+      { version = "1.25", full_version = GO_1_25_FULL_VERSION },
+      { version = "1.26", full_version = GO_1_26_FULL_VERSION },
+      { version = "1.27", full_version = GO_1_27_FULL_VERSION }
     ]
   }
   platforms = ["linux/amd64", "linux/arm64"]

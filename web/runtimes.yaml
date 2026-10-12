@@ -693,6 +693,81 @@ runtimes:
       - "linux/amd64"
       - "linux/arm64"
     versions:
+      - version: "1.27"
+        flavors:
+          - id: "dev"
+            name: "Development Builder"
+            policy_header: "Full Developer Suite (Go 1.27)"
+            policy_text: "Contains Go 1.27 and build utilities. Built on Wolfi OS with non-root user execution."
+            tags:
+               - "ghcr.io/taha2samy-3/go:1.27-dev"
+               - "ghcr.io/taha2samy-3/go:v1.27-dev"
+            reports:
+              vuln: "./../reports/1.27-dev-vuln.json"
+              cis: "./../reports/1.27-dev-cis.json"
+              sbom: "./../reports/1.27-dev-sbom.json"
+          - id: "prod"
+            name: "Production Base (Scratch)"
+            policy_header: "Hardened Minimal Base (Go 1.27)"
+            policy_text: "Minimal distroless base image for Go applications containing only CA certificates and tzdata."
+            tags:
+               - "ghcr.io/taha2samy-3/go:1.27"
+               - "ghcr.io/taha2samy-3/go:v1.27"
+            reports:
+              vuln: "./../reports/1.27-prod-vuln.json"
+              cis: "./../reports/1.27-prod-cis.json"
+              sbom: "./../reports/1.27-prod-sbom.json"
+
+      - version: "1.26"
+        flavors:
+          - id: "dev"
+            name: "Development Builder"
+            policy_header: "Full Developer Suite (Go 1.26)"
+            policy_text: "Contains Go 1.26 and build utilities. Built on Wolfi OS with non-root user execution."
+            tags:
+               - "ghcr.io/taha2samy-3/go:1.26-dev"
+               - "ghcr.io/taha2samy-3/go:v1.26-dev"
+            reports:
+              vuln: "./../reports/1.26-dev-vuln.json"
+              cis: "./../reports/1.26-dev-cis.json"
+              sbom: "./../reports/1.26-dev-sbom.json"
+          - id: "prod"
+            name: "Production Base (Scratch)"
+            policy_header: "Hardened Minimal Base (Go 1.26)"
+            policy_text: "Minimal distroless base image for Go applications containing only CA certificates and tzdata."
+            tags:
+               - "ghcr.io/taha2samy-3/go:1.26"
+               - "ghcr.io/taha2samy-3/go:v1.26"
+            reports:
+              vuln: "./../reports/1.26-prod-vuln.json"
+              cis: "./../reports/1.26-prod-cis.json"
+              sbom: "./../reports/1.26-prod-sbom.json"
+
+      - version: "1.25"
+        flavors:
+          - id: "dev"
+            name: "Development Builder"
+            policy_header: "Full Developer Suite (Go 1.25)"
+            policy_text: "Contains Go 1.25 and build utilities. Built on Wolfi OS with non-root user execution."
+            tags:
+               - "ghcr.io/taha2samy-3/go:1.25-dev"
+               - "ghcr.io/taha2samy-3/go:v1.25-dev"
+            reports:
+              vuln: "./../reports/1.25-dev-vuln.json"
+              cis: "./../reports/1.25-dev-cis.json"
+              sbom: "./../reports/1.25-dev-sbom.json"
+          - id: "prod"
+            name: "Production Base (Scratch)"
+            policy_header: "Hardened Minimal Base (Go 1.25)"
+            policy_text: "Minimal distroless base image for Go applications containing only CA certificates and tzdata."
+            tags:
+               - "ghcr.io/taha2samy-3/go:1.25"
+               - "ghcr.io/taha2samy-3/go:v1.25"
+            reports:
+              vuln: "./../reports/1.25-prod-vuln.json"
+              cis: "./../reports/1.25-prod-cis.json"
+              sbom: "./../reports/1.25-prod-sbom.json"
+
       - version: "1.24"
         flavors:
           - id: "dev"
