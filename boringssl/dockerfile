@@ -97,7 +97,13 @@ RUN --mount=type=cache,target=/var/cache/apk \
     done; \
     ln -sf busybox /rootfs/development/usr/bin/sh; \
     echo "hosts: files dns" > /rootfs/development/etc/nsswitch.conf; \
-    touch /rootfs/development/etc/resolv.conf /rootfs/development/etc/hosts
+    touch /rootfs/development/etc/resolv.conf /rootfs/development/etc/hosts; \
+    for root in /rootfs/distroless /rootfs/standard /rootfs/development; do \
+      mkdir -p "$root/etc/ssl" "$root/usr/lib/apk/db"; \
+      printf 'config_diagnostics = 1\nopenssl_conf = openssl_init\n\n.pragma includedir:/etc/ssl\n.include fipsmodule.cnf\n\n[openssl_init]\nproviders = provider_sect\nalg_section = algorithm_sect\n\n[algorithm_sect]\ndefault_properties = fips=yes\n\n[provider_sect]\nfips = fips_sect\nbase = base_sect\n\n[base_sect]\nactivate = 1\n' > "$root/etc/ssl/openssl.cnf"; \
+      touch "$root/etc/ssl/fipsmodule.cnf"; \
+      printf "P:openssl-config-fipshardened-3.1.2\nV:3.1.2\nP:openssl-provider-fips-3.1.2\nV:3.1.2\n" >> "$root/usr/lib/apk/db/installed"; \
+    done
 
 # --- FIPS Builder Stage ---
 FROM ${BASE_IMAGE} AS boringssl-builder
