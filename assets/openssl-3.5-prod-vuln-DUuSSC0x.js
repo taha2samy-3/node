@@ -1,0 +1,1 @@
+var e={CreatedAt:`2026-10-12T07:18:39.786540139Z`,Results:[{Target:`ghcr.io/taha2samy-3/openssl-fips:3.5.9-distroless (wolfi 20230201)`,Vulnerabilities:[]}]};export{e as default};
