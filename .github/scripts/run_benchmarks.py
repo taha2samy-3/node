@@ -216,7 +216,7 @@ def main():
         sys.exit(f"{args.unit}: no benchmarkable flavor found")
     target_img = images.get("standard") or images.get("dev")
     images_to_pull = {target_img["tag"]}
-    if target_img["runtime"] in ("openjdk", "go-fips") and "dev" in images:
+    if target_img["runtime"] in ("openjdk", "go-fips", "boringssl") and "dev" in images:
         images_to_pull.add(images["dev"]["tag"])
     for image in images_to_pull:
         run(["docker", "pull", "-q", image])
@@ -224,7 +224,7 @@ def main():
     if target_img["runtime"] == "openssl":
         once, baseline = openssl_suite(target_img["tag"])
     elif target_img["runtime"] == "boringssl":
-        once, baseline = boringssl_suite(target_img["tag"])
+        once, baseline = boringssl_suite(target_img["tag"], images.get("dev", target_img)["tag"])
     elif target_img["runtime"] == "node-fips":
         once, baseline = node_suite(target_img["tag"], target_img["version"])
     elif target_img["runtime"] == "go-fips":
