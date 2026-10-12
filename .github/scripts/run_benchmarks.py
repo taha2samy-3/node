@@ -154,7 +154,7 @@ def java_suite(fips_image, jdk_image, version):
     return once, {"name": f"Eclipse Temurin {version} (SunJCE, not FIPS)", "image": baseline}
 
 
-def boringssl_suite(fips_image):
+def boringssl_suite(fips_image, dev_image):
     baseline_img = OPENSSL_BASELINE_IMAGE
     inspect_res = run(["docker", "image", "inspect", baseline_img])
     if inspect_res.returncode != 0:
@@ -165,18 +165,18 @@ def boringssl_suite(fips_image):
                            input="FROM debian:bookworm-slim\nRUN apt-get update && apt-get install -y openssl\n",
                            text=True, check=True, capture_output=True, timeout=600)
 
+    classes = tempfile.mkdtemp(prefix="bssl-bench-")
+    os.chmod(classes, 0o777)
+    compile_proc = run(["docker", "run", "--rm", "-v", f"{BENCH_DIR}:/src:ro", "-v", f"{classes}:/out",
+                        dev_image, "gcc", "-O3", "/src/bssl-crypto.c", "-lcrypto", "-o", "/out/bssl-bench"])
+    if compile_proc.returncode != 0:
+        sys.exit(f"bssl-bench compile failed: {compile_proc.stderr}")
+
     def once(which):
         if which == "fips":
-            out = run(["docker", "run", "--rm", "--entrypoint", "/usr/local/bin/bssl", fips_image, "speed"]).stdout
-            results = {}
-            for line in out.splitlines():
-                parts = line.split()
-                if len(parts) >= 2:
-                    try:
-                        results[parts[0]] = ("ops/s", float(parts[1].rstrip("k")))
-                    except ValueError:
-                        pass
-            return results
+            proc = run(["docker", "run", "--rm", "-v", f"{classes}:/bench:ro", "-e", f"BENCH_SECONDS={SECONDS}",
+                        dev_image, "/bench/bssl-bench"])
+            return {r["name"]: (r["metric"], r["value"]) for r in json.loads(proc.stdout or "[]")}
         else:
             results = {}
             for name, alg in OPENSSL_EVP[:4]:
