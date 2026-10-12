@@ -58,7 +58,7 @@ runtimes:
     icon: "https://cdn.simpleicons.org/google/4285F4"
     fips:
       module: "BoringCrypto Module (BCM)"
-      certificate: 4953
+      certificate: 4735
       enforcement: "BoringSSL is built from source with -DFIPS=1 -DBUILD_SHARED_LIBS=1 using Clang; the module text section is hashed with inject_hash, and power-on integrity check (POST) runs on library load."
       verify: "docker run --rm {tag} isfips"
     architectures:
@@ -902,7 +902,7 @@ runtimes:
     icon: "https://cdn.simpleicons.org/go/00ADD8"
     fips:
       module: "BoringCrypto Module (BCM) via crypto/internal/boring"
-      certificate: 4953
+      certificate: 4735
       enforcement: "Go standard library cryptographic primitives are linked directly to BoringCrypto via GOEXPERIMENT=boringcrypto CGO_ENABLED=1, and strict TLS policy is enforced by crypto/tls/fipsonly."
       verify: "docker run --rm {tag} go run /usr/share/go-fips/fips-check.go"
     architectures:
