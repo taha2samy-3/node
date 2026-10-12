@@ -36,9 +36,10 @@ function trivyReports(): Plugin {
       if (id !== `\0${SUMMARY_ID}`) return undefined;
       const summaries: Record<string, unknown> = {};
       if (fs.existsSync(REPORTS_DIR)) {
-        this.addWatchFile(REPORTS_DIR);
         for (const file of fs.readdirSync(REPORTS_DIR).filter((f) => f.endsWith('-vuln.json'))) {
-          const report: TrivyReport = JSON.parse(fs.readFileSync(path.join(REPORTS_DIR, file), 'utf8'));
+          const filePath = path.join(REPORTS_DIR, file);
+          this.addWatchFile(filePath);
+          const report: TrivyReport = JSON.parse(fs.readFileSync(filePath, 'utf8'));
           const vulns = (report.Results ?? []).flatMap((r) => r.Vulnerabilities ?? []);
           const counts = Object.fromEntries(SEVERITIES.map((s) => [s, 0]));
           vulns.forEach((v) => counts[severityOf(v.Severity)]++);
