@@ -16,8 +16,6 @@ import (
 	"os"
 	"strconv"
 	"time"
-
-	_ "crypto/tls/fipsonly"
 )
 
 type Result struct {

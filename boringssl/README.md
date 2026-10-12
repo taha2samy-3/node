@@ -47,10 +47,8 @@ docker run --rm ghcr.io/taha2samy-3/boringssl-fips:latest isfips
 ## 🧪 Automated Test Suite
 
 Located under `boringssl/tests/`:
-- `test_01_core_policy.py`: `bssl isfips` verification and power-on integrity check.
-- `test_02_hashing_and_digests.py`: SHA-256 and SHA-1 KAT verification.
-- `test_03_speed_and_algorithms.py`: Speed benchmark execution and algorithm filter.
-- `test_06_architecture_compliance.py`: Shared library link integrity and non-root UID.
+- `test_01_core_policy.py`: `bssl isfips` verification, power-on self-test (POST) integrity, and non-root UID enforcement.
+- `test_02_hashing_and_digests.py`: SHA-256 (NIST test vectors) and SHA-1 digest verification.
 
 ```bash
 # Run tests
