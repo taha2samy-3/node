@@ -19,6 +19,7 @@ export interface Flavor {
     vuln: string;
     cis: string;
     sbom: string;
+    stig?: string;
   };
 }
 
