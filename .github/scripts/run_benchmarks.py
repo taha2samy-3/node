@@ -168,14 +168,14 @@ def boringssl_suite(fips_image, dev_image):
     classes = tempfile.mkdtemp(prefix="bssl-bench-")
     os.chmod(classes, 0o777)
     compile_proc = run(["docker", "run", "--rm", "-v", f"{BENCH_DIR}:/src:ro", "-v", f"{classes}:/out",
-                        dev_image, "gcc", "-O3", "/src/bssl-crypto.c", "-lcrypto", "-o", "/out/bssl-bench"])
+                        "--entrypoint", "gcc", dev_image, "-O3", "/src/bssl-crypto.c", "-lcrypto", "-o", "/out/bssl-bench"])
     if compile_proc.returncode != 0:
         sys.exit(f"bssl-bench compile failed: {compile_proc.stderr}")
 
     def once(which):
         if which == "fips":
             proc = run(["docker", "run", "--rm", "-v", f"{classes}:/bench:ro", "-e", f"BENCH_SECONDS={SECONDS}",
-                        dev_image, "/bench/bssl-bench"])
+                        "--entrypoint", "/bench/bssl-bench", dev_image])
             return {r["name"]: (r["metric"], r["value"]) for r in json.loads(proc.stdout or "[]")}
         else:
             results = {}
