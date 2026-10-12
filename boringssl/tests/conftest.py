@@ -28,10 +28,11 @@ def image_tag(request):
 
 @pytest.fixture(scope="session")
 def run_docker():
-    def _executor(image: str, args: list, input_data: bytes = None):
+    def _executor(image: str, args: list, input_data: bytes = None, entrypoint: str = None):
         docker_options = []
         container_cmd = []
-        entrypoint = "/usr/local/bin/bssl"
+        if entrypoint is None:
+            entrypoint = "/usr/local/bin/bssl"
 
         i = 0
         while i < len(args):
