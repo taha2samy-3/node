@@ -252,7 +252,7 @@ def main():
     report = {
         "unit": args.unit,
         "arch": args.arch,
-        "image": standard["tag"],
+        "image": target_img["tag"],
         "baseline": baseline,
         "cpu": cpu_model(),
         "runs": args.runs,
@@ -260,7 +260,7 @@ def main():
         "ran_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "results": results,
     }
-    path = os.path.join(args.out, f"{standard['report']}-bench-{args.arch}.json")
+    path = os.path.join(args.out, f"{target_img['report']}-bench-{args.arch}.json")
     with open(path, "w", encoding="utf-8") as f:
         json.dump(report, f, indent=1)
     for r in results:

@@ -17,6 +17,7 @@ RUN mkdir -p /rootfs/distroless /rootfs/standard /rootfs/development
 RUN --mount=type=cache,target=/var/cache/apk \
     set -eux; \
     apk add --no-cache --initdb --no-scripts --root /rootfs/distroless \
+      --keys-dir /etc/apk/keys --repositories-file /etc/apk/repositories \
       wolfi-baselayout \
       wolfi-keys \
       glibc \
@@ -30,6 +31,8 @@ RUN --mount=type=cache,target=/var/cache/apk \
     cp -a /etc/passwd /rootfs/distroless/etc/; \
     cp -a /etc/group /rootfs/distroless/etc/; \
     cp -a /etc/shadow /rootfs/distroless/etc/; \
+    mkdir -p /rootfs/distroless/home/nonroot; \
+    chown 65532:65532 /rootfs/distroless/home/nonroot; \
     echo "hosts: files dns" > /rootfs/distroless/etc/nsswitch.conf; \
     touch /rootfs/distroless/etc/resolv.conf /rootfs/distroless/etc/hosts
 
@@ -37,6 +40,7 @@ RUN --mount=type=cache,target=/var/cache/apk \
 RUN --mount=type=cache,target=/var/cache/apk \
     set -eux; \
     apk add --no-cache --initdb --no-scripts --root /rootfs/standard \
+      --keys-dir /etc/apk/keys --repositories-file /etc/apk/repositories \
       wolfi-baselayout \
       wolfi-keys \
       glibc \
@@ -52,6 +56,8 @@ RUN --mount=type=cache,target=/var/cache/apk \
     cp -a /etc/passwd /rootfs/standard/etc/; \
     cp -a /etc/group /rootfs/standard/etc/; \
     cp -a /etc/shadow /rootfs/standard/etc/; \
+    mkdir -p /rootfs/standard/home/nonroot; \
+    chown 65532:65532 /rootfs/standard/home/nonroot; \
     for applet in $(/rootfs/standard/usr/bin/busybox --list); do \
       ln -sf busybox /rootfs/standard/usr/bin/$applet; \
     done; \
@@ -63,6 +69,7 @@ RUN --mount=type=cache,target=/var/cache/apk \
 RUN --mount=type=cache,target=/var/cache/apk \
     set -eux; \
     apk add --no-cache --initdb --no-scripts --root /rootfs/development \
+      --keys-dir /etc/apk/keys --repositories-file /etc/apk/repositories \
       wolfi-baselayout \
       wolfi-keys \
       glibc \
@@ -83,6 +90,8 @@ RUN --mount=type=cache,target=/var/cache/apk \
     cp -a /etc/passwd /rootfs/development/etc/; \
     cp -a /etc/group /rootfs/development/etc/; \
     cp -a /etc/shadow /rootfs/development/etc/; \
+    mkdir -p /rootfs/development/home/nonroot; \
+    chown 65532:65532 /rootfs/development/home/nonroot; \
     for applet in $(/rootfs/development/usr/bin/busybox --list); do \
       ln -sf busybox /rootfs/development/usr/bin/$applet; \
     done; \
@@ -156,7 +165,7 @@ LABEL org.opencontainers.image.title="Wolfi BoringSSL FIPS (Standard)" \
       org.opencontainers.image.licenses="OpenSSL"
 
 USER nonroot
-WORKDIR /home/user/nonroot
+WORKDIR /home/nonroot
 
 HEALTHCHECK --interval=30s --timeout=3s --start-period=2s --retries=3 \
     CMD /usr/local/bin/bssl isfips || exit 1
@@ -184,7 +193,7 @@ LABEL org.opencontainers.image.title="Wolfi BoringSSL FIPS (Distroless)" \
       org.opencontainers.image.licenses="OpenSSL"
 
 USER nonroot
-WORKDIR /home/user/nonroot
+WORKDIR /home/nonroot
 
 HEALTHCHECK --interval=30s --timeout=3s --start-period=2s --retries=3 \
     CMD ["/usr/local/bin/bssl", "isfips"]
@@ -209,7 +218,7 @@ LABEL org.opencontainers.image.title="Wolfi BoringSSL FIPS (Development)" \
       org.opencontainers.image.licenses="OpenSSL"
 
 USER nonroot
-WORKDIR /home/user/nonroot
+WORKDIR /home/nonroot
 
 HEALTHCHECK --interval=30s --timeout=3s --start-period=2s --retries=3 \
     CMD /usr/local/bin/bssl isfips || exit 1
