@@ -38,7 +38,9 @@ All images are built directly on Wolfi Linux, a declarative Linux undistro optim
 ### 2. Strict FIPS 140-3 Enforcement
 - **[OpenJDK FIPS](openjdk/README.md):** Powered by **Eclipse Adoptium OpenJDK 8, 17, 21 and 25** and **Bouncy Castle FIPS** (`bc-fips`, `bcpkix-fips`, `bctls-fips`). Overrides JVM security configuration (`conf/security/java.security`) to force BCFIPS as Provider 1, BCFKS as default keystore, and SP 800-90A DRBG entropy.
 - **[OpenSSL FIPS](openssl/README.md):** Built from source with `--enable-fips`. Strict `openssl.cnf` policy locks down legacy algorithms (MD5, DES, 3DES, RC4) and permits only approved cryptographic mechanisms.
+- **[BoringSSL FIPS](boringssl/README.md):** Built from source with `-DFIPS=1 -DBUILD_SHARED_LIBS=1`. Features the BoringCrypto Module (BCM) FIPS 140-3 core (NIST CMVP Certificate [#4735](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4735)) with embedded HMAC integrity sealing and power-on self-tests verified via `bssl isfips`.
 - **Node.js FIPS:** Wolfi's Node.js links the system OpenSSL, which loads the validated OpenSSL FIPS 3.1.2 provider from the OpenSSL FIPS image. `fips=yes` is the default property and `--force-fips` (via `NODE_OPTIONS`) stops application code from calling `crypto.setFips(false)`, so MD5, ChaCha20 and RSA-1024 are rejected. Every build runs `/usr/share/nodejs-fips/fips-check.js` and fails if FIPS mode is not enforced.
+- **Go FIPS:** Built with `CGO_ENABLED=1` and `GOEXPERIMENT=boringcrypto`. Routes standard library cryptography (`crypto/*`) to the validated BoringCrypto module, strictly rejecting non-approved TLS cipher suites via `_ "crypto/tls/fipsonly"`. Every build runs `/usr/share/go-fips/fips-check.go`.
 
 ### 3. Supply Chain Security (SLSA Level 3)
 - **SLSA Provenance:** Cryptographically signed attestations generated via GitHub Actions OIDC and published to the GitHub Container Registry (GHCR).

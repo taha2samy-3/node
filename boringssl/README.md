@@ -5,7 +5,7 @@
 [![SLSA Level 3](https://img.shields.io/badge/SLSA-Level%203-orange?style=for-the-badge)](https://github.com/taha2samy-3/node/actions)
 [![License](https://img.shields.io/badge/License-OpenSSL-lightgrey?style=for-the-badge)](LICENSE)
 
-A high-assurance container runtime delivering **Google BoringSSL** with the **BoringCrypto Module (BCM) FIPS 140-3** cryptographic core compiled from source using Clang with `-DFIPS=1` and strictly enforced on **Wolfi OS** (undistro).
+A high-assurance container runtime delivering **Google BoringSSL** with the **BoringCrypto Module (BCM) FIPS 140-3** cryptographic core (NIST CMVP Certificate [#4735](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4735) / [#5104](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5104)) compiled from source using Clang with `-DFIPS=1` and strictly enforced on **Wolfi OS** (undistro).
 
 ---
 
