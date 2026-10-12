@@ -117,7 +117,12 @@ export default function Home() {
         <StaggerItem><StatTile label="Images" value={totals.images} hint="dev, standard and production flavors" /></StaggerItem>
         <StaggerItem><StatTile label="Scanned" value={totals.scanned} hint={`of ${totals.images} images have a report`} /></StaggerItem>
         <StaggerItem>
-          <StatTile label="No known CVEs" value={totals.clean} hint={`of ${totals.scanned} scanned images`} accent="text-emerald-600 dark:text-brand-mint" />
+          <StatTile
+            label="Zero-CVE images"
+            value={totals.clean}
+            hint={`of ${totals.scanned} scanned images`}
+            accent={totals.clean > 0 ? "text-emerald-600 dark:text-brand-mint" : undefined}
+          />
         </StaggerItem>
       </Stagger>
 
@@ -166,7 +171,11 @@ export default function Home() {
                     <div className="mt-auto text-xs text-slate-500 dark:text-slate-400">
                       {counts.scanned === 0
                         ? 'No reports published yet'
-                        : `${counts.clean} of ${counts.scanned} scanned images have no known CVEs`}
+                        : counts.clean === counts.scanned
+                        ? `All ${counts.scanned} scanned images have zero CVEs`
+                        : counts.clean === 0
+                        ? `All ${counts.scanned} scanned images have known CVEs`
+                        : `${counts.clean} of ${counts.scanned} scanned images have zero CVEs`}
                     </div>
                   </Card>
                 </motion.div>
