@@ -32,7 +32,7 @@ A collection of **enterprise-grade, zero-CVE, FIPS 140-3 compliant container bas
 ### 1. Zero-CVE Foundation
 All images are built directly on Wolfi Linux, a declarative Linux undistro optimized for container security:
 - **Zero Shell / Distroless:** Production containers (`prod` / `distroless`) ship with **no shell (`sh`/`bash`)** and **no package manager (`apk`)**.
-- **Non-Root Execution:** All production runtime targets execute strictly under non-privileged UID/GID `65532:65532`.
+- **Non-Root Execution:** All production runtime targets execute strictly under non-privileged users (distroless FIPS images use UID/GID `65532:65532`, application runtime images use non-root UID `1000`).
 - **Rapid Patching:** Wolfi rolling packages remediate upstream CVEs within hours of public disclosure.
 
 ### 2. Strict FIPS 140-3 Enforcement
@@ -112,7 +112,7 @@ Every FIPS image has a test suite. CI runs it on amd64 and arm64 after each buil
 | Image | Suite | What it checks |
 | :--- | :--- | :--- |
 | OpenSSL FIPS | `openssl/tests/` | Provider status and self-tests, approved / rejected digests, ciphers, MACs, KDFs, key sizes and curves, PQC, TLS |
-| BoringSSL FIPS | `boringssl/tests/` | `bssl isfips` status and POST self-tests, CAVP hashing vectors, algorithm filter speed benchmarks, shared library link integrity |
+| BoringSSL FIPS | `boringssl/tests/` | `bssl isfips` status, power-on self-tests (POST), CAVP hashing vectors (SHA-256, SHA-1), and non-root execution |
 | OpenJDK FIPS | `openjdk/tests/` | BCFIPS provider order, approved-only mode, rejected algorithms, BCFKS keystores, TLS 1.2 / 1.3, DRBG |
 | Node.js FIPS | `nodejs/fips/tests/` | `crypto.getFips()`, `setFips(false)` blocked, rejected digests / ciphers / curves / scrypt, RSA sizes, HMAC, PBKDF2, TLS 1.3 handshake, non-root and distroless checks |
 | Go FIPS | `go/fips/tests/` | `crypto/internal/boring` and `_ "crypto/tls/fipsonly"` enforcement, TLS cipher suite restrictions, symbol table verification, non-root execution |

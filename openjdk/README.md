@@ -36,7 +36,7 @@ Every Java version (`8`, `17`, `21`, `25`) provides three distinct tiers optimiz
 | :--- | :--- | :--- | :--- | :--- |
 | **`dev`** | `ghcr.io/taha2samy-3/wolfi-openjdk-fips:21-dev` | Wolfi Dev | Full JDK + shell (`bash`) + package manager (`apk`) + debug utilities (`curl`, `jq`, `git`, `gdb`) | CI/CD build environments, debugging & compiling |
 | **`standard`** | `ghcr.io/taha2samy-3/wolfi-openjdk-fips:21` | Wolfi Base | JRE + Glibc + Libstdc++ + CA Certs + Bouncy Castle FIPS | Standard production workloads requiring basic maintenance |
-| **`prod`** | `ghcr.io/taha2samy-3/wolfi-openjdk-fips:21-distroless` | Distroless | JRE + CA Certs + BCFIPS only, **No Shell, No Package Manager, Non-Root (65532:65532)** | Hardened zero-CVE production deployment |
+| **`prod`** | `ghcr.io/taha2samy-3/wolfi-openjdk-fips:21-distroless` | Distroless | JRE + CA Certs + BCFIPS only, **No Shell, No Package Manager, Non-Root (65532:65532)** | Hardened distroless production deployment |
 
 ---
 
