@@ -105,12 +105,36 @@ variable "GO_1_25_FULL_VERSION" { default = "1.25.12-r1" }
 variable "GO_1_26_FULL_VERSION" { default = "1.26.9-r0" }
 variable "GO_1_27_FULL_VERSION" { default = "1.27.2-r0" }
 
+variable "GO_FIPS_REPO" {
+  default = "go-fips"
+}
+
+# ==========================================
+# BoringSSL FIPS Versions
+# ==========================================
+variable "BORINGSSL_REPO" {
+  default = "boringssl-fips"
+}
+
+variable "BORINGSSL_VERSION" {
+  default = "fips-2024"
+}
+
+variable "BORINGSSL_COMMIT" {
+  default = "master"
+}
+
+variable "BORINGSSL_STATIC_IMAGE" {
+  default = "cgr.dev/chainguard/static@sha256:fe55470f22d3259488d9d3739168d8f04da67755f0b69382bc26eda4a7d3d327"
+}
+
 # ==========================================
 # OpenSSL FIPS Versions
 # ==========================================
 variable "OPENSSL_REPO" {
   default = "openssl-fips"
 }
+
 
 variable "OPENSSL_CORE_VERSION" {
   default = "3.5.9"
@@ -266,7 +290,7 @@ target "_envoke" {
 # Groups
 # ==========================================
 group "default" {
-  targets = ["dev", "prod", "python-dev", "python-prod", "bun-dev", "bun-prod", "java-dev", "java-prod", "go-dev", "go-prod", "openssl-dev", "openssl-standard", "openssl-prod", "openjdk", "node-fips"]
+  targets = ["dev", "prod", "python-dev", "python-prod", "bun-dev", "bun-prod", "java-dev", "java-prod", "go-dev", "go-prod", "go-fips-dev", "go-fips-prod", "openssl-dev", "openssl-standard", "openssl-prod", "boringssl-dev", "boringssl-standard", "boringssl-prod", "openjdk", "node-fips"]
 }
 
 # ==========================================
@@ -703,6 +727,88 @@ target "go-prod" {
 }
 
 # ==========================================
+# Go FIPS Targets (BoringCrypto)
+# ==========================================
+target "go-fips-dev" {
+  inherits = ["_envoke"]
+  name = "go-fips-dev-${replace(item.version, ".", "-")}"
+  matrix = {
+    item = [
+      { version = "1.22", full_version = GO_1_22_FULL_VERSION },
+      { version = "1.23", full_version = GO_1_23_FULL_VERSION },
+      { version = "1.24", full_version = GO_1_24_FULL_VERSION },
+      { version = "1.25", full_version = GO_1_25_FULL_VERSION },
+      { version = "1.26", full_version = GO_1_26_FULL_VERSION },
+      { version = "1.27", full_version = GO_1_27_FULL_VERSION }
+    ]
+  }
+  platforms = ["linux/amd64", "linux/arm64"]
+  context = "."
+  dockerfile = "go/dockerfile"
+  target = "fips-dev"
+  args = {
+    GO_VERSION = item.version
+    GO_FULL_VERSION = item.full_version
+    BASE_IMAGE = BASE_IMAGE
+  }
+  tags = [
+    "${REGISTRY}/${OWNER}/${GO_FIPS_REPO}:${item.version}-dev",
+    "${REGISTRY}/${OWNER}/${GO_FIPS_REPO}:v${item.version}-dev"
+  ]
+  cache-from = ["type=gha,scope=go-fips-dev-${replace(item.version, ".", "-")}"]
+  cache-to = ["type=gha,mode=max,scope=go-fips-dev-${replace(item.version, ".", "-")},compression=zstd,compression-level=3"]
+  labels = {
+    "org.opencontainers.image.authors" = "Taha Samy"
+    "org.opencontainers.image.source" = "https://github.com/${OWNER}/${SOURCE_REPO}"
+    "org.opencontainers.image.licenses" = "MIT"
+    "org.opencontainers.image.description" = "Optimized Go ${item.version} FIPS development image with BoringCrypto based on Chainguard Wolfi"
+  }
+  annotations = [
+    "manifest:org.opencontainers.image.description=Optimized Go ${item.version} FIPS development image with BoringCrypto based on Chainguard Wolfi",
+    "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
+  ]
+}
+
+target "go-fips-prod" {
+  inherits = ["_envoke"]
+  name = "go-fips-prod-${replace(item.version, ".", "-")}"
+  matrix = {
+    item = [
+      { version = "1.22", full_version = GO_1_22_FULL_VERSION },
+      { version = "1.23", full_version = GO_1_23_FULL_VERSION },
+      { version = "1.24", full_version = GO_1_24_FULL_VERSION },
+      { version = "1.25", full_version = GO_1_25_FULL_VERSION },
+      { version = "1.26", full_version = GO_1_26_FULL_VERSION },
+      { version = "1.27", full_version = GO_1_27_FULL_VERSION }
+    ]
+  }
+  platforms = ["linux/amd64", "linux/arm64"]
+  context = "."
+  dockerfile = "go/dockerfile"
+  target = "fips-prod"
+  args = {
+    GO_VERSION = item.version
+    BASE_IMAGE = BASE_IMAGE
+  }
+  tags = [
+    "${REGISTRY}/${OWNER}/${GO_FIPS_REPO}:${item.version}",
+    "${REGISTRY}/${OWNER}/${GO_FIPS_REPO}:v${item.version}"
+  ]
+  cache-from = ["type=gha,scope=go-fips-prod-${replace(item.version, ".", "-")}"]
+  cache-to = ["type=gha,mode=max,scope=go-fips-prod-${replace(item.version, ".", "-")},compression=zstd,compression-level=3"]
+  labels = {
+    "org.opencontainers.image.authors" = "Taha Samy"
+    "org.opencontainers.image.source" = "https://github.com/${OWNER}/${SOURCE_REPO}"
+    "org.opencontainers.image.licenses" = "MIT"
+    "org.opencontainers.image.description" = "Ultra-secure minimal distroless base for Go ${item.version} FIPS apps based on Chainguard Wolfi and scratch"
+  }
+  annotations = [
+    "manifest:org.opencontainers.image.description=Ultra-secure minimal distroless base for Go ${item.version} FIPS apps based on Chainguard Wolfi and scratch",
+    "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
+  ]
+}
+
+# ==========================================
 # OpenSSL FIPS Targets
 # ==========================================
 target "openssl-base" {
@@ -811,6 +917,90 @@ target "openssl-prod" {
   }
   annotations = [
     "manifest:org.opencontainers.image.description=Hardened FIPS 140-3 compliant Zero-CVE distroless OpenSSL container on Wolfi",
+    "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
+  ]
+}
+
+# ==========================================
+# BoringSSL FIPS Targets
+# ==========================================
+target "boringssl-base" {
+  args = {
+    BORINGSSL_VERSION = BORINGSSL_VERSION
+    BORINGSSL_COMMIT = BORINGSSL_COMMIT
+    BASE_IMAGE = BASE_IMAGE
+    STATIC_IMAGE = BORINGSSL_STATIC_IMAGE
+  }
+}
+
+target "boringssl-dev" {
+  inherits = ["boringssl-base"]
+  platforms = ["linux/amd64", "linux/arm64"]
+  context = "boringssl"
+  dockerfile = "dockerfile"
+  target = "boringssl-dev"
+  tags = [
+    "${REGISTRY}/${OWNER}/${BORINGSSL_REPO}:${BORINGSSL_VERSION}-dev",
+    "${REGISTRY}/${OWNER}/${BORINGSSL_REPO}:dev"
+  ]
+  cache-from = ["type=gha,scope=boringssl-dev"]
+  cache-to = ["type=gha,mode=max,scope=boringssl-dev,compression=zstd,compression-level=3"]
+  labels = {
+    "org.opencontainers.image.authors" = "Taha Samy"
+    "org.opencontainers.image.source" = "https://github.com/${OWNER}/${SOURCE_REPO}"
+    "org.opencontainers.image.licenses" = "OpenSSL"
+    "org.opencontainers.image.description" = "Hardened FIPS 140-3 compliant BoringSSL development SDK image on Wolfi"
+  }
+  annotations = [
+    "manifest:org.opencontainers.image.description=Hardened FIPS 140-3 compliant BoringSSL development SDK image on Wolfi",
+    "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
+  ]
+}
+
+target "boringssl-standard" {
+  inherits = ["boringssl-base"]
+  platforms = ["linux/amd64", "linux/arm64"]
+  context = "boringssl"
+  dockerfile = "dockerfile"
+  target = "boringssl-standard"
+  tags = [
+    "${REGISTRY}/${OWNER}/${BORINGSSL_REPO}:${BORINGSSL_VERSION}",
+    "${REGISTRY}/${OWNER}/${BORINGSSL_REPO}:latest"
+  ]
+  cache-from = ["type=gha,scope=boringssl-standard"]
+  cache-to = ["type=gha,mode=max,scope=boringssl-standard,compression=zstd,compression-level=3"]
+  labels = {
+    "org.opencontainers.image.authors" = "Taha Samy"
+    "org.opencontainers.image.source" = "https://github.com/${OWNER}/${SOURCE_REPO}"
+    "org.opencontainers.image.licenses" = "OpenSSL"
+    "org.opencontainers.image.description" = "Hardened FIPS 140-3 compliant BoringSSL standard runtime image on Wolfi"
+  }
+  annotations = [
+    "manifest:org.opencontainers.image.description=Hardened FIPS 140-3 compliant BoringSSL standard runtime image on Wolfi",
+    "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
+  ]
+}
+
+target "boringssl-prod" {
+  inherits = ["boringssl-base"]
+  platforms = ["linux/amd64", "linux/arm64"]
+  context = "boringssl"
+  dockerfile = "dockerfile"
+  target = "boringssl-distroless"
+  tags = [
+    "${REGISTRY}/${OWNER}/${BORINGSSL_REPO}:${BORINGSSL_VERSION}-distroless",
+    "${REGISTRY}/${OWNER}/${BORINGSSL_REPO}:distroless"
+  ]
+  cache-from = ["type=gha,scope=boringssl-distroless"]
+  cache-to = ["type=gha,mode=max,scope=boringssl-distroless,compression=zstd,compression-level=3"]
+  labels = {
+    "org.opencontainers.image.authors" = "Taha Samy"
+    "org.opencontainers.image.source" = "https://github.com/${OWNER}/${SOURCE_REPO}"
+    "org.opencontainers.image.licenses" = "OpenSSL"
+    "org.opencontainers.image.description" = "Hardened FIPS 140-3 compliant Zero-CVE distroless BoringSSL container on Wolfi"
+  }
+  annotations = [
+    "manifest:org.opencontainers.image.description=Hardened FIPS 140-3 compliant Zero-CVE distroless BoringSSL container on Wolfi",
     "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
   ]
 }

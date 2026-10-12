@@ -1,0 +1,217 @@
+# syntax=docker/dockerfile:1.6
+
+# --- Base Images ---
+ARG BASE_IMAGE="cgr.dev/chainguard/wolfi-base@sha256:1c451d46a0d5c4e9f2b38e0e8d3e299564a1aa95c21973efcc1980a9d1d2e73e"
+ARG STATIC_IMAGE="cgr.dev/chainguard/static@sha256:11ec91f0372630a2ca3764cea6325bebb0189a514084463cbb3724e5bb350d14"
+
+# --- Version Variables ---
+ARG BORINGSSL_COMMIT="master"
+ARG BORINGSSL_VERSION="fips-2024"
+
+# --- Producer Stage for Root Filesystems ---
+FROM ${BASE_IMAGE} AS producer
+USER root
+RUN mkdir -p /rootfs/distroless /rootfs/standard /rootfs/development
+
+# 1. Distroless rootfs
+RUN --mount=type=cache,target=/var/cache/apk \
+    set -eux; \
+    apk add --no-cache --initdb --no-scripts --root /rootfs/distroless \
+      wolfi-baselayout \
+      wolfi-keys \
+      glibc \
+      libgcc \
+      libstdc++ \
+      tzdata \
+      ca-certificates; \
+    mkdir -p /rootfs/distroless/etc/apk; \
+    cp -a /etc/apk/keys /rootfs/distroless/etc/apk/; \
+    cp -a /etc/apk/repositories /rootfs/distroless/etc/apk/; \
+    cp -a /etc/passwd /rootfs/distroless/etc/; \
+    cp -a /etc/group /rootfs/distroless/etc/; \
+    cp -a /etc/shadow /rootfs/distroless/etc/; \
+    echo "hosts: files dns" > /rootfs/distroless/etc/nsswitch.conf; \
+    touch /rootfs/distroless/etc/resolv.conf /rootfs/distroless/etc/hosts
+
+# 2. Standard rootfs
+RUN --mount=type=cache,target=/var/cache/apk \
+    set -eux; \
+    apk add --no-cache --initdb --no-scripts --root /rootfs/standard \
+      wolfi-baselayout \
+      wolfi-keys \
+      glibc \
+      libgcc \
+      libstdc++ \
+      tzdata \
+      ca-certificates \
+      busybox \
+      posix-libc-utils; \
+    mkdir -p /rootfs/standard/etc/apk; \
+    cp -a /etc/apk/keys /rootfs/standard/etc/apk/; \
+    cp -a /etc/apk/repositories /rootfs/standard/etc/apk/; \
+    cp -a /etc/passwd /rootfs/standard/etc/; \
+    cp -a /etc/group /rootfs/standard/etc/; \
+    cp -a /etc/shadow /rootfs/standard/etc/; \
+    for applet in $(/rootfs/standard/usr/bin/busybox --list); do \
+      ln -sf busybox /rootfs/standard/usr/bin/$applet; \
+    done; \
+    ln -sf busybox /rootfs/standard/usr/bin/sh; \
+    echo "hosts: files dns" > /rootfs/standard/etc/nsswitch.conf; \
+    touch /rootfs/standard/etc/resolv.conf /rootfs/standard/etc/hosts
+
+# 3. Development rootfs
+RUN --mount=type=cache,target=/var/cache/apk \
+    set -eux; \
+    apk add --no-cache --initdb --no-scripts --root /rootfs/development \
+      wolfi-baselayout \
+      wolfi-keys \
+      glibc \
+      libgcc \
+      libstdc++ \
+      tzdata \
+      ca-certificates \
+      busybox \
+      posix-libc-utils \
+      build-base \
+      pkgconf \
+      bash \
+      curl \
+      jq; \
+    mkdir -p /rootfs/development/etc/apk; \
+    cp -a /etc/apk/keys /rootfs/development/etc/apk/; \
+    cp -a /etc/apk/repositories /rootfs/development/etc/apk/; \
+    cp -a /etc/passwd /rootfs/development/etc/; \
+    cp -a /etc/group /rootfs/development/etc/; \
+    cp -a /etc/shadow /rootfs/development/etc/; \
+    for applet in $(/rootfs/development/usr/bin/busybox --list); do \
+      ln -sf busybox /rootfs/development/usr/bin/$applet; \
+    done; \
+    ln -sf busybox /rootfs/development/usr/bin/sh; \
+    echo "hosts: files dns" > /rootfs/development/etc/nsswitch.conf; \
+    touch /rootfs/development/etc/resolv.conf /rootfs/development/etc/hosts
+
+# --- FIPS Builder Stage ---
+FROM ${BASE_IMAGE} AS boringssl-builder
+USER root
+
+ARG BORINGSSL_COMMIT
+
+RUN --mount=type=cache,target=/var/cache/apk \
+    apk add --no-cache \
+      cmake \
+      ninja \
+      build-base \
+      linux-headers \
+      perl \
+      go \
+      clang \
+      lld \
+      wget \
+      ca-certificates \
+      tar
+
+WORKDIR /src
+RUN set -e; \
+    for url in \
+      https://github.com/google/boringssl/archive/refs/heads/${BORINGSSL_COMMIT}.tar.gz \
+      https://github.com/google/boringssl/archive/master.tar.gz; do \
+      wget -q -O boringssl.tar.gz "$url" && break; \
+    done; \
+    mkdir boringssl && tar -xzf boringssl.tar.gz -C boringssl --strip-components=1
+
+WORKDIR /src/boringssl/build
+RUN cmake -GNinja \
+      -DFIPS=1 \
+      -DBUILD_SHARED_LIBS=1 \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DCMAKE_C_COMPILER=clang \
+      -DCMAKE_CXX_COMPILER=clang++ \
+      .. && \
+    ninja bssl crypto ssl && \
+    ./bssl isfips && \
+    mkdir -p /usr/local/bin /usr/local/lib /usr/local/include && \
+    cp bssl /usr/local/bin/bssl && \
+    cp libcrypto.so libssl.so /usr/local/lib/ && \
+    ln -sf libcrypto.so /usr/local/lib/fips.so && \
+    cp -r ../include/openssl /usr/local/include/
+
+# --- Standard Image ---
+FROM ${STATIC_IMAGE} AS boringssl-standard
+ARG BORINGSSL_VERSION
+COPY --from=producer /rootfs/standard /
+ENV PATH="/usr/local/bin:${PATH}" \
+    LD_LIBRARY_PATH="/usr/local/lib:/usr/lib:/lib" \
+    SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
+    TZ=UTC \
+    LANG=C.UTF-8
+
+COPY --from=boringssl-builder /usr/local/bin/bssl /usr/local/bin/bssl
+COPY --from=boringssl-builder /usr/local/lib/libcrypto.so /usr/local/lib/
+COPY --from=boringssl-builder /usr/local/lib/libssl.so /usr/local/lib/
+COPY --from=boringssl-builder /usr/local/lib/fips.so /usr/local/lib/
+
+LABEL org.opencontainers.image.title="Wolfi BoringSSL FIPS (Standard)" \
+      org.opencontainers.image.vendor="taha2samy-3" \
+      org.opencontainers.image.version="${BORINGSSL_VERSION}" \
+      org.opencontainers.image.licenses="OpenSSL"
+
+USER nonroot
+WORKDIR /home/user/nonroot
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=2s --retries=3 \
+    CMD /usr/local/bin/bssl isfips || exit 1
+
+ENTRYPOINT ["/usr/local/bin/bssl"]
+
+# --- Distroless Image ---
+FROM ${STATIC_IMAGE} AS boringssl-distroless
+ARG BORINGSSL_VERSION
+COPY --from=producer /rootfs/distroless /
+ENV PATH="/usr/local/bin:${PATH}" \
+    LD_LIBRARY_PATH="/usr/local/lib:/usr/lib:/lib" \
+    SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
+    TZ=UTC \
+    LANG=C.UTF-8
+
+COPY --from=boringssl-builder /usr/local/bin/bssl /usr/local/bin/bssl
+COPY --from=boringssl-builder /usr/local/lib/libcrypto.so /usr/local/lib/
+COPY --from=boringssl-builder /usr/local/lib/libssl.so /usr/local/lib/
+COPY --from=boringssl-builder /usr/local/lib/fips.so /usr/local/lib/
+
+LABEL org.opencontainers.image.title="Wolfi BoringSSL FIPS (Distroless)" \
+      org.opencontainers.image.vendor="taha2samy-3" \
+      org.opencontainers.image.version="${BORINGSSL_VERSION}" \
+      org.opencontainers.image.licenses="OpenSSL"
+
+USER nonroot
+WORKDIR /home/user/nonroot
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=2s --retries=3 \
+    CMD ["/usr/local/bin/bssl", "isfips"]
+
+ENTRYPOINT ["/usr/local/bin/bssl"]
+
+# --- Development Image ---
+FROM ${STATIC_IMAGE} AS boringssl-dev
+ARG BORINGSSL_VERSION
+COPY --from=producer /rootfs/development /
+ENV PATH="/usr/local/bin:${PATH}" \
+    LD_LIBRARY_PATH="/usr/local/lib:/usr/lib:/lib" \
+    SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
+    TZ=UTC \
+    LANG=C.UTF-8
+
+COPY --from=boringssl-builder /usr/local /usr/local
+
+LABEL org.opencontainers.image.title="Wolfi BoringSSL FIPS (Development)" \
+      org.opencontainers.image.vendor="taha2samy-3" \
+      org.opencontainers.image.version="${BORINGSSL_VERSION}" \
+      org.opencontainers.image.licenses="OpenSSL"
+
+USER nonroot
+WORKDIR /home/user/nonroot
+
+HEALTHCHECK --interval=30s --timeout=3s --start-period=2s --retries=3 \
+    CMD /usr/local/bin/bssl isfips || exit 1
+
+ENTRYPOINT ["/bin/bash"]

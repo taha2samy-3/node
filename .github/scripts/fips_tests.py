@@ -89,10 +89,14 @@ def run_flavor(runtime, flavor, tags_by_flavor):
     if runtime == "openssl":
         # Tests that depend on public internet hosts are left out of the gate (run them by hand with -m network)
         return "openssl/tests", pytest_suite("openssl/tests", ["--image", tag, "-m", "not network"])
+    if runtime == "boringssl":
+        return "boringssl/tests", pytest_suite("boringssl/tests", ["--image", tag, "-m", "not network"])
     if runtime == "openjdk":
         return "openjdk/tests", pytest_suite("openjdk/tests", ["--jdk-img", tags_by_flavor["dev"], "--jre-img", tag])
     if runtime == "node-fips":
         return "nodejs/fips/tests", pytest_suite("nodejs/fips/tests", ["--image", tag, "--flavor", flavor])
+    if runtime == "go-fips":
+        return "go/fips/tests", pytest_suite("go/fips/tests", ["--image", tag, "--flavor", flavor])
     sys.exit(f"No FIPS test suite for runtime {runtime}")
 
 

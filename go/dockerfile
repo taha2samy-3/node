@@ -99,3 +99,31 @@ USER go
 
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["/bin/sh"]
+
+# ==========================================
+# Stage 5: Go FIPS Verification Layer
+# ==========================================
+FROM scratch AS fips-layer
+COPY go/fips/fips-check.go /usr/share/go-fips/fips-check.go
+
+# ==========================================
+# Stage 6: Go FIPS Development (fips-dev)
+# ==========================================
+FROM full-dev AS fips-dev
+
+COPY --from=fips-layer / /
+
+ENV CGO_ENABLED=1 \
+    GOEXPERIMENT=boringcrypto
+
+USER root
+RUN go run /usr/share/go-fips/fips-check.go
+USER go
+
+# ==========================================
+# Stage 7: Go FIPS Production (fips-prod)
+# ==========================================
+FROM minimal AS fips-prod
+
+COPY --from=fips-layer / /
+

@@ -154,6 +154,51 @@ def java_suite(fips_image, jdk_image, version):
     return once, {"name": f"Eclipse Temurin {version} (SunJCE, not FIPS)", "image": baseline}
 
 
+def boringssl_suite(fips_image):
+    baseline_img = OPENSSL_BASELINE_IMAGE
+    inspect_res = run(["docker", "image", "inspect", baseline_img])
+    if inspect_res.returncode != 0:
+        pull_res = run(["docker", "pull", "-q", baseline_img])
+        if pull_res.returncode != 0:
+            baseline_img = "bench-baseline-debian"
+            subprocess.run(["docker", "build", "-q", "-t", baseline_img, "-"],
+                           input="FROM debian:bookworm-slim\nRUN apt-get update && apt-get install -y openssl\n",
+                           text=True, check=True, capture_output=True, timeout=600)
+
+    def once(which):
+        if which == "fips":
+            out = run(["docker", "run", "--rm", "--entrypoint", "/usr/local/bin/bssl", fips_image, "speed"]).stdout
+            results = {}
+            for line in out.splitlines():
+                parts = line.split()
+                if len(parts) >= 2:
+                    try:
+                        results[parts[0]] = ("ops/s", float(parts[1].rstrip("k")))
+                    except ValueError:
+                        pass
+            return results
+        else:
+            results = {}
+            for name, alg in OPENSSL_EVP[:4]:
+                results[name] = ("MB/s", parse_evp(openssl_speed(baseline_img, "openssl", ["-bytes", "16384", "-evp", alg])))
+            return results
+
+    return once, {"name": "OpenSSL baseline on Debian Bookworm", "image": baseline_img}
+
+
+def go_fips_suite(fips_image, dev_image, version):
+    baseline = f"ghcr.io/taha2samy-3/go:{version}-dev"
+    run(["docker", "pull", "-q", baseline])
+
+    def once(which):
+        image = dev_image if which == "fips" else baseline
+        proc = run(["docker", "run", "--rm", "-e", f"BENCH_SECONDS={SECONDS}", "-v", f"{BENCH_DIR}:/bench:ro",
+                    image, "go", "run", "/bench/go-crypto.go"])
+        return {r["name"]: (r["metric"], r["value"]) for r in json.loads(proc.stdout or "[]")}
+
+    return once, {"name": f"Go {version} without BoringCrypto (regular Go dev image)", "image": baseline}
+
+
 def main():
     global SECONDS
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -167,23 +212,27 @@ def main():
 
     os.chdir(ROOT)
     images = {i["flavor"]: i for i in plan_images.load_images() if i["unit"] == args.unit}
-    if "standard" not in images:
-        sys.exit(f"{args.unit}: no standard flavor to benchmark")
-    standard = images["standard"]
-    images_to_pull = {standard["tag"]}
-    if standard["runtime"] == "openjdk" and "dev" in images:
+    if "standard" not in images and "dev" not in images:
+        sys.exit(f"{args.unit}: no benchmarkable flavor found")
+    target_img = images.get("standard") or images.get("dev")
+    images_to_pull = {target_img["tag"]}
+    if target_img["runtime"] in ("openjdk", "go-fips") and "dev" in images:
         images_to_pull.add(images["dev"]["tag"])
     for image in images_to_pull:
         run(["docker", "pull", "-q", image])
 
-    if standard["runtime"] == "openssl":
-        once, baseline = openssl_suite(standard["tag"])
-    elif standard["runtime"] == "node-fips":
-        once, baseline = node_suite(standard["tag"], standard["version"])
-    elif standard["runtime"] == "openjdk":
-        once, baseline = java_suite(standard["tag"], images["dev"]["tag"], standard["version"])
+    if target_img["runtime"] == "openssl":
+        once, baseline = openssl_suite(target_img["tag"])
+    elif target_img["runtime"] == "boringssl":
+        once, baseline = boringssl_suite(target_img["tag"])
+    elif target_img["runtime"] == "node-fips":
+        once, baseline = node_suite(target_img["tag"], target_img["version"])
+    elif target_img["runtime"] == "go-fips":
+        once, baseline = go_fips_suite(target_img["tag"], images.get("dev", target_img)["tag"], target_img["version"])
+    elif target_img["runtime"] == "openjdk":
+        once, baseline = java_suite(target_img["tag"], images["dev"]["tag"], target_img["version"])
     else:
-        sys.exit(f"No benchmark for runtime {standard['runtime']}")
+        sys.exit(f"No benchmark for runtime {target_img['runtime']}")
 
     samples = {"fips": [], "baseline": []}
     for _ in range(args.runs):

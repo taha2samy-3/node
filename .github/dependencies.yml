@@ -133,6 +133,15 @@ dependencies:
       OPENSSL_WOLFI_KEYS_VER: wolfi-keys
 
   # ==========================================
+  # BoringSSL FIPS (static base)
+  # ==========================================
+  - name: chainguard/static
+    group: boringssl-fips
+    source: image
+    ref: cgr.dev/chainguard/static:latest
+    variable: BORINGSSL_STATIC_IMAGE
+
+  # ==========================================
   # OpenJDK FIPS (Temurin, Bouncy Castle TLS / utilities, runtime packages)
   # ==========================================
   - name: temurin-8

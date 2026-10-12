@@ -51,6 +51,57 @@ runtimes:
               sbom: "./../reports/openssl-3.5-dev-sbom.json"
 
   # ==========================================
+  # BoringSSL FIPS 140-3 Cryptographic Runtime
+  # ==========================================
+  - id: "boringssl"
+    title: "Wolfi BoringSSL FIPS"
+    icon: "https://cdn.simpleicons.org/google/4285F4"
+    fips:
+      module: "BoringCrypto Module (BCM)"
+      certificate: 4953
+      enforcement: "BoringSSL is built from source with -DFIPS=1 -DBUILD_SHARED_LIBS=1 using Clang; the module text section is hashed with inject_hash, and power-on integrity check (POST) runs on library load."
+      verify: "docker run --rm {tag} isfips"
+    architectures:
+      - "linux/amd64"
+      - "linux/arm64"
+    versions:
+      - version: "fips-2024"
+        flavors:
+          - id: "prod"
+            name: "Distroless FIPS Runtime (Scratch)"
+            policy_header: "Hardened Minimal Distroless BoringSSL FIPS 140-3 Runtime"
+            policy_text: "Ultra-hardened Zero-CVE distroless runtime built directly from scratch with no shell and no package manager. Enforces BoringCrypto Module (BCM) FIPS 140-3 integrity boundaries and power-on self-tests."
+            tags:
+              - "ghcr.io/taha2samy-3/boringssl-fips:fips-2024-distroless"
+              - "ghcr.io/taha2samy-3/boringssl-fips:distroless"
+            reports:
+              vuln: "./../reports/boringssl-fips-2024-prod-vuln.json"
+              cis: "./../reports/boringssl-fips-2024-prod-cis.json"
+              sbom: "./../reports/boringssl-fips-2024-prod-sbom.json"
+          - id: "standard"
+            name: "Standard FIPS Runtime (with Shell)"
+            policy_header: "Production Hardened Standard BoringSSL FIPS Runtime"
+            policy_text: "Wolfi-based secure container with BoringSSL and BoringCrypto FIPS 140-3 module active by default. Includes non-root busybox shell and runtime utilities."
+            tags:
+              - "ghcr.io/taha2samy-3/boringssl-fips:fips-2024"
+              - "ghcr.io/taha2samy-3/boringssl-fips:latest"
+            reports:
+              vuln: "./../reports/boringssl-fips-2024-standard-vuln.json"
+              cis: "./../reports/boringssl-fips-2024-standard-cis.json"
+              sbom: "./../reports/boringssl-fips-2024-standard-sbom.json"
+          - id: "dev"
+            name: "Development Builder (with SDK & C Toolchain)"
+            policy_header: "Full BoringSSL FIPS Development & Cryptographic SDK"
+            policy_text: "Contains BoringSSL FIPS shared libraries, C headers, build utilities, and bssl CLI for building FIPS-compliant applications."
+            tags:
+              - "ghcr.io/taha2samy-3/boringssl-fips:fips-2024-dev"
+              - "ghcr.io/taha2samy-3/boringssl-fips:dev"
+            reports:
+              vuln: "./../reports/boringssl-fips-2024-dev-vuln.json"
+              cis: "./../reports/boringssl-fips-2024-dev-cis.json"
+              sbom: "./../reports/boringssl-fips-2024-dev-sbom.json"
+
+  # ==========================================
   # OpenJDK FIPS 140-3 Cryptographic Runtime
   # ==========================================
   - id: "openjdk"
@@ -842,3 +893,169 @@ runtimes:
               vuln: "./../reports/1.22-prod-vuln.json"
               cis: "./../reports/1.22-prod-cis.json"
               sbom: "./../reports/1.22-prod-sbom.json"
+
+  # ==========================================
+  # Go FIPS (BoringCrypto) Runtimes
+  # ==========================================
+  - id: "go-fips"
+    title: "Go FIPS (BoringCrypto)"
+    icon: "https://cdn.simpleicons.org/go/00ADD8"
+    fips:
+      module: "BoringCrypto Module (BCM) via crypto/internal/boring"
+      certificate: 4953
+      enforcement: "Go standard library cryptographic primitives are linked directly to BoringCrypto via GOEXPERIMENT=boringcrypto CGO_ENABLED=1, and strict TLS policy is enforced by crypto/tls/fipsonly."
+      verify: "docker run --rm {tag} go run /usr/share/go-fips/fips-check.go"
+    architectures:
+      - "linux/amd64"
+      - "linux/arm64"
+    versions:
+      - version: "1.27"
+        flavors:
+          - id: "dev"
+            name: "Development Builder"
+            policy_header: "Go 1.27 FIPS Development Suite"
+            policy_text: "Contains Go 1.27 toolchain with BoringCrypto enabled by default, enforcing FIPS 140-3 compliance for standard library cryptography."
+            tags:
+              - "ghcr.io/taha2samy-3/go-fips:1.27-dev"
+              - "ghcr.io/taha2samy-3/go-fips:v1.27-dev"
+            reports:
+              vuln: "./../reports/go-fips-1.27-dev-vuln.json"
+              cis: "./../reports/go-fips-1.27-dev-cis.json"
+              sbom: "./../reports/go-fips-1.27-dev-sbom.json"
+          - id: "prod"
+            name: "Production Base (Scratch)"
+            policy_header: "Hardened Minimal Base (Go 1.27 FIPS)"
+            policy_text: "Minimal distroless base image for Go applications containing CA certificates and tzdata."
+            tags:
+              - "ghcr.io/taha2samy-3/go-fips:1.27"
+              - "ghcr.io/taha2samy-3/go-fips:v1.27"
+            reports:
+              vuln: "./../reports/go-fips-1.27-prod-vuln.json"
+              cis: "./../reports/go-fips-1.27-prod-cis.json"
+              sbom: "./../reports/go-fips-1.27-prod-sbom.json"
+
+      - version: "1.26"
+        flavors:
+          - id: "dev"
+            name: "Development Builder"
+            policy_header: "Go 1.26 FIPS Development Suite"
+            policy_text: "Contains Go 1.26 toolchain with BoringCrypto enabled by default, enforcing FIPS 140-3 compliance for standard library cryptography."
+            tags:
+              - "ghcr.io/taha2samy-3/go-fips:1.26-dev"
+              - "ghcr.io/taha2samy-3/go-fips:v1.26-dev"
+            reports:
+              vuln: "./../reports/go-fips-1.26-dev-vuln.json"
+              cis: "./../reports/go-fips-1.26-dev-cis.json"
+              sbom: "./../reports/go-fips-1.26-dev-sbom.json"
+          - id: "prod"
+            name: "Production Base (Scratch)"
+            policy_header: "Hardened Minimal Base (Go 1.26 FIPS)"
+            policy_text: "Minimal distroless base image for Go applications containing CA certificates and tzdata."
+            tags:
+              - "ghcr.io/taha2samy-3/go-fips:1.26"
+              - "ghcr.io/taha2samy-3/go-fips:v1.26"
+            reports:
+              vuln: "./../reports/go-fips-1.26-prod-vuln.json"
+              cis: "./../reports/go-fips-1.26-prod-cis.json"
+              sbom: "./../reports/go-fips-1.26-prod-sbom.json"
+
+      - version: "1.25"
+        flavors:
+          - id: "dev"
+            name: "Development Builder"
+            policy_header: "Go 1.25 FIPS Development Suite"
+            policy_text: "Contains Go 1.25 toolchain with BoringCrypto enabled by default, enforcing FIPS 140-3 compliance for standard library cryptography."
+            tags:
+              - "ghcr.io/taha2samy-3/go-fips:1.25-dev"
+              - "ghcr.io/taha2samy-3/go-fips:v1.25-dev"
+            reports:
+              vuln: "./../reports/go-fips-1.25-dev-vuln.json"
+              cis: "./../reports/go-fips-1.25-dev-cis.json"
+              sbom: "./../reports/go-fips-1.25-dev-sbom.json"
+          - id: "prod"
+            name: "Production Base (Scratch)"
+            policy_header: "Hardened Minimal Base (Go 1.25 FIPS)"
+            policy_text: "Minimal distroless base image for Go applications containing CA certificates and tzdata."
+            tags:
+              - "ghcr.io/taha2samy-3/go-fips:1.25"
+              - "ghcr.io/taha2samy-3/go-fips:v1.25"
+            reports:
+              vuln: "./../reports/go-fips-1.25-prod-vuln.json"
+              cis: "./../reports/go-fips-1.25-prod-cis.json"
+              sbom: "./../reports/go-fips-1.25-prod-sbom.json"
+
+      - version: "1.24"
+        flavors:
+          - id: "dev"
+            name: "Development Builder"
+            policy_header: "Go 1.24 FIPS Development Suite"
+            policy_text: "Contains Go 1.24 toolchain with BoringCrypto enabled by default, enforcing FIPS 140-3 compliance for standard library cryptography."
+            tags:
+              - "ghcr.io/taha2samy-3/go-fips:1.24-dev"
+              - "ghcr.io/taha2samy-3/go-fips:v1.24-dev"
+            reports:
+              vuln: "./../reports/go-fips-1.24-dev-vuln.json"
+              cis: "./../reports/go-fips-1.24-dev-cis.json"
+              sbom: "./../reports/go-fips-1.24-dev-sbom.json"
+          - id: "prod"
+            name: "Production Base (Scratch)"
+            policy_header: "Hardened Minimal Base (Go 1.24 FIPS)"
+            policy_text: "Minimal distroless base image for Go applications containing CA certificates and tzdata."
+            tags:
+              - "ghcr.io/taha2samy-3/go-fips:1.24"
+              - "ghcr.io/taha2samy-3/go-fips:v1.24"
+            reports:
+              vuln: "./../reports/go-fips-1.24-prod-vuln.json"
+              cis: "./../reports/go-fips-1.24-prod-cis.json"
+              sbom: "./../reports/go-fips-1.24-prod-sbom.json"
+
+      - version: "1.23"
+        flavors:
+          - id: "dev"
+            name: "Development Builder"
+            policy_header: "Go 1.23 FIPS Development Suite"
+            policy_text: "Contains Go 1.23 toolchain with BoringCrypto enabled by default, enforcing FIPS 140-3 compliance for standard library cryptography."
+            tags:
+              - "ghcr.io/taha2samy-3/go-fips:1.23-dev"
+              - "ghcr.io/taha2samy-3/go-fips:v1.23-dev"
+            reports:
+              vuln: "./../reports/go-fips-1.23-dev-vuln.json"
+              cis: "./../reports/go-fips-1.23-dev-cis.json"
+              sbom: "./../reports/go-fips-1.23-dev-sbom.json"
+          - id: "prod"
+            name: "Production Base (Scratch)"
+            policy_header: "Hardened Minimal Base (Go 1.23 FIPS)"
+            policy_text: "Minimal distroless base image for Go applications containing CA certificates and tzdata."
+            tags:
+              - "ghcr.io/taha2samy-3/go-fips:1.23"
+              - "ghcr.io/taha2samy-3/go-fips:v1.23"
+            reports:
+              vuln: "./../reports/go-fips-1.23-prod-vuln.json"
+              cis: "./../reports/go-fips-1.23-prod-cis.json"
+              sbom: "./../reports/go-fips-1.23-prod-sbom.json"
+
+      - version: "1.22"
+        flavors:
+          - id: "dev"
+            name: "Development Builder"
+            policy_header: "Go 1.22 FIPS Development Suite"
+            policy_text: "Contains Go 1.22 toolchain with BoringCrypto enabled by default, enforcing FIPS 140-3 compliance for standard library cryptography."
+            tags:
+              - "ghcr.io/taha2samy-3/go-fips:1.22-dev"
+              - "ghcr.io/taha2samy-3/go-fips:v1.22-dev"
+            reports:
+              vuln: "./../reports/go-fips-1.22-dev-vuln.json"
+              cis: "./../reports/go-fips-1.22-dev-cis.json"
+              sbom: "./../reports/go-fips-1.22-dev-sbom.json"
+          - id: "prod"
+            name: "Production Base (Scratch)"
+            policy_header: "Hardened Minimal Base (Go 1.22 FIPS)"
+            policy_text: "Minimal distroless base image for Go applications containing CA certificates and tzdata."
+            tags:
+              - "ghcr.io/taha2samy-3/go-fips:1.22"
+              - "ghcr.io/taha2samy-3/go-fips:v1.22"
+            reports:
+              vuln: "./../reports/go-fips-1.22-prod-vuln.json"
+              cis: "./../reports/go-fips-1.22-prod-cis.json"
+              sbom: "./../reports/go-fips-1.22-prod-sbom.json"
+

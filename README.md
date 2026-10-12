@@ -56,11 +56,17 @@ docker pull ghcr.io/taha2samy-3/wolfi-openjdk-fips:21-distroless
 # OpenSSL 3.5 FIPS (Production Distroless)
 docker pull ghcr.io/taha2samy-3/openssl-fips:3.5.9-distroless
 
+# BoringSSL FIPS (Production Distroless)
+docker pull ghcr.io/taha2samy-3/boringssl-fips:distroless
+
 # Node.js 22 (Production)
 docker pull ghcr.io/taha2samy-3/node:22
 
 # Node.js 24 FIPS (Production Distroless)
 docker pull ghcr.io/taha2samy-3/node-fips:24-distroless
+
+# Go 1.27 FIPS (Production Base)
+docker pull ghcr.io/taha2samy-3/go-fips:1.27
 ```
 
 ---
@@ -76,6 +82,12 @@ docker buildx bake openjdk-21-prod
 
 # Build all OpenSSL FIPS targets
 docker buildx bake openssl-dev openssl-standard openssl-prod
+
+# Build all BoringSSL FIPS targets
+docker buildx bake boringssl-dev boringssl-standard boringssl-prod
+
+# Build all Go FIPS targets (1.22 through 1.27)
+docker buildx bake go-fips-dev go-fips-prod
 
 # Build all Node.js targets
 docker buildx bake dev-22 prod-22
@@ -96,18 +108,24 @@ Every FIPS image has a test suite. CI runs it on amd64 and arm64 after each buil
 | Image | Suite | What it checks |
 | :--- | :--- | :--- |
 | OpenSSL FIPS | `openssl/tests/` | Provider status and self-tests, approved / rejected digests, ciphers, MACs, KDFs, key sizes and curves, PQC, TLS |
+| BoringSSL FIPS | `boringssl/tests/` | `bssl isfips` status and POST self-tests, CAVP hashing vectors, algorithm filter speed benchmarks, shared library link integrity |
 | OpenJDK FIPS | `openjdk/tests/` | BCFIPS provider order, approved-only mode, rejected algorithms, BCFKS keystores, TLS 1.2 / 1.3, DRBG |
 | Node.js FIPS | `nodejs/fips/tests/` | `crypto.getFips()`, `setFips(false)` blocked, rejected digests / ciphers / curves / scrypt, RSA sizes, HMAC, PBKDF2, TLS 1.3 handshake, non-root and distroless checks |
+| Go FIPS | `go/fips/tests/` | `crypto/internal/boring` and `_ "crypto/tls/fipsonly"` enforcement, TLS cipher suite restrictions, symbol table verification, non-root execution |
 
 ```bash
 # Run a suite the way CI does, against every flavor of one image (pull or build the images first)
 pip install pytest allure-pytest pyyaml
 python .github/scripts/fips_tests.py --unit openssl-3.5 --arch amd64 --out fips-results
+python .github/scripts/fips_tests.py --unit boringssl-fips-2024 --arch amd64 --out fips-results
+python .github/scripts/fips_tests.py --unit go-fips-1.27 --arch amd64 --out fips-results
 python .github/scripts/fips_tests.py --unit openjdk-21 --arch amd64 --out fips-results
 python .github/scripts/fips_tests.py --unit node-fips-24 --arch amd64 --out fips-results
 
 # Or call pytest directly against one image
 pytest openssl/tests -m "not network" --image ghcr.io/taha2samy-3/openssl-fips:3.5.9
+pytest boringssl/tests --image ghcr.io/taha2samy-3/boringssl-fips:latest
+pytest go/fips/tests --image ghcr.io/taha2samy-3/go-fips:1.27-dev --flavor dev
 pytest nodejs/fips/tests --image ghcr.io/taha2samy-3/node-fips:24-distroless --flavor prod
 ```
 
