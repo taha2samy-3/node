@@ -46,9 +46,12 @@ docker run --rm ghcr.io/taha2samy-3/boringssl-fips:latest isfips
 
 ## 🧪 Automated Test Suite
 
-Located under `boringssl/tests/`:
-- `test_01_core_policy.py`: `bssl isfips` verification, power-on self-test (POST) integrity, and non-root UID enforcement.
-- `test_02_hashing_and_digests.py`: SHA-256 (NIST test vectors) and SHA-1 digest verification.
+Located under `boringssl/tests/` (82 comprehensive automated verification tests):
+- `test_01_core_policy.py`: Operational health, `bssl isfips` indicators, power-on self-test (POST) integrity, non-root execution, and distroless boundary enforcement.
+- `test_02_hashing_and_digests.py`: NIST CAVP test vectors for SHA-2 family (SHA-224, SHA-256, SHA-384, SHA-512, SHA-512/256), multi-block boundaries, and legacy digests.
+- `test_03_symmetric_and_drbg.py`: NIST SP 800-90A DRBG random entropy generation, TLS cipher negotiation (AES-GCM, AES-CBC, ECDHE), and strict rejection of unapproved ciphers (RC4, DES, NULL, EXPORT, MD5, aNULL, eNULL, LOW).
+- `test_04_asymmetric_and_signatures.py`: RSA key generation (2048, 3072, 4096-bit), digital signatures with exact length verification, error handling, and Ed25519 keypair generation.
+- `test_05_fips_crypto_primitives.py`: Direct `libcrypto.so` validation of `FIPS_mode()`, permanent approved mode (`FIPS_mode_set(0)` blocked), `BORINGSSL_self_test_all()`, BoringCrypto integrity hash verification, AES-128/256-GCM AEAD Known Answer Tests, tag tampering rejection, and RFC 4231 HMAC-SHA256/512 KATs.
 
 ```bash
 # Run tests
