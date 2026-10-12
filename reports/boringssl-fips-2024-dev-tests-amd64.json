@@ -1,0 +1,73 @@
+{
+ "image": "ghcr.io/taha2samy-3/boringssl-fips:fips-2024-dev",
+ "flavor": "dev",
+ "arch": "amd64",
+ "suite": "boringssl/tests",
+ "ran_at": "2026-10-12T01:42:04+00:00",
+ "summary": {
+  "passed": 7,
+  "failed": 1,
+  "xfail": 0,
+  "skipped": 0,
+  "total": 8,
+  "duration": 1.22
+ },
+ "tests": [
+  {
+   "name": "test_isfips_active",
+   "classname": "TestCorePolicyAndIntegrity",
+   "outcome": "passed",
+   "duration": 0.164,
+   "message": ""
+  },
+  {
+   "name": "test_power_on_self_test_integrity",
+   "classname": "TestCorePolicyAndIntegrity",
+   "outcome": "passed",
+   "duration": 0.181,
+   "message": ""
+  },
+  {
+   "name": "test_non_root_user",
+   "classname": "TestCorePolicyAndIntegrity",
+   "outcome": "failed",
+   "duration": 0.0,
+   "message": "TypeError: run_docker.<locals>._executor() got an unexpected keyword argument 'entrypoint'"
+  },
+  {
+   "name": "test_sha256_known_answer[]",
+   "classname": "TestDigests",
+   "outcome": "passed",
+   "duration": 0.182,
+   "message": ""
+  },
+  {
+   "name": "test_sha256_known_answer[abc]",
+   "classname": "TestDigests",
+   "outcome": "passed",
+   "duration": 0.193,
+   "message": ""
+  },
+  {
+   "name": "test_sha256_known_answer[The quick brown fox jumps over the lazy dog]",
+   "classname": "TestDigests",
+   "outcome": "passed",
+   "duration": 0.156,
+   "message": ""
+  },
+  {
+   "name": "test_sha1_digest[hello fips]",
+   "classname": "TestDigests",
+   "outcome": "passed",
+   "duration": 0.169,
+   "message": ""
+  },
+  {
+   "name": "test_sha1_digest[crypto boundary verification payload]",
+   "classname": "TestDigests",
+   "outcome": "passed",
+   "duration": 0.178,
+   "message": ""
+  }
+ ]
+}
