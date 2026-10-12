@@ -17,7 +17,9 @@ A collection of **enterprise-grade, zero-CVE, FIPS 140-3 compliant container bas
 | :--- | :--- | :--- | :---: | :--- |
 | **OpenJDK** | `8`, `17`, `21`, `25` (LTS) | `dev`, `standard`, `distroless` | ✅ | Wolfi Linux + BCFIPS |
 | **OpenSSL** | `3.5.9` | `dev`, `standard`, `distroless` | ✅ | Wolfi Linux + FIPS Module |
+| **BoringSSL** | `fips-2024` | `dev`, `standard`, `distroless` | ✅ | Wolfi Linux + BoringCrypto Module |
 | **Node.js FIPS** | `22`, `24` | `dev`, `standard`, `distroless` | ✅ | Wolfi Linux + OpenSSL FIPS Module |
+| **Go FIPS** | `1.22`, `1.23`, `1.24`, `1.25`, `1.26`, `1.27` | `dev`, `prod` | ✅ | Wolfi Linux + BoringCrypto |
 | **Node.js** | `18`, `20`, `22`, `24`, `26` | `dev`, `prod` | Optional | Wolfi Linux |
 | **Go** | `1.22`, `1.23`, `1.24`, `1.25`, `1.26`, `1.27` | `dev`, `prod` | Optional | Wolfi Linux |
 | **Python** | `3.10`, `3.11`, `3.12`, `3.13`, `3.14` | `dev`, `prod` | Optional | Wolfi Linux |
