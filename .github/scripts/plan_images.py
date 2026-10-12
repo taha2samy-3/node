@@ -35,7 +35,7 @@ RUNTIMES_FILE = "web/runtimes.yaml"
 FINGERPRINT_LABEL = "io.github.taha2samy-3.build.fingerprint"
 # Bake settings that do not change the produced image
 IGNORED_TARGET_KEYS = ("cache-from", "cache-to", "output")
-REPORT_KINDS = ("vuln", "cis", "sbom")
+REPORT_KINDS = ("vuln", "cis", "sbom", "stig")
 VAR_RE = re.compile(r"\$\{(\w+)(?::[-+]([^}]*))?\}|\$(\w+)")
 # Each architecture builds natively on its own runner; the merge job joins them into one image
 ARCHES = {

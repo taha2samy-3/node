@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
-import { ChevronRight, Cpu, FileCheck, FlaskConical, Gauge, Lock, Package, ScanSearch, ShieldCheck } from 'lucide-react';
+import { ChevronRight, Cpu, FileCheck, FlaskConical, Gauge, Lock, Package, ScanSearch, ShieldCheck, BadgeCheck } from 'lucide-react';
 import RuntimeIcon from '../components/RuntimeIcon';
 import { Badge, EASE_OUT, STATUS_META, Segmented, StatusDot, Tabs, type TabItem } from '../components/ui';
 import { findRuntime, findVersion, runtimePath, type Runtime, type RuntimeVersion } from '../lib/catalog';
@@ -11,13 +11,14 @@ import NotFound from './NotFound';
 import ImageCard from './runtime/ImageCard';
 import VulnerabilitiesTab from './runtime/VulnerabilitiesTab';
 import CisTab from './runtime/CisTab';
+import StigTab from './runtime/StigTab';
 import SbomTab from './runtime/SbomTab';
 import ProvenanceTab from './runtime/ProvenanceTab';
 import FipsTab from './runtime/FipsTab';
 import TestsTab from './runtime/TestsTab';
 import BenchmarksTab from './runtime/BenchmarksTab';
 
-type ReportTab = 'vuln' | 'cis' | 'sbom' | 'provenance' | 'fips' | 'tests' | 'bench';
+type ReportTab = 'vuln' | 'cis' | 'stig' | 'sbom' | 'provenance' | 'fips' | 'tests' | 'bench';
 
 export default function RuntimePage() {
   const { runtimeId, version } = useParams<{ runtimeId: string; version: string }>();
@@ -43,6 +44,7 @@ function RuntimeView({ runtime, runtimeVersion }: { runtime: Runtime; runtimeVer
   const tabs: TabItem<ReportTab>[] = [
     { id: 'vuln', label: 'Vulnerabilities', count: vulns?.total, icon: <ScanSearch className="h-4 w-4" /> },
     { id: 'cis', label: 'Docker CIS', icon: <ShieldCheck className="h-4 w-4" /> },
+    { id: 'stig', label: 'Chainguard STIG', icon: <BadgeCheck className="h-4 w-4" /> },
     { id: 'sbom', label: 'SBOM', icon: <Package className="h-4 w-4" /> },
     { id: 'provenance', label: 'Provenance', icon: <FileCheck className="h-4 w-4" /> },
     ...(runtime.fips
@@ -150,6 +152,7 @@ function RuntimeView({ runtime, runtimeVersion }: { runtime: Runtime; runtimeVer
               >
                 {tab === 'vuln' && <VulnerabilitiesTab flavor={flavor} arch={arch} />}
                 {tab === 'cis' && <CisTab flavor={flavor} arch={arch} />}
+                {tab === 'stig' && <StigTab flavor={flavor} arch={arch} />}
                 {tab === 'sbom' && <SbomTab flavor={flavor} arch={arch} />}
                 {tab === 'provenance' && <ProvenanceTab flavor={flavor} arch={arch} />}
                 {tab === 'fips' && runtime.fips && <FipsTab fips={runtime.fips} flavor={flavor} />}

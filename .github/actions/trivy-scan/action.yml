@@ -18,6 +18,10 @@ inputs:
   sbom_out:
     description: "Output filename for CycloneDX SBOM report"
     required: true
+  stig_out:
+    description: "Output filename for Chainguard STIG report"
+    required: false
+    default: ""
   artifact_name:
     description: "Unique name for the artifact"
     required: true
@@ -44,6 +48,15 @@ runs:
           -v /var/run/docker.sock:/var/run/docker.sock \
           -v "$(pwd)/reports:/reports" \
           aquasec/trivy image --platform ${{ inputs.platform }} --compliance docker-cis-1.6.0 --format json --output /reports/${{ inputs.cis_out }} ${{ inputs.image }}
+
+    - name: Run Chainguard STIG Compliance Scan
+      if: inputs.stig_out != ''
+      shell: bash
+      run: |
+        python3 .github/scripts/run_stig.py \
+          --image ${{ inputs.image }} \
+          --platform ${{ inputs.platform }} \
+          --output reports/${{ inputs.stig_out }}
 
     - name: Run Trivy SBOM Scan
       shell: bash
