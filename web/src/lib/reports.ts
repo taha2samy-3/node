@@ -8,6 +8,7 @@ const REPORT_DIR = '../../../reports/';
 const vulnLoaders = import.meta.glob('../../../reports/*-vuln.json', { import: 'default' }) as Record<string, () => Promise<TrivyReport>>;
 const metaFiles = import.meta.glob('../../../reports/config.json', { eager: true, import: 'default' }) as Record<string, Record<string, ImageMeta>>;
 const cisLoaders = import.meta.glob('../../../reports/*-cis.json', { import: 'default' }) as Record<string, () => Promise<ComplianceReport>>;
+const stigLoaders = import.meta.glob('../../../reports/*-stig.json', { import: 'default' }) as Record<string, () => Promise<StigReport>>;
 const sbomLoaders = import.meta.glob('../../../reports/*-sbom.json', { import: 'default' }) as Record<string, () => Promise<CycloneDx>>;
 const testLoaders = import.meta.glob('../../../reports/*-tests-*.json', { import: 'default' }) as Record<string, () => Promise<TestRun>>;
 const benchLoaders = import.meta.glob('../../../reports/*-bench-*.json', { import: 'default' }) as Record<string, () => Promise<BenchRun>>;
