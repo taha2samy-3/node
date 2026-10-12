@@ -115,17 +115,11 @@ RUN --mount=type=cache,target=/var/cache/apk \
       go \
       clang \
       lld \
-      wget \
+      git \
       ca-certificates
 
 WORKDIR /src
-RUN set -e; \
-    for url in \
-      https://github.com/google/boringssl/archive/refs/heads/${BORINGSSL_COMMIT}.tar.gz \
-      https://github.com/google/boringssl/archive/master.tar.gz; do \
-      wget -q -O boringssl.tar.gz "$url" && break; \
-    done; \
-    mkdir boringssl && tar -xzf boringssl.tar.gz -C boringssl --strip-components=1
+RUN git clone --depth 1 https://github.com/google/boringssl.git boringssl
 
 WORKDIR /src/boringssl/build
 RUN cmake -GNinja \
