@@ -305,6 +305,40 @@ export function sbomComponents(report: CycloneDx): Component[] {
 }
 
 // ==========================================
+// Chainguard STIG (DISA GPOS SRG)
+// ==========================================
+export interface StigRule {
+  id: string;
+  title: string;
+  description?: string;
+  rationale?: string;
+  severity: Severity;
+  status: 'pass' | 'fail' | 'notapplicable' | 'manual';
+  idents?: string[];
+}
+
+export interface StigReport {
+  id: string;
+  title: string;
+  profile: string;
+  image?: string;
+  scanned_at?: string;
+  summary: {
+    score: number;
+    passed: number;
+    failed: number;
+    notapplicable: number;
+    manual?: number;
+    total: number;
+  };
+  rules: StigRule[];
+}
+
+export function loadStig(flavor: Flavor, arch: Arch = 'amd64'): Promise<StigReport> | null {
+  return stigLoaders[`${REPORT_DIR}${archBase(flavor, arch)}-stig.json`]?.() ?? null;
+}
+
+// ==========================================
 // Lazy loading
 // ==========================================
 export function loadCis(flavor: Flavor, arch: Arch = 'amd64'): Promise<ComplianceReport> | null {
@@ -330,6 +364,6 @@ export function loadBench(standard: Flavor, arch: Arch): Promise<BenchRun> | nul
 }
 
 /** URL of a report file as published next to the site on GitHub Pages. */
-export function reportUrl(flavor: Flavor, kind: 'vuln' | 'cis' | 'sbom', arch: Arch = 'amd64'): string {
+export function reportUrl(flavor: Flavor, kind: 'vuln' | 'cis' | 'sbom' | 'stig', arch: Arch = 'amd64'): string {
   return `./reports/${archBase(flavor, arch)}-${kind}.json`;
 }
