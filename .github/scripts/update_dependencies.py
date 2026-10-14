@@ -32,6 +32,9 @@ CONFIG_FILE = ".github/dependencies.yml"
 BAKE_FILE = "docker-bake.hcl"
 RUNNER_IMAGE = "cgr.dev/chainguard/wolfi-base:latest"
 PR_LABEL = "dependencies"
+# Pushes and PRs made with GITHUB_TOKEN never start pull_request workflows, but workflow_dispatch
+# is allowed, so the PR check is dispatched on the branch after every push
+PR_CHECK_WORKFLOW = "pr-check.yml"
 BRANCH_PREFIX = "automation/deps-"
 # Branches used by earlier versions of this automation; their PRs are closed as superseded
 LEGACY_BRANCHES = ["automation/base-image-locks"]
@@ -431,6 +434,7 @@ def sync_pull_request(branch, base, pr_title, body, message, catalog_changed=Fal
             run(["git", "push", "--force", "origin", branch])
             run(["gh", "pr", "edit", str(open_pr["number"]), "--title", pr_title, "--body", body])
             print(f"  refreshed PR #{open_pr['number']}: {open_pr['url']}")
+            dispatch_pr_check(branch)
         return
     if remote_branch_exists(branch):
         # A closed or merged PR may still own the branch: start over from a clean branch
@@ -439,6 +443,15 @@ def sync_pull_request(branch, base, pr_title, body, message, catalog_changed=Fal
     run(["gh", "label", "create", PR_LABEL, "--color", "0366d6", "--description", "Pull requests that update a dependency file"], check=False, capture=True)
     url = run(["gh", "pr", "create", "--title", pr_title, "--body", body, "--base", base, "--head", branch, "--label", PR_LABEL], capture=True).stdout.strip()
     print(f"  created PR: {url}")
+    dispatch_pr_check(branch)
+
+
+def dispatch_pr_check(branch):
+    res = run(["gh", "workflow", "run", PR_CHECK_WORKFLOW, "--ref", branch], check=False, capture=True)
+    if res.returncode == 0:
+        print(f"  dispatched {PR_CHECK_WORKFLOW} on {branch}")
+    else:
+        print(f"::warning::could not dispatch {PR_CHECK_WORKFLOW} on {branch}: {res.stderr.strip()}")
 
 
 def close_pr(branch, base, comment):
@@ -489,7 +502,8 @@ def main():
         deps = [d for d in config["dependencies"] if d["group"] == group]
         try:
             updates = resolve_group(deps, variables)
-        except Exception as e:  # one unreachable source must not block the other groups
+        except (Exception, SystemExit) as e:  # one unreachable source must not block the other groups
+            # Resolvers stop with sys.exit(), which raises SystemExit and is not an Exception
             print(f"::error::{group}: {e}")
             failures.append(group)
             continue

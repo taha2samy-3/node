@@ -6,13 +6,14 @@ on:
   workflow_dispatch:
     inputs:
       group:
-        description: "Only update one group (runtimes, openssl-fips, openjdk-fips, base); empty updates all"
+        description: "Only update one group (runtimes, openssl-fips, openjdk-fips, boringssl-fips, base); empty updates all"
         required: false
         default: ""
 
 permissions:
   contents: write
   pull-requests: write
+  actions: write  # dispatch the Pull Request Check on each update branch
 
 concurrency:
   group: ${{ github.workflow }}

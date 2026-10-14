@@ -162,7 +162,7 @@ Each image is built twice, natively and without QEMU: on `ubuntu-24.04` for `lin
 - **Certified FIPS modules**: the OpenSSL FIPS Provider 3.1.2 (CMVP certificate [#4985](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4985)) and Bouncy Castle `bc-fips` 2.1.1 (certificate [#4943](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4943)). These never change automatically. Only the validated version may be used, so they change by hand when NIST lists a new certificate.
 - **Everything else** is updated by **Daily Dependency Update** (`.github/scripts/update_dependencies.py`): Wolfi packages (including every package installed in the OpenSSL images), base images by digest, the OpenSSL 3.5 LTS core source and its SHA-256, Eclipse Temurin JDK / JRE downloads and checksums, the Bouncy Castle TLS / utility jars (checked against Maven Central's `.sha256`), and the envoke release.
 
-The script opens **one pull request per image family** (`runtimes`, `openssl-fips`, `openjdk-fips`, `base`) on the branch `automation/deps-<group>`, and handles it the way Dependabot does: an open PR is updated in place, a closed one is replaced by a fresh PR, and a group with no updates has its PR closed. Each PR lists the version changes and the images it will rebuild. Nothing is merged automatically.
+The script opens **one pull request per image family** (`runtimes`, `openssl-fips`, `openjdk-fips`, `boringssl-fips`, `base`) on the branch `automation/deps-<group>`, and handles it the way Dependabot does: an open PR is updated in place, a closed one is replaced by a fresh PR, and a group with no updates has its PR closed. Each PR lists the version changes and the images it will rebuild. Nothing is merged automatically.
 
 The run also checks coverage, and fails if `docker-bake.hcl` gains a pinned variable (`*_VER`, `*_VERSION`, `*_SHA`, `*_SHA256`, `*_URL`, `*_IMAGE`) that `dependencies.yml` does not list. Run it locally with:
 
@@ -173,7 +173,7 @@ python .github/scripts/update_dependencies.py --dry-run --group openjdk-fips  # 
 
 ### Pull request check
 
-**Pull Request Check** builds the images a pull request changes (linux/amd64, nothing is pushed) and runs the FIPS test suites against them. Make it a required status check in the `main` branch protection rules, so that a dependency update cannot be merged while it breaks an image or its FIPS behaviour.
+**Pull Request Check** builds the images a pull request changes (linux/amd64, nothing is pushed) and runs the FIPS test suites against them. Make it a required status check in the `main` branch protection rules, so that a dependency update cannot be merged while it breaks an image or its FIPS behaviour. Dependency-update PRs are pushed with `GITHUB_TOKEN`, which GitHub never lets start `pull_request` workflows, so the update script dispatches this check on each `automation/deps-*` branch after pushing it.
 
 ### Benchmarks and certificate watch
 

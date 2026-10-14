@@ -6,9 +6,12 @@ on:
   pull_request:
     branches:
       - main
+  # Dependency-update PRs are pushed with GITHUB_TOKEN, which never triggers pull_request,
+  # so update_dependencies.py dispatches this workflow on the update branch instead
+  workflow_dispatch:
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 permissions:
