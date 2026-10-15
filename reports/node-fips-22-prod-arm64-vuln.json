@@ -3,21 +3,21 @@
   "Trivy": {
     "Version": "0.76.0"
   },
-  "ReportID": "01a13cf7-a27c-7b75-8ec8-0a6c7110ebb6",
-  "CreatedAt": "2026-10-15T00:30:24.380752686Z",
-  "ArtifactID": "sha256:0e878aff0fdc8f1c7fd41eeb2fff7b9b0f3b5cc97d68e532980ab9250d6ac131",
+  "ReportID": "01a13d0a-4148-7a6b-925f-0f6be1ef8cfb",
+  "CreatedAt": "2026-10-15T00:50:44.680684182Z",
+  "ArtifactID": "sha256:78fbf148f4123ffd70d37894015090af90c94ae139cd68a674f3b4f6433a9a2b",
   "ArtifactName": "ghcr.io/taha2samy-3/node-fips:22-distroless",
   "ArtifactType": "container_image",
   "Metadata": {
-    "Size": 152752128,
+    "Size": 152753152,
     "OS": {
       "Family": "wolfi",
       "Name": "20230201"
     },
-    "ImageID": "sha256:d35d4f674e7cfab7f547520021934b7619eb565b1ebc6c54f148ff3d680da604",
+    "ImageID": "sha256:ec6a69c3aef607fbfccf7121a2d138e108b7dab827e05491f22de919987c16ab",
     "DiffIDs": [
-      "sha256:5fabeafd0ff5d0f4952622984d436428b4edad040e8e998dac2f9c5184d8a1b4",
-      "sha256:fa35148dbffa40d377cc071bda5353b62485350507732e87972f55a0baac9128",
+      "sha256:3f07ca322fb6b8af3b797527255b48dac2591d1333e12c366e9d6e35c5db7dab",
+      "sha256:d47e990a8fc84d1629798531659405fce8cebb2a2f87c10e9547ec83155149f3",
       "sha256:009067084a33af5329de99b0b71f72102e57b3254e0b7074bdf21af9f97e5c3e",
       "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
       "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
@@ -26,52 +26,52 @@
       "ghcr.io/taha2samy-3/node-fips:22-distroless"
     ],
     "RepoDigests": [
-      "ghcr.io/taha2samy-3/node-fips@sha256:24956272a0cedd10ded842ce9e14331f11e51647b6cf92badd0953e99ba47aa1"
+      "ghcr.io/taha2samy-3/node-fips@sha256:228738b59387b4f5a481a2da2daafc1607077edd63a84d902fbfd4b19adc80a6"
     ],
     "Reference": "ghcr.io/taha2samy-3/node-fips:22-distroless",
     "ImageConfig": {
       "architecture": "arm64",
-      "created": "2026-10-15T00:17:42.056510464Z",
+      "created": "2026-10-15T00:37:41.481424288Z",
       "history": [
         {
-          "created": "2026-10-15T00:17:41.437369676Z",
+          "created": "2026-10-15T00:37:40.406530117Z",
           "created_by": "COPY /rootfs / # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-15T00:17:41.942847475Z",
+          "created": "2026-10-15T00:37:41.348359995Z",
           "created_by": "COPY /out/ /usr/bin/ # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-15T00:17:41.961797297Z",
+          "created": "2026-10-15T00:37:41.396518306Z",
           "created_by": "COPY / / # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-15T00:17:42.047300499Z",
-          "created_by": "ENV NODE_ENV=production OPENSSL_CONF=/etc/ssl/fips/openssl-fips.cnf OPENSSL_MODULES=/usr/lib/ossl-modules-fips NODE_OPTIONS=--force-fips",
+          "created": "2026-10-15T00:37:41.473682401Z",
+          "created_by": "ENV NODE_ENV=production SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt OPENSSL_CONF=/etc/ssl/fips/openssl-fips.cnf OPENSSL_MODULES=/usr/lib/ossl-modules-fips NODE_OPTIONS=--force-fips",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-15T00:17:42.047300499Z",
+          "created": "2026-10-15T00:37:41.473682401Z",
           "created_by": "RUN /usr/bin/node /usr/share/nodejs-fips/fips-check.js # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-15T00:17:42.056510464Z",
+          "created": "2026-10-15T00:37:41.481424288Z",
           "created_by": "WORKDIR /app",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-15T00:17:42.056510464Z",
+          "created": "2026-10-15T00:37:41.481424288Z",
           "created_by": "USER node",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-15T00:17:42.056510464Z",
+          "created": "2026-10-15T00:37:41.481424288Z",
           "created_by": "ENTRYPOINT [\"/sbin/tini\" \"--\" \"/usr/bin/node\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
@@ -81,8 +81,8 @@
       "rootfs": {
         "type": "layers",
         "diff_ids": [
-          "sha256:5fabeafd0ff5d0f4952622984d436428b4edad040e8e998dac2f9c5184d8a1b4",
-          "sha256:fa35148dbffa40d377cc071bda5353b62485350507732e87972f55a0baac9128",
+          "sha256:3f07ca322fb6b8af3b797527255b48dac2591d1333e12c366e9d6e35c5db7dab",
+          "sha256:d47e990a8fc84d1629798531659405fce8cebb2a2f87c10e9547ec83155149f3",
           "sha256:009067084a33af5329de99b0b71f72102e57b3254e0b7074bdf21af9f97e5c3e",
           "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
           "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
@@ -97,12 +97,13 @@
         "Env": [
           "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
           "NODE_ENV=production",
+          "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt",
           "OPENSSL_CONF=/etc/ssl/fips/openssl-fips.cnf",
           "OPENSSL_MODULES=/usr/lib/ossl-modules-fips",
           "NODE_OPTIONS=--force-fips"
         ],
         "Labels": {
-          "io.github.taha2samy-3.build.fingerprint": "e3ddb0cb67596d85446cede64f9c8033",
+          "io.github.taha2samy-3.build.fingerprint": "3c0b381f5052ee6c2e6eeaec1f83bda6",
           "org.opencontainers.image.authors": "Taha Samy",
           "org.opencontainers.image.description": "Distroless Node.js runtime (no shell) with the OpenSSL FIPS 140-3 provider enforced, on Wolfi (Node.js 22.23.2-r1)",
           "org.opencontainers.image.licenses": "Apache-2.0",
@@ -114,14 +115,14 @@
     },
     "Layers": [
       {
-        "Size": 145172480,
-        "Digest": "sha256:d3d400a5f113d575ee3b5b30cdb46217b0cee0402c2ee8baa78b6392e1e3ffb8",
-        "DiffID": "sha256:5fabeafd0ff5d0f4952622984d436428b4edad040e8e998dac2f9c5184d8a1b4"
+        "Size": 145173504,
+        "Digest": "sha256:d9a678a0accec8816a2eb48e8354006c62c3d228cade715ba6a2c5136047ded1",
+        "DiffID": "sha256:3f07ca322fb6b8af3b797527255b48dac2591d1333e12c366e9d6e35c5db7dab"
       },
       {
         "Size": 5770752,
-        "Digest": "sha256:c5ea2488d7161ba6411ff1f60413c489969817ec6a478899404b8d4eacb1bb94",
-        "DiffID": "sha256:fa35148dbffa40d377cc071bda5353b62485350507732e87972f55a0baac9128"
+        "Digest": "sha256:500e5d7187d9d06434946678f245b4ccb2b3f979a5d48a065fa89b66bdab096c",
+        "DiffID": "sha256:d47e990a8fc84d1629798531659405fce8cebb2a2f87c10e9547ec83155149f3"
       },
       {
         "Size": 1806848,
@@ -150,8 +151,8 @@
           "ID": "c-ares@1.34.8-r4",
           "Name": "c-ares",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/c-ares@1.34.8-r4?arch=aarch64\u0026distro=wolfi",
-            "UID": "403586b198ed74c2"
+            "PURL": "pkg:apk/wolfi/c-ares@1.34.8-r4?arch=aarch64\u0026origin=c-ares",
+            "UID": "8b36731de30d8958"
           },
           "Version": "1.34.8-r4",
           "Arch": "aarch64",
@@ -161,8 +162,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:d3d400a5f113d575ee3b5b30cdb46217b0cee0402c2ee8baa78b6392e1e3ffb8",
-            "DiffID": "sha256:5fabeafd0ff5d0f4952622984d436428b4edad040e8e998dac2f9c5184d8a1b4"
+            "Digest": "sha256:d9a678a0accec8816a2eb48e8354006c62c3d228cade715ba6a2c5136047ded1",
+            "DiffID": "sha256:3f07ca322fb6b8af3b797527255b48dac2591d1333e12c366e9d6e35c5db7dab"
           },
           "AnalyzedBy": "sbom"
         },
@@ -170,19 +171,19 @@
           "ID": "ca-certificates-bundle@20260909-r2",
           "Name": "ca-certificates-bundle",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/ca-certificates-bundle@20260909-r2?arch=aarch64\u0026origin=ca-certificates",
-            "UID": "2c0c12bf97b41d70"
+            "PURL": "pkg:apk/wolfi/ca-certificates-bundle@20260909-r2?arch=aarch64\u0026distro=wolfi",
+            "UID": "5bf925d532250754"
           },
           "Version": "20260909-r2",
           "Arch": "aarch64",
           "SrcName": "ca-certificates-bundle",
           "SrcVersion": "20260909-r2",
           "Licenses": [
-            "(MPL-2.0 AND MIT)"
+            "MPL-2.0 AND MIT"
           ],
           "Layer": {
-            "Digest": "sha256:d3d400a5f113d575ee3b5b30cdb46217b0cee0402c2ee8baa78b6392e1e3ffb8",
-            "DiffID": "sha256:5fabeafd0ff5d0f4952622984d436428b4edad040e8e998dac2f9c5184d8a1b4"
+            "Digest": "sha256:d9a678a0accec8816a2eb48e8354006c62c3d228cade715ba6a2c5136047ded1",
+            "DiffID": "sha256:3f07ca322fb6b8af3b797527255b48dac2591d1333e12c366e9d6e35c5db7dab"
           },
           "AnalyzedBy": "sbom"
         },
@@ -190,8 +191,8 @@
           "ID": "glibc-2.44@2.44-r8",
           "Name": "glibc-2.44",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/glibc-2.44@2.44-r8?arch=aarch64\u0026distro=wolfi",
-            "UID": "574682b66052309c"
+            "PURL": "pkg:apk/wolfi/glibc-2.44@2.44-r8?arch=aarch64\u0026origin=glibc-2.44",
+            "UID": "1d7d0691b523176"
           },
           "Version": "2.44-r8",
           "Arch": "aarch64",
@@ -201,8 +202,8 @@
             "LGPL-2.1-or-later"
           ],
           "Layer": {
-            "Digest": "sha256:d3d400a5f113d575ee3b5b30cdb46217b0cee0402c2ee8baa78b6392e1e3ffb8",
-            "DiffID": "sha256:5fabeafd0ff5d0f4952622984d436428b4edad040e8e998dac2f9c5184d8a1b4"
+            "Digest": "sha256:d9a678a0accec8816a2eb48e8354006c62c3d228cade715ba6a2c5136047ded1",
+            "DiffID": "sha256:3f07ca322fb6b8af3b797527255b48dac2591d1333e12c366e9d6e35c5db7dab"
           },
           "AnalyzedBy": "sbom"
         },
@@ -210,8 +211,8 @@
           "ID": "glibc-2.44-locale-posix@2.44-r8",
           "Name": "glibc-2.44-locale-posix",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/glibc-2.44-locale-posix@2.44-r8?arch=aarch64\u0026distro=wolfi",
-            "UID": "cc3dca118c088fb6"
+            "PURL": "pkg:apk/wolfi/glibc-2.44-locale-posix@2.44-r8?arch=aarch64\u0026origin=glibc-2.44",
+            "UID": "6bf4f0d7a178777f"
           },
           "Version": "2.44-r8",
           "Arch": "aarch64",
@@ -221,8 +222,8 @@
             "LGPL-2.1-or-later"
           ],
           "Layer": {
-            "Digest": "sha256:d3d400a5f113d575ee3b5b30cdb46217b0cee0402c2ee8baa78b6392e1e3ffb8",
-            "DiffID": "sha256:5fabeafd0ff5d0f4952622984d436428b4edad040e8e998dac2f9c5184d8a1b4"
+            "Digest": "sha256:d9a678a0accec8816a2eb48e8354006c62c3d228cade715ba6a2c5136047ded1",
+            "DiffID": "sha256:3f07ca322fb6b8af3b797527255b48dac2591d1333e12c366e9d6e35c5db7dab"
           },
           "AnalyzedBy": "sbom"
         },
@@ -230,8 +231,8 @@
           "ID": "icu78-data-full@78.3-r4",
           "Name": "icu78-data-full",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/icu78-data-full@78.3-r4?arch=aarch64\u0026origin=icu",
-            "UID": "fc94468bfb56962b"
+            "PURL": "pkg:apk/wolfi/icu78-data-full@78.3-r4?arch=aarch64\u0026distro=wolfi",
+            "UID": "6026da151dec76f"
           },
           "Version": "78.3-r4",
           "Arch": "aarch64",
@@ -241,8 +242,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:d3d400a5f113d575ee3b5b30cdb46217b0cee0402c2ee8baa78b6392e1e3ffb8",
-            "DiffID": "sha256:5fabeafd0ff5d0f4952622984d436428b4edad040e8e998dac2f9c5184d8a1b4"
+            "Digest": "sha256:d9a678a0accec8816a2eb48e8354006c62c3d228cade715ba6a2c5136047ded1",
+            "DiffID": "sha256:3f07ca322fb6b8af3b797527255b48dac2591d1333e12c366e9d6e35c5db7dab"
           },
           "AnalyzedBy": "sbom"
         },
@@ -261,8 +262,8 @@
             "LGPL-2.1-or-later"
           ],
           "Layer": {
-            "Digest": "sha256:d3d400a5f113d575ee3b5b30cdb46217b0cee0402c2ee8baa78b6392e1e3ffb8",
-            "DiffID": "sha256:5fabeafd0ff5d0f4952622984d436428b4edad040e8e998dac2f9c5184d8a1b4"
+            "Digest": "sha256:d9a678a0accec8816a2eb48e8354006c62c3d228cade715ba6a2c5136047ded1",
+            "DiffID": "sha256:3f07ca322fb6b8af3b797527255b48dac2591d1333e12c366e9d6e35c5db7dab"
           },
           "AnalyzedBy": "sbom"
         },
@@ -281,8 +282,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:d3d400a5f113d575ee3b5b30cdb46217b0cee0402c2ee8baa78b6392e1e3ffb8",
-            "DiffID": "sha256:5fabeafd0ff5d0f4952622984d436428b4edad040e8e998dac2f9c5184d8a1b4"
+            "Digest": "sha256:d9a678a0accec8816a2eb48e8354006c62c3d228cade715ba6a2c5136047ded1",
+            "DiffID": "sha256:3f07ca322fb6b8af3b797527255b48dac2591d1333e12c366e9d6e35c5db7dab"
           },
           "AnalyzedBy": "sbom"
         },
@@ -290,8 +291,8 @@
           "ID": "libbrotlidec1@1.2.0-r6",
           "Name": "libbrotlidec1",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/libbrotlidec1@1.2.0-r6?arch=aarch64\u0026origin=brotli",
-            "UID": "732b409341d3a7dd"
+            "PURL": "pkg:apk/wolfi/libbrotlidec1@1.2.0-r6?arch=aarch64\u0026distro=wolfi",
+            "UID": "1147be299a2271ea"
           },
           "Version": "1.2.0-r6",
           "Arch": "aarch64",
@@ -301,8 +302,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:d3d400a5f113d575ee3b5b30cdb46217b0cee0402c2ee8baa78b6392e1e3ffb8",
-            "DiffID": "sha256:5fabeafd0ff5d0f4952622984d436428b4edad040e8e998dac2f9c5184d8a1b4"
+            "Digest": "sha256:d9a678a0accec8816a2eb48e8354006c62c3d228cade715ba6a2c5136047ded1",
+            "DiffID": "sha256:3f07ca322fb6b8af3b797527255b48dac2591d1333e12c366e9d6e35c5db7dab"
           },
           "AnalyzedBy": "sbom"
         },
@@ -321,8 +322,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:d3d400a5f113d575ee3b5b30cdb46217b0cee0402c2ee8baa78b6392e1e3ffb8",
-            "DiffID": "sha256:5fabeafd0ff5d0f4952622984d436428b4edad040e8e998dac2f9c5184d8a1b4"
+            "Digest": "sha256:d9a678a0accec8816a2eb48e8354006c62c3d228cade715ba6a2c5136047ded1",
+            "DiffID": "sha256:3f07ca322fb6b8af3b797527255b48dac2591d1333e12c366e9d6e35c5db7dab"
           },
           "AnalyzedBy": "sbom"
         },
@@ -341,8 +342,8 @@
             "Apache-2.0"
           ],
           "Layer": {
-            "Digest": "sha256:d3d400a5f113d575ee3b5b30cdb46217b0cee0402c2ee8baa78b6392e1e3ffb8",
-            "DiffID": "sha256:5fabeafd0ff5d0f4952622984d436428b4edad040e8e998dac2f9c5184d8a1b4"
+            "Digest": "sha256:d9a678a0accec8816a2eb48e8354006c62c3d228cade715ba6a2c5136047ded1",
+            "DiffID": "sha256:3f07ca322fb6b8af3b797527255b48dac2591d1333e12c366e9d6e35c5db7dab"
           },
           "AnalyzedBy": "sbom"
         },
@@ -350,19 +351,19 @@
           "ID": "libgcc@16.2.0-r1",
           "Name": "libgcc",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/libgcc@16.2.0-r1?arch=aarch64\u0026origin=gcc",
-            "UID": "1d1277b87d8a3c9f"
+            "PURL": "pkg:apk/wolfi/libgcc@16.2.0-r1?arch=aarch64\u0026distro=wolfi",
+            "UID": "584575c8f807e2a2"
           },
           "Version": "16.2.0-r1",
           "Arch": "aarch64",
           "SrcName": "libgcc",
           "SrcVersion": "16.2.0-r1",
           "Licenses": [
-            "(GPL-3.0-or-later WITH GCC-exception-3.1)"
+            "GPL-3.0-or-later WITH GCC-exception-3.1"
           ],
           "Layer": {
-            "Digest": "sha256:d3d400a5f113d575ee3b5b30cdb46217b0cee0402c2ee8baa78b6392e1e3ffb8",
-            "DiffID": "sha256:5fabeafd0ff5d0f4952622984d436428b4edad040e8e998dac2f9c5184d8a1b4"
+            "Digest": "sha256:d9a678a0accec8816a2eb48e8354006c62c3d228cade715ba6a2c5136047ded1",
+            "DiffID": "sha256:3f07ca322fb6b8af3b797527255b48dac2591d1333e12c366e9d6e35c5db7dab"
           },
           "AnalyzedBy": "sbom"
         },
@@ -381,8 +382,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:d3d400a5f113d575ee3b5b30cdb46217b0cee0402c2ee8baa78b6392e1e3ffb8",
-            "DiffID": "sha256:5fabeafd0ff5d0f4952622984d436428b4edad040e8e998dac2f9c5184d8a1b4"
+            "Digest": "sha256:d9a678a0accec8816a2eb48e8354006c62c3d228cade715ba6a2c5136047ded1",
+            "DiffID": "sha256:3f07ca322fb6b8af3b797527255b48dac2591d1333e12c366e9d6e35c5db7dab"
           },
           "AnalyzedBy": "sbom"
         },
@@ -390,8 +391,8 @@
           "ID": "libnghttp2-14@1.70.0-r5",
           "Name": "libnghttp2-14",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/libnghttp2-14@1.70.0-r5?arch=aarch64\u0026origin=nghttp2",
-            "UID": "cf7c46ecee18f552"
+            "PURL": "pkg:apk/wolfi/libnghttp2-14@1.70.0-r5?arch=aarch64\u0026distro=wolfi",
+            "UID": "b0edcef4f5b5a5b6"
           },
           "Version": "1.70.0-r5",
           "Arch": "aarch64",
@@ -401,8 +402,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:d3d400a5f113d575ee3b5b30cdb46217b0cee0402c2ee8baa78b6392e1e3ffb8",
-            "DiffID": "sha256:5fabeafd0ff5d0f4952622984d436428b4edad040e8e998dac2f9c5184d8a1b4"
+            "Digest": "sha256:d9a678a0accec8816a2eb48e8354006c62c3d228cade715ba6a2c5136047ded1",
+            "DiffID": "sha256:3f07ca322fb6b8af3b797527255b48dac2591d1333e12c366e9d6e35c5db7dab"
           },
           "AnalyzedBy": "sbom"
         },
@@ -421,8 +422,8 @@
             "Apache-2.0"
           ],
           "Layer": {
-            "Digest": "sha256:d3d400a5f113d575ee3b5b30cdb46217b0cee0402c2ee8baa78b6392e1e3ffb8",
-            "DiffID": "sha256:5fabeafd0ff5d0f4952622984d436428b4edad040e8e998dac2f9c5184d8a1b4"
+            "Digest": "sha256:d9a678a0accec8816a2eb48e8354006c62c3d228cade715ba6a2c5136047ded1",
+            "DiffID": "sha256:3f07ca322fb6b8af3b797527255b48dac2591d1333e12c366e9d6e35c5db7dab"
           },
           "AnalyzedBy": "sbom"
         },
@@ -441,8 +442,8 @@
             "GPL-3.0-or-later WITH GCC-exception-3.1"
           ],
           "Layer": {
-            "Digest": "sha256:d3d400a5f113d575ee3b5b30cdb46217b0cee0402c2ee8baa78b6392e1e3ffb8",
-            "DiffID": "sha256:5fabeafd0ff5d0f4952622984d436428b4edad040e8e998dac2f9c5184d8a1b4"
+            "Digest": "sha256:d9a678a0accec8816a2eb48e8354006c62c3d228cade715ba6a2c5136047ded1",
+            "DiffID": "sha256:3f07ca322fb6b8af3b797527255b48dac2591d1333e12c366e9d6e35c5db7dab"
           },
           "AnalyzedBy": "sbom"
         },
@@ -450,19 +451,19 @@
           "ID": "libuv@1.53.0-r0",
           "Name": "libuv",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/libuv@1.53.0-r0?arch=aarch64\u0026distro=wolfi",
-            "UID": "78bc417d43478a9d"
+            "PURL": "pkg:apk/wolfi/libuv@1.53.0-r0?arch=aarch64\u0026origin=libuv",
+            "UID": "6ab5403dd5469796"
           },
           "Version": "1.53.0-r0",
           "Arch": "aarch64",
           "SrcName": "libuv",
           "SrcVersion": "1.53.0-r0",
           "Licenses": [
-            "MIT AND ISC"
+            "(MIT AND ISC)"
           ],
           "Layer": {
-            "Digest": "sha256:d3d400a5f113d575ee3b5b30cdb46217b0cee0402c2ee8baa78b6392e1e3ffb8",
-            "DiffID": "sha256:5fabeafd0ff5d0f4952622984d436428b4edad040e8e998dac2f9c5184d8a1b4"
+            "Digest": "sha256:d9a678a0accec8816a2eb48e8354006c62c3d228cade715ba6a2c5136047ded1",
+            "DiffID": "sha256:3f07ca322fb6b8af3b797527255b48dac2591d1333e12c366e9d6e35c5db7dab"
           },
           "AnalyzedBy": "sbom"
         },
@@ -470,8 +471,8 @@
           "ID": "nodejs-22-minimal@22.23.2-r1",
           "Name": "nodejs-22-minimal",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/nodejs-22-minimal@22.23.2-r1?arch=aarch64\u0026origin=nodejs-22",
-            "UID": "7a7fc59770523fa4"
+            "PURL": "pkg:apk/wolfi/nodejs-22-minimal@22.23.2-r1?arch=aarch64\u0026distro=wolfi",
+            "UID": "d09c356cd54ce60e"
           },
           "Version": "22.23.2-r1",
           "Arch": "aarch64",
@@ -481,8 +482,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:d3d400a5f113d575ee3b5b30cdb46217b0cee0402c2ee8baa78b6392e1e3ffb8",
-            "DiffID": "sha256:5fabeafd0ff5d0f4952622984d436428b4edad040e8e998dac2f9c5184d8a1b4"
+            "Digest": "sha256:d9a678a0accec8816a2eb48e8354006c62c3d228cade715ba6a2c5136047ded1",
+            "DiffID": "sha256:3f07ca322fb6b8af3b797527255b48dac2591d1333e12c366e9d6e35c5db7dab"
           },
           "AnalyzedBy": "sbom"
         },
@@ -501,8 +502,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:d3d400a5f113d575ee3b5b30cdb46217b0cee0402c2ee8baa78b6392e1e3ffb8",
-            "DiffID": "sha256:5fabeafd0ff5d0f4952622984d436428b4edad040e8e998dac2f9c5184d8a1b4"
+            "Digest": "sha256:d9a678a0accec8816a2eb48e8354006c62c3d228cade715ba6a2c5136047ded1",
+            "DiffID": "sha256:3f07ca322fb6b8af3b797527255b48dac2591d1333e12c366e9d6e35c5db7dab"
           },
           "AnalyzedBy": "sbom"
         },
@@ -510,8 +511,8 @@
           "ID": "openssl-4.0-libcrypto@4.0.3-r6",
           "Name": "openssl-4.0-libcrypto",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/openssl-4.0-libcrypto@4.0.3-r6?arch=aarch64\u0026distro=wolfi",
-            "UID": "e564f4a949c8ab5"
+            "PURL": "pkg:apk/wolfi/openssl-4.0-libcrypto@4.0.3-r6?arch=aarch64\u0026origin=openssl-4.0",
+            "UID": "e88fb5637928e3e7"
           },
           "Version": "4.0.3-r6",
           "Arch": "aarch64",
@@ -521,8 +522,8 @@
             "Apache-2.0"
           ],
           "Layer": {
-            "Digest": "sha256:d3d400a5f113d575ee3b5b30cdb46217b0cee0402c2ee8baa78b6392e1e3ffb8",
-            "DiffID": "sha256:5fabeafd0ff5d0f4952622984d436428b4edad040e8e998dac2f9c5184d8a1b4"
+            "Digest": "sha256:d9a678a0accec8816a2eb48e8354006c62c3d228cade715ba6a2c5136047ded1",
+            "DiffID": "sha256:3f07ca322fb6b8af3b797527255b48dac2591d1333e12c366e9d6e35c5db7dab"
           },
           "AnalyzedBy": "sbom"
         },
@@ -530,8 +531,8 @@
           "ID": "openssl-4.0-libssl@4.0.3-r6",
           "Name": "openssl-4.0-libssl",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/openssl-4.0-libssl@4.0.3-r6?arch=aarch64\u0026origin=openssl-4.0",
-            "UID": "1e2b6d85b03f179f"
+            "PURL": "pkg:apk/wolfi/openssl-4.0-libssl@4.0.3-r6?arch=aarch64\u0026distro=wolfi",
+            "UID": "e2ad460a163528cd"
           },
           "Version": "4.0.3-r6",
           "Arch": "aarch64",
@@ -541,8 +542,8 @@
             "Apache-2.0"
           ],
           "Layer": {
-            "Digest": "sha256:d3d400a5f113d575ee3b5b30cdb46217b0cee0402c2ee8baa78b6392e1e3ffb8",
-            "DiffID": "sha256:5fabeafd0ff5d0f4952622984d436428b4edad040e8e998dac2f9c5184d8a1b4"
+            "Digest": "sha256:d9a678a0accec8816a2eb48e8354006c62c3d228cade715ba6a2c5136047ded1",
+            "DiffID": "sha256:3f07ca322fb6b8af3b797527255b48dac2591d1333e12c366e9d6e35c5db7dab"
           },
           "AnalyzedBy": "sbom"
         },
@@ -561,8 +562,8 @@
             "Apache-2.0"
           ],
           "Layer": {
-            "Digest": "sha256:d3d400a5f113d575ee3b5b30cdb46217b0cee0402c2ee8baa78b6392e1e3ffb8",
-            "DiffID": "sha256:5fabeafd0ff5d0f4952622984d436428b4edad040e8e998dac2f9c5184d8a1b4"
+            "Digest": "sha256:d9a678a0accec8816a2eb48e8354006c62c3d228cade715ba6a2c5136047ded1",
+            "DiffID": "sha256:3f07ca322fb6b8af3b797527255b48dac2591d1333e12c366e9d6e35c5db7dab"
           },
           "AnalyzedBy": "sbom"
         },
@@ -581,8 +582,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:d3d400a5f113d575ee3b5b30cdb46217b0cee0402c2ee8baa78b6392e1e3ffb8",
-            "DiffID": "sha256:5fabeafd0ff5d0f4952622984d436428b4edad040e8e998dac2f9c5184d8a1b4"
+            "Digest": "sha256:d9a678a0accec8816a2eb48e8354006c62c3d228cade715ba6a2c5136047ded1",
+            "DiffID": "sha256:3f07ca322fb6b8af3b797527255b48dac2591d1333e12c366e9d6e35c5db7dab"
           },
           "AnalyzedBy": "sbom"
         },
@@ -601,8 +602,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:d3d400a5f113d575ee3b5b30cdb46217b0cee0402c2ee8baa78b6392e1e3ffb8",
-            "DiffID": "sha256:5fabeafd0ff5d0f4952622984d436428b4edad040e8e998dac2f9c5184d8a1b4"
+            "Digest": "sha256:d9a678a0accec8816a2eb48e8354006c62c3d228cade715ba6a2c5136047ded1",
+            "DiffID": "sha256:3f07ca322fb6b8af3b797527255b48dac2591d1333e12c366e9d6e35c5db7dab"
           },
           "AnalyzedBy": "sbom"
         },
@@ -621,8 +622,8 @@
             "MPL-2.0 AND MIT"
           ],
           "Layer": {
-            "Digest": "sha256:d3d400a5f113d575ee3b5b30cdb46217b0cee0402c2ee8baa78b6392e1e3ffb8",
-            "DiffID": "sha256:5fabeafd0ff5d0f4952622984d436428b4edad040e8e998dac2f9c5184d8a1b4"
+            "Digest": "sha256:d9a678a0accec8816a2eb48e8354006c62c3d228cade715ba6a2c5136047ded1",
+            "DiffID": "sha256:3f07ca322fb6b8af3b797527255b48dac2591d1333e12c366e9d6e35c5db7dab"
           },
           "AnalyzedBy": "sbom"
         }
@@ -646,8 +647,8 @@
             "stdlib@v1.26.8"
           ],
           "Layer": {
-            "Digest": "sha256:c5ea2488d7161ba6411ff1f60413c489969817ec6a478899404b8d4eacb1bb94",
-            "DiffID": "sha256:fa35148dbffa40d377cc071bda5353b62485350507732e87972f55a0baac9128"
+            "Digest": "sha256:500e5d7187d9d06434946678f245b4ccb2b3f979a5d48a065fa89b66bdab096c",
+            "DiffID": "sha256:d47e990a8fc84d1629798531659405fce8cebb2a2f87c10e9547ec83155149f3"
           },
           "AnalyzedBy": "gobinary"
         },
@@ -661,8 +662,8 @@
           "Version": "v1.26.8",
           "Relationship": "direct",
           "Layer": {
-            "Digest": "sha256:c5ea2488d7161ba6411ff1f60413c489969817ec6a478899404b8d4eacb1bb94",
-            "DiffID": "sha256:fa35148dbffa40d377cc071bda5353b62485350507732e87972f55a0baac9128"
+            "Digest": "sha256:500e5d7187d9d06434946678f245b4ccb2b3f979a5d48a065fa89b66bdab096c",
+            "DiffID": "sha256:d47e990a8fc84d1629798531659405fce8cebb2a2f87c10e9547ec83155149f3"
           },
           "AnalyzedBy": "gobinary"
         }
@@ -683,8 +684,8 @@
           "FixedVersion": "1.26.9, 1.27.2",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:c5ea2488d7161ba6411ff1f60413c489969817ec6a478899404b8d4eacb1bb94",
-            "DiffID": "sha256:fa35148dbffa40d377cc071bda5353b62485350507732e87972f55a0baac9128"
+            "Digest": "sha256:500e5d7187d9d06434946678f245b4ccb2b3f979a5d48a065fa89b66bdab096c",
+            "DiffID": "sha256:d47e990a8fc84d1629798531659405fce8cebb2a2f87c10e9547ec83155149f3"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-78667",
           "DataSource": {
@@ -692,7 +693,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:91fef084d4054e5fa10a417207bea4ea92b730b0c3ba1ecb57ce6983242dcc5e",
+          "Fingerprint": "sha256:f1d2fc33f8fb5b0e39b9e16d395cd7b1a8b6b03b1676d3adf1f8997b1818b537",
           "Title": "net/http: golang: golang: Denial of Service via crafted HTTP Range headers",
           "Description": "When parsing a Range header containing a large number of small ranges, FileServer(FS), ServeContent, and ServeFile(FS) can consume an excessive amount of CPU.",
           "Severity": "HIGH",
@@ -735,8 +736,8 @@
           "FixedVersion": "1.26.9, 1.27.2",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:c5ea2488d7161ba6411ff1f60413c489969817ec6a478899404b8d4eacb1bb94",
-            "DiffID": "sha256:fa35148dbffa40d377cc071bda5353b62485350507732e87972f55a0baac9128"
+            "Digest": "sha256:500e5d7187d9d06434946678f245b4ccb2b3f979a5d48a065fa89b66bdab096c",
+            "DiffID": "sha256:d47e990a8fc84d1629798531659405fce8cebb2a2f87c10e9547ec83155149f3"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-78669",
           "DataSource": {
@@ -744,7 +745,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:ef2fb8bd801e195932732638871dbf1549dc3c6e7f304ba8fb467119d8aeb247",
+          "Fingerprint": "sha256:c679f805c51369a88b9f53a50c50f2fad9be235fe5817dd3cc69e3fd6d8a3091",
           "Title": "net/http: net/http/internal/http2: golang.org/x/net/http2: net/http: Denial of Service via excessive HTTP/2 SETTINGS frames",
           "Description": "A malicious HTTP/2 peer can cause excessive CPU consumption in the client or server by opening a large number of streams and then sending many small SETTINGS frames containing SETTINGS_INITIAL_WINDOW_SIZE values.",
           "Severity": "HIGH",
@@ -789,8 +790,8 @@
           "FixedVersion": "1.26.9, 1.27.2",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:c5ea2488d7161ba6411ff1f60413c489969817ec6a478899404b8d4eacb1bb94",
-            "DiffID": "sha256:fa35148dbffa40d377cc071bda5353b62485350507732e87972f55a0baac9128"
+            "Digest": "sha256:500e5d7187d9d06434946678f245b4ccb2b3f979a5d48a065fa89b66bdab096c",
+            "DiffID": "sha256:d47e990a8fc84d1629798531659405fce8cebb2a2f87c10e9547ec83155149f3"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-97031",
           "DataSource": {
@@ -798,7 +799,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:1c34019d4e2a20bbbfea906d13bd0ed1c2159dffde0ac0b13f8bab807e4896b8",
+          "Fingerprint": "sha256:f2c8611a25cceb1f78feb1a3f1a0dd0fa10d6168567360477472756a4537155b",
           "Title": "crypto/tls: golang: crypto/tls: Denial of Service via multiple ECH outer extension references",
           "Description": "Multiple ECH outer extension references are not permitted under RFC 9849; previously, a client could send a well-crafted packet that could trigger memory exhaustion in the server process by specifying multiple references. We now reject these as malformed and curb the memory amplification vector as a result.",
           "Severity": "HIGH",
@@ -841,8 +842,8 @@
           "FixedVersion": "1.26.9, 1.27.2",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:c5ea2488d7161ba6411ff1f60413c489969817ec6a478899404b8d4eacb1bb94",
-            "DiffID": "sha256:fa35148dbffa40d377cc071bda5353b62485350507732e87972f55a0baac9128"
+            "Digest": "sha256:500e5d7187d9d06434946678f245b4ccb2b3f979a5d48a065fa89b66bdab096c",
+            "DiffID": "sha256:d47e990a8fc84d1629798531659405fce8cebb2a2f87c10e9547ec83155149f3"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-56866",
           "DataSource": {
@@ -850,7 +851,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:bc2a183db5a8e2369a7ee78f04f66e924667f5345bd38ceac81e3e35d294185c",
+          "Fingerprint": "sha256:07a2bbd4749dbd9af585a6e03ee571db2ea20bd0483d539a61b4ec9d100f0713",
           "Title": "net/http: golang: golang: Cross-user response poisoning via desynchronized HTTP CONNECT connections",
           "Description": "When http.Transport sends an HTTP/1 CONNECT request with a non-empty Request.Body, it writes the body directly to the connection without framing after the request headers. If the server rejects the CONNECT request with a non-2xx keep-alive response, Transport returns the connection to the idle pool. Because CONNECT requests do not have a request body, the server may interpret the trailing body bytes as a subsequent pipelined HTTP/1.1 request on the connection, leaving the pooled connection desynchronized and causing the next caller that reuses it to read the response to the injected request. In reverse proxies (including httputil.ReverseProxy) that forward CONNECT requests through a shared Transport, this can lead to cross-user response poisoning.",
           "Severity": "MEDIUM",
@@ -893,8 +894,8 @@
           "FixedVersion": "1.26.9, 1.27.2",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:c5ea2488d7161ba6411ff1f60413c489969817ec6a478899404b8d4eacb1bb94",
-            "DiffID": "sha256:fa35148dbffa40d377cc071bda5353b62485350507732e87972f55a0baac9128"
+            "Digest": "sha256:500e5d7187d9d06434946678f245b4ccb2b3f979a5d48a065fa89b66bdab096c",
+            "DiffID": "sha256:d47e990a8fc84d1629798531659405fce8cebb2a2f87c10e9547ec83155149f3"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-78663",
           "DataSource": {
@@ -902,7 +903,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:bcd82507ee514c5e4df6eb2b12162fb4b0d94fd2f580622c21e0c45fd2b6a070",
+          "Fingerprint": "sha256:dbfaacb3692b62ceefe34c895c70a1f3cfd2a6383e0f7125a373477b0315a035",
           "Title": "net/http: net/http/internal/http2: golang: golang.org/x/net/http2: golang: flow control limit bypass via double refund in HTTP/2 server",
           "Description": "The HTTP/2 server can refund connection-level flow control twice for the same data: Once when a client resets a stream (refunding data for any sent-but-unread portion of the stream), and again when a request handler reads the buffered data. A malicious client can exploit this to bypass the configured connection-level flow control limit (MaxReceiveBufferPerConnection). Total buffered data is still limited by the concurrent stream limit and stream-level flow control.",
           "Severity": "MEDIUM",
@@ -947,8 +948,8 @@
           "FixedVersion": "1.26.9, 1.27.2",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:c5ea2488d7161ba6411ff1f60413c489969817ec6a478899404b8d4eacb1bb94",
-            "DiffID": "sha256:fa35148dbffa40d377cc071bda5353b62485350507732e87972f55a0baac9128"
+            "Digest": "sha256:500e5d7187d9d06434946678f245b4ccb2b3f979a5d48a065fa89b66bdab096c",
+            "DiffID": "sha256:d47e990a8fc84d1629798531659405fce8cebb2a2f87c10e9547ec83155149f3"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-94439",
           "DataSource": {
@@ -956,7 +957,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:3eac04c6e753ff30a21b14de2a2ddc14f81c692f380c014b788a26d9436ffc54",
+          "Fingerprint": "sha256:e09ef1f8b9a0e2de183636f4a43614db9ea08d0bb38691c738da5f427e10aea8",
           "Title": "net/http: golang: net/http: HTTP request smuggling via improper handling of HTTP/1 CONNECT responses",
           "Description": "When an HTTP server handler sends a 2xx response to an HTTP/1 CONNECT request and returns without hijacking the connection, the server improperly continues to read and serve requests from the connection. Since a 2xx response to an HTTP/1 CONNECT converts the connection into a tunnel, the server should not treat the connection as continuing to contain HTTP. The impact of this misbehavior is mostly limited to potential request smuggling, where an intermediate proxy considers the data on the connection to be tunneled and the server considers it to be HTTP.",
           "Severity": "MEDIUM",
@@ -999,8 +1000,8 @@
           "FixedVersion": "1.26.9, 1.27.2",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:c5ea2488d7161ba6411ff1f60413c489969817ec6a478899404b8d4eacb1bb94",
-            "DiffID": "sha256:fa35148dbffa40d377cc071bda5353b62485350507732e87972f55a0baac9128"
+            "Digest": "sha256:500e5d7187d9d06434946678f245b4ccb2b3f979a5d48a065fa89b66bdab096c",
+            "DiffID": "sha256:d47e990a8fc84d1629798531659405fce8cebb2a2f87c10e9547ec83155149f3"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-94448",
           "DataSource": {
@@ -1008,7 +1009,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:c27c2cf86cbbc9627f14e07178a56b16103f6133e3e71280c209e8c9d3830d77",
+          "Fingerprint": "sha256:04314362a2c691a2133ef008a3e1838df6f21039126c168c09fa25eec0c7a2c4",
           "Title": "html/template: golang: golang: cross-site scripting via consecutive expressions in JavaScript template literals",
           "Description": "When a JavaScript template literal contains consecutive expressions, the context tracking state was not properly reset upon entering a new expression. We now ensure that template-literal expression entries correctly reset context variables so all subsequent regular expression literals are accurately recognized and escaped.",
           "Severity": "MEDIUM",
@@ -1048,8 +1049,8 @@
           "FixedVersion": "1.26.9, 1.27.2",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:c5ea2488d7161ba6411ff1f60413c489969817ec6a478899404b8d4eacb1bb94",
-            "DiffID": "sha256:fa35148dbffa40d377cc071bda5353b62485350507732e87972f55a0baac9128"
+            "Digest": "sha256:500e5d7187d9d06434946678f245b4ccb2b3f979a5d48a065fa89b66bdab096c",
+            "DiffID": "sha256:d47e990a8fc84d1629798531659405fce8cebb2a2f87c10e9547ec83155149f3"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-97032",
           "DataSource": {
@@ -1057,7 +1058,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:6d92670434f4c8204de2f413456d513d65f61a4e83ae651c28e3329dcd55dbcb",
+          "Fingerprint": "sha256:3caed635d6d35ae3c4d0687f15b73dff6ba997bb5824873d6049bc30b331f4b9",
           "Title": "net/http: net/http/internal/http2: golang: golang.org/x/net/http2: net/http: Denial of Service via concurrent HPACK encoder modification",
           "Description": "HTTP/2 servers could end up crashing due to inadvertently modifying its HPACK encoder concurrently. This happens because the server modifies the HPACK encoder from two goroutines without synchronization: one uses the encoder to encode a HEADERS frame as part of a response sent to a client and the other modifies the encoder's table size when handling a SETTINGS frame containing SETTINGS_HEADER_TABLE_SIZE that a client sends. A malicious client can repeatedly send a request while changing the header table size to crash the server.",
           "Severity": "MEDIUM",
@@ -1099,8 +1100,8 @@
           "FixedVersion": "1.26.9, 1.27.2",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:c5ea2488d7161ba6411ff1f60413c489969817ec6a478899404b8d4eacb1bb94",
-            "DiffID": "sha256:fa35148dbffa40d377cc071bda5353b62485350507732e87972f55a0baac9128"
+            "Digest": "sha256:500e5d7187d9d06434946678f245b4ccb2b3f979a5d48a065fa89b66bdab096c",
+            "DiffID": "sha256:d47e990a8fc84d1629798531659405fce8cebb2a2f87c10e9547ec83155149f3"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-56857",
           "DataSource": {
@@ -1108,7 +1109,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:11a1215d5fc99a5c46306e139bada35ff8249a5c9e9bfa0970c1001bfbcce7df",
+          "Fingerprint": "sha256:6481e322a4d475fa290254d018db0c74553de2555c26d9062b66f112e3ff7af1",
           "Title": "os: golang: golang: Directory traversal via Windows junction handling",
           "Description": "On Windows, when the target of Root.Mkdir or Root.MkdirAll is a junction pointing to an empty location, the operation can create a directory at the junction target even when that target is located outside the root. This only applies to operations where the last path component is a junction (path/to/junction, but not path/junction/target).",
           "Severity": "LOW",
@@ -1151,8 +1152,8 @@
           "FixedVersion": "1.26.9, 1.27.2",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:c5ea2488d7161ba6411ff1f60413c489969817ec6a478899404b8d4eacb1bb94",
-            "DiffID": "sha256:fa35148dbffa40d377cc071bda5353b62485350507732e87972f55a0baac9128"
+            "Digest": "sha256:500e5d7187d9d06434946678f245b4ccb2b3f979a5d48a065fa89b66bdab096c",
+            "DiffID": "sha256:d47e990a8fc84d1629798531659405fce8cebb2a2f87c10e9547ec83155149f3"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-78659",
           "DataSource": {
@@ -1160,7 +1161,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:d5b51c031816b2c364130c37eb15afa3442d62d5b2048d35214c7829b03d26f4",
+          "Fingerprint": "sha256:76ea090f5f8a6b4ef4b862359f00246b8e08ca09cd6c14c820f9f7ab9a4481da",
           "Title": "When \"Trailer\" headers are sent by a client, the HTTP server internall ...",
           "Description": "When \"Trailer\" headers are sent by a client, the HTTP server internally uses the header values to populate the Request.Trailer map passed to the server handler. Because Request.Trailer is a map, each entry incurs memory overhead. For HTTP/2 servers, a malicious client can exploit this by sending a \"Trailer\" header that declares a large number of fields, causing the server to allocate a disproportionate amount of memory while bypassing Server.MaxHeaderValueCount and Server.MaxHeaderBytes limits. This exploit is not applicable for HTTP/1 servers, which do not support multiplexing a large number of requests over one TCP connection, and whose Server.MaxHeaderBytes are calculated differently.",
           "Severity": "UNKNOWN",
@@ -1193,8 +1194,8 @@
           "FixedVersion": "1.26.9, 1.27.2",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:c5ea2488d7161ba6411ff1f60413c489969817ec6a478899404b8d4eacb1bb94",
-            "DiffID": "sha256:fa35148dbffa40d377cc071bda5353b62485350507732e87972f55a0baac9128"
+            "Digest": "sha256:500e5d7187d9d06434946678f245b4ccb2b3f979a5d48a065fa89b66bdab096c",
+            "DiffID": "sha256:d47e990a8fc84d1629798531659405fce8cebb2a2f87c10e9547ec83155149f3"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-78660",
           "DataSource": {
@@ -1202,7 +1203,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:6b46f83084b1d206f096a0dad27f795657674464dc59ed6bb194df24352ebb11",
+          "Fingerprint": "sha256:61c91207b2e09ba96d52bf13e34b39e0c8251adcedde70d944eaa6711d5e84ad",
           "Title": "Historically, we have been rather lax about malformed framing-related  ...",
           "Description": "Historically, we have been rather lax about malformed framing-related headers in our HTTP/2 implementation, as they cannot interfere with HTTP/2 framing. However, this makes it possible for our HTTP/2 implementation to forward responses containing such headers to an HTTP/1 client when acting as a reverse proxy. If the HTTP/1 client also does not behave strictly enough, this can result in response smuggling.",
           "Severity": "UNKNOWN",
@@ -1234,8 +1235,8 @@
           "FixedVersion": "1.26.9, 1.27.2",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:c5ea2488d7161ba6411ff1f60413c489969817ec6a478899404b8d4eacb1bb94",
-            "DiffID": "sha256:fa35148dbffa40d377cc071bda5353b62485350507732e87972f55a0baac9128"
+            "Digest": "sha256:500e5d7187d9d06434946678f245b4ccb2b3f979a5d48a065fa89b66bdab096c",
+            "DiffID": "sha256:d47e990a8fc84d1629798531659405fce8cebb2a2f87c10e9547ec83155149f3"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-94440",
           "DataSource": {
@@ -1243,7 +1244,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:c430ffeecd0259cc5877d10a0ff015933a3f90fe34f160d2f686268835f06a17",
+          "Fingerprint": "sha256:eb43c9589326e7281adff3bcbc128a86162a238ac830d0f06b16bec31c50eb60",
           "Title": "Parsing a multipart form can bypass memory limits and read an arbitrar ...",
           "Description": "Parsing a multipart form can bypass memory limits and read an arbitrarily long line into memory when the remaining limit at the start of a part is less than 400 bytes.",
           "Severity": "UNKNOWN",
@@ -1274,8 +1275,8 @@
           "FixedVersion": "1.26.9, 1.27.2",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:c5ea2488d7161ba6411ff1f60413c489969817ec6a478899404b8d4eacb1bb94",
-            "DiffID": "sha256:fa35148dbffa40d377cc071bda5353b62485350507732e87972f55a0baac9128"
+            "Digest": "sha256:500e5d7187d9d06434946678f245b4ccb2b3f979a5d48a065fa89b66bdab096c",
+            "DiffID": "sha256:d47e990a8fc84d1629798531659405fce8cebb2a2f87c10e9547ec83155149f3"
           },
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-97030",
           "DataSource": {
@@ -1283,7 +1284,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:97f3a19fcf6bb5084cab2d7c01545564355a6734f5bcc53316b05b5a5c57269c",
+          "Fingerprint": "sha256:9f2c26430e47879fb929dcb9ab06730572b2f3c75020401ad19245ffebbab2a8",
           "Title": "A trusted template author may have previously written a valid template ...",
           "Description": "A trusted template author may have previously written a valid template wherein the use of the 'yield' keyword would not be correctly escaped. We now ensure that valid keyword uses are escaped and non-keyword uses are not escaped.",
           "Severity": "UNKNOWN",

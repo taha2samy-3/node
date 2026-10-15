@@ -3,9 +3,9 @@
   "Trivy": {
     "Version": "0.76.0"
   },
-  "ReportID": "01a13cff-f243-754d-8755-d3ad1279cdc2",
-  "CreatedAt": "2026-10-15T00:39:29.091349352Z",
-  "ArtifactID": "sha256:a2d8508e06311020c7048c671f4c0fcc423be8e6dcd17dd29a01a7c9ff290199",
+  "ReportID": "01a13d0d-1b23-75d2-a637-656fdc21c04f",
+  "CreatedAt": "2026-10-15T00:53:51.523383056Z",
+  "ArtifactID": "sha256:c8363f96f3a37a26034fd41d9ba1c580be71ddd8e09512933af15f85314205c9",
   "ArtifactName": "ghcr.io/taha2samy-3/go-fips:1.22",
   "ArtifactType": "container_image",
   "Metadata": {
@@ -14,7 +14,7 @@
       "Family": "wolfi",
       "Name": "20230201"
     },
-    "ImageID": "sha256:6de767fc8f3fd9e5f4633cd3652dba99e7b6585d9836bf8071d78f1a7b904005",
+    "ImageID": "sha256:5bf6892fe496c97c2bb3be904095e7d0aba56d4ca2128897e832241c99bf351f",
     "DiffIDs": [
       "sha256:b70de558c6f971c245f0fe557afc9576ae7e227410e36730f8077f77a6a4d6eb",
       "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
@@ -24,7 +24,7 @@
       "ghcr.io/taha2samy-3/go-fips:1.22"
     ],
     "RepoDigests": [
-      "ghcr.io/taha2samy-3/go-fips@sha256:9c9fb8e8883299b2af17259ea4b810a789d874a328345a8096b5497f0d9919db"
+      "ghcr.io/taha2samy-3/go-fips@sha256:b835d7f0084504e3556c3a5b202271a51758b845a8b68c689612d7999fdf2bd3"
     ],
     "Reference": "ghcr.io/taha2samy-3/go-fips:1.22",
     "ImageConfig": {
@@ -38,23 +38,29 @@
         },
         {
           "created": "2026-10-15T00:10:12.012517209Z",
+          "created_by": "ENV SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-15T00:10:12.012517209Z",
           "created_by": "WORKDIR /app",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-15T00:10:12.022608292Z",
+          "created": "2026-10-15T00:10:12.012517209Z",
           "created_by": "USER go",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-15T00:10:12.022608292Z",
+          "created": "2026-10-15T00:10:12.012517209Z",
           "created_by": "ENTRYPOINT [\"/sbin/tini\" \"--\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-15T00:10:12.022608292Z",
+          "created": "2026-10-15T00:10:12.012517209Z",
           "created_by": "CMD [\"/bin/sh\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
@@ -83,10 +89,11 @@
           "--"
         ],
         "Env": [
-          "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+          "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+          "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt"
         ],
         "Labels": {
-          "io.github.taha2samy-3.build.fingerprint": "2d695d22614cbc16f29c8915e263c338",
+          "io.github.taha2samy-3.build.fingerprint": "5b12811a10896fa268255407e7df0541",
           "org.opencontainers.image.authors": "Taha Samy",
           "org.opencontainers.image.description": "Ultra-secure minimal distroless base for Go 1.22 FIPS apps based on Chainguard Wolfi and scratch",
           "org.opencontainers.image.licenses": "MIT",
@@ -205,8 +212,8 @@
           "ID": "glibc-2.44@2.44-r8",
           "Name": "glibc-2.44",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/glibc-2.44@2.44-r8?arch=x86_64\u0026origin=glibc-2.44",
-            "UID": "65fe8f26a65b9b4a"
+            "PURL": "pkg:apk/wolfi/glibc-2.44@2.44-r8?arch=x86_64\u0026distro=wolfi",
+            "UID": "bbef6c45f92c1b09"
           },
           "Version": "2.44-r8",
           "Arch": "x86_64",
@@ -305,8 +312,8 @@
           "ID": "libbrotlienc1@1.2.0-r6",
           "Name": "libbrotlienc1",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/libbrotlienc1@1.2.0-r6?arch=x86_64\u0026distro=wolfi",
-            "UID": "72dc4076e7ff7c5c"
+            "PURL": "pkg:apk/wolfi/libbrotlienc1@1.2.0-r6?arch=x86_64\u0026origin=brotli",
+            "UID": "6fbe9af8f759352f"
           },
           "Version": "1.2.0-r6",
           "Arch": "x86_64",
@@ -385,8 +392,8 @@
           "ID": "openssl-4.0-libcrypto@4.0.3-r6",
           "Name": "openssl-4.0-libcrypto",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/openssl-4.0-libcrypto@4.0.3-r6?arch=x86_64\u0026origin=openssl-4.0",
-            "UID": "c50ecb23324e33fb"
+            "PURL": "pkg:apk/wolfi/openssl-4.0-libcrypto@4.0.3-r6?arch=x86_64\u0026distro=wolfi",
+            "UID": "718ccb61a7a086"
           },
           "Version": "4.0.3-r6",
           "Arch": "x86_64",
@@ -465,8 +472,8 @@
           "ID": "tzdata@2026e-r0",
           "Name": "tzdata",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/tzdata@2026e-r0?arch=x86_64\u0026origin=tzdata",
-            "UID": "a483c584ade86cb9"
+            "PURL": "pkg:apk/wolfi/tzdata@2026e-r0?arch=x86_64\u0026distro=wolfi",
+            "UID": "1b5b3b751cb85772"
           },
           "Version": "2026e-r0",
           "Arch": "x86_64",
@@ -525,8 +532,8 @@
           "ID": "wolfi-keys@1-r13",
           "Name": "wolfi-keys",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/wolfi-keys@1-r13?arch=x86_64\u0026origin=wolfi-keys",
-            "UID": "43a04ad9b4f66874"
+            "PURL": "pkg:apk/wolfi/wolfi-keys@1-r13?arch=x86_64\u0026distro=wolfi",
+            "UID": "6f3c254eb609acc2"
           },
           "Version": "1-r13",
           "Arch": "x86_64",
@@ -545,15 +552,15 @@
           "ID": "zlib@1.3.2.1_rc20260921-r0",
           "Name": "zlib",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/zlib@1.3.2.1_rc20260921-r0?arch=x86_64\u0026origin=zlib",
-            "UID": "c5ed79b4d612c076"
+            "PURL": "pkg:apk/wolfi/zlib@1.3.2.1_rc20260921-r0?arch=x86_64\u0026distro=wolfi",
+            "UID": "5d287184ae635120"
           },
           "Version": "1.3.2.1_rc20260921-r0",
           "Arch": "x86_64",
           "SrcName": "zlib",
           "SrcVersion": "1.3.2.1_rc20260921-r0",
           "Licenses": [
-            "(MPL-2.0 AND MIT)"
+            "MPL-2.0 AND MIT"
           ],
           "Layer": {
             "Digest": "sha256:3c19a20f66f65c7f820f988d7fc61a93a3e0f3b0f5bc9d89b6bd07ad8b68e0c5",
@@ -627,7 +634,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:3bc139f9a2754a55f3c8dd0012384592bb50277087d887fa2c347b9f08b87baf",
+          "Fingerprint": "sha256:acb120874c1e87bffffd7c9688ef40dcd1e4cee2032e2315af70941fe0b1b9b0",
           "Title": "net/http: golang: golang: Denial of Service via crafted HTTP Range headers",
           "Description": "When parsing a Range header containing a large number of small ranges, FileServer(FS), ServeContent, and ServeFile(FS) can consume an excessive amount of CPU.",
           "Severity": "HIGH",
@@ -679,7 +686,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:4358a16fcbb999f3ad60643c9bb878b82549f9f0e679c096b10bd370c50ee786",
+          "Fingerprint": "sha256:c0a5260542db86ebb00174d4a68e3966ec8b48e950a4a6c0e16b70a499b4963c",
           "Title": "net/http: net/http/internal/http2: golang.org/x/net/http2: net/http: Denial of Service via excessive HTTP/2 SETTINGS frames",
           "Description": "A malicious HTTP/2 peer can cause excessive CPU consumption in the client or server by opening a large number of streams and then sending many small SETTINGS frames containing SETTINGS_INITIAL_WINDOW_SIZE values.",
           "Severity": "HIGH",
@@ -733,7 +740,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:ddbe7a5b4a84db72edb22455ad3510195362ad9f8e3bb12c0b751ac294b73f61",
+          "Fingerprint": "sha256:7f5a6465b917dd3f615eca7b429c89064f2d83d379a0df9230e7c9d9686ed7ce",
           "Title": "crypto/tls: golang: crypto/tls: Denial of Service via multiple ECH outer extension references",
           "Description": "Multiple ECH outer extension references are not permitted under RFC 9849; previously, a client could send a well-crafted packet that could trigger memory exhaustion in the server process by specifying multiple references. We now reject these as malformed and curb the memory amplification vector as a result.",
           "Severity": "HIGH",
@@ -785,7 +792,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:2bda717ecb5b55e428403f8e17f8936564ead58aed80cdadf6bded86e8b49ed9",
+          "Fingerprint": "sha256:c414132364a3507ab379a030a300adcd017d9dec512acc5f7d3112539f3b28d6",
           "Title": "net/http: golang: golang: Cross-user response poisoning via desynchronized HTTP CONNECT connections",
           "Description": "When http.Transport sends an HTTP/1 CONNECT request with a non-empty Request.Body, it writes the body directly to the connection without framing after the request headers. If the server rejects the CONNECT request with a non-2xx keep-alive response, Transport returns the connection to the idle pool. Because CONNECT requests do not have a request body, the server may interpret the trailing body bytes as a subsequent pipelined HTTP/1.1 request on the connection, leaving the pooled connection desynchronized and causing the next caller that reuses it to read the response to the injected request. In reverse proxies (including httputil.ReverseProxy) that forward CONNECT requests through a shared Transport, this can lead to cross-user response poisoning.",
           "Severity": "MEDIUM",
@@ -837,7 +844,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:d3316251bf1965162194b7af423fc0007eb7813255a2465f4fd02334c6b06442",
+          "Fingerprint": "sha256:4d970af669f91d638a0235acc4494fb6baa51399995ceb9a61ba03b64d37a8ad",
           "Title": "net/http: net/http/internal/http2: golang: golang.org/x/net/http2: golang: flow control limit bypass via double refund in HTTP/2 server",
           "Description": "The HTTP/2 server can refund connection-level flow control twice for the same data: Once when a client resets a stream (refunding data for any sent-but-unread portion of the stream), and again when a request handler reads the buffered data. A malicious client can exploit this to bypass the configured connection-level flow control limit (MaxReceiveBufferPerConnection). Total buffered data is still limited by the concurrent stream limit and stream-level flow control.",
           "Severity": "MEDIUM",
@@ -891,7 +898,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:53f6c83e20e646530863024f6f13a31e1a708c35fe3e20aebdd067b97a85c640",
+          "Fingerprint": "sha256:ed579bd79bbf864d86d41fd5fbf01e36baf2713a7b9c7785660d5c15e3d90c32",
           "Title": "net/http: golang: net/http: HTTP request smuggling via improper handling of HTTP/1 CONNECT responses",
           "Description": "When an HTTP server handler sends a 2xx response to an HTTP/1 CONNECT request and returns without hijacking the connection, the server improperly continues to read and serve requests from the connection. Since a 2xx response to an HTTP/1 CONNECT converts the connection into a tunnel, the server should not treat the connection as continuing to contain HTTP. The impact of this misbehavior is mostly limited to potential request smuggling, where an intermediate proxy considers the data on the connection to be tunneled and the server considers it to be HTTP.",
           "Severity": "MEDIUM",
@@ -943,7 +950,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:9294ed563582488c28541875fd9d196a82d36098b0c939206b7d2c74cbfccb33",
+          "Fingerprint": "sha256:6baa3e05e80e7a8f6483363105b4d4fdb13f6b84e6bc157f056a824b5150cc81",
           "Title": "html/template: golang: golang: cross-site scripting via consecutive expressions in JavaScript template literals",
           "Description": "When a JavaScript template literal contains consecutive expressions, the context tracking state was not properly reset upon entering a new expression. We now ensure that template-literal expression entries correctly reset context variables so all subsequent regular expression literals are accurately recognized and escaped.",
           "Severity": "MEDIUM",
@@ -992,7 +999,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:09569ebac98416fbfc47339180f07a8df87295eb4f6b07ca633425c3a426672f",
+          "Fingerprint": "sha256:ef0cf7e06af5ba33b6bb2ddf34bb905a61ad963741b57f3cf26ddf317a4ebb45",
           "Title": "net/http: net/http/internal/http2: golang: golang.org/x/net/http2: net/http: Denial of Service via concurrent HPACK encoder modification",
           "Description": "HTTP/2 servers could end up crashing due to inadvertently modifying its HPACK encoder concurrently. This happens because the server modifies the HPACK encoder from two goroutines without synchronization: one uses the encoder to encode a HEADERS frame as part of a response sent to a client and the other modifies the encoder's table size when handling a SETTINGS frame containing SETTINGS_HEADER_TABLE_SIZE that a client sends. A malicious client can repeatedly send a request while changing the header table size to crash the server.",
           "Severity": "MEDIUM",
@@ -1043,7 +1050,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:89f59edeba5f9131bcff33cd0bad8cd964742757d6a64759cf9b16791ffc0446",
+          "Fingerprint": "sha256:2a299a452c23f3ffd76ddbd90972f9565889e36c5bc2f7f6cf03c977352e6147",
           "Title": "os: golang: golang: Directory traversal via Windows junction handling",
           "Description": "On Windows, when the target of Root.Mkdir or Root.MkdirAll is a junction pointing to an empty location, the operation can create a directory at the junction target even when that target is located outside the root. This only applies to operations where the last path component is a junction (path/to/junction, but not path/junction/target).",
           "Severity": "LOW",
@@ -1095,7 +1102,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:a28c6304953e397a0784aac07757545fbcc620ebc59cc99dda93f19c290b4099",
+          "Fingerprint": "sha256:bc577593d9f57b479bc1f5b9159954882451557b4a75f3b618c4339ac3af57f2",
           "Title": "When \"Trailer\" headers are sent by a client, the HTTP server internall ...",
           "Description": "When \"Trailer\" headers are sent by a client, the HTTP server internally uses the header values to populate the Request.Trailer map passed to the server handler. Because Request.Trailer is a map, each entry incurs memory overhead. For HTTP/2 servers, a malicious client can exploit this by sending a \"Trailer\" header that declares a large number of fields, causing the server to allocate a disproportionate amount of memory while bypassing Server.MaxHeaderValueCount and Server.MaxHeaderBytes limits. This exploit is not applicable for HTTP/1 servers, which do not support multiplexing a large number of requests over one TCP connection, and whose Server.MaxHeaderBytes are calculated differently.",
           "Severity": "UNKNOWN",
@@ -1137,7 +1144,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:4f49f6bd4b7cb73b3bc7d4baa112aabde11b295c5e41b136dfa3b29de2469cd1",
+          "Fingerprint": "sha256:0212d3021c83296a09252b4eb531bf6ccf3f504327e23e52348f2a567e124d1f",
           "Title": "Historically, we have been rather lax about malformed framing-related  ...",
           "Description": "Historically, we have been rather lax about malformed framing-related headers in our HTTP/2 implementation, as they cannot interfere with HTTP/2 framing. However, this makes it possible for our HTTP/2 implementation to forward responses containing such headers to an HTTP/1 client when acting as a reverse proxy. If the HTTP/1 client also does not behave strictly enough, this can result in response smuggling.",
           "Severity": "UNKNOWN",
@@ -1178,7 +1185,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:a80948bf302830ad2a6e702e36ebd61b32470aca6b9031f3841f7c53dd92641d",
+          "Fingerprint": "sha256:d0979aa25e9f3edb655bbce9d6850ce84a0395831f6512b9d1df193b1fa07318",
           "Title": "Parsing a multipart form can bypass memory limits and read an arbitrar ...",
           "Description": "Parsing a multipart form can bypass memory limits and read an arbitrarily long line into memory when the remaining limit at the start of a part is less than 400 bytes.",
           "Severity": "UNKNOWN",
@@ -1218,7 +1225,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:e1779ab4711055120349031dbc8fc5365c19d55cf884c14800acd4ea998c33db",
+          "Fingerprint": "sha256:d854ab1dcb2b493561cdbb4e5c67647dcda6be7fc55afb067fde85bcff667364",
           "Title": "A trusted template author may have previously written a valid template ...",
           "Description": "A trusted template author may have previously written a valid template wherein the use of the 'yield' keyword would not be correctly escaped. We now ensure that valid keyword uses are escaped and non-keyword uses are not escaped.",
           "Severity": "UNKNOWN",
