@@ -83,6 +83,8 @@ FROM scratch AS minimal
 
 COPY --from=minimal-cleaner / /
 
+# wolfi-base sets SSL_CERT_FILE, but FROM scratch drops it (STIG SV-263659)
+ENV SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
 WORKDIR /app
 USER bun
 

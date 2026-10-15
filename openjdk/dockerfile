@@ -109,6 +109,7 @@ ARG WOLFI_KEYS_VER
 ARG ZLIB_VER
 
 # Block 1: Distroless (Scratch, Minimal Cryptographic Runtime)
+# apk --root never gets the CA digest stamp that wolfi-base's image build writes, so each rootfs records it (STIG SV-263659)
 RUN --mount=type=cache,target=/var/cache/apk \
     set -eux; \
     mkdir -p /rootfs/jre_distroless/etc/apk /rootfs/jre_distroless/var/lib/apk; \
@@ -126,6 +127,7 @@ RUN --mount=type=cache,target=/var/cache/apk \
       libstdc++${LIBSTDCPP_VER:+=$LIBSTDCPP_VER} \
       libcrypto3${LIBCRYPTO3_VER:+=$LIBCRYPTO3_VER} \
       tzdata${TZDATA_VER:+=$TZDATA_VER}; \
+    (cd /rootfs/jre_distroless/etc/ssl/certs && sha256sum ca-certificates.crt > .ca-certificates.crt.sha256 && chmod 444 .ca-certificates.crt.sha256); \
     ldconfig -r /rootfs/jre_distroless
 
 # Block 2: Standard JRE (with Shell & Busybox Tools)
@@ -155,6 +157,7 @@ RUN --mount=type=cache,target=/var/cache/apk \
       wolfi-baselayout${WOLFI_BASELAYOUT_VER:+=$WOLFI_BASELAYOUT_VER} \
       wolfi-keys${WOLFI_KEYS_VER:+=$WOLFI_KEYS_VER} \
       zlib${ZLIB_VER:+=$ZLIB_VER}; \
+    (cd /rootfs/jre_standard/etc/ssl/certs && sha256sum ca-certificates.crt > .ca-certificates.crt.sha256 && chmod 444 .ca-certificates.crt.sha256); \
     ldconfig -r /rootfs/jre_standard; \
     for applet in $(/rootfs/jre_standard/usr/bin/busybox --list); do \
       ln -sf busybox /rootfs/jre_standard/usr/bin/$applet; \
@@ -182,6 +185,7 @@ RUN --mount=type=cache,target=/var/cache/apk \
       bash${BASH_VER:+=$BASH_VER} \
       curl${CURL_VER:+=$CURL_VER} \
       tzdata${TZDATA_VER:+=$TZDATA_VER}; \
+    (cd /rootfs/jdk_standard/etc/ssl/certs && sha256sum ca-certificates.crt > .ca-certificates.crt.sha256 && chmod 444 .ca-certificates.crt.sha256); \
     ldconfig -r /rootfs/jdk_standard; \
     for applet in $(/rootfs/jdk_standard/usr/bin/busybox --list); do \
       ln -sf busybox /rootfs/jdk_standard/usr/bin/$applet; \
@@ -329,7 +333,7 @@ FROM scratch AS openjdk-dev
 COPY --from=base_jdk_standard / /
 COPY --from=fips-modifier /opt/jdk /opt/java
 
-ENV JAVA_HOME=/opt/java PATH="/opt/java/bin:/usr/local/bin:/usr/bin:/bin" LANG=C.UTF-8 TZ=UTC
+ENV JAVA_HOME=/opt/java PATH="/opt/java/bin:/usr/local/bin:/usr/bin:/bin" LANG=C.UTF-8 TZ=UTC SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
 ARG KEYSTORE_PWD="changeit"
 ARG JDK_TRUSTSTORE
 ARG JDK_BC_DIR
@@ -362,7 +366,7 @@ FROM scratch AS openjdk-standard
 COPY --from=base_jre_standard / /
 COPY --from=fips-modifier /opt/jre /opt/java
 
-ENV JAVA_HOME=/opt/java PATH="/opt/java/bin:/usr/local/bin:/usr/bin:/bin" LANG=C.UTF-8 TZ=UTC
+ENV JAVA_HOME=/opt/java PATH="/opt/java/bin:/usr/local/bin:/usr/bin:/bin" LANG=C.UTF-8 TZ=UTC SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
 ARG KEYSTORE_PWD="changeit"
 ARG JRE_TRUSTSTORE
 ARG JRE_BC_DIR
@@ -396,7 +400,7 @@ FROM scratch AS openjdk-distroless
 COPY --from=base_jre_distroless / /
 COPY --from=fips-modifier /opt/jre /opt/java
 
-ENV JAVA_HOME=/opt/java PATH="/opt/java/bin:/usr/local/bin:/usr/bin:/bin" LANG=C.UTF-8 TZ=UTC
+ENV JAVA_HOME=/opt/java PATH="/opt/java/bin:/usr/local/bin:/usr/bin:/bin" LANG=C.UTF-8 TZ=UTC SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
 ARG KEYSTORE_PWD="changeit"
 ARG JRE_TRUSTSTORE
 ARG JRE_BC_DIR

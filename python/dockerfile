@@ -109,6 +109,8 @@ COPY --from=minimal-cleaner / /
 
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
+# wolfi-base sets SSL_CERT_FILE, but FROM scratch drops it (STIG SV-263659)
+ENV SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
 
 WORKDIR /app
 USER python

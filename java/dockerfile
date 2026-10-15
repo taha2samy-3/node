@@ -39,6 +39,9 @@ RUN apk update && apk add --no-cache \
     openjdk-${JAVA_VERSION}-default-jdk=${JAVA_FULL_VERSION} \
     tini
 
+# Record the Java truststore digest that STIG SV-263659 checks; java-cacerts does not ship one
+RUN if [ -f /etc/ssl/certs/java/cacerts ]; then (cd /etc/ssl/certs/java && sha256sum cacerts > .cacerts.sha256 && chmod 444 .cacerts.sha256); fi
+
 COPY --from=envoke /out/ /usr/bin/
 
 RUN adduser -D -u 1000 java && \
@@ -65,6 +68,9 @@ USER root
 RUN apk update && apk add --no-cache \
     openjdk-${JAVA_VERSION} \
     tini
+
+# Record the Java truststore digest that STIG SV-263659 checks; java-cacerts does not ship one
+RUN if [ -f /etc/ssl/certs/java/cacerts ]; then (cd /etc/ssl/certs/java && sha256sum cacerts > .cacerts.sha256 && chmod 444 .cacerts.sha256); fi
 
 COPY --from=envoke /out/ /usr/bin/
 
@@ -93,6 +99,8 @@ FROM scratch AS minimal
 COPY --from=minimal-cleaner / /
 
 ENV JAVA_OPTS="-XX:+UseZGC -XX:+ZGenerational"
+# wolfi-base sets SSL_CERT_FILE, but FROM scratch drops it (STIG SV-263659)
+ENV SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
 WORKDIR /app
 USER java
 

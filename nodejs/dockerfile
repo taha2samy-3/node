@@ -87,7 +87,9 @@ FROM scratch AS minimal
 
 COPY --from=minimal-cleaner / /
 
-ENV NODE_ENV=production
+# wolfi-base sets SSL_CERT_FILE, but FROM scratch drops it (STIG SV-263659)
+ENV NODE_ENV=production \
+    SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
 WORKDIR /app
 USER node
 
@@ -121,6 +123,7 @@ RUN apk add --no-cache --initdb --no-scripts --root /rootfs \
       tini \
       ca-certificates-bundle \
       wolfi-baselayout && \
+    (cd /rootfs/etc/ssl/certs && sha256sum ca-certificates.crt > .ca-certificates.crt.sha256 && chmod 444 .ca-certificates.crt.sha256) && \
     rm -rf /rootfs/lib/apk/db /rootfs/var/cache/apk /rootfs/etc/apk /rootfs/usr/share/apk \
       /rootfs/usr/share/man /rootfs/usr/share/doc && \
     echo "node:x:1000:1000:node:/app:/sbin/nologin" >> /rootfs/etc/passwd && \
@@ -150,6 +153,7 @@ COPY --from=envoke /out/ /usr/bin/
 COPY --from=fips-layer / /
 
 ENV NODE_ENV=production \
+    SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
     OPENSSL_CONF=/etc/ssl/fips/openssl-fips.cnf \
     OPENSSL_MODULES=/usr/lib/ossl-modules-fips \
     NODE_OPTIONS=--force-fips
