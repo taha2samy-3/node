@@ -1,1 +1,0 @@
-var e={CreatedAt:`2026-10-12T07:18:50.31401629Z`,Results:[{Target:`ghcr.io/taha2samy-3/boringssl-fips:fips-2024-dev (wolfi 20230201)`,Vulnerabilities:[]}]};export{e as default};
