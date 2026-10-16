@@ -66,7 +66,7 @@ variable "PYTHON_REPO" {
 variable "PYTHON_3_10_FULL_VERSION" { default = "3.10.22-r3" }
 variable "PYTHON_3_11_FULL_VERSION" { default = "3.11.17-r3" }
 variable "PYTHON_3_12_FULL_VERSION" { default = "3.12.15-r3" }
-variable "PYTHON_3_13_FULL_VERSION" { default = "3.13.16_git20261009-r0" }
+variable "PYTHON_3_13_FULL_VERSION" { default = "3.13.16_git20261016-r0" }
 variable "PYTHON_3_14_FULL_VERSION" { default = "3.14.8_git20261014-r0" }
 
 # ==========================================
