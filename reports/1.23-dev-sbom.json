@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "serialNumber": "urn:uuid:441a8642-7240-47bd-8f7b-0b3913bb3e27",
+  "serialNumber": "urn:uuid:cefc9d5a-164f-47ae-85ad-73e43b111450",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-10-18T06:00:58+00:00",
+    "timestamp": "2026-10-18T06:57:23+00:00",
     "tools": {
       "components": [
         {
@@ -154,22 +154,7 @@
   },
   "components": [
     {
-      "bom-ref": "34474d54-cdb5-4baf-aa3a-20ba97807c7f",
-      "type": "application",
-      "name": "usr/bin/secrets-entrypoint",
-      "properties": [
-        {
-          "name": "aquasecurity:trivy:Class",
-          "value": "lang-pkgs"
-        },
-        {
-          "name": "aquasecurity:trivy:Type",
-          "value": "gobinary"
-        }
-      ]
-    },
-    {
-      "bom-ref": "a9e7ddb9-9637-482c-ae19-1f7f900e1d1b",
+      "bom-ref": "777e2325-979b-4a23-9480-aefa254f143e",
       "type": "operating-system",
       "name": "wolfi",
       "version": "20230201",
@@ -181,6 +166,21 @@
         {
           "name": "aquasecurity:trivy:Type",
           "value": "wolfi"
+        }
+      ]
+    },
+    {
+      "bom-ref": "e385d89e-9aa6-4711-8d45-82757c204626",
+      "type": "application",
+      "name": "usr/bin/secrets-entrypoint",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:Class",
+          "value": "lang-pkgs"
+        },
+        {
+          "name": "aquasecurity:trivy:Type",
+          "value": "gobinary"
         }
       ]
     },
@@ -3295,18 +3295,18 @@
   ],
   "dependencies": [
     {
-      "ref": "34474d54-cdb5-4baf-aa3a-20ba97807c7f",
-      "dependsOn": [
-        "pkg:golang/secrets-entrypoint@v1.0.0%2Bdirty"
-      ]
-    },
-    {
-      "ref": "a9e7ddb9-9637-482c-ae19-1f7f900e1d1b",
+      "ref": "777e2325-979b-4a23-9480-aefa254f143e",
       "dependsOn": [
         "pkg:apk/wolfi/git@2.56.0-r2?arch=x86_64&distro=20230201",
         "pkg:apk/wolfi/go-1.23@1.23.12-r1?arch=x86_64&distro=20230201",
         "pkg:apk/wolfi/tini@0.19.0-r26?arch=x86_64&distro=20230201",
         "pkg:apk/wolfi/wolfi-base@1-r7?arch=x86_64&distro=20230201"
+      ]
+    },
+    {
+      "ref": "e385d89e-9aa6-4711-8d45-82757c204626",
+      "dependsOn": [
+        "pkg:golang/secrets-entrypoint@v1.0.0%2Bdirty"
       ]
     },
     {
@@ -3834,8 +3834,8 @@
     {
       "ref": "pkg:oci/go@sha256:601e779ee4cae1cd1ddfa074182b766b11653faa67b91b234a8ad894ff35c84e?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fgo",
       "dependsOn": [
-        "34474d54-cdb5-4baf-aa3a-20ba97807c7f",
-        "a9e7ddb9-9637-482c-ae19-1f7f900e1d1b"
+        "777e2325-979b-4a23-9480-aefa254f143e",
+        "e385d89e-9aa6-4711-8d45-82757c204626"
       ]
     }
   ],

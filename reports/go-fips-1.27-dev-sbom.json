@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "serialNumber": "urn:uuid:0f440cb1-ddf5-4dca-966c-fb0f277d4ae1",
+  "serialNumber": "urn:uuid:72d6aa90-3b75-4ec8-b00c-0e9d7b29435c",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-10-18T06:04:54+00:00",
+    "timestamp": "2026-10-18T07:00:15+00:00",
     "tools": {
       "components": [
         {
@@ -162,22 +162,7 @@
   },
   "components": [
     {
-      "bom-ref": "3c4ca1b4-8337-42d0-8978-94f7929570d0",
-      "type": "application",
-      "name": "usr/bin/secrets-entrypoint",
-      "properties": [
-        {
-          "name": "aquasecurity:trivy:Class",
-          "value": "lang-pkgs"
-        },
-        {
-          "name": "aquasecurity:trivy:Type",
-          "value": "gobinary"
-        }
-      ]
-    },
-    {
-      "bom-ref": "b970196c-f481-4124-b222-feec1e347ec8",
+      "bom-ref": "0d5e6011-5afa-4978-8fd2-3a94e5cde76e",
       "type": "operating-system",
       "name": "wolfi",
       "version": "20230201",
@@ -193,7 +178,22 @@
       ]
     },
     {
-      "bom-ref": "f5597cf9-b476-4f27-8baf-ab540cfe8bfa",
+      "bom-ref": "0e96dfcd-0d22-41b3-9365-1f5a0f8e4cb5",
+      "type": "application",
+      "name": "usr/bin/secrets-entrypoint",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:Class",
+          "value": "lang-pkgs"
+        },
+        {
+          "name": "aquasecurity:trivy:Type",
+          "value": "gobinary"
+        }
+      ]
+    },
+    {
+      "bom-ref": "be67688a-01f4-4fc6-bf9c-1b1ea25908c9",
       "type": "application",
       "name": "root/.cache/go-build/43/43b0854ae86b8247ed919d6dba179c68441f5ce6d1f1406a551faeecee1c101d-d/fips-check",
       "properties": [
@@ -3294,13 +3294,7 @@
   ],
   "dependencies": [
     {
-      "ref": "3c4ca1b4-8337-42d0-8978-94f7929570d0",
-      "dependsOn": [
-        "pkg:golang/secrets-entrypoint@v1.0.0%2Bdirty"
-      ]
-    },
-    {
-      "ref": "b970196c-f481-4124-b222-feec1e347ec8",
+      "ref": "0d5e6011-5afa-4978-8fd2-3a94e5cde76e",
       "dependsOn": [
         "pkg:apk/wolfi/build-base@1-r10?arch=x86_64&distro=20230201",
         "pkg:apk/wolfi/git@2.56.0-r2?arch=x86_64&distro=20230201",
@@ -3310,7 +3304,13 @@
       ]
     },
     {
-      "ref": "f5597cf9-b476-4f27-8baf-ab540cfe8bfa",
+      "ref": "0e96dfcd-0d22-41b3-9365-1f5a0f8e4cb5",
+      "dependsOn": [
+        "pkg:golang/secrets-entrypoint@v1.0.0%2Bdirty"
+      ]
+    },
+    {
+      "ref": "be67688a-01f4-4fc6-bf9c-1b1ea25908c9",
       "dependsOn": [
         "pkg:golang/stdlib@v1.27.2"
       ]
@@ -3832,9 +3832,9 @@
     {
       "ref": "pkg:oci/go-fips@sha256:0e31a1526e1945cab4a0f1db98f30670b1547fea5ffde816f87f39a0135f4937?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fgo-fips",
       "dependsOn": [
-        "3c4ca1b4-8337-42d0-8978-94f7929570d0",
-        "b970196c-f481-4124-b222-feec1e347ec8",
-        "f5597cf9-b476-4f27-8baf-ab540cfe8bfa"
+        "0d5e6011-5afa-4978-8fd2-3a94e5cde76e",
+        "0e96dfcd-0d22-41b3-9365-1f5a0f8e4cb5",
+        "be67688a-01f4-4fc6-bf9c-1b1ea25908c9"
       ]
     }
   ],
