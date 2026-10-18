@@ -169,7 +169,7 @@ class TestNetworkAndTLS:
     def test_integrity_check_tampering(self, image_tag):
         with tempfile.TemporaryDirectory() as tmpdir:
             config_path = os.path.join(tmpdir, "fipsmodule.cnf")
-            target_path = "/usr/local/ssl/fipsmodule.cnf"
+            target_path = "/etc/ssl/fipsmodule.cnf"  # the copy /etc/ssl/openssl.cnf includes
 
             with allure.step("Extracting and decoding FIPS module configuration"):
                 extract_cmd = ["docker", "run", "--user", "0", "--rm", image_tag, "base64", "-in", target_path]

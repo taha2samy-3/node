@@ -29,7 +29,7 @@ class TestCorePolicyAndIntegrity:
     @allure.severity(allure.severity_level.BLOCKER)
     @allure.tag("config", "fipsmodule.cnf", "audit")
     def test_fips_config_file_indicators(self, image_tag):
-        container_config_path = "/usr/local/ssl/fipsmodule.cnf"
+        container_config_path = "/etc/ssl/fipsmodule.cnf"  # the copy /etc/ssl/openssl.cnf includes
         
         with tempfile.TemporaryDirectory(dir=".") as tmpdir:
             host_path = os.path.abspath(os.path.join(tmpdir, "fips_check.cnf"))
@@ -129,7 +129,7 @@ class TestCorePolicyAndIntegrity:
     @allure.severity(allure.severity_level.BLOCKER)
     @allure.tag("integrity", "tamper-detection", "module-mac", "self-test")
     def test_integrity_check_tampering(self, image_tag):
-        target_path = "/usr/local/ssl/fipsmodule.cnf"
+        target_path = "/etc/ssl/fipsmodule.cnf"  # the copy /etc/ssl/openssl.cnf includes
 
         with allure.step("Extracting and decoding FIPS module configuration via OpenSSL"):
             extract_cmd = [

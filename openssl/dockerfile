@@ -360,7 +360,8 @@ LABEL org.opencontainers.image.title="Wolfi OpenSSL FIPS (Standard)" \
     org.opencontainers.image.vendor="taha2samy-3" \
     org.opencontainers.image.core-version="${CORE_VERSION}" \
     org.opencontainers.image.fips-version="${FIPS_VERSION}"
-COPY --from=producer /rootfs/standard /
+# Do not copy /rootfs/standard again here: the standard stage already has it, and a second copy
+# overwrites the FIPS /etc/ssl/openssl.cnf with Chainguard's default (default + legacy providers)
 
 
 
