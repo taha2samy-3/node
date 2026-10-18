@@ -3,1092 +3,1092 @@
  "flavor": "standard",
  "arch": "amd64",
  "suite": "openssl/tests",
- "ran_at": "2026-10-17T04:11:04+00:00",
+ "ran_at": "2026-10-18T05:22:39+00:00",
  "summary": {
-  "passed": 58,
-  "failed": 95,
-  "xfail": 1,
+  "passed": 151,
+  "failed": 0,
+  "xfail": 3,
   "skipped": 0,
   "total": 154,
-  "duration": 30.93
+  "duration": 51.87
  },
  "tests": [
   {
    "name": "test_fips_config_file_indicators",
    "classname": "TestCorePolicyAndIntegrity",
    "outcome": "passed",
-   "duration": 0.042,
+   "duration": 0.056,
    "message": ""
   },
   {
    "name": "test_provider_version_metadata",
    "classname": "TestCorePolicyAndIntegrity",
-   "outcome": "failed",
-   "duration": 0.165,
-   "message": "AssertionError: Provider identity mismatch: 'OpenSSL FIPS Provider' not found in metadata.\nassert 'name: OpenSSL FIPS Provider' in 'Providers:\\n  default\\n    name: OpenSSL Default Provider\\n    version: 3.5.9\\n    status: active\\n    build info: 3.5.9\\n    gettable provider parameters:\\n      name: pointer to a UTF8 encoded string (arbitrary size)\\n      version: pointer to a UTF8 encoded string (arbitrary size)\\n      buildinfo: pointer to a UTF8 encoded string (arbitrary size)\\n      status: integer (arbitrary size)\\n  legacy\\n    name: OpenSSL Legacy Provider\\n    version: 3.5.9\\n    status: active\\n    build info: 3.5.9\\n    gettable provider parameters:\\n      name: pointer to a UTF8 encoded string (arbitrary size)\\n      version: pointer to a UTF8 encoded string (arbitrary size)\\n      buildinfo: pointer to a UTF8 encoded string (arbitrary size)\\n      status: integer (arbitrary size)\\n'\n +  where 'Providers:\\n  default\\n    name: OpenSSL Default Provider\\n    version: 3.5.9\\n    status: active\\n    build info: 3.5.9\\n    gettable provider parameters:\\n      name: pointer to a UTF8 encoded string (arbitrary size)\\n      version: pointer to a UTF8 encoded string (arbitrary size)\\n      buildinfo: pointer to a UTF8 encoded string (arbitrary size)\\n      status: integer (arbitrary size)\\n  legacy\\n    name: OpenSSL Legacy Provider\\n    version: 3.5.9\\n    status: active\\n    build info: 3.5.9\\n    gettable provider parameters:\\n      name: pointer to a UTF8 encoded string (arbitrary size)\\n      version: pointer to a UTF8 encoded string (arbitrary size)\\n      buildinfo: pointer to a UTF8 encoded string (arbitrary size)\\n      status: integer (arbitrary size)\\n' = CleanResult(returncode=0, stdout='Providers:\\n  default\\n    name: OpenSSL Default Provider\\n    version: 3.5.9\\n    status: active\\n    build info: 3.5.9\\n    gettable provider parameters:\\n      name: pointer to a UTF8 encoded string (arbitrary size)\\n      version: pointer to a UTF8 encoded string ("
+   "outcome": "passed",
+   "duration": 0.203,
+   "message": ""
   },
   {
    "name": "test_integrity_check_tampering",
    "classname": "TestCorePolicyAndIntegrity",
    "outcome": "passed",
-   "duration": 0.335,
+   "duration": 0.424,
    "message": ""
   },
   {
    "name": "test_mandatory_fips_property",
    "classname": "TestCorePolicyAndIntegrity",
-   "outcome": "failed",
-   "duration": 0.157,
-   "message": "AttributeError: type object 'Dynamic' has no attribute 'status_details'"
+   "outcome": "passed",
+   "duration": 0.211,
+   "message": ""
   },
   {
    "name": "test_operational_state_stability",
    "classname": "TestCorePolicyAndIntegrity",
    "outcome": "passed",
-   "duration": 0.168,
+   "duration": 0.201,
    "message": ""
   },
   {
    "name": "test_default_provider_isolation",
    "classname": "TestCorePolicyAndIntegrity",
-   "outcome": "failed",
-   "duration": 0.15,
-   "message": "AttributeError: type object 'Dynamic' has no attribute 'status_details'"
+   "outcome": "passed",
+   "duration": 0.212,
+   "message": ""
   },
   {
    "name": "test_default_provider_strictly_unloaded",
    "classname": "TestCorePolicyAndIntegrity",
-   "outcome": "failed",
-   "duration": 0.155,
-   "message": "AssertionError: Architecture Violation: Default provider is loaded: Providers:\n    default\n      name: OpenSSL Default Provider\n      version: 3.5.9\n      status: active\n    legacy\n      name: OpenSSL Legacy Provider\n      version: 3.5.9\n      status: active\n  \nassert 'default' not in ['providers:', 'default', 'name:', 'openssl', 'default', 'provider', ...]\n +  where ['providers:', 'default', 'name:', 'openssl', 'default', 'provider', ...] = <built-in method split of str object at 0x7f93a3ea1370>()\n +    where <built-in method split of str object at 0x7f93a3ea1370> = 'providers:\\n  default\\n    name: openssl default provider\\n    version: 3.5.9\\n    status: active\\n  legacy\\n    name: openssl legacy provider\\n    version: 3.5.9\\n    status: active\\n'.split"
+   "outcome": "passed",
+   "duration": 0.223,
+   "message": ""
   },
   {
    "name": "test_fips_provider_gettable_parameters",
    "classname": "TestCorePolicyAndIntegrity",
-   "outcome": "failed",
-   "duration": 0.163,
-   "message": "AssertionError: FIPS parameter indicator missing: security-checks\nassert 'security-checks' in 'providers:\\n  default\\n    name: openssl default provider\\n    version: 3.5.9\\n    status: active\\n    build info: 3.5.9\\n    gettable provider parameters:\\n      name: pointer to a utf8 encoded string (arbitrary size)\\n      version: pointer to a utf8 encoded string (arbitrary size)\\n      buildinfo: pointer to a utf8 encoded string (arbitrary size)\\n      status: integer (arbitrary size)\\n  legacy\\n    name: openssl legacy provider\\n    version: 3.5.9\\n    status: active\\n    build info: 3.5.9\\n    gettable provider parameters:\\n      name: pointer to a utf8 encoded string (arbitrary size)\\n      version: pointer to a utf8 encoded string (arbitrary size)\\n      buildinfo: pointer to a utf8 encoded string (arbitrary size)\\n      status: integer (arbitrary size)\\n'"
+   "outcome": "passed",
+   "duration": 0.212,
+   "message": ""
   },
   {
    "name": "test_md5_execution_rejection",
    "classname": "TestMessageDigests",
-   "outcome": "failed",
-   "duration": 0.166,
-   "message": "AssertionError: Security Breach: MD5 algorithm execution succeeded in FIPS mode.\nassert 0 != 0\n +  where 0 = CleanResult(returncode=0, stdout='MD5(/dev/null)= d41d8cd98f00b204e9800998ecf8427e\\n', stderr='').returncode"
+   "outcome": "passed",
+   "duration": 0.204,
+   "message": ""
   },
   {
    "name": "test_sha256_availability",
    "classname": "TestMessageDigests",
    "outcome": "passed",
-   "duration": 0.167,
+   "duration": 0.215,
    "message": ""
   },
   {
    "name": "test_sha3_availability",
    "classname": "TestMessageDigests",
    "outcome": "passed",
-   "duration": 0.162,
+   "duration": 0.222,
    "message": ""
   },
   {
    "name": "test_shake_xof_functionality",
    "classname": "TestMessageDigests",
-   "outcome": "failed",
-   "duration": 0.16,
-   "message": "AssertionError: SHAKE128 execution failed. Stderr: dgst: Unknown option or message digest: shake128\n  dgst: Use -help for summary.\n  801BBF91487F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (shake128 : 106), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='dgst: Unknown option or message digest: shake128\\ndgst: Use -help for summary.\\n801BBF91487F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (shake128 : 106), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.214,
+   "message": ""
   },
   {
    "name": "test_sha2_family_exhaustive[sha224]",
    "classname": "TestMessageDigests",
-   "outcome": "failed",
-   "duration": 0.159,
-   "message": "AssertionError: SHA224 execution failed. Stderr: dgst: Unknown option or message digest: sha224\n  dgst: Use -help for summary.\n  802B4087A67F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha224 : 87), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='dgst: Unknown option or message digest: sha224\\ndgst: Use -help for summary.\\n802B4087A67F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha224 : 87), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.212,
+   "message": ""
   },
   {
    "name": "test_sha2_family_exhaustive[sha384]",
    "classname": "TestMessageDigests",
-   "outcome": "failed",
-   "duration": 0.198,
-   "message": "AssertionError: SHA384 execution failed. Stderr: dgst: Unknown option or message digest: sha384\n  dgst: Use -help for summary.\n  800BF588067F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha384 : 95), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='dgst: Unknown option or message digest: sha384\\ndgst: Use -help for summary.\\n800BF588067F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha384 : 95), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.211,
+   "message": ""
   },
   {
    "name": "test_sha2_family_exhaustive[sha512]",
    "classname": "TestMessageDigests",
-   "outcome": "failed",
-   "duration": 0.15,
-   "message": "AssertionError: SHA512 execution failed. Stderr: dgst: Unknown option or message digest: sha512\n  dgst: Use -help for summary.\n  808B8107AE7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha512 : 92), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='dgst: Unknown option or message digest: sha512\\ndgst: Use -help for summary.\\n808B8107AE7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha512 : 92), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.208,
+   "message": ""
   },
   {
    "name": "test_sha3_family_exhaustive[sha3-224]",
    "classname": "TestMessageDigests",
-   "outcome": "failed",
-   "duration": 0.166,
-   "message": "AssertionError: SHA3-224 execution failed. Stderr: dgst: Unknown option or message digest: sha3-224\n  dgst: Use -help for summary.\n  80DB1371C47F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha3-224 : 89), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='dgst: Unknown option or message digest: sha3-224\\ndgst: Use -help for summary.\\n80DB1371C47F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha3-224 : 89), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.215,
+   "message": ""
   },
   {
    "name": "test_sha3_family_exhaustive[sha3-384]",
    "classname": "TestMessageDigests",
-   "outcome": "failed",
-   "duration": 0.167,
-   "message": "AssertionError: SHA3-384 execution failed. Stderr: dgst: Unknown option or message digest: sha3-384\n  dgst: Use -help for summary.\n  80DB218DD07F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha3-384 : 90), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='dgst: Unknown option or message digest: sha3-384\\ndgst: Use -help for summary.\\n80DB218DD07F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha3-384 : 90), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.218,
+   "message": ""
   },
   {
    "name": "test_sha3_family_exhaustive[sha3-512]",
    "classname": "TestMessageDigests",
-   "outcome": "failed",
-   "duration": 0.177,
-   "message": "AssertionError: SHA3-512 execution failed. Stderr: dgst: Unknown option or message digest: sha3-512\n  dgst: Use -help for summary.\n  80BBB866A77F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha3-512 : 85), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='dgst: Unknown option or message digest: sha3-512\\ndgst: Use -help for summary.\\n80BBB866A77F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha3-512 : 85), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.206,
+   "message": ""
   },
   {
    "name": "test_sha3_family_exhaustive[shake256]",
    "classname": "TestMessageDigests",
-   "outcome": "failed",
-   "duration": 0.176,
-   "message": "AssertionError: SHAKE256 execution failed. Stderr: dgst: Unknown option or message digest: shake256\n  dgst: Use -help for summary.\n  807B40518B7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (shake256 : 94), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='dgst: Unknown option or message digest: shake256\\ndgst: Use -help for summary.\\n807B40518B7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (shake256 : 94), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.207,
+   "message": ""
   },
   {
    "name": "test_unapproved_digests_rejection[md2]",
    "classname": "TestMessageDigests",
    "outcome": "passed",
-   "duration": 0.163,
+   "duration": 0.205,
    "message": ""
   },
   {
    "name": "test_unapproved_digests_rejection[md4]",
    "classname": "TestMessageDigests",
    "outcome": "passed",
-   "duration": 0.143,
+   "duration": 0.226,
    "message": ""
   },
   {
    "name": "test_unapproved_digests_rejection[rmd160]",
    "classname": "TestMessageDigests",
    "outcome": "passed",
-   "duration": 0.157,
+   "duration": 0.211,
    "message": ""
   },
   {
    "name": "test_unapproved_digests_rejection[mdc2]",
    "classname": "TestMessageDigests",
    "outcome": "passed",
-   "duration": 0.165,
+   "duration": 0.206,
    "message": ""
   },
   {
    "name": "test_sha2_truncated_variants[sha512-224]",
    "classname": "TestMessageDigests",
-   "outcome": "failed",
-   "duration": 0.166,
-   "message": "AssertionError: sha512-224 failed: dgst: Unknown option or message digest: sha512-224\n  dgst: Use -help for summary.\n  80FB89363F7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha512-224 : 93), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='dgst: Unknown option or message digest: sha512-224\\ndgst: Use -help for summary.\\n80FB89363F7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha512-224 : 93), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.21,
+   "message": ""
   },
   {
    "name": "test_sha2_truncated_variants[sha512-256]",
    "classname": "TestMessageDigests",
-   "outcome": "failed",
-   "duration": 0.176,
-   "message": "AssertionError: sha512-256 failed: dgst: Unknown option or message digest: sha512-256\n  dgst: Use -help for summary.\n  809B7E67867F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha512-256 : 86), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='dgst: Unknown option or message digest: sha512-256\\ndgst: Use -help for summary.\\n809B7E67867F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha512-256 : 86), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.199,
+   "message": ""
   },
   {
    "name": "test_nist_hash_known_answer_tests[sha224-d14a028c2a3a2bc9476102bb288234c415a2b01f828ea62ac5b3e42f]",
    "classname": "TestMessageDigests",
-   "outcome": "failed",
-   "duration": 0.169,
-   "message": "AssertionError: KAT execution failed for sha224: dgst: Unknown option or message digest: sha224\n  dgst: Use -help for summary.\n  806BBF0E137F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha224 : 87), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='dgst: Unknown option or message digest: sha224\\ndgst: Use -help for summary.\\n806BBF0E137F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha224 : 87), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.21,
+   "message": ""
   },
   {
    "name": "test_nist_hash_known_answer_tests[sha256-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855]",
    "classname": "TestMessageDigests",
-   "outcome": "failed",
-   "duration": 0.164,
-   "message": "AssertionError: KAT execution failed for sha256: dgst: Unknown option or message digest: sha256\n  dgst: Use -help for summary.\n  809B5634D07F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha256 : 103), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='dgst: Unknown option or message digest: sha256\\ndgst: Use -help for summary.\\n809B5634D07F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha256 : 103), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.209,
+   "message": ""
   },
   {
    "name": "test_nist_hash_known_answer_tests[sha384-38b060a751ac96384cd9327eb1b1e36a21fdb71114be07434c0cc7bf63f6e1da274edebfe76f65fbd51ad2f14898b95b]",
    "classname": "TestMessageDigests",
-   "outcome": "failed",
-   "duration": 0.156,
-   "message": "AssertionError: KAT execution failed for sha384: dgst: Unknown option or message digest: sha384\n  dgst: Use -help for summary.\n  803B6850C37F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha384 : 95), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='dgst: Unknown option or message digest: sha384\\ndgst: Use -help for summary.\\n803B6850C37F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha384 : 95), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.211,
+   "message": ""
   },
   {
    "name": "test_nist_hash_known_answer_tests[sha512-cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e]",
    "classname": "TestMessageDigests",
-   "outcome": "failed",
-   "duration": 0.167,
-   "message": "AssertionError: KAT execution failed for sha512: dgst: Unknown option or message digest: sha512\n  dgst: Use -help for summary.\n  807B752F5F7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha512 : 92), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='dgst: Unknown option or message digest: sha512\\ndgst: Use -help for summary.\\n807B752F5F7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha512 : 92), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.212,
+   "message": ""
   },
   {
    "name": "test_nist_hash_known_answer_tests[sha3-224-6b4e03423667dbb73b6e15454f0eb1abd4597f9a1b078e3f5b5a6bc7]",
    "classname": "TestMessageDigests",
-   "outcome": "failed",
-   "duration": 0.179,
-   "message": "AssertionError: KAT execution failed for sha3-224: dgst: Unknown option or message digest: sha3-224\n  dgst: Use -help for summary.\n  808B1683507F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha3-224 : 89), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='dgst: Unknown option or message digest: sha3-224\\ndgst: Use -help for summary.\\n808B1683507F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha3-224 : 89), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.209,
+   "message": ""
   },
   {
    "name": "test_nist_hash_known_answer_tests[sha3-256-a7ffc6f8bf1ed76651c14756a061d662f580ff4de43b49fa82d80a4b80f8434a]",
    "classname": "TestMessageDigests",
-   "outcome": "failed",
-   "duration": 0.156,
-   "message": "AssertionError: KAT execution failed for sha3-256: dgst: Unknown option or message digest: sha3-256\n  dgst: Use -help for summary.\n  80FB8D67187F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha3-256 : 97), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='dgst: Unknown option or message digest: sha3-256\\ndgst: Use -help for summary.\\n80FB8D67187F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha3-256 : 97), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.21,
+   "message": ""
   },
   {
    "name": "test_nist_hash_known_answer_tests[sha3-384-0c63a75b845e4f7d01107d852e4c2485c51a50aaaa94fc61995e71bbee983a2ac3713831264adb47fb6bd1e058d5f004]",
    "classname": "TestMessageDigests",
-   "outcome": "failed",
-   "duration": 0.163,
-   "message": "AssertionError: KAT execution failed for sha3-384: dgst: Unknown option or message digest: sha3-384\n  dgst: Use -help for summary.\n  808BE7620B7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha3-384 : 90), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='dgst: Unknown option or message digest: sha3-384\\ndgst: Use -help for summary.\\n808BE7620B7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha3-384 : 90), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.216,
+   "message": ""
   },
   {
    "name": "test_nist_hash_known_answer_tests[sha3-512-a69f73cca23a9ac5c8b567dc185a756e97c982164fe25859e0d1dcc1475c80a615b2123af1f5f94c11e3e9402c3ac558f500199d95b6d3e301758586281dcd26]",
    "classname": "TestMessageDigests",
-   "outcome": "failed",
-   "duration": 0.149,
-   "message": "AssertionError: KAT execution failed for sha3-512: dgst: Unknown option or message digest: sha3-512\n  dgst: Use -help for summary.\n  80BB8F474F7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha3-512 : 85), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='dgst: Unknown option or message digest: sha3-512\\ndgst: Use -help for summary.\\n80BB8F474F7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (sha3-512 : 85), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.2,
+   "message": ""
   },
   {
    "name": "test_aes_gcm_tag_length",
    "classname": "TestAESEncryption",
    "outcome": "passed",
-   "duration": 0.164,
+   "duration": 0.21,
    "message": ""
   },
   {
    "name": "test_fips_cipher_list_integrity",
    "classname": "TestAESEncryption",
-   "outcome": "failed",
-   "duration": 0.142,
-   "message": "AssertionError: Critical Failure: AES-GCM is missing from the FIPS provider list.\nassert ('AES-256-GCM' in 'PROVIDED:\\n' or 'AES-128-GCM' in 'PROVIDED:\\n')"
+   "outcome": "passed",
+   "duration": 0.211,
+   "message": ""
   },
   {
    "name": "test_aes_xts_duplicate_key_rejection",
    "classname": "TestAESEncryption",
    "outcome": "passed",
-   "duration": 0.162,
+   "duration": 0.202,
    "message": ""
   },
   {
    "name": "test_aes_cbc_known_answer",
    "classname": "TestAESEncryption",
-   "outcome": "failed",
-   "duration": 0.143,
-   "message": "AssertionError: Encryption process failed. Stderr: enc: Unknown option or cipher: aes-128-cbc\n  enc: Use -help for summary.\n  80CB20E7F27F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (aes-128-cbc : 7), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['docker', 'run', '-i', '--rm', '--entrypoint', '/usr/local/bin/openssl', 'ghcr.io/taha2samy-3/openssl-fips:3.5.9', 'enc', '-aes-128-cbc', '-e', '-propquery', 'fips=yes', '-K', '00112233445566778899AABBCCDDEEFF', '-iv', '000102030405060708090A0B0C0D0E0F', '-nosalt'], returncode=1, stdout=b'', stderr=b'enc: Unknown option or cipher: aes-128-cbc\\nenc: Use -help for summary.\\n80CB20E7F27F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (aes-128-cbc : 7), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.41,
+   "message": ""
   },
   {
    "name": "test_aes_key_unwrapping_allowed",
    "classname": "TestAESEncryption",
-   "outcome": "failed",
-   "duration": 0.162,
-   "message": "AssertionError: Compliance Failure: AES Key Wrap (WRAP/KW) algorithms not found in FIPS provider.\nassert 0 > 0\n +  where 0 = len([])"
+   "outcome": "passed",
+   "duration": 0.205,
+   "message": ""
   },
   {
    "name": "test_3des_encryption_rejection",
    "classname": "TestLegacyCipherPolicies",
    "outcome": "passed",
-   "duration": 0.175,
+   "duration": 0.207,
    "message": ""
   },
   {
    "name": "test_des_algorithm_absence",
    "classname": "TestLegacyCipherPolicies",
    "outcome": "passed",
-   "duration": 0.17,
+   "duration": 0.213,
    "message": ""
   },
   {
    "name": "test_unapproved_symmetric_ciphers_rejection[chacha20]",
    "classname": "TestLegacyCipherPolicies",
    "outcome": "passed",
-   "duration": 0.163,
+   "duration": 0.211,
    "message": ""
   },
   {
    "name": "test_unapproved_symmetric_ciphers_rejection[chacha20-poly1305]",
    "classname": "TestLegacyCipherPolicies",
    "outcome": "passed",
-   "duration": 0.197,
+   "duration": 0.207,
    "message": ""
   },
   {
    "name": "test_unapproved_symmetric_ciphers_rejection[rc4]",
    "classname": "TestLegacyCipherPolicies",
    "outcome": "passed",
-   "duration": 0.143,
+   "duration": 0.205,
    "message": ""
   },
   {
    "name": "test_unapproved_symmetric_ciphers_rejection[bf-cbc]",
    "classname": "TestLegacyCipherPolicies",
    "outcome": "passed",
-   "duration": 0.17,
+   "duration": 0.208,
    "message": ""
   },
   {
    "name": "test_unapproved_symmetric_ciphers_rejection[cast5-cbc]",
    "classname": "TestLegacyCipherPolicies",
    "outcome": "passed",
-   "duration": 0.157,
+   "duration": 0.208,
    "message": ""
   },
   {
    "name": "test_unapproved_symmetric_ciphers_rejection[idea-cbc]",
    "classname": "TestLegacyCipherPolicies",
    "outcome": "passed",
-   "duration": 0.163,
+   "duration": 0.214,
    "message": ""
   },
   {
    "name": "test_unapproved_symmetric_ciphers_rejection[camellia-128-cbc]",
    "classname": "TestLegacyCipherPolicies",
    "outcome": "passed",
-   "duration": 0.159,
+   "duration": 0.207,
    "message": ""
   },
   {
    "name": "test_unapproved_symmetric_ciphers_rejection[aria-128-cbc]",
    "classname": "TestLegacyCipherPolicies",
    "outcome": "passed",
-   "duration": 0.17,
+   "duration": 0.208,
    "message": ""
   },
   {
    "name": "test_unapproved_symmetric_ciphers_rejection[sm4-cbc]",
    "classname": "TestLegacyCipherPolicies",
    "outcome": "passed",
-   "duration": 0.149,
+   "duration": 0.22,
    "message": ""
   },
   {
    "name": "test_unapproved_symmetric_ciphers_rejection[rc2-cbc]",
    "classname": "TestLegacyCipherPolicies",
    "outcome": "passed",
-   "duration": 0.177,
+   "duration": 0.199,
    "message": ""
   },
   {
    "name": "test_approved_aes_cipher_modes[aes-128-ctr-32]",
    "classname": "TestLegacyCipherPolicies",
-   "outcome": "failed",
-   "duration": 0.164,
-   "message": "AssertionError: Encryption failed for aes-128-ctr. Stderr: enc: Unknown option or cipher: aes-128-ctr\n  enc: Use -help for summary.\n  80CB76D0D07F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (aes-128-ctr : 0), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['docker', 'run', '-i', '--rm', '--entrypoint', '/usr/local/bin/openssl', 'ghcr.io/taha2samy-3/openssl-fips:3.5.9', 'enc', '-aes-128-ctr', '-e', '-propquery', 'fips=yes', '-K', '01010101010101010101010101010101', '-nosalt', '-iv', '02020202020202020202020202020202'], returncode=1, stdout=b'', stderr=b'enc: Unknown option or cipher: aes-128-ctr\\nenc: Use -help for summary.\\n80CB76D0D07F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (aes-128-ctr : 0), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.214,
+   "message": ""
   },
   {
    "name": "test_approved_aes_cipher_modes[aes-256-ctr-64]",
    "classname": "TestLegacyCipherPolicies",
-   "outcome": "failed",
-   "duration": 0.161,
-   "message": "AssertionError: Encryption failed for aes-256-ctr. Stderr: enc: Unknown option or cipher: aes-256-ctr\n  enc: Use -help for summary.\n  80BB69D3AD7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (aes-256-ctr : 0), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['docker', 'run', '-i', '--rm', '--entrypoint', '/usr/local/bin/openssl', 'ghcr.io/taha2samy-3/openssl-fips:3.5.9', 'enc', '-aes-256-ctr', '-e', '-propquery', 'fips=yes', '-K', '0101010101010101010101010101010101010101010101010101010101010101', '-nosalt', '-iv', '02020202020202020202020202020202'], returncode=1, stdout=b'', stderr=b'enc: Unknown option or cipher: aes-256-ctr\\nenc: Use -help for summary.\\n80BB69D3AD7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (aes-256-ctr : 0), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.199,
+   "message": ""
   },
   {
    "name": "test_approved_aes_cipher_modes[aes-128-ofb-32]",
    "classname": "TestLegacyCipherPolicies",
-   "outcome": "failed",
-   "duration": 0.155,
-   "message": "AssertionError: Encryption failed for aes-128-ofb. Stderr: enc: Unknown option or cipher: aes-128-ofb\n  enc: Use -help for summary.\n  809B67E8407F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (aes-128-ofb : 64), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['docker', 'run', '-i', '--rm', '--entrypoint', '/usr/local/bin/openssl', 'ghcr.io/taha2samy-3/openssl-fips:3.5.9', 'enc', '-aes-128-ofb', '-e', '-propquery', 'fips=yes', '-K', '01010101010101010101010101010101', '-nosalt', '-iv', '02020202020202020202020202020202'], returncode=1, stdout=b'', stderr=b'enc: Unknown option or cipher: aes-128-ofb\\nenc: Use -help for summary.\\n809B67E8407F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (aes-128-ofb : 64), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.215,
+   "message": ""
   },
   {
    "name": "test_approved_aes_cipher_modes[aes-256-ofb-64]",
    "classname": "TestLegacyCipherPolicies",
-   "outcome": "failed",
-   "duration": 0.169,
-   "message": "AssertionError: Encryption failed for aes-256-ofb. Stderr: enc: Unknown option or cipher: aes-256-ofb\n  enc: Use -help for summary.\n  80CB2A0E747F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (aes-256-ofb : 79), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['docker', 'run', '-i', '--rm', '--entrypoint', '/usr/local/bin/openssl', 'ghcr.io/taha2samy-3/openssl-fips:3.5.9', 'enc', '-aes-256-ofb', '-e', '-propquery', 'fips=yes', '-K', '0101010101010101010101010101010101010101010101010101010101010101', '-nosalt', '-iv', '02020202020202020202020202020202'], returncode=1, stdout=b'', stderr=b'enc: Unknown option or cipher: aes-256-ofb\\nenc: Use -help for summary.\\n80CB2A0E747F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (aes-256-ofb : 79), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.207,
+   "message": ""
   },
   {
    "name": "test_approved_aes_cipher_modes[aes-128-cfb-32]",
    "classname": "TestLegacyCipherPolicies",
-   "outcome": "failed",
-   "duration": 0.172,
-   "message": "AssertionError: Encryption failed for aes-128-cfb. Stderr: enc: Unknown option or cipher: aes-128-cfb\n  enc: Use -help for summary.\n  80BBC910507F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (aes-128-cfb : 3), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['docker', 'run', '-i', '--rm', '--entrypoint', '/usr/local/bin/openssl', 'ghcr.io/taha2samy-3/openssl-fips:3.5.9', 'enc', '-aes-128-cfb', '-e', '-propquery', 'fips=yes', '-K', '01010101010101010101010101010101', '-nosalt', '-iv', '02020202020202020202020202020202'], returncode=1, stdout=b'', stderr=b'enc: Unknown option or cipher: aes-128-cfb\\nenc: Use -help for summary.\\n80BBC910507F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (aes-128-cfb : 3), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.214,
+   "message": ""
   },
   {
    "name": "test_approved_aes_cipher_modes[aes-256-cfb-64]",
    "classname": "TestLegacyCipherPolicies",
-   "outcome": "failed",
-   "duration": 0.168,
-   "message": "AssertionError: Encryption failed for aes-256-cfb. Stderr: enc: Unknown option or cipher: aes-256-cfb\n  enc: Use -help for summary.\n  809B2DEE837F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (aes-256-cfb : 31), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['docker', 'run', '-i', '--rm', '--entrypoint', '/usr/local/bin/openssl', 'ghcr.io/taha2samy-3/openssl-fips:3.5.9', 'enc', '-aes-256-cfb', '-e', '-propquery', 'fips=yes', '-K', '0101010101010101010101010101010101010101010101010101010101010101', '-nosalt', '-iv', '02020202020202020202020202020202'], returncode=1, stdout=b'', stderr=b'enc: Unknown option or cipher: aes-256-cfb\\nenc: Use -help for summary.\\n809B2DEE837F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (aes-256-cfb : 31), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.201,
+   "message": ""
   },
   {
    "name": "test_approved_aes_cipher_modes[aes-128-ecb-32]",
    "classname": "TestLegacyCipherPolicies",
-   "outcome": "failed",
-   "duration": 0.192,
-   "message": "AssertionError: Encryption failed for aes-128-ecb. Stderr: enc: Unknown option or cipher: aes-128-ecb\n  enc: Use -help for summary.\n  80DB184DF77F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (aes-128-ecb : 76), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['docker', 'run', '-i', '--rm', '--entrypoint', '/usr/local/bin/openssl', 'ghcr.io/taha2samy-3/openssl-fips:3.5.9', 'enc', '-aes-128-ecb', '-e', '-propquery', 'fips=yes', '-K', '01010101010101010101010101010101', '-nosalt'], returncode=1, stdout=b'', stderr=b'enc: Unknown option or cipher: aes-128-ecb\\nenc: Use -help for summary.\\n80DB184DF77F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (aes-128-ecb : 76), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.215,
+   "message": ""
   },
   {
    "name": "test_approved_aes_cipher_modes[aes-256-ecb-64]",
    "classname": "TestLegacyCipherPolicies",
-   "outcome": "failed",
-   "duration": 0.165,
-   "message": "AssertionError: Encryption failed for aes-256-ecb. Stderr: enc: Unknown option or cipher: aes-256-ecb\n  enc: Use -help for summary.\n  80DBAD940C7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (aes-256-ecb : 24), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['docker', 'run', '-i', '--rm', '--entrypoint', '/usr/local/bin/openssl', 'ghcr.io/taha2samy-3/openssl-fips:3.5.9', 'enc', '-aes-256-ecb', '-e', '-propquery', 'fips=yes', '-K', '0101010101010101010101010101010101010101010101010101010101010101', '-nosalt'], returncode=1, stdout=b'', stderr=b'enc: Unknown option or cipher: aes-256-ecb\\nenc: Use -help for summary.\\n80DBAD940C7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (aes-256-ecb : 24), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.214,
+   "message": ""
   },
   {
    "name": "test_nist_aes_cbc_known_answer_vector",
    "classname": "TestLegacyCipherPolicies",
-   "outcome": "failed",
-   "duration": 0.179,
-   "message": "AssertionError: AES-128-CBC KAT execution failed: enc: Unknown option or cipher: aes-128-cbc\n  enc: Use -help for summary.\n  806BA3A5577F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (aes-128-cbc : 7), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['docker', 'run', '-i', '--rm', '--entrypoint', '/usr/local/bin/openssl', 'ghcr.io/taha2samy-3/openssl-fips:3.5.9', 'enc', '-aes-128-cbc', '-e', '-propquery', 'fips=yes', '-K', '2b7e151628aed2a6abf7158809cf4f3c', '-iv', '000102030405060708090a0b0c0d0e0f', '-nopad'], returncode=1, stdout=b'', stderr=b'enc: Unknown option or cipher: aes-128-cbc\\nenc: Use -help for summary.\\n806BA3A5577F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (aes-128-cbc : 7), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.218,
+   "message": ""
   },
   {
    "name": "test_nist_aes_ccm_and_cts_availability",
    "classname": "TestLegacyCipherPolicies",
-   "outcome": "failed",
-   "duration": 0.165,
-   "message": "AssertionError: Mandatory cipher missing from FIPS provider: AES-128-CCM\nassert 'AES-128-CCM' in 'PROVIDED:\\n'"
+   "outcome": "passed",
+   "duration": 0.2,
+   "message": ""
   },
   {
    "name": "test_aes_xts_invalid_key_length",
    "classname": "TestLegacyCipherPolicies",
    "outcome": "passed",
-   "duration": 0.162,
+   "duration": 0.201,
    "message": ""
   },
   {
    "name": "test_hmac_sha2_key_length_exhaustive",
    "classname": "TestHMACBoundaries",
-   "outcome": "failed",
-   "duration": 0.783,
-   "message": "[XPASS(strict)] Known limitation of the certified OpenSSL FIPS provider 3.1.2: minimum HMAC key length (hmac-key-check) is only enforced from the 3.4 provider; key length is an operator requirement"
+   "outcome": "xfail",
+   "duration": 0.823,
+   "message": "Known limitation of the certified OpenSSL FIPS provider 3.1.2: minimum HMAC key length (hmac-key-check) is only enforced from the 3.4 provider; key length is an operator requirement"
   },
   {
    "name": "test_hmac_112bit_security_boundary",
    "classname": "TestHMACBoundaries",
    "outcome": "xfail",
-   "duration": 0.309,
+   "duration": 0.202,
    "message": "Known limitation of the certified OpenSSL FIPS provider 3.1.2: minimum HMAC key length (hmac-key-check) is only enforced from the 3.4 provider; key length is an operator requirement"
   },
   {
    "name": "test_cmac_aes_key_policy",
    "classname": "TestModernMACs",
    "outcome": "passed",
-   "duration": 0.145,
+   "duration": 0.2,
    "message": ""
   },
   {
    "name": "test_kmac_sha3_strength",
    "classname": "TestModernMACs",
    "outcome": "passed",
-   "duration": 0.166,
+   "duration": 0.212,
    "message": ""
   },
   {
    "name": "test_gmac_aes_availability[AES-128-GCM-01010101010101010101010101010101]",
    "classname": "TestModernMACs",
-   "outcome": "failed",
-   "duration": 0.163,
-   "message": "AssertionError: GMAC calculation failed for AES-128-GCM: Invalid MAC name GMAC\n  mac: Use -help for summary.\n  80FB1C06237F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (GMAC : 0), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Invalid MAC name GMAC\\nmac: Use -help for summary.\\n80FB1C06237F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (GMAC : 0), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.201,
+   "message": ""
   },
   {
    "name": "test_gmac_aes_availability[AES-256-GCM-0101010101010101010101010101010101010101010101010101010101010101]",
    "classname": "TestModernMACs",
-   "outcome": "failed",
-   "duration": 0.174,
-   "message": "AssertionError: GMAC calculation failed for AES-256-GCM: Invalid MAC name GMAC\n  mac: Use -help for summary.\n  80EB6F562A7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (GMAC : 0), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Invalid MAC name GMAC\\nmac: Use -help for summary.\\n80EB6F562A7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (GMAC : 0), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.201,
+   "message": ""
   },
   {
    "name": "test_gmac_unapproved_cipher_rejection",
    "classname": "TestModernMACs",
    "outcome": "passed",
-   "duration": 0.143,
+   "duration": 0.215,
    "message": ""
   },
   {
    "name": "test_hmac_approved_digests[SHA224]",
    "classname": "TestModernMACs",
-   "outcome": "failed",
-   "duration": 0.169,
-   "message": "AssertionError: HMAC-SHA224 failed: Invalid MAC name HMAC\n  mac: Use -help for summary.\n  800B9667727F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (HMAC : 0), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Invalid MAC name HMAC\\nmac: Use -help for summary.\\n800B9667727F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (HMAC : 0), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.204,
+   "message": ""
   },
   {
    "name": "test_hmac_approved_digests[SHA256]",
    "classname": "TestModernMACs",
-   "outcome": "failed",
-   "duration": 0.154,
-   "message": "AssertionError: HMAC-SHA256 failed: Invalid MAC name HMAC\n  mac: Use -help for summary.\n  80FB46DF987F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (HMAC : 0), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Invalid MAC name HMAC\\nmac: Use -help for summary.\\n80FB46DF987F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (HMAC : 0), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.2,
+   "message": ""
   },
   {
    "name": "test_hmac_approved_digests[SHA384]",
    "classname": "TestModernMACs",
-   "outcome": "failed",
-   "duration": 0.153,
-   "message": "AssertionError: HMAC-SHA384 failed: Invalid MAC name HMAC\n  mac: Use -help for summary.\n  80EBA687A17F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (HMAC : 0), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Invalid MAC name HMAC\\nmac: Use -help for summary.\\n80EBA687A17F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (HMAC : 0), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.201,
+   "message": ""
   },
   {
    "name": "test_hmac_approved_digests[SHA512]",
    "classname": "TestModernMACs",
-   "outcome": "failed",
-   "duration": 0.164,
-   "message": "AssertionError: HMAC-SHA512 failed: Invalid MAC name HMAC\n  mac: Use -help for summary.\n  80DBC8D1A57F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (HMAC : 0), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Invalid MAC name HMAC\\nmac: Use -help for summary.\\n80DBC8D1A57F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (HMAC : 0), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.202,
+   "message": ""
   },
   {
    "name": "test_hmac_approved_digests[SHA3-224]",
    "classname": "TestModernMACs",
-   "outcome": "failed",
-   "duration": 0.18,
-   "message": "AssertionError: HMAC-SHA3-224 failed: Invalid MAC name HMAC\n  mac: Use -help for summary.\n  80EB53C29F7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (HMAC : 0), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Invalid MAC name HMAC\\nmac: Use -help for summary.\\n80EB53C29F7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (HMAC : 0), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.203,
+   "message": ""
   },
   {
    "name": "test_hmac_approved_digests[SHA3-256]",
    "classname": "TestModernMACs",
-   "outcome": "failed",
-   "duration": 0.158,
-   "message": "AssertionError: HMAC-SHA3-256 failed: Invalid MAC name HMAC\n  mac: Use -help for summary.\n  80CB122F7C7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (HMAC : 0), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Invalid MAC name HMAC\\nmac: Use -help for summary.\\n80CB122F7C7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (HMAC : 0), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.205,
+   "message": ""
   },
   {
    "name": "test_hmac_approved_digests[SHA3-384]",
    "classname": "TestModernMACs",
-   "outcome": "failed",
-   "duration": 0.189,
-   "message": "AssertionError: HMAC-SHA3-384 failed: Invalid MAC name HMAC\n  mac: Use -help for summary.\n  80BB5E31277F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (HMAC : 0), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Invalid MAC name HMAC\\nmac: Use -help for summary.\\n80BB5E31277F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (HMAC : 0), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.201,
+   "message": ""
   },
   {
    "name": "test_hmac_approved_digests[SHA3-512]",
    "classname": "TestModernMACs",
-   "outcome": "failed",
-   "duration": 0.157,
-   "message": "AssertionError: HMAC-SHA3-512 failed: Invalid MAC name HMAC\n  mac: Use -help for summary.\n  802B747E627F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (HMAC : 0), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Invalid MAC name HMAC\\nmac: Use -help for summary.\\n802B747E627F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (HMAC : 0), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.204,
+   "message": ""
   },
   {
    "name": "test_hmac_insecure_digest_rejection[MD5]",
    "classname": "TestModernMACs",
    "outcome": "passed",
-   "duration": 0.164,
+   "duration": 0.197,
    "message": ""
   },
   {
    "name": "test_hmac_insecure_digest_rejection[MD4]",
    "classname": "TestModernMACs",
    "outcome": "passed",
-   "duration": 0.157,
+   "duration": 0.201,
    "message": ""
   },
   {
    "name": "test_hmac_insecure_digest_rejection[RIPEMD160]",
    "classname": "TestModernMACs",
    "outcome": "passed",
-   "duration": 0.172,
+   "duration": 0.2,
    "message": ""
   },
   {
    "name": "test_sp800_108_counter_kdf",
    "classname": "TestModernMACs",
-   "outcome": "failed",
-   "duration": 0.33,
-   "message": "AssertionError: KBKDF Counter Mode failed. Stderr: Invalid KDF name KBKDF\n  kdf: Use -help for summary.\n  806B816C7C7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (KBKDF : 0), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Invalid KDF name KBKDF\\nkdf: Use -help for summary.\\n806B816C7C7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (KBKDF : 0), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.402,
+   "message": ""
   },
   {
    "name": "test_sp800_108_feedback_kdf",
    "classname": "TestModernMACs",
-   "outcome": "failed",
-   "duration": 0.162,
-   "message": "AssertionError: KBKDF Feedback Mode failed. Stderr: Invalid KDF name KBKDF\n  kdf: Use -help for summary.\n  80BBA946077F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (KBKDF : 0), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Invalid KDF name KBKDF\\nkdf: Use -help for summary.\\n80BBA946077F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (KBKDF : 0), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.194,
+   "message": ""
   },
   {
    "name": "test_hkdf_and_sskdf_integrity",
    "classname": "TestModernMACs",
-   "outcome": "failed",
-   "duration": 0.195,
-   "message": "AssertionError: HKDF SHA-256 failed: Invalid KDF name HKDF\n  kdf: Use -help for summary.\n  805B4049947F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (HKDF : 0), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Invalid KDF name HKDF\\nkdf: Use -help for summary.\\n805B4049947F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (HKDF : 0), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.824,
+   "message": ""
   },
   {
    "name": "test_kmac_nist_sp800_185[KMAC128-000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f-32]",
    "classname": "TestModernMACs",
-   "outcome": "failed",
-   "duration": 0.164,
-   "message": "AssertionError: KMAC128 failed: Invalid MAC name KMAC128\n  mac: Use -help for summary.\n  80AB938EB57F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (KMAC128 : 0), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Invalid MAC name KMAC128\\nmac: Use -help for summary.\\n80AB938EB57F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (KMAC128 : 0), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.217,
+   "message": ""
   },
   {
    "name": "test_kmac_nist_sp800_185[KMAC256-000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f-64]",
    "classname": "TestModernMACs",
-   "outcome": "failed",
-   "duration": 0.183,
-   "message": "AssertionError: KMAC256 failed: Invalid MAC name KMAC256\n  mac: Use -help for summary.\n  80DBD89C977F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (KMAC256 : 0), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Invalid MAC name KMAC256\\nmac: Use -help for summary.\\n80DBD89C977F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (KMAC256 : 0), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.205,
+   "message": ""
   },
   {
    "name": "test_unapproved_mac_algorithms_rejection[POLY1305-000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f]",
    "classname": "TestModernMACs",
    "outcome": "passed",
-   "duration": 0.167,
+   "duration": 0.211,
    "message": ""
   },
   {
    "name": "test_unapproved_mac_algorithms_rejection[SIPHASH-000102030405060708090a0b0c0d0e0f]",
    "classname": "TestModernMACs",
    "outcome": "passed",
-   "duration": 0.166,
+   "duration": 0.21,
    "message": ""
   },
   {
    "name": "test_ans_x963_kdf_functional",
    "classname": "TestModernMACs",
-   "outcome": "failed",
-   "duration": 0.18,
-   "message": "AssertionError: X963KDF failed: Invalid KDF name X963KDF\n  kdf: Use -help for summary.\n  801B040DCC7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (X963KDF : 0), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Invalid KDF name X963KDF\\nkdf: Use -help for summary.\\n801B040DCC7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (X963KDF : 0), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.204,
+   "message": ""
   },
   {
    "name": "test_pbkdf2_nist_sp800_132_lower_bounds",
    "classname": "TestModernMACs",
    "outcome": "passed",
-   "duration": 0.404,
+   "duration": 0.399,
    "message": ""
   },
   {
    "name": "test_tls1_prf_kdf",
    "classname": "TestModernMACs",
-   "outcome": "failed",
-   "duration": 0.159,
-   "message": "AssertionError: TLS1-PRF SHA-256 failed: Invalid KDF name TLS1-PRF\n  kdf: Use -help for summary.\n  808BFCF1247F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (TLS1-PRF : 0), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Invalid KDF name TLS1-PRF\\nkdf: Use -help for summary.\\n808BFCF1247F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (TLS1-PRF : 0), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.424,
+   "message": ""
   },
   {
    "name": "test_unapproved_kdf_rejection[SCRYPT-extra_opts0]",
    "classname": "TestModernMACs",
    "outcome": "passed",
-   "duration": 0.16,
+   "duration": 0.203,
    "message": ""
   },
   {
    "name": "test_unapproved_kdf_rejection[KRB5KDF-extra_opts1]",
    "classname": "TestModernMACs",
    "outcome": "passed",
-   "duration": 0.152,
+   "duration": 0.21,
    "message": ""
   },
   {
    "name": "test_kbkdf_sp800_108_counter_mode",
    "classname": "TestModernMACs",
-   "outcome": "failed",
-   "duration": 0.197,
-   "message": "AssertionError: KBKDF SHA-256 failed: Invalid KDF name KBKDF\n  kdf: Use -help for summary.\n  802BC4168F7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (KBKDF : 0), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Invalid KDF name KBKDF\\nkdf: Use -help for summary.\\n802BC4168F7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (KBKDF : 0), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.396,
+   "message": ""
   },
   {
    "name": "test_sshkdf_sp800_135",
    "classname": "TestModernMACs",
-   "outcome": "failed",
-   "duration": 0.156,
-   "message": "AssertionError: SSHKDF SHA-256 failed: Invalid KDF name SSHKDF\n  kdf: Use -help for summary.\n  80CB5B96257F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (SSHKDF : 0), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Invalid KDF name SSHKDF\\nkdf: Use -help for summary.\\n80CB5B96257F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (SSHKDF : 0), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.402,
+   "message": ""
   },
   {
    "name": "test_tls13_kdf_sp800_135",
    "classname": "TestModernMACs",
-   "outcome": "failed",
-   "duration": 0.17,
-   "message": "AssertionError: TLS13-KDF SHA-256 failed: Invalid KDF name TLS13-KDF\n  kdf: Use -help for summary.\n  801BEF4EEA7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (TLS13-KDF : 0), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Invalid KDF name TLS13-KDF\\nkdf: Use -help for summary.\\n801BEF4EEA7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (TLS13-KDF : 0), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.407,
+   "message": ""
   },
   {
    "name": "test_sskdf_sp800_56c",
    "classname": "TestModernMACs",
-   "outcome": "failed",
-   "duration": 0.167,
-   "message": "AssertionError: SSKDF SHA-256 failed: Invalid KDF name SSKDF\n  kdf: Use -help for summary.\n  80BBC94AF27F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (SSKDF : 0), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Invalid KDF name SSKDF\\nkdf: Use -help for summary.\\n80BBC94AF27F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (SSKDF : 0), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.428,
+   "message": ""
   },
   {
    "name": "test_x963_kdf",
    "classname": "TestModernMACs",
-   "outcome": "failed",
-   "duration": 0.163,
-   "message": "AssertionError: X963KDF SHA-256 failed: Invalid KDF name X963KDF\n  kdf: Use -help for summary.\n  80CBE0020F7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (X963KDF : 0), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Invalid KDF name X963KDF\\nkdf: Use -help for summary.\\n80CBE0020F7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (X963KDF : 0), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.413,
+   "message": ""
   },
   {
    "name": "test_pkcs12_kdf_strict_isolation",
    "classname": "TestModernMACs",
-   "outcome": "failed",
-   "duration": 0.565,
-   "message": "AssertionError: PKCS#12 pbmac1 export failed: Error creating PKCS12 structure for /mnt/pkcs12/approved.p12\n  80DB37D17B7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (SHA1 : 88), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['docker', 'run', '--user', '0', '--rm', '--entrypoint', '/usr/local/bin/openssl', '-v', '/home/runner/work/node/node/openssl/tests/tmpflb5ldsh:/mnt/pkcs12', 'ghcr.io/taha2samy-3/openssl-fips:3.5.9', 'pkcs12', '-export', '-propquery', 'fips=yes', '-pbmac1_pbkdf2', '-in', '/mnt/pkcs12/user.crt', '-inkey', '/mnt/pkcs12/user.key', '-out', '/mnt/pkcs12/approved.p12', '-passout', 'pass:testpass'], returncode=1, stdout='', stderr='Error creating PKCS12 structure for /mnt/pkcs12/approved.p12\\n80DB37D17B7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (SHA1 : 88), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.857,
+   "message": ""
   },
   {
    "name": "test_rsa_large_modulus_support",
    "classname": "TestRSAOperations",
-   "outcome": "failed",
-   "duration": 0.169,
-   "message": "AssertionError: FIPS provider failed to generate a 4096-bit RSA key.\nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Error initializing RSA context\\n802BA2CC407F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (rsaEncryption : 107), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.754,
+   "message": ""
   },
   {
    "name": "test_rsa_keygen_2048_compliance",
    "classname": "TestRSAOperations",
-   "outcome": "failed",
-   "duration": 0.17,
-   "message": "AssertionError: RSA 2048-bit generation failed. Stderr: Error initializing RSA context\n  803B2844F37F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (rsaEncryption : 107), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Error initializing RSA context\\n803B2844F37F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (rsaEncryption : 107), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.259,
+   "message": ""
   },
   {
    "name": "test_rsa_keygen_weak_rejection",
    "classname": "TestRSAOperations",
    "outcome": "passed",
-   "duration": 0.159,
+   "duration": 0.205,
    "message": ""
   },
   {
    "name": "test_rsa_pss_padding_signature",
    "classname": "TestRSAOperations",
-   "outcome": "failed",
-   "duration": 0.165,
-   "message": "AssertionError: assert 1 == 0\n +  where 1 = CompletedProcess(args=['docker', 'run', '--user', '0', '--rm', '--entrypoint', '/usr/local/bin/openssl', '-v', '/home/runner/work/node/node/openssl/tests/tmp_9py3wwb:/mnt/crypto', 'ghcr.io/taha2samy-3/openssl-fips:3.5.9', 'genpkey', '-algorithm', 'RSA', '-propquery', 'fips=yes', '-pkeyopt', 'rsa_keygen_bits:2048', '-out', '/mnt/crypto/key.pem'], returncode=1, stdout='', stderr='Error initializing RSA context\\n807BA1A13B7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (rsaEncryption : 107), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.716,
+   "message": ""
   },
   {
    "name": "test_rsa_public_exponent_boundaries[3]",
    "classname": "TestRSAOperations",
-   "outcome": "failed",
-   "duration": 0.318,
-   "message": "AssertionError: RSA keygen with e=65537 failed: Error initializing RSA context\n  806B77457F7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (rsaEncryption : 107), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Error initializing RSA context\\n806B77457F7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (rsaEncryption : 107), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.449,
+   "message": ""
   },
   {
    "name": "test_rsa_public_exponent_boundaries[17]",
    "classname": "TestRSAOperations",
-   "outcome": "failed",
-   "duration": 0.316,
-   "message": "AssertionError: RSA keygen with e=65537 failed: Error initializing RSA context\n  80BB5E9D6D7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (rsaEncryption : 107), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Error initializing RSA context\\n80BB5E9D6D7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (rsaEncryption : 107), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.439,
+   "message": ""
   },
   {
    "name": "test_rsa_public_exponent_boundaries[257]",
    "classname": "TestRSAOperations",
-   "outcome": "failed",
-   "duration": 0.33,
-   "message": "AssertionError: RSA keygen with e=65537 failed: Error initializing RSA context\n  80EBB28C7E7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (rsaEncryption : 107), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Error initializing RSA context\\n80EBB28C7E7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (rsaEncryption : 107), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.488,
+   "message": ""
   },
   {
    "name": "test_rsa_public_exponent_boundaries[65535]",
    "classname": "TestRSAOperations",
-   "outcome": "failed",
-   "duration": 0.382,
-   "message": "AssertionError: RSA keygen with e=65537 failed: Error initializing RSA context\n  80DBF67DF27F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (rsaEncryption : 107), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Error initializing RSA context\\n80DBF67DF27F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (rsaEncryption : 107), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.529,
+   "message": ""
   },
   {
    "name": "test_rsa_public_exponent_boundaries[65536]",
    "classname": "TestRSAOperations",
-   "outcome": "failed",
-   "duration": 0.324,
-   "message": "AssertionError: RSA keygen with e=65537 failed: Error initializing RSA context\n  80BBB7FAEF7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (rsaEncryption : 107), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Error initializing RSA context\\n80BBB7FAEF7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (rsaEncryption : 107), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.485,
+   "message": ""
   },
   {
    "name": "test_rsa_modulus_exact_boundary",
    "classname": "TestRSAOperations",
-   "outcome": "failed",
-   "duration": 0.315,
-   "message": "AssertionError: RSA keygen with 2049 bits failed: Error initializing RSA context\n  80BBF6F34A7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (rsaEncryption : 107), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Error initializing RSA context\\n80BBF6F34A7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (rsaEncryption : 107), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.436,
+   "message": ""
   },
   {
    "name": "test_rsa_pss_parameter_ordering_and_md5_rejection",
    "classname": "TestRSAOperations",
-   "outcome": "failed",
-   "duration": 0.159,
-   "message": "subprocess.CalledProcessError: Command '['docker', 'run', '--user', '0', '--rm', '--entrypoint', '/usr/local/bin/openssl', '-v', '/home/runner/work/node/node/openssl/tests/tmptbqkm96q:/mnt/rsapss', 'ghcr.io/taha2samy-3/openssl-fips:3.5.9', 'genpkey', '-propquery', 'fips=yes', '-algorithm', 'RSA', '-pkeyopt', 'rsa_keygen_bits:2048', '-out', '/mnt/rsapss/rsa.key']' returned non-zero exit status 1."
+   "outcome": "passed",
+   "duration": 0.748,
+   "message": ""
   },
   {
    "name": "test_strict_block_legacy_curves_and_algos",
    "classname": "TestECCAndSignatures",
-   "outcome": "failed",
-   "duration": 0.82,
-   "message": "[XPASS(strict)] Known limitation of the certified OpenSSL FIPS provider 3.1.2: X25519 is offered under fips=yes although it is not an approved key agreement scheme"
+   "outcome": "xfail",
+   "duration": 1.042,
+   "message": "Known limitation of the certified OpenSSL FIPS provider 3.1.2: X25519 is offered under fips=yes although it is not an approved key agreement scheme"
   },
   {
    "name": "test_ecdsa_p384_signing_flow",
    "classname": "TestECCAndSignatures",
-   "outcome": "failed",
-   "duration": 0.168,
-   "message": "AssertionError: EC Key generation failed. Stderr: Error initializing EC context\n  803B1D35D77F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (id-ecPublicKey : 111), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Error initializing EC context\\n803B1D35D77F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (id-ecPublicKey : 111), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.419,
+   "message": ""
   },
   {
    "name": "test_md5_signature_verification_rejection",
    "classname": "TestECCAndSignatures",
    "outcome": "passed",
-   "duration": 0.172,
+   "duration": 0.203,
    "message": ""
   },
   {
    "name": "test_ecdh_key_derivation_raw",
    "classname": "TestECCAndSignatures",
    "outcome": "passed",
-   "duration": 0.66,
+   "duration": 0.88,
    "message": ""
   },
   {
    "name": "test_dsa_invalid_parameter_lengths",
    "classname": "TestECCAndSignatures",
    "outcome": "passed",
-   "duration": 0.159,
+   "duration": 0.219,
    "message": ""
   },
   {
    "name": "test_dsa_sha1_signing_rejection",
    "classname": "TestECCAndSignatures",
-   "outcome": "failed",
-   "duration": 0.156,
-   "message": "subprocess.CalledProcessError: Command '['docker', 'run', '--user', '0', '--rm', '--entrypoint', '/usr/local/bin/openssl', '-v', '/home/runner/work/node/node/openssl/tests/tmp3447az3l:/mnt/dsasig', 'ghcr.io/taha2samy-3/openssl-fips:3.5.9', 'dsaparam', '-propquery', 'fips=yes', '-out', '/mnt/dsasig/dsap.pem', '2048']' returned non-zero exit status 1."
+   "outcome": "passed",
+   "duration": 1.474,
+   "message": ""
   },
   {
    "name": "test_ecdsa_sha1_signing_rejection",
    "classname": "TestECCAndSignatures",
-   "outcome": "failed",
-   "duration": 0.16,
-   "message": "subprocess.CalledProcessError: Command '['docker', 'run', '--user', '0', '--rm', '--entrypoint', '/usr/local/bin/openssl', '-v', '/home/runner/work/node/node/openssl/tests/tmp5lri_jxd:/mnt/ecdsasig', 'ghcr.io/taha2samy-3/openssl-fips:3.5.9', 'genpkey', '-propquery', 'fips=yes', '-algorithm', 'EC', '-pkeyopt', 'ec_paramgen_curve:P-256', '-out', '/mnt/ecdsasig/eckey.pem']' returned non-zero exit status 1."
+   "outcome": "passed",
+   "duration": 0.427,
+   "message": ""
   },
   {
    "name": "test_non_nist_ec_curves_rejection[secp256k1]",
    "classname": "TestECCAndSignatures",
    "outcome": "passed",
-   "duration": 0.163,
+   "duration": 0.208,
    "message": ""
   },
   {
    "name": "test_non_nist_ec_curves_rejection[brainpoolP256r1]",
    "classname": "TestECCAndSignatures",
    "outcome": "passed",
-   "duration": 0.17,
+   "duration": 0.209,
    "message": ""
   },
   {
    "name": "test_non_nist_ec_curves_rejection[SM2]",
    "classname": "TestECCAndSignatures",
    "outcome": "passed",
-   "duration": 0.172,
+   "duration": 0.209,
    "message": ""
   },
   {
    "name": "test_ml_kem_isolation_in_fips",
    "classname": "TestPostQuantumIsolation",
    "outcome": "passed",
-   "duration": 0.158,
+   "duration": 0.202,
    "message": ""
   },
   {
    "name": "test_sha1_digital_signature_generation_rejection",
    "classname": "TestPostQuantumIsolation",
-   "outcome": "failed",
-   "duration": 0.167,
-   "message": "subprocess.CalledProcessError: Command '['docker', 'run', '--user', '0', '--rm', '--entrypoint', '/usr/local/bin/openssl', '-v', '/home/runner/work/node/node/openssl/tests/tmp63ibjyfo:/mnt/keys', 'ghcr.io/taha2samy-3/openssl-fips:3.5.9', 'genpkey', '-propquery', 'fips=yes', '-algorithm', 'RSA', '-pkeyopt', 'rsa_keygen_bits:2048', '-out', '/mnt/keys/rsa.pem']' returned non-zero exit status 1."
+   "outcome": "passed",
+   "duration": 0.879,
+   "message": ""
   },
   {
    "name": "test_non_nist_curves_rejection[secp256k1]",
    "classname": "TestPostQuantumIsolation",
    "outcome": "passed",
-   "duration": 0.172,
+   "duration": 0.214,
    "message": ""
   },
   {
    "name": "test_non_nist_curves_rejection[brainpoolP256r1]",
    "classname": "TestPostQuantumIsolation",
    "outcome": "passed",
-   "duration": 0.176,
+   "duration": 0.213,
    "message": ""
   },
   {
    "name": "test_non_nist_curves_rejection[brainpoolP384r1]",
    "classname": "TestPostQuantumIsolation",
    "outcome": "passed",
-   "duration": 0.19,
+   "duration": 0.235,
    "message": ""
   },
   {
    "name": "test_non_nist_curves_rejection[brainpoolP512r1]",
    "classname": "TestPostQuantumIsolation",
    "outcome": "passed",
-   "duration": 0.153,
+   "duration": 0.215,
    "message": ""
   },
   {
    "name": "test_nist_approved_curves_keygen[P-224]",
    "classname": "TestPostQuantumIsolation",
-   "outcome": "failed",
-   "duration": 0.16,
-   "message": "AssertionError: Failed to generate key on approved curve P-224: Error initializing EC context\n  808B9F5C4C7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (id-ecPublicKey : 111), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Error initializing EC context\\n808B9F5C4C7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (id-ecPublicKey : 111), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.208,
+   "message": ""
   },
   {
    "name": "test_nist_approved_curves_keygen[P-256]",
    "classname": "TestPostQuantumIsolation",
-   "outcome": "failed",
-   "duration": 0.166,
-   "message": "AssertionError: Failed to generate key on approved curve P-256: Error initializing EC context\n  80DB6B314F7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (id-ecPublicKey : 111), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Error initializing EC context\\n80DB6B314F7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (id-ecPublicKey : 111), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.201,
+   "message": ""
   },
   {
    "name": "test_nist_approved_curves_keygen[P-384]",
    "classname": "TestPostQuantumIsolation",
-   "outcome": "failed",
-   "duration": 0.179,
-   "message": "AssertionError: Failed to generate key on approved curve P-384: Error initializing EC context\n  807B37B53B7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (id-ecPublicKey : 111), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Error initializing EC context\\n807B37B53B7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (id-ecPublicKey : 111), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.21,
+   "message": ""
   },
   {
    "name": "test_nist_approved_curves_keygen[P-521]",
    "classname": "TestPostQuantumIsolation",
-   "outcome": "failed",
-   "duration": 0.169,
-   "message": "AssertionError: Failed to generate key on approved curve P-521: Error initializing EC context\n  806B8A7A7E7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (id-ecPublicKey : 111), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Error initializing EC context\\n806B8A7A7E7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (id-ecPublicKey : 111), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.23,
+   "message": ""
   },
   {
    "name": "test_weak_rsa_keys_rejection[512]",
    "classname": "TestPostQuantumIsolation",
    "outcome": "passed",
-   "duration": 0.173,
+   "duration": 0.197,
    "message": ""
   },
   {
    "name": "test_weak_rsa_keys_rejection[1024]",
    "classname": "TestPostQuantumIsolation",
    "outcome": "passed",
-   "duration": 0.169,
+   "duration": 0.227,
    "message": ""
   },
   {
    "name": "test_weak_rsa_keys_rejection[1536]",
    "classname": "TestPostQuantumIsolation",
    "outcome": "passed",
-   "duration": 0.16,
+   "duration": 0.212,
    "message": ""
   },
   {
    "name": "test_dsa_fips_boundaries",
    "classname": "TestPostQuantumIsolation",
-   "outcome": "failed",
-   "duration": 0.36,
-   "message": "AssertionError: 2048-bit DSA parameter generation failed: Error, DSA parameter generation context allocation failed\n  800B420C547F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (DSA : 109), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Error, DSA parameter generation context allocation failed\\n800B420C547F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (DSA : 109), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.551,
+   "message": ""
   },
   {
    "name": "test_ffdhe_safe_prime_groups_compliance[ffdhe2048]",
    "classname": "TestPostQuantumIsolation",
-   "outcome": "failed",
-   "duration": 0.169,
-   "message": "AssertionError: FFDHE group ffdhe2048 failed: Error initializing DH context\n  80EB9D06827F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (dhKeyAgreement : 108), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Error initializing DH context\\n80EB9D06827F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (dhKeyAgreement : 108), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.206,
+   "message": ""
   },
   {
    "name": "test_ffdhe_safe_prime_groups_compliance[ffdhe3072]",
    "classname": "TestPostQuantumIsolation",
-   "outcome": "failed",
-   "duration": 0.179,
-   "message": "AssertionError: FFDHE group ffdhe3072 failed: Error initializing DH context\n  808B2400F67F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (dhKeyAgreement : 108), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Error initializing DH context\\n808B2400F67F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (dhKeyAgreement : 108), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.208,
+   "message": ""
   },
   {
    "name": "test_ffdhe_safe_prime_groups_compliance[ffdhe4096]",
    "classname": "TestPostQuantumIsolation",
-   "outcome": "failed",
-   "duration": 0.17,
-   "message": "AssertionError: FFDHE group ffdhe4096 failed: Error initializing DH context\n  807BD9061D7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (dhKeyAgreement : 108), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Error initializing DH context\\n807BD9061D7F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (dhKeyAgreement : 108), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.208,
+   "message": ""
   },
   {
    "name": "test_dh_weak_parameters_rejection",
    "classname": "TestPostQuantumIsolation",
    "outcome": "passed",
-   "duration": 0.149,
+   "duration": 0.21,
    "message": ""
   },
   {
    "name": "test_ffdhe_round_trip_key_agreement",
    "classname": "TestPostQuantumIsolation",
-   "outcome": "failed",
-   "duration": 0.166,
-   "message": "subprocess.CalledProcessError: Command '['docker', 'run', '--user', '0', '--rm', '--entrypoint', '/usr/local/bin/openssl', '-v', '/home/runner/work/node/node/openssl/tests/tmpj9ljz380:/mnt/ffdhe', 'ghcr.io/taha2samy-3/openssl-fips:3.5.9', 'genpkey', '-propquery', 'fips=yes', '-algorithm', 'DH', '-pkeyopt', 'group:ffdhe2048', '-out', '/mnt/ffdhe/alice_priv.pem']' returned non-zero exit status 1."
+   "outcome": "passed",
+   "duration": 1.242,
+   "message": ""
   },
   {
    "name": "test_rsa_oaep_encryption_and_decryption_flow",
    "classname": "TestPostQuantumIsolation",
-   "outcome": "failed",
-   "duration": 0.16,
-   "message": "subprocess.CalledProcessError: Command '['docker', 'run', '--user', '0', '--rm', '--entrypoint', '/usr/local/bin/openssl', '-v', '/home/runner/work/node/node/openssl/tests/tmp0uedm0lm:/mnt/oaep', 'ghcr.io/taha2samy-3/openssl-fips:3.5.9', 'genpkey', '-propquery', 'fips=yes', '-algorithm', 'RSA', '-pkeyopt', 'rsa_keygen_bits:2048', '-out', '/mnt/oaep/priv.pem']' returned non-zero exit status 1."
+   "outcome": "passed",
+   "duration": 0.835,
+   "message": ""
   },
   {
    "name": "test_rsa_oaep_insecure_digest_rejection",
    "classname": "TestPostQuantumIsolation",
-   "outcome": "failed",
-   "duration": 0.165,
-   "message": "subprocess.CalledProcessError: Command '['docker', 'run', '--user', '0', '--rm', '--entrypoint', '/usr/local/bin/openssl', '-v', '/home/runner/work/node/node/openssl/tests/tmpq6u772ov:/mnt/oaep_md5', 'ghcr.io/taha2samy-3/openssl-fips:3.5.9', 'genpkey', '-propquery', 'fips=yes', '-algorithm', 'RSA', '-pkeyopt', 'rsa_keygen_bits:2048', '-out', '/mnt/oaep_md5/priv.pem']' returned non-zero exit status 1."
+   "outcome": "passed",
+   "duration": 0.636,
+   "message": ""
   },
   {
    "name": "test_ecdh_p256_round_trip_derivation",
    "classname": "TestPostQuantumIsolation",
-   "outcome": "failed",
-   "duration": 0.174,
-   "message": "subprocess.CalledProcessError: Command '['docker', 'run', '--user', '0', '--rm', '--entrypoint', '/usr/local/bin/openssl', '-v', '/home/runner/work/node/node/openssl/tests/tmp_khoxpnu:/mnt/ecdh256', 'ghcr.io/taha2samy-3/openssl-fips:3.5.9', 'genpkey', '-propquery', 'fips=yes', '-algorithm', 'EC', '-pkeyopt', 'ec_paramgen_curve:P-256', '-out', '/mnt/ecdh256/alice_priv.pem']' returned non-zero exit status 1."
+   "outcome": "passed",
+   "duration": 1.249,
+   "message": ""
   },
   {
    "name": "test_legacy_engines_absence",
    "classname": "TestSystemIntegrity",
    "outcome": "passed",
-   "duration": 0.176,
+   "duration": 0.207,
    "message": ""
   },
   {
    "name": "test_container_user_security",
    "classname": "TestSystemIntegrity",
    "outcome": "passed",
-   "duration": 0.01,
+   "duration": 0.015,
    "message": ""
   },
   {
    "name": "test_drbg_functionality",
    "classname": "TestSystemIntegrity",
    "outcome": "passed",
-   "duration": 0.174,
+   "duration": 0.202,
    "message": ""
   },
   {
    "name": "test_entropy_source_validation",
    "classname": "TestSystemIntegrity",
-   "outcome": "failed",
-   "duration": 0.165,
-   "message": "AttributeError: type object 'Dynamic' has no attribute 'status_details'"
+   "outcome": "passed",
+   "duration": 0.196,
+   "message": ""
   },
   {
    "name": "test_pbkdf2_derivation",
    "classname": "TestSystemIntegrity",
-   "outcome": "failed",
-   "duration": 0.16,
-   "message": "AssertionError: PBKDF2 failed even with 128-bit salt. Stderr: Invalid KDF name PBKDF2\n  kdf: Use -help for summary.\n  801BE977B57F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (PBKDF2 : 0), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CleanResult(returncode=1, stdout='', stderr='Invalid KDF name PBKDF2\\nkdf: Use -help for summary.\\n801BE977B57F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (PBKDF2 : 0), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 0.207,
+   "message": ""
   },
   {
    "name": "test_certificate_parsing",
    "classname": "TestSystemIntegrity",
    "outcome": "passed",
-   "duration": 0.167,
+   "duration": 0.216,
    "message": ""
   },
   {
    "name": "test_drbg_mechanisms_completeness",
    "classname": "TestSystemIntegrity",
-   "outcome": "failed",
-   "duration": 0.159,
-   "message": "AssertionError: Missing NIST SP 800-90A approved DRBG mechanism: CTR-DRBG @ fips\nassert 'CTR-DRBG @ fips' in 'Provided RNGs and seed sources:\\n'"
+   "outcome": "passed",
+   "duration": 0.211,
+   "message": ""
   },
   {
    "name": "test_rand_entropy_continuity",
    "classname": "TestSystemIntegrity",
    "outcome": "passed",
-   "duration": 0.773,
+   "duration": 1.044,
    "message": ""
   },
   {
    "name": "test_x509_req_digest_rejection[-md5]",
    "classname": "TestSystemIntegrity",
-   "outcome": "failed",
-   "duration": 0.157,
-   "message": "subprocess.CalledProcessError: Command '['docker', 'run', '--user', '0', '--rm', '--entrypoint', '/usr/local/bin/openssl', '-v', '/home/runner/work/node/node/openssl/tests/tmp47jjafae:/mnt/x509req', 'ghcr.io/taha2samy-3/openssl-fips:3.5.9', 'genpkey', '-propquery', 'fips=yes', '-algorithm', 'RSA', '-pkeyopt', 'rsa_keygen_bits:2048', '-out', '/mnt/x509req/test.key']' returned non-zero exit status 1."
+   "outcome": "passed",
+   "duration": 0.442,
+   "message": ""
   },
   {
    "name": "test_x509_req_digest_rejection[-sha1]",
    "classname": "TestSystemIntegrity",
-   "outcome": "failed",
-   "duration": 0.15,
-   "message": "subprocess.CalledProcessError: Command '['docker', 'run', '--user', '0', '--rm', '--entrypoint', '/usr/local/bin/openssl', '-v', '/home/runner/work/node/node/openssl/tests/tmpst4z7dr0:/mnt/x509req', 'ghcr.io/taha2samy-3/openssl-fips:3.5.9', 'genpkey', '-propquery', 'fips=yes', '-algorithm', 'RSA', '-pkeyopt', 'rsa_keygen_bits:2048', '-out', '/mnt/x509req/test.key']' returned non-zero exit status 1."
+   "outcome": "passed",
+   "duration": 0.477,
+   "message": ""
   },
   {
    "name": "test_x509_verify_signature_digest_enforcement",
    "classname": "TestSystemIntegrity",
-   "outcome": "failed",
-   "duration": 0.685,
-   "message": "AssertionError: Security Breach: verify accepted MD5-signed certificate!\nassert 0 != 0\n +  where 0 = CompletedProcess(args=['docker', 'run', '--user', '0', '--rm', '--entrypoint', '/usr/local/bin/openssl', '-v', '/home/runner/work/node/node/openssl/tests/tmpxpbdqzip:/mnt/certchain', 'ghcr.io/taha2samy-3/openssl-fips:3.5.9', 'verify', '-CAfile', '/mnt/certchain/ca_md5.crt', '/mnt/certchain/leaf_md5.crt'], returncode=0, stdout='/mnt/certchain/leaf_md5.crt: OK\\n', stderr='').returncode"
+   "outcome": "passed",
+   "duration": 3.587,
+   "message": ""
   },
   {
    "name": "test_cms_sha1_and_3des_rejection",
    "classname": "TestSystemIntegrity",
-   "outcome": "failed",
-   "duration": 0.674,
-   "message": "AssertionError: CMS AES-256 encryption failed: cms: Unknown option or cipher: aes256\n  800B2E0D257F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (aes256 : 0), Properties (fips=yes)\n  \nassert 1 == 0\n +  where 1 = CompletedProcess(args=['docker', 'run', '--user', '0', '--rm', '--entrypoint', '/usr/local/bin/openssl', '-v', '/home/runner/work/node/node/openssl/tests/tmp99eoytcg:/mnt/cms', 'ghcr.io/taha2samy-3/openssl-fips:3.5.9', 'cms', '-encrypt', '-propquery', 'fips=yes', '-aes256', '-in', '/mnt/cms/data.txt', '-out', '/mnt/cms/enc_aes.cms', '/mnt/cms/signer.crt'], returncode=1, stdout='', stderr='cms: Unknown option or cipher: aes256\\n800B2E0D257F0000:error:0308010C:digital envelope routines:inner_evp_generic_fetch:unsupported:crypto/evp/evp_fetch.c:376:Global default library context, Algorithm (aes256 : 0), Properties (fips=yes)\\n').returncode"
+   "outcome": "passed",
+   "duration": 1.133,
+   "message": ""
   },
   {
    "name": "test_tls_client_handshake_version_enforcement",
    "classname": "TestSystemIntegrity",
    "outcome": "passed",
-   "duration": 0.21,
+   "duration": 0.222,
    "message": ""
   },
   {
    "name": "test_environment_conf_override_boundary",
    "classname": "TestSystemIntegrity",
    "outcome": "passed",
-   "duration": 0.161,
+   "duration": 0.191,
    "message": ""
   }
  ]

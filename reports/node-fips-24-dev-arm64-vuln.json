@@ -3,9 +3,9 @@
   "Trivy": {
     "Version": "0.76.0"
   },
-  "ReportID": "01a1480f-96ff-7385-81e4-8c8f1d6c4c92",
-  "CreatedAt": "2026-10-17T04:12:23.679232309Z",
-  "ArtifactID": "sha256:bb9b1bd613e7513ffac1bf9dcfd483177b0bfaf04e2c524e0862bdea2ab1032a",
+  "ReportID": "01a14d79-4135-7d48-8155-7301e65e0862",
+  "CreatedAt": "2026-10-18T05:25:54.613871914Z",
+  "ArtifactID": "sha256:e0ccf83d15941024fea8795acd796ef52c1246db3cdb6d4b6ebfc4101ff4e248",
   "ArtifactName": "ghcr.io/taha2samy-3/node-fips:24-dev",
   "ArtifactType": "container_image",
   "Metadata": {
@@ -14,7 +14,7 @@
       "Family": "wolfi",
       "Name": "20230201"
     },
-    "ImageID": "sha256:84d8179ba8d806636a1664f46a6e408e16119aadb0d4cf1260529e5cadd24928",
+    "ImageID": "sha256:34b1949a9b1a1e36c3039dda8313c6238b40689b620b6256fe2344b76e68802d",
     "DiffIDs": [
       "sha256:a345e58f8a8d30ca176f6c9aeb31eb51a4adfa007aa0a7f925c5c4f0087c5412",
       "sha256:0e184e3a6fa12b28f26c20b335c008b695bab0dd86d3019b126fe2c0163da931",
@@ -40,7 +40,7 @@
       "ghcr.io/taha2samy-3/node-fips:24-dev"
     ],
     "RepoDigests": [
-      "ghcr.io/taha2samy-3/node-fips@sha256:a820daa7de7cab9a0331bbdc1a1332e6ba6c939163f5e3f79ae6bc42ed2b546e"
+      "ghcr.io/taha2samy-3/node-fips@sha256:9d72389a1a9417ce641f4bb16d690667a3ed78363eadf041200b7ec00a54c899"
     ],
     "Reference": "ghcr.io/taha2samy-3/node-fips:24-dev",
     "ImageConfig": {
@@ -158,24 +158,24 @@
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-16T15:34:36.716616379Z",
+          "created": "2026-10-16T15:34:36.916664095Z",
           "created_by": "WORKDIR /app",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-16T15:34:36.716616379Z",
+          "created": "2026-10-16T15:34:36.916664095Z",
           "created_by": "USER node",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-16T15:34:36.716616379Z",
+          "created": "2026-10-16T15:34:36.916664095Z",
           "created_by": "ENTRYPOINT [\"/usr/bin/docker-entrypoint.sh\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-16T15:34:36.716616379Z",
+          "created": "2026-10-16T15:34:36.916664095Z",
           "created_by": "CMD [\"node\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
@@ -239,7 +239,7 @@
         "Labels": {
           "dev.chainguard.image.title": "wolfi-base",
           "dev.chainguard.package.main": "",
-          "io.github.taha2samy-3.build.fingerprint": "41c93314ea906336450a2b9d30c67b3d",
+          "io.github.taha2samy-3.build.fingerprint": "0928e3483b7b9aa535fb0122cb81df8f",
           "org.opencontainers.image.authors": "Taha Samy",
           "org.opencontainers.image.created": "2026-10-11T22:55:20Z",
           "org.opencontainers.image.description": "Node.js development image with npm and the OpenSSL FIPS 140-3 provider enforced, on Wolfi (Node.js 24.22.0-r0)",
@@ -3605,7 +3605,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:78690673f17543ddde4db66d4ccae472500d50c3b4bfef08369cb883cdc6b766",
+          "Fingerprint": "sha256:e7656c93d12591b70d0863de2ac7212a5a762099b047c1fe6d847cab07109efa",
           "Title": "net/http: golang: golang: Denial of Service via crafted HTTP Range headers",
           "Description": "When parsing a Range header containing a large number of small ranges, FileServer(FS), ServeContent, and ServeFile(FS) can consume an excessive amount of CPU.",
           "Severity": "HIGH",
@@ -3613,10 +3613,15 @@
             "CWE-770"
           ],
           "VendorSeverity": {
+            "bitnami": 3,
             "redhat": 3,
             "ubuntu": 2
           },
           "CVSS": {
+            "bitnami": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            },
             "redhat": {
               "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
               "V3Score": 7.5
@@ -3660,7 +3665,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:554de4e098534b9c5df07e81d86f0e459c3d2543898fa1c816390aecb52d168f",
+          "Fingerprint": "sha256:945e6406e76fcd0c9da6b4077485a9c779d0c85e8d489d54ae71ef7c3011f85c",
           "Title": "net/http: net/http/internal/http2: golang.org/x/net/http2: net/http: Denial of Service via excessive HTTP/2 SETTINGS frames",
           "Description": "A malicious HTTP/2 peer can cause excessive CPU consumption in the client or server by opening a large number of streams and then sending many small SETTINGS frames containing SETTINGS_INITIAL_WINDOW_SIZE values.",
           "Severity": "HIGH",
@@ -3668,10 +3673,16 @@
             "CWE-405"
           ],
           "VendorSeverity": {
+            "azure": 3,
+            "bitnami": 3,
             "redhat": 3,
             "ubuntu": 2
           },
           "CVSS": {
+            "bitnami": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            },
             "redhat": {
               "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
               "V3Score": 7.5
@@ -3717,7 +3728,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:102484cf5853d2d0d9b1abf3bee4825cc4905b32eb9abdfb4177fed030933712",
+          "Fingerprint": "sha256:a6b4b974fff7828738f1af70378ef8f458777ff243c64d4d377df8e0eea2c867",
           "Title": "crypto/tls: golang: crypto/tls: Denial of Service via multiple ECH outer extension references",
           "Description": "Multiple ECH outer extension references are not permitted under RFC 9849; previously, a client could send a well-crafted packet that could trigger memory exhaustion in the server process by specifying multiple references. We now reject these as malformed and curb the memory amplification vector as a result.",
           "Severity": "HIGH",
@@ -3725,9 +3736,14 @@
             "CWE-405"
           ],
           "VendorSeverity": {
+            "bitnami": 3,
             "redhat": 3
           },
           "CVSS": {
+            "bitnami": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            },
             "redhat": {
               "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
               "V3Score": 7.5
@@ -3769,7 +3785,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:8d0f654d194086c43cb2bab968d15fbe4f7fd5049e3a99b3e235c0e2b51bd596",
+          "Fingerprint": "sha256:c33cba0c038e8ee04d4139038150cf1e74b60639f8bd6e4969360356ecdd6e41",
           "Title": "net/http: golang: golang: Cross-user response poisoning via desynchronized HTTP CONNECT connections",
           "Description": "When http.Transport sends an HTTP/1 CONNECT request with a non-empty Request.Body, it writes the body directly to the connection without framing after the request headers. If the server rejects the CONNECT request with a non-2xx keep-alive response, Transport returns the connection to the idle pool. Because CONNECT requests do not have a request body, the server may interpret the trailing body bytes as a subsequent pipelined HTTP/1.1 request on the connection, leaving the pooled connection desynchronized and causing the next caller that reuses it to read the response to the injected request. In reverse proxies (including httputil.ReverseProxy) that forward CONNECT requests through a shared Transport, this can lead to cross-user response poisoning.",
           "Severity": "MEDIUM",
@@ -3777,10 +3793,15 @@
             "CWE-444"
           ],
           "VendorSeverity": {
+            "bitnami": 3,
             "redhat": 2,
             "ubuntu": 2
           },
           "CVSS": {
+            "bitnami": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+              "V3Score": 7.5
+            },
             "redhat": {
               "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
               "V3Score": 6.5
@@ -3824,7 +3845,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:52d5494e3a841b7c42e0901e8f7711f7ed2667ed51d7bbd237de18cb269cc7fa",
+          "Fingerprint": "sha256:c5c875da0636005b98b11977c631982bd252438e1984659ec8ac11d308f20f1b",
           "Title": "When \"Trailer\" headers are sent by a client, the HTTP server internall ...",
           "Description": "When \"Trailer\" headers are sent by a client, the HTTP server internally uses the header values to populate the Request.Trailer map passed to the server handler. Because Request.Trailer is a map, each entry incurs memory overhead. For HTTP/2 servers, a malicious client can exploit this by sending a \"Trailer\" header that declares a large number of fields, causing the server to allocate a disproportionate amount of memory while bypassing Server.MaxHeaderValueCount and Server.MaxHeaderBytes limits. This exploit is not applicable for HTTP/1 servers, which do not support multiplexing a large number of requests over one TCP connection, and whose Server.MaxHeaderBytes are calculated differently.",
           "Severity": "MEDIUM",
@@ -3832,7 +3853,15 @@
             "CWE-405"
           ],
           "VendorSeverity": {
+            "azure": 2,
+            "bitnami": 3,
             "ubuntu": 2
+          },
+          "CVSS": {
+            "bitnami": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            }
           },
           "References": [
             "https://github.com/golang/go/issues/81857",
@@ -3841,6 +3870,7 @@
             "https://go.dev/issue/81857",
             "https://groups.google.com/g/golang-announce/c/U2fTuyDJznI",
             "https://groups.google.com/g/golang-announce/c/ZPwCyRUuGBs",
+            "https://nvd.nist.gov/vuln/detail/CVE-2026-78659",
             "https://pkg.go.dev/vuln/GO-2026-6603",
             "https://www.cve.org/CVERecord?id=CVE-2026-78659",
             "https://www.openwall.com/lists/oss-security/2026/10/08/9"
@@ -3872,7 +3902,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:53f4c35f493f14f66212bb04156c09b5ead0dc4831175e914d903191855a3ec8",
+          "Fingerprint": "sha256:ecd424c57e9d7502f796b9b6c99e232be6c4cdca588fb8656abdc98c2dbedd37",
           "Title": "Historically, we have been rather lax about malformed framing-related  ...",
           "Description": "Historically, we have been rather lax about malformed framing-related headers in our HTTP/2 implementation, as they cannot interfere with HTTP/2 framing. However, this makes it possible for our HTTP/2 implementation to forward responses containing such headers to an HTTP/1 client when acting as a reverse proxy. If the HTTP/1 client also does not behave strictly enough, this can result in response smuggling.",
           "Severity": "MEDIUM",
@@ -3880,7 +3910,15 @@
             "CWE-444"
           ],
           "VendorSeverity": {
+            "azure": 3,
+            "bitnami": 3,
             "ubuntu": 2
+          },
+          "CVSS": {
+            "bitnami": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+              "V3Score": 7.5
+            }
           },
           "References": [
             "https://github.com/golang/go/issues/81115",
@@ -3888,6 +3926,7 @@
             "https://go.dev/cl/836385",
             "https://go.dev/issue/81115",
             "https://groups.google.com/g/golang-announce/c/U2fTuyDJznI",
+            "https://nvd.nist.gov/vuln/detail/CVE-2026-78660",
             "https://pkg.go.dev/vuln/GO-2026-6610",
             "https://www.cve.org/CVERecord?id=CVE-2026-78660",
             "https://www.openwall.com/lists/oss-security/2026/10/08/9"
@@ -3919,7 +3958,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:98a38370c2e024bc349253b4d1fdfb9d604b82f675f138136c031770adb281be",
+          "Fingerprint": "sha256:7011472d09742cc70fe936cb738301e9f1bf2cebf490b351a9ded1ef4a1d40c4",
           "Title": "net/http: net/http/internal/http2: golang: golang.org/x/net/http2: golang: flow control limit bypass via double refund in HTTP/2 server",
           "Description": "The HTTP/2 server can refund connection-level flow control twice for the same data: Once when a client resets a stream (refunding data for any sent-but-unread portion of the stream), and again when a request handler reads the buffered data. A malicious client can exploit this to bypass the configured connection-level flow control limit (MaxReceiveBufferPerConnection). Total buffered data is still limited by the concurrent stream limit and stream-level flow control.",
           "Severity": "MEDIUM",
@@ -3927,10 +3966,16 @@
             "CWE-675"
           ],
           "VendorSeverity": {
+            "azure": 3,
+            "bitnami": 4,
             "redhat": 2,
             "ubuntu": 2
           },
           "CVSS": {
+            "bitnami": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:H",
+              "V3Score": 9.1
+            },
             "redhat": {
               "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
               "V3Score": 5.3
@@ -3976,7 +4021,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:2e0224e479d948342b89b14e1f1ef537218eb91af0c704f724e7554e5df90873",
+          "Fingerprint": "sha256:f321ff3b4b724c0c7a62be49a9be26cd65fecf4b73348f20bbd60e5211aa7c63",
           "Title": "net/http: golang: net/http: HTTP request smuggling via improper handling of HTTP/1 CONNECT responses",
           "Description": "When an HTTP server handler sends a 2xx response to an HTTP/1 CONNECT request and returns without hijacking the connection, the server improperly continues to read and serve requests from the connection. Since a 2xx response to an HTTP/1 CONNECT converts the connection into a tunnel, the server should not treat the connection as continuing to contain HTTP. The impact of this misbehavior is mostly limited to potential request smuggling, where an intermediate proxy considers the data on the connection to be tunneled and the server considers it to be HTTP.",
           "Severity": "MEDIUM",
@@ -3984,10 +4029,15 @@
             "CWE-444"
           ],
           "VendorSeverity": {
+            "bitnami": 3,
             "redhat": 2,
             "ubuntu": 2
           },
           "CVSS": {
+            "bitnami": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+              "V3Score": 7.5
+            },
             "redhat": {
               "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
               "V3Score": 6.5
@@ -4031,7 +4081,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:9d54ff2f4b3aa0b9bcc7849db04f1bbed3a3fad2b893309b2aa3c79ee0890f20",
+          "Fingerprint": "sha256:ec69f6e8ee70160791961e69b1eb49011158530b0d3f8f316fae7fbc6d7596d1",
           "Title": "Parsing a multipart form can bypass memory limits and read an arbitrar ...",
           "Description": "Parsing a multipart form can bypass memory limits and read an arbitrarily long line into memory when the remaining limit at the start of a part is less than 400 bytes.",
           "Severity": "MEDIUM",
@@ -4039,13 +4089,21 @@
             "CWE-770"
           ],
           "VendorSeverity": {
+            "bitnami": 3,
             "ubuntu": 2
+          },
+          "CVSS": {
+            "bitnami": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            }
           },
           "References": [
             "https://github.com/golang/go/issues/81741",
             "https://go.dev/cl/847307",
             "https://go.dev/issue/81741",
             "https://groups.google.com/g/golang-announce/c/U2fTuyDJznI",
+            "https://nvd.nist.gov/vuln/detail/CVE-2026-94440",
             "https://pkg.go.dev/vuln/GO-2026-6608",
             "https://www.cve.org/CVERecord?id=CVE-2026-94440",
             "https://www.openwall.com/lists/oss-security/2026/10/08/9"
@@ -4077,7 +4135,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:7699e6769c500d59e6729f2143dd37b1f50ac6059006e322b5d026abcc8552fe",
+          "Fingerprint": "sha256:840a763d10c06b5cecebacab894169811e2fed59948c201b15eab98fba3cecba",
           "Title": "html/template: golang: golang: cross-site scripting via consecutive expressions in JavaScript template literals",
           "Description": "When a JavaScript template literal contains consecutive expressions, the context tracking state was not properly reset upon entering a new expression. We now ensure that template-literal expression entries correctly reset context variables so all subsequent regular expression literals are accurately recognized and escaped.",
           "Severity": "MEDIUM",
@@ -4085,9 +4143,14 @@
             "CWE-79"
           ],
           "VendorSeverity": {
+            "bitnami": 2,
             "redhat": 2
           },
           "CVSS": {
+            "bitnami": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+              "V3Score": 6.1
+            },
             "redhat": {
               "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
               "V3Score": 6.1
@@ -4104,6 +4167,56 @@
           ],
           "PublishedDate": "2026-10-08T23:17:05.3Z",
           "LastModifiedDate": "2026-10-15T16:18:24.327Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2026-97030",
+          "VendorIDs": [
+            "GO-2026-6600"
+          ],
+          "PkgID": "stdlib@v1.26.8",
+          "PkgName": "stdlib",
+          "PkgIdentifier": {
+            "PURL": "pkg:golang/stdlib@v1.26.8",
+            "UID": "2d23c836fd6d3b26"
+          },
+          "InstalledVersion": "v1.26.8",
+          "FixedVersion": "1.26.9, 1.27.2",
+          "Status": "fixed",
+          "Layer": {
+            "Digest": "sha256:56dd9ea0d1aad3696077471ab284da203d849a60b45b3e5bf8f87e0d3c37cc6b",
+            "DiffID": "sha256:2f245dc9d3b1a61d48f81cce37a4ef7e565a861f5f74b891e233f0a182b111d2"
+          },
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-97030",
+          "DataSource": {
+            "ID": "govulndb",
+            "Name": "The Go Vulnerability Database",
+            "URL": "https://pkg.go.dev/vuln/"
+          },
+          "Fingerprint": "sha256:8a41d193abc4ee326cc840359ca93095e61c8fecbcd3d1de0012924ed4586656",
+          "Title": "A trusted template author may have previously written a valid template ...",
+          "Description": "A trusted template author may have previously written a valid template wherein the use of the 'yield' keyword would not be correctly escaped. We now ensure that valid keyword uses are escaped and non-keyword uses are not escaped.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-79"
+          ],
+          "VendorSeverity": {
+            "bitnami": 2
+          },
+          "CVSS": {
+            "bitnami": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+              "V3Score": 6.1
+            }
+          },
+          "References": [
+            "https://go.dev/cl/840925",
+            "https://go.dev/issue/81823",
+            "https://groups.google.com/g/golang-announce/c/U2fTuyDJznI",
+            "https://nvd.nist.gov/vuln/detail/CVE-2026-97030",
+            "https://pkg.go.dev/vuln/GO-2026-6600"
+          ],
+          "PublishedDate": "2026-10-08T23:17:05.91Z",
+          "LastModifiedDate": "2026-10-15T16:18:24.817Z"
         },
         {
           "VulnerabilityID": "CVE-2026-97032",
@@ -4129,7 +4242,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:bd84beafd043d1b5772d70a4f17d7714f0f979ec6f1e04d58d5b934a060d977f",
+          "Fingerprint": "sha256:bf434809f945c61e4c45fe1ce34a7ba157423914a6ab2724baddeba9db4e62cd",
           "Title": "net/http: net/http/internal/http2: golang: golang.org/x/net/http2: net/http: Denial of Service via concurrent HPACK encoder modification",
           "Description": "HTTP/2 servers could end up crashing due to inadvertently modifying its HPACK encoder concurrently. This happens because the server modifies the HPACK encoder from two goroutines without synchronization: one uses the encoder to encode a HEADERS frame as part of a response sent to a client and the other modifies the encoder's table size when handling a SETTINGS frame containing SETTINGS_HEADER_TABLE_SIZE that a client sends. A malicious client can repeatedly send a request while changing the header table size to crash the server.",
           "Severity": "MEDIUM",
@@ -4137,9 +4250,15 @@
             "CWE-362"
           ],
           "VendorSeverity": {
+            "azure": 2,
+            "bitnami": 3,
             "redhat": 2
           },
           "CVSS": {
+            "bitnami": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            },
             "redhat": {
               "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
               "V3Score": 5.9
@@ -4183,7 +4302,7 @@
             "Name": "The Go Vulnerability Database",
             "URL": "https://pkg.go.dev/vuln/"
           },
-          "Fingerprint": "sha256:044e1240c20909c47e562f26d4c9b9a9b13ed75b4bf5723384af7c266b2797a8",
+          "Fingerprint": "sha256:48217f6a43029867b2fb4c1c6e241ec9579a116b02459b9c287dc82a05af7359",
           "Title": "os: golang: golang: Directory traversal via Windows junction handling",
           "Description": "On Windows, when the target of Root.Mkdir or Root.MkdirAll is a junction pointing to an empty location, the operation can create a directory at the junction target even when that target is located outside the root. This only applies to operations where the last path component is a junction (path/to/junction, but not path/junction/target).",
           "Severity": "LOW",
@@ -4191,9 +4310,14 @@
             "CWE-1386"
           ],
           "VendorSeverity": {
+            "bitnami": 4,
             "redhat": 1
           },
           "CVSS": {
+            "bitnami": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+              "V3Score": 9.8
+            },
             "redhat": {
               "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:N",
               "V3Score": 3.3
@@ -4210,46 +4334,6 @@
           ],
           "PublishedDate": "2026-10-08T23:17:01.487Z",
           "LastModifiedDate": "2026-10-09T16:35:35.9Z"
-        },
-        {
-          "VulnerabilityID": "CVE-2026-97030",
-          "VendorIDs": [
-            "GO-2026-6600"
-          ],
-          "PkgID": "stdlib@v1.26.8",
-          "PkgName": "stdlib",
-          "PkgIdentifier": {
-            "PURL": "pkg:golang/stdlib@v1.26.8",
-            "UID": "2d23c836fd6d3b26"
-          },
-          "InstalledVersion": "v1.26.8",
-          "FixedVersion": "1.26.9, 1.27.2",
-          "Status": "fixed",
-          "Layer": {
-            "Digest": "sha256:56dd9ea0d1aad3696077471ab284da203d849a60b45b3e5bf8f87e0d3c37cc6b",
-            "DiffID": "sha256:2f245dc9d3b1a61d48f81cce37a4ef7e565a861f5f74b891e233f0a182b111d2"
-          },
-          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-97030",
-          "DataSource": {
-            "ID": "govulndb",
-            "Name": "The Go Vulnerability Database",
-            "URL": "https://pkg.go.dev/vuln/"
-          },
-          "Fingerprint": "sha256:7a7ca91f62ee49ccb98683e50e84a8c1de1aca3afe7997c05931b3f2531d9bef",
-          "Title": "A trusted template author may have previously written a valid template ...",
-          "Description": "A trusted template author may have previously written a valid template wherein the use of the 'yield' keyword would not be correctly escaped. We now ensure that valid keyword uses are escaped and non-keyword uses are not escaped.",
-          "Severity": "UNKNOWN",
-          "CweIDs": [
-            "CWE-79"
-          ],
-          "References": [
-            "https://go.dev/cl/840925",
-            "https://go.dev/issue/81823",
-            "https://groups.google.com/g/golang-announce/c/U2fTuyDJznI",
-            "https://pkg.go.dev/vuln/GO-2026-6600"
-          ],
-          "PublishedDate": "2026-10-08T23:17:05.91Z",
-          "LastModifiedDate": "2026-10-15T16:18:24.817Z"
         }
       ]
     }
