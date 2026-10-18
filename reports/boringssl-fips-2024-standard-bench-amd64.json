@@ -1,0 +1,39 @@
+{
+ "unit": "boringssl-fips-2024",
+ "arch": "amd64",
+ "image": "ghcr.io/taha2samy-3/boringssl-fips:fips-2024",
+ "baseline": {
+  "name": "OpenSSL baseline on Debian Bookworm",
+  "image": "buildpack-deps:bookworm-curl"
+ },
+ "cpu": "AMD EPYC 9V45 96-Core Processor",
+ "runs": 3,
+ "seconds": 1.0,
+ "ran_at": "2026-10-18T07:42:43+00:00",
+ "results": [
+  {
+   "name": "SHA-256",
+   "metric": "MB/s",
+   "fips": 2153.41,
+   "baseline": null
+  },
+  {
+   "name": "SHA-512",
+   "metric": "MB/s",
+   "fips": 920.62,
+   "baseline": null
+  },
+  {
+   "name": "AES-128-GCM",
+   "metric": "MB/s",
+   "fips": 21702.1,
+   "baseline": null
+  },
+  {
+   "name": "AES-256-GCM",
+   "metric": "MB/s",
+   "fips": 19250.47,
+   "baseline": null
+  }
+ ]
+}

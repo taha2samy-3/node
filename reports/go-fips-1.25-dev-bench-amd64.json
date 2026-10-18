@@ -1,0 +1,63 @@
+{
+ "unit": "go-fips-1.25",
+ "arch": "amd64",
+ "image": "ghcr.io/taha2samy-3/go-fips:1.25-dev",
+ "baseline": {
+  "name": "Go 1.25 without BoringCrypto (regular Go dev image)",
+  "image": "ghcr.io/taha2samy-3/go:1.25-dev"
+ },
+ "cpu": "INTEL(R) XEON(R) PLATINUM 8573C",
+ "runs": 3,
+ "seconds": 1.0,
+ "ran_at": "2026-10-18T07:44:04+00:00",
+ "results": [
+  {
+   "name": "SHA-256",
+   "metric": "MB/s",
+   "fips": 1505.15,
+   "baseline": 1525.45
+  },
+  {
+   "name": "SHA-512",
+   "metric": "MB/s",
+   "fips": 592.51,
+   "baseline": 594.75
+  },
+  {
+   "name": "HMAC-SHA256",
+   "metric": "MB/s",
+   "fips": 1336.46,
+   "baseline": 1463.55
+  },
+  {
+   "name": "AES-256-GCM encrypt",
+   "metric": "MB/s",
+   "fips": 1086.03,
+   "baseline": 3353.26
+  },
+  {
+   "name": "ECDSA P-256 sign",
+   "metric": "ops/s",
+   "fips": 40658.11,
+   "baseline": 29934.92
+  },
+  {
+   "name": "ECDSA P-256 verify",
+   "metric": "ops/s",
+   "fips": 15121.67,
+   "baseline": 13360.01
+  },
+  {
+   "name": "RSA-2048 sign",
+   "metric": "ops/s",
+   "fips": 1626.83,
+   "baseline": 1157.41
+  },
+  {
+   "name": "RSA-2048 verify",
+   "metric": "ops/s",
+   "fips": 55669.54,
+   "baseline": 33635.04
+  }
+ ]
+}
