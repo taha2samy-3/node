@@ -3,9 +3,9 @@
   "Trivy": {
     "Version": "0.76.0"
   },
-  "ReportID": "01a13d08-7e1b-7944-a3b2-1a72fc448d46",
-  "CreatedAt": "2026-10-15T00:48:49.179608431Z",
-  "ArtifactID": "sha256:aa00acdcad9ed7f78e9ee07bfc846f58c749fa87115830a3730f9c164de865ae",
+  "ReportID": "01a14d93-2a16-7a3d-902e-0c3997248ae4",
+  "CreatedAt": "2026-10-18T05:54:12.630672879Z",
+  "ArtifactID": "sha256:e12a10b1e9b0a5a0d2d4f7d25f872a1f5290a2976c7b130a1f55b7d3fffafe29",
   "ArtifactName": "ghcr.io/taha2samy-3/wolfi-openjdk-fips:21-distroless",
   "ArtifactType": "container_image",
   "Metadata": {
@@ -14,112 +14,112 @@
       "Family": "wolfi",
       "Name": "20230201"
     },
-    "ImageID": "sha256:661c1c414b45b2bf7594c8ce8cbc4cd009a6ef55a2452e14113344a14e01753f",
+    "ImageID": "sha256:1d8a275d01b805602d642e7b8eeaf42b0cddc441049015f68954a047ec70cc0a",
     "DiffIDs": [
-      "sha256:0a4ac5026fe6bcd90b37e2c55719cd9d9c84243707759159722c55a75d2da335",
-      "sha256:00ccaf73f4dcf928ef0610a5f41bc14402139d40a5c772da30028fd221ee102b",
+      "sha256:2b69baaca8462874501b0a832b2379851086d2ba5efcefc42ad08aa5f59e6454",
+      "sha256:28b4efe91a7f28eba87f1120429fe179afe5fa4a84f50a18d68cf5d2d9d6e8d9",
       "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
     ],
     "RepoTags": [
       "ghcr.io/taha2samy-3/wolfi-openjdk-fips:21-distroless"
     ],
     "RepoDigests": [
-      "ghcr.io/taha2samy-3/wolfi-openjdk-fips@sha256:879b1890478a5652c605200cff84ff0d87ea728776041ea7f609e6d385fb3f29"
+      "ghcr.io/taha2samy-3/wolfi-openjdk-fips@sha256:e30c6319b7369a03bf5431e085e1fdaf30797bb18c1be7fd79007fa6745b5dbc"
     ],
     "Reference": "ghcr.io/taha2samy-3/wolfi-openjdk-fips:21-distroless",
     "ImageConfig": {
       "architecture": "amd64",
-      "created": "2026-10-15T00:33:58.910361249Z",
+      "created": "2026-10-18T05:35:03.069240792Z",
       "history": [
         {
-          "created": "2026-10-15T00:33:56.978077769Z",
+          "created": "2026-10-18T05:35:01.350722862Z",
           "created_by": "COPY / / # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-15T00:33:58.852950991Z",
+          "created": "2026-10-18T05:35:03.057672663Z",
           "created_by": "COPY /opt/jre /opt/java # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-15T00:33:58.910361249Z",
+          "created": "2026-10-18T05:35:03.069240792Z",
           "created_by": "ENV JAVA_HOME=/opt/java PATH=/opt/java/bin:/usr/local/bin:/usr/bin:/bin LANG=C.UTF-8 TZ=UTC SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-15T00:33:58.910361249Z",
+          "created": "2026-10-18T05:35:03.069240792Z",
           "created_by": "ARG KEYSTORE_PWD=changeit",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-15T00:33:58.910361249Z",
+          "created": "2026-10-18T05:35:03.069240792Z",
           "created_by": "ARG JRE_TRUSTSTORE",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-15T00:33:58.910361249Z",
+          "created": "2026-10-18T05:35:03.069240792Z",
           "created_by": "ARG JRE_BC_DIR",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-15T00:33:58.910361249Z",
+          "created": "2026-10-18T05:35:03.069240792Z",
           "created_by": "ARG JRE_CHECK_EKU",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-15T00:33:58.910361249Z",
+          "created": "2026-10-18T05:35:03.069240792Z",
           "created_by": "ENV JAVA_TOOL_OPTIONS=-Dorg.bouncycastle.fips.approved_only=true -Dorg.bouncycastle.jsse.client.assumeExtendedKeyUsage=false -Dorg.bouncycastle.jsse.trustManager.checkEKU=true -Djdk.tls.trustNameService=true -Dkeystore.type=BCFKS -Djavax.net.ssl.trustStore=/opt/java/lib/security/cacerts -Djavax.net.ssl.trustStoreType=BCFKS -Djavax.net.ssl.trustStorePassword=changeit -Xbootclasspath/a:/opt/java/lib/bc-fips.jar:/opt/java/lib/bcutil-fips.jar:/opt/java/lib/bctls-fips.jar",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-15T00:33:58.910361249Z",
+          "created": "2026-10-18T05:35:03.069240792Z",
           "created_by": "ARG JAVA_VERSION=21",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-15T00:33:58.910361249Z",
+          "created": "2026-10-18T05:35:03.069240792Z",
           "created_by": "ARG JAVA_FULL_VERSION=21.0.11+10-LTS",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-15T00:33:58.910361249Z",
+          "created": "2026-10-18T05:35:03.069240792Z",
           "created_by": "ARG BC_FIPS_VERSION=2.1.2",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-15T00:33:58.910361249Z",
+          "created": "2026-10-18T05:35:03.069240792Z",
           "created_by": "LABEL org.opencontainers.image.authors=Taha Samy org.opencontainers.image.source=https://github.com/taha2samy-3/node org.opencontainers.image.version=21.0.12.1+1-LTS org.opencontainers.image.vendor=taha2samy-3 org.opencontainers.image.title=Wolfi OpenJDK 21 JRE Distroless FIPS (Production) org.opencontainers.image.description=Hardened Zero-CVE Distroless OpenJDK 21 JRE with Bouncy Castle FIPS 2.1.1 on Wolfi OS com.taha2samy.fips.version=2.1.1",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-15T00:33:58.910361249Z",
+          "created": "2026-10-18T05:35:03.069240792Z",
           "created_by": "HEALTHCHECK \u0026{[\"CMD\" \"/opt/java/bin/java\" \"-version\"] \"30s\" \"5s\" \"10s\" \"0s\" '\\x03'}",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-15T00:33:58.910361249Z",
+          "created": "2026-10-18T05:35:03.069240792Z",
           "created_by": "USER 1001",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-15T00:33:58.910361249Z",
+          "created": "2026-10-18T05:35:03.069240792Z",
           "created_by": "WORKDIR /home/java",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-15T00:33:58.910361249Z",
+          "created": "2026-10-18T05:35:03.069240792Z",
           "created_by": "ENTRYPOINT [\"/opt/java/bin/java\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
@@ -129,8 +129,8 @@
       "rootfs": {
         "type": "layers",
         "diff_ids": [
-          "sha256:0a4ac5026fe6bcd90b37e2c55719cd9d9c84243707759159722c55a75d2da335",
-          "sha256:00ccaf73f4dcf928ef0610a5f41bc14402139d40a5c772da30028fd221ee102b",
+          "sha256:2b69baaca8462874501b0a832b2379851086d2ba5efcefc42ad08aa5f59e6454",
+          "sha256:28b4efe91a7f28eba87f1120429fe179afe5fa4a84f50a18d68cf5d2d9d6e8d9",
           "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
         ]
       },
@@ -159,7 +159,7 @@
         ],
         "Labels": {
           "com.taha2samy.fips.version": "2.1.1",
-          "io.github.taha2samy-3.build.fingerprint": "55ec7df9ef3a1a9d2eba30b50bc28f7b",
+          "io.github.taha2samy-3.build.fingerprint": "45f1ea52866adde91eba418c6182ddc2",
           "org.opencontainers.image.authors": "Taha Samy",
           "org.opencontainers.image.description": "Hardened FIPS 140-3 compliant Zero-CVE distroless OpenJDK JRE container on Wolfi",
           "org.opencontainers.image.licenses": "Apache-2.0",
@@ -175,13 +175,13 @@
     "Layers": [
       {
         "Size": 28623872,
-        "Digest": "sha256:bafa9092d8ed895ef07d9340f1bff9fefbbfa52ea571d23807449a90692bc5cf",
-        "DiffID": "sha256:0a4ac5026fe6bcd90b37e2c55719cd9d9c84243707759159722c55a75d2da335"
+        "Digest": "sha256:8cb49578f622857e227f40478c23483bd76b99d2bec7c8bba0c1c03c40de7af1",
+        "DiffID": "sha256:2b69baaca8462874501b0a832b2379851086d2ba5efcefc42ad08aa5f59e6454"
       },
       {
         "Size": 171277824,
-        "Digest": "sha256:181116993c0e69c2da61703ded2ed3dd7470a41e3dd7c2341aa08a6a9c5d6068",
-        "DiffID": "sha256:00ccaf73f4dcf928ef0610a5f41bc14402139d40a5c772da30028fd221ee102b"
+        "Digest": "sha256:cc419981e13717fc1498b58316b26273c8aafb86c5b99f8f6f02b277ff19dde9",
+        "DiffID": "sha256:28b4efe91a7f28eba87f1120429fe179afe5fa4a84f50a18d68cf5d2d9d6e8d9"
       },
       {
         "Size": 1024,
@@ -201,7 +201,7 @@
           "Name": "ca-certificates",
           "Identifier": {
             "PURL": "pkg:apk/wolfi/ca-certificates@20260909-r2?arch=x86_64\u0026distro=20230201",
-            "UID": "176ec2053228fe9e"
+            "UID": "dac25815cffe4aa1"
           },
           "Version": "20260909-r2",
           "Arch": "x86_64",
@@ -215,12 +215,12 @@
           "DependsOn": [
             "glibc@2.43-r13",
             "ld-linux@2.43-r13",
-            "openssl-4.0-libcrypto@4.0.3-r6",
+            "openssl-4.0-libcrypto@4.0.3-r7",
             "wolfi-baselayout@20230201-r30"
           ],
           "Layer": {
-            "Digest": "sha256:bafa9092d8ed895ef07d9340f1bff9fefbbfa52ea571d23807449a90692bc5cf",
-            "DiffID": "sha256:0a4ac5026fe6bcd90b37e2c55719cd9d9c84243707759159722c55a75d2da335"
+            "Digest": "sha256:8cb49578f622857e227f40478c23483bd76b99d2bec7c8bba0c1c03c40de7af1",
+            "DiffID": "sha256:2b69baaca8462874501b0a832b2379851086d2ba5efcefc42ad08aa5f59e6454"
           },
           "Digest": "sha1:61276b4c216e9e88c847609e639f447e51b1af4a",
           "InstalledFiles": [
@@ -374,8 +374,8 @@
             "wolfi-baselayout@20230201-r30"
           ],
           "Layer": {
-            "Digest": "sha256:bafa9092d8ed895ef07d9340f1bff9fefbbfa52ea571d23807449a90692bc5cf",
-            "DiffID": "sha256:0a4ac5026fe6bcd90b37e2c55719cd9d9c84243707759159722c55a75d2da335"
+            "Digest": "sha256:8cb49578f622857e227f40478c23483bd76b99d2bec7c8bba0c1c03c40de7af1",
+            "DiffID": "sha256:2b69baaca8462874501b0a832b2379851086d2ba5efcefc42ad08aa5f59e6454"
           },
           "Digest": "sha1:cdbb31b944f2686b23aa355d9f68134437d9b3af",
           "InstalledFiles": [
@@ -409,8 +409,8 @@
             "wolfi-baselayout@20230201-r30"
           ],
           "Layer": {
-            "Digest": "sha256:bafa9092d8ed895ef07d9340f1bff9fefbbfa52ea571d23807449a90692bc5cf",
-            "DiffID": "sha256:0a4ac5026fe6bcd90b37e2c55719cd9d9c84243707759159722c55a75d2da335"
+            "Digest": "sha256:8cb49578f622857e227f40478c23483bd76b99d2bec7c8bba0c1c03c40de7af1",
+            "DiffID": "sha256:2b69baaca8462874501b0a832b2379851086d2ba5efcefc42ad08aa5f59e6454"
           },
           "Digest": "sha1:6b4c81b17edd0af066e833e3f135ce58d44b7e07",
           "InstalledFiles": [
@@ -458,8 +458,8 @@
             "wolfi-baselayout@20230201-r30"
           ],
           "Layer": {
-            "Digest": "sha256:bafa9092d8ed895ef07d9340f1bff9fefbbfa52ea571d23807449a90692bc5cf",
-            "DiffID": "sha256:0a4ac5026fe6bcd90b37e2c55719cd9d9c84243707759159722c55a75d2da335"
+            "Digest": "sha256:8cb49578f622857e227f40478c23483bd76b99d2bec7c8bba0c1c03c40de7af1",
+            "DiffID": "sha256:2b69baaca8462874501b0a832b2379851086d2ba5efcefc42ad08aa5f59e6454"
           },
           "Digest": "sha1:0863e5527bb415ac36bb8effd606728441ba138b",
           "InstalledFiles": [
@@ -499,8 +499,8 @@
             "wolfi-baselayout@20230201-r30"
           ],
           "Layer": {
-            "Digest": "sha256:bafa9092d8ed895ef07d9340f1bff9fefbbfa52ea571d23807449a90692bc5cf",
-            "DiffID": "sha256:0a4ac5026fe6bcd90b37e2c55719cd9d9c84243707759159722c55a75d2da335"
+            "Digest": "sha256:8cb49578f622857e227f40478c23483bd76b99d2bec7c8bba0c1c03c40de7af1",
+            "DiffID": "sha256:2b69baaca8462874501b0a832b2379851086d2ba5efcefc42ad08aa5f59e6454"
           },
           "Digest": "sha1:d6be63799c236da63acc7de77b960bb3c97fb277",
           "InstalledFiles": [
@@ -530,8 +530,8 @@
             "glibc@2.43-r13"
           ],
           "Layer": {
-            "Digest": "sha256:bafa9092d8ed895ef07d9340f1bff9fefbbfa52ea571d23807449a90692bc5cf",
-            "DiffID": "sha256:0a4ac5026fe6bcd90b37e2c55719cd9d9c84243707759159722c55a75d2da335"
+            "Digest": "sha256:8cb49578f622857e227f40478c23483bd76b99d2bec7c8bba0c1c03c40de7af1",
+            "DiffID": "sha256:2b69baaca8462874501b0a832b2379851086d2ba5efcefc42ad08aa5f59e6454"
           },
           "Digest": "sha1:75cdcfca5cd375cf33744a88544661252245f367",
           "InstalledFiles": [
@@ -561,8 +561,8 @@
             "libbrotlicommon1@1.2.0-r6"
           ],
           "Layer": {
-            "Digest": "sha256:bafa9092d8ed895ef07d9340f1bff9fefbbfa52ea571d23807449a90692bc5cf",
-            "DiffID": "sha256:0a4ac5026fe6bcd90b37e2c55719cd9d9c84243707759159722c55a75d2da335"
+            "Digest": "sha256:8cb49578f622857e227f40478c23483bd76b99d2bec7c8bba0c1c03c40de7af1",
+            "DiffID": "sha256:2b69baaca8462874501b0a832b2379851086d2ba5efcefc42ad08aa5f59e6454"
           },
           "Digest": "sha1:df23786d399aea62d054bdd0074829881b6b804d",
           "InstalledFiles": [
@@ -592,8 +592,8 @@
             "libbrotlicommon1@1.2.0-r6"
           ],
           "Layer": {
-            "Digest": "sha256:bafa9092d8ed895ef07d9340f1bff9fefbbfa52ea571d23807449a90692bc5cf",
-            "DiffID": "sha256:0a4ac5026fe6bcd90b37e2c55719cd9d9c84243707759159722c55a75d2da335"
+            "Digest": "sha256:8cb49578f622857e227f40478c23483bd76b99d2bec7c8bba0c1c03c40de7af1",
+            "DiffID": "sha256:2b69baaca8462874501b0a832b2379851086d2ba5efcefc42ad08aa5f59e6454"
           },
           "Digest": "sha1:8f692ec0eda1cc549456a635cc24a3bf10ec9e4f",
           "InstalledFiles": [
@@ -608,7 +608,7 @@
           "Name": "libcrypto3",
           "Identifier": {
             "PURL": "pkg:apk/wolfi/libcrypto3@3.6.5-r2?arch=x86_64\u0026distro=20230201",
-            "UID": "46e0c93c323a0879"
+            "UID": "e372ff06632aeccb"
           },
           "Version": "3.6.5-r2",
           "Arch": "x86_64",
@@ -620,12 +620,12 @@
           "Maintainer": "wolfi",
           "DependsOn": [
             "glibc@2.43-r13",
-            "openssl-4.0-libcrypto@4.0.3-r6",
+            "openssl-4.0-libcrypto@4.0.3-r7",
             "openssl-provider-legacy-allowed@4.0.3-r1"
           ],
           "Layer": {
-            "Digest": "sha256:bafa9092d8ed895ef07d9340f1bff9fefbbfa52ea571d23807449a90692bc5cf",
-            "DiffID": "sha256:0a4ac5026fe6bcd90b37e2c55719cd9d9c84243707759159722c55a75d2da335"
+            "Digest": "sha256:8cb49578f622857e227f40478c23483bd76b99d2bec7c8bba0c1c03c40de7af1",
+            "DiffID": "sha256:2b69baaca8462874501b0a832b2379851086d2ba5efcefc42ad08aa5f59e6454"
           },
           "Digest": "sha1:4068ab3df162211515f177a1408782689bd93227",
           "InstalledFiles": [
@@ -654,8 +654,8 @@
             "ld-linux@2.43-r13"
           ],
           "Layer": {
-            "Digest": "sha256:bafa9092d8ed895ef07d9340f1bff9fefbbfa52ea571d23807449a90692bc5cf",
-            "DiffID": "sha256:0a4ac5026fe6bcd90b37e2c55719cd9d9c84243707759159722c55a75d2da335"
+            "Digest": "sha256:8cb49578f622857e227f40478c23483bd76b99d2bec7c8bba0c1c03c40de7af1",
+            "DiffID": "sha256:2b69baaca8462874501b0a832b2379851086d2ba5efcefc42ad08aa5f59e6454"
           },
           "Digest": "sha1:92b17e208263f2393ee03daf76ed3283debc4098",
           "InstalledFiles": [
@@ -686,8 +686,8 @@
             "libgcc@16.2.0-r1"
           ],
           "Layer": {
-            "Digest": "sha256:bafa9092d8ed895ef07d9340f1bff9fefbbfa52ea571d23807449a90692bc5cf",
-            "DiffID": "sha256:0a4ac5026fe6bcd90b37e2c55719cd9d9c84243707759159722c55a75d2da335"
+            "Digest": "sha256:8cb49578f622857e227f40478c23483bd76b99d2bec7c8bba0c1c03c40de7af1",
+            "DiffID": "sha256:2b69baaca8462874501b0a832b2379851086d2ba5efcefc42ad08aa5f59e6454"
           },
           "Digest": "sha1:1b3cf6b0a3932969847b53a287597e83a2c004cb",
           "InstalledFiles": [
@@ -699,16 +699,16 @@
           "AnalyzedBy": "apk"
         },
         {
-          "ID": "openssl-4.0-libcrypto@4.0.3-r6",
+          "ID": "openssl-4.0-libcrypto@4.0.3-r7",
           "Name": "openssl-4.0-libcrypto",
           "Identifier": {
-            "PURL": "pkg:apk/wolfi/openssl-4.0-libcrypto@4.0.3-r6?arch=x86_64\u0026distro=20230201",
-            "UID": "bced318daa23ad2b"
+            "PURL": "pkg:apk/wolfi/openssl-4.0-libcrypto@4.0.3-r7?arch=x86_64\u0026distro=20230201",
+            "UID": "a0638047c4f4ee2e"
           },
-          "Version": "4.0.3-r6",
+          "Version": "4.0.3-r7",
           "Arch": "x86_64",
           "SrcName": "openssl-4.0",
-          "SrcVersion": "4.0.3-r6",
+          "SrcVersion": "4.0.3-r7",
           "Licenses": [
             "Apache-2.0"
           ],
@@ -720,15 +720,15 @@
             "openssl-provider-legacy-allowed@4.0.3-r1"
           ],
           "Layer": {
-            "Digest": "sha256:bafa9092d8ed895ef07d9340f1bff9fefbbfa52ea571d23807449a90692bc5cf",
-            "DiffID": "sha256:0a4ac5026fe6bcd90b37e2c55719cd9d9c84243707759159722c55a75d2da335"
+            "Digest": "sha256:8cb49578f622857e227f40478c23483bd76b99d2bec7c8bba0c1c03c40de7af1",
+            "DiffID": "sha256:2b69baaca8462874501b0a832b2379851086d2ba5efcefc42ad08aa5f59e6454"
           },
-          "Digest": "sha1:19ddafd6c8d3e5179dc6908b63fc27ef6a0636d8",
+          "Digest": "sha1:94014cfa27fbf43cefe540b22c97fb66ba9bcd8b",
           "InstalledFiles": [
             "etc/ssl/ca.cnf",
             "etc/ssl/openssl.cnf",
             "usr/lib/libcrypto.so.4",
-            "var/lib/db/sbom/openssl-4.0-libcrypto-4.0.3-r6.spdx.json"
+            "var/lib/db/sbom/openssl-4.0-libcrypto-4.0.3-r7.spdx.json"
           ],
           "AnalyzedBy": "apk"
         },
@@ -751,8 +751,8 @@
             "glibc@2.43-r13"
           ],
           "Layer": {
-            "Digest": "sha256:bafa9092d8ed895ef07d9340f1bff9fefbbfa52ea571d23807449a90692bc5cf",
-            "DiffID": "sha256:0a4ac5026fe6bcd90b37e2c55719cd9d9c84243707759159722c55a75d2da335"
+            "Digest": "sha256:8cb49578f622857e227f40478c23483bd76b99d2bec7c8bba0c1c03c40de7af1",
+            "DiffID": "sha256:2b69baaca8462874501b0a832b2379851086d2ba5efcefc42ad08aa5f59e6454"
           },
           "Digest": "sha1:18f4d7a917adc681747f43d4d503db6b9d1eab2c",
           "InstalledFiles": [
@@ -779,8 +779,8 @@
           ],
           "Maintainer": "wolfi",
           "Layer": {
-            "Digest": "sha256:bafa9092d8ed895ef07d9340f1bff9fefbbfa52ea571d23807449a90692bc5cf",
-            "DiffID": "sha256:0a4ac5026fe6bcd90b37e2c55719cd9d9c84243707759159722c55a75d2da335"
+            "Digest": "sha256:8cb49578f622857e227f40478c23483bd76b99d2bec7c8bba0c1c03c40de7af1",
+            "DiffID": "sha256:2b69baaca8462874501b0a832b2379851086d2ba5efcefc42ad08aa5f59e6454"
           },
           "Digest": "sha1:307334fab3e8b4170c5e074fd98a21fecdafa4ef",
           "InstalledFiles": [
@@ -2008,8 +2008,8 @@
             "ca-certificates-bundle@20260909-r2"
           ],
           "Layer": {
-            "Digest": "sha256:bafa9092d8ed895ef07d9340f1bff9fefbbfa52ea571d23807449a90692bc5cf",
-            "DiffID": "sha256:0a4ac5026fe6bcd90b37e2c55719cd9d9c84243707759159722c55a75d2da335"
+            "Digest": "sha256:8cb49578f622857e227f40478c23483bd76b99d2bec7c8bba0c1c03c40de7af1",
+            "DiffID": "sha256:2b69baaca8462874501b0a832b2379851086d2ba5efcefc42ad08aa5f59e6454"
           },
           "Digest": "sha1:ab2155d0d6404009da1e8185851c14425ce8402d",
           "InstalledFiles": [
@@ -2058,8 +2058,8 @@
           ],
           "Maintainer": "wolfi",
           "Layer": {
-            "Digest": "sha256:bafa9092d8ed895ef07d9340f1bff9fefbbfa52ea571d23807449a90692bc5cf",
-            "DiffID": "sha256:0a4ac5026fe6bcd90b37e2c55719cd9d9c84243707759159722c55a75d2da335"
+            "Digest": "sha256:8cb49578f622857e227f40478c23483bd76b99d2bec7c8bba0c1c03c40de7af1",
+            "DiffID": "sha256:2b69baaca8462874501b0a832b2379851086d2ba5efcefc42ad08aa5f59e6454"
           },
           "Digest": "sha1:c9e9f5b4a87785ae4aae9539e439d85b22c7390d",
           "InstalledFiles": [
@@ -2091,8 +2091,8 @@
             "wolfi-baselayout@20230201-r30"
           ],
           "Layer": {
-            "Digest": "sha256:bafa9092d8ed895ef07d9340f1bff9fefbbfa52ea571d23807449a90692bc5cf",
-            "DiffID": "sha256:0a4ac5026fe6bcd90b37e2c55719cd9d9c84243707759159722c55a75d2da335"
+            "Digest": "sha256:8cb49578f622857e227f40478c23483bd76b99d2bec7c8bba0c1c03c40de7af1",
+            "DiffID": "sha256:2b69baaca8462874501b0a832b2379851086d2ba5efcefc42ad08aa5f59e6454"
           },
           "Digest": "sha1:aa08696762f5fc1101d097159acbbe2ccdbdba82",
           "InstalledFiles": [
@@ -2117,8 +2117,8 @@
           },
           "Version": "2.1.1",
           "Layer": {
-            "Digest": "sha256:181116993c0e69c2da61703ded2ed3dd7470a41e3dd7c2341aa08a6a9c5d6068",
-            "DiffID": "sha256:00ccaf73f4dcf928ef0610a5f41bc14402139d40a5c772da30028fd221ee102b"
+            "Digest": "sha256:cc419981e13717fc1498b58316b26273c8aafb86c5b99f8f6f02b277ff19dde9",
+            "DiffID": "sha256:28b4efe91a7f28eba87f1120429fe179afe5fa4a84f50a18d68cf5d2d9d6e8d9"
           },
           "FilePath": "opt/java/lib/bc-fips.jar",
           "AnalyzedBy": "jar"
@@ -2131,8 +2131,8 @@
           },
           "Version": "2.1.25",
           "Layer": {
-            "Digest": "sha256:181116993c0e69c2da61703ded2ed3dd7470a41e3dd7c2341aa08a6a9c5d6068",
-            "DiffID": "sha256:00ccaf73f4dcf928ef0610a5f41bc14402139d40a5c772da30028fd221ee102b"
+            "Digest": "sha256:cc419981e13717fc1498b58316b26273c8aafb86c5b99f8f6f02b277ff19dde9",
+            "DiffID": "sha256:28b4efe91a7f28eba87f1120429fe179afe5fa4a84f50a18d68cf5d2d9d6e8d9"
           },
           "FilePath": "opt/java/lib/bctls-fips.jar",
           "AnalyzedBy": "jar"
@@ -2148,8 +2148,8 @@
             "MIT"
           ],
           "Layer": {
-            "Digest": "sha256:181116993c0e69c2da61703ded2ed3dd7470a41e3dd7c2341aa08a6a9c5d6068",
-            "DiffID": "sha256:00ccaf73f4dcf928ef0610a5f41bc14402139d40a5c772da30028fd221ee102b"
+            "Digest": "sha256:cc419981e13717fc1498b58316b26273c8aafb86c5b99f8f6f02b277ff19dde9",
+            "DiffID": "sha256:28b4efe91a7f28eba87f1120429fe179afe5fa4a84f50a18d68cf5d2d9d6e8d9"
           },
           "FilePath": "opt/java/lib/bcutil-fips.jar",
           "AnalyzedBy": "jar"
@@ -2171,8 +2171,8 @@
           "FixedVersion": "1.0.2.7, 2.0.2, 2.1.3",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:181116993c0e69c2da61703ded2ed3dd7470a41e3dd7c2341aa08a6a9c5d6068",
-            "DiffID": "sha256:00ccaf73f4dcf928ef0610a5f41bc14402139d40a5c772da30028fd221ee102b"
+            "Digest": "sha256:cc419981e13717fc1498b58316b26273c8aafb86c5b99f8f6f02b277ff19dde9",
+            "DiffID": "sha256:28b4efe91a7f28eba87f1120429fe179afe5fa4a84f50a18d68cf5d2d9d6e8d9"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-8763",
@@ -2181,7 +2181,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:de4a962aa5eb46ed89349ebb3c10d89642ee21bdaaac476fef66f029bf28c498",
+          "Fingerprint": "sha256:bb4b04f358097863ed86bc5031ebcfe988427c9a4276c5b2deff8559ce5c518b",
           "Title": "org.bouncycastle/bcprov-jdk15on: org.bouncycastle/bcpkix-jdk15on: Bouncy Castle for Java: Name Constraints bypass via trailing dot in rfc822Name and URI",
           "Description": "In Bouncy Castle for Java before 1.85, Name Constraints bypass via trailing dot in rfc822Name and URI. This issue also affects Bouncy Castle for Java LTS before 2.73.12, and Bouncy Castle for Java FIPS (BC-FJA) before bc-fips 1.0.2.7 (1.0.X series), 2.0.2 (2.0.X series) and 2.1.3 (2.1.X series).",
           "Severity": "CRITICAL",
@@ -2240,8 +2240,8 @@
           "FixedVersion": "1.0.2.7, 2.0.2, 2.1.3",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:181116993c0e69c2da61703ded2ed3dd7470a41e3dd7c2341aa08a6a9c5d6068",
-            "DiffID": "sha256:00ccaf73f4dcf928ef0610a5f41bc14402139d40a5c772da30028fd221ee102b"
+            "Digest": "sha256:cc419981e13717fc1498b58316b26273c8aafb86c5b99f8f6f02b277ff19dde9",
+            "DiffID": "sha256:28b4efe91a7f28eba87f1120429fe179afe5fa4a84f50a18d68cf5d2d9d6e8d9"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-13505",
@@ -2250,7 +2250,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:e5553110d314249864417c11a7a9e2619c4b75a2be75b521669e7d5e76cf6d92",
+          "Fingerprint": "sha256:2f7de30b2b16356c50b2e8253e1dc7c4a0b336f646bf75a3f238e821299e0b07",
           "Title": "org.bouncycastle/bc-fips: Bouncy Castle for Java FIPS: Sensitive key material remains in memory due to delayed zeroisation",
           "Description": "In Bouncy Castle for Java FIPS (BC-FJA) before bc-fips 1.0.2.7 (1.0.X series), 2.0.2 (2.0.X series) and 2.1.3 (2.1.X series), sensitive key material held by the AES and DESede engines, the SP 800-90A DRBGs, SymmetricSecretKey and the PBKD and scrypt parameter classes was zeroised on garbage collection by overriding Object.finalize. Finalization runs at an unspecified time and in an unspecified order and is serviced by a single finalizer thread, so where objects carrying a finalizer are allocated faster than that thread retires them the pending-finalization queue grows without bound: disposal falls arbitrarily far behind, which can contribute to an OutOfMemoryError under load, and the key material those objects hold stays resident in the heap for as long as they are queued, defeating the purpose of the zeroisation. The behaviour was not a problem on Java 8 or Java 11; it is later JVMs, on which finalization has been deprecated and progressively de-emphasised, where it becomes one. Disposal of these classes now runs from a java.lang.ref.Cleaner registered in the multi-release jdk1.9 overlay, so on Java 9 and later it no longer depends on the finalizer being scheduled. Bouncy Castle for Java (bcprov) and Bouncy Castle for Java LTS are not affected, as neither implements the finalizer-based zeroisation scheme.",
           "Severity": "HIGH",
@@ -2298,8 +2298,8 @@
           "FixedVersion": "1.0.2.7, 2.0.2, 2.1.3",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:181116993c0e69c2da61703ded2ed3dd7470a41e3dd7c2341aa08a6a9c5d6068",
-            "DiffID": "sha256:00ccaf73f4dcf928ef0610a5f41bc14402139d40a5c772da30028fd221ee102b"
+            "Digest": "sha256:cc419981e13717fc1498b58316b26273c8aafb86c5b99f8f6f02b277ff19dde9",
+            "DiffID": "sha256:28b4efe91a7f28eba87f1120429fe179afe5fa4a84f50a18d68cf5d2d9d6e8d9"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-13506",
@@ -2308,7 +2308,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:2066b559dd27125da0ab9a12bea065337d29399de83e35bd2ca2182da14672b8",
+          "Fingerprint": "sha256:3a773d6ec8750c00509e173d692335edccb60feee9f0e556ee506e46ab26bfaa",
           "Title": "bouncycastle: Bouncy Castle for Java: Denial of Service via lazy ASN.1 sequence processing",
           "Description": "In Bouncy Castle for Java before 1.85, Lazy ASN.1 sequence forcing resets nesting-depth guard. This issue also affects Bouncy Castle for Java LTS before 2.73.12, and Bouncy Castle for Java FIPS (BC-FJA) before bc-fips 1.0.2.7 (1.0.X series), 2.0.2 (2.0.X series) and 2.1.3 (2.1.X series).",
           "Severity": "HIGH",
@@ -2365,8 +2365,8 @@
           "FixedVersion": "2.1.3",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:181116993c0e69c2da61703ded2ed3dd7470a41e3dd7c2341aa08a6a9c5d6068",
-            "DiffID": "sha256:00ccaf73f4dcf928ef0610a5f41bc14402139d40a5c772da30028fd221ee102b"
+            "Digest": "sha256:cc419981e13717fc1498b58316b26273c8aafb86c5b99f8f6f02b277ff19dde9",
+            "DiffID": "sha256:28b4efe91a7f28eba87f1120429fe179afe5fa4a84f50a18d68cf5d2d9d6e8d9"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-8798",
@@ -2375,7 +2375,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:8be9ffd64f8ade469b6833bff3fb23dcb3378c56408aeec4349f886b7b5dfe91",
+          "Fingerprint": "sha256:890d13f82f8b80fea5ea1f39f27dafe78a7e733ee0a3650e2047ec4d2a308b0e",
           "Title": "Bouncy Castle: the native entropy source used on Intel platforms retried the CPU entropy instructions without any bound",
           "Description": "In Bouncy Castle for Java FIPS (BC-FJA) before bc-fips 2.1.3, the native entropy source used on Intel platforms retried the CPU entropy instructions without any bound. RDSEED and RDRAND report failure through their carry flag, and the JNI seeding routine spun re-issuing the instruction for as long as that flag stayed clear, so a persistent failure of the on-chip entropy source - whether from a hardware fault, from the underlying DRBG being exhausted by contention across many cores, or from a hypervisor that does not provide the instruction - left the calling thread looping indefinitely inside the JNI call, where it could be neither interrupted nor timed out. Any operation drawing from the native entropy source could therefore hang, denying service to the application. The retry loops are now bounded (200 attempts for RDSEED and 20 for RDRAND, twice the baselines given in Intel's Digital Random Number Generator software implementation guide), pausing between attempts and, on exhaustion, clearing any partially written buffer and throwing rather than continuing to spin. The clear is performed by an un-elidable memzero, which uses a volatile pointer and an assembly memory barrier so that a compiler cannot optimise the erase away as a dead store. Bouncy Castle for Java (bcprov) is not affected, as it has no native entropy source; the 1.0.X and 2.0.X FIPS series are not affected.",
           "Severity": "HIGH",
@@ -2416,8 +2416,8 @@
           "FixedVersion": "2.1.2",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:181116993c0e69c2da61703ded2ed3dd7470a41e3dd7c2341aa08a6a9c5d6068",
-            "DiffID": "sha256:00ccaf73f4dcf928ef0610a5f41bc14402139d40a5c772da30028fd221ee102b"
+            "Digest": "sha256:cc419981e13717fc1498b58316b26273c8aafb86c5b99f8f6f02b277ff19dde9",
+            "DiffID": "sha256:28b4efe91a7f28eba87f1120429fe179afe5fa4a84f50a18d68cf5d2d9d6e8d9"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-12194",
@@ -2426,7 +2426,7 @@
             "Name": "GitHub Security Advisory Maven",
             "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
           },
-          "Fingerprint": "sha256:f04e366eee12e78ecaf0ea9db9dd87fb381c72e6374f4dabb58e2a01cf17ebbe",
+          "Fingerprint": "sha256:4b19e4b96da5c61c31360631145fc29288f491d1374d4e22f5df71072163d65b",
           "Title": "bcprov-lts8on: bc-fips: Uncontrolled Resource Consumption vulnerability in Bouncy Castle",
           "Description": "Uncontrolled Resource Consumption vulnerability in Legion of the Bouncy Castle Inc. Bouncy Castle for Java FIPS bc-fips on All (API modules), Legion of the Bouncy Castle Inc. Bouncy Castle for Java LTS bcprov-lts8on on All (API modules) allows Excessive Allocation. This vulnerability is associated with program files core/src/main/jdk1.9/org/bouncycastle/crypto/fips/AESNativeCFB.Java, core/src/main/jdk1.9/org/bouncycastle/crypto/fips/AESNativeGCM.Java, core/src/main/jdk1.9/org/bouncycastle/crypto/fips/SHA256NativeDigest.Java, core/src/main/jdk1.9/org/bouncycastle/crypto/fips/AESNativeEngine.Java, core/src/main/jdk1.9/org/bouncycastle/crypto/fips/AESNativeCBC.Java, core/src/main/jdk1.9/org/bouncycastle/crypto/fips/AESNativeCTR.Java, core/src/main/jdk1.9/org/bouncycastle/crypto/engines/AESNativeCFB.Java, core/src/main/jdk1.9/org/bouncycastle/crypto/engines/AESNativeGCM.Java, core/src/main/jdk1.9/org/bouncycastle/crypto/engines/AESNativeEngine.Java, core/src/main/jdk1.9/org/bouncycastle/crypto/engines/AESNativeCBC.Java, core/src/main/jdk1.9/org/bouncycastle/crypto/engines/AESNativeGCMSIV.Java, core/src/main/jdk1.9/org/bouncycastle/crypto/engines/AESNativeCCM.Java, core/src/main/jdk1.9/org/bouncycastle/crypto/engines/AESNativeCTR.Java, core/src/main/jdk1.9/org/bouncycastle/crypto/digests/SHA256NativeDigest.Java, core/src/main/jdk1.9/org/bouncycastle/crypto/digests/SHA224NativeDigest.Java, core/src/main/jdk1.9/org/bouncycastle/crypto/digests/SHA3NativeDigest.Java, core/src/main/jdk1.9/org/bouncycastle/crypto/digests/SHAKENativeDigest.Java, core/src/main/jdk1.9/org/bouncycastle/crypto/digests/SHA512NativeDigest.Java, core/src/main/jdk1.9/org/bouncycastle/crypto/digests/SHA384NativeDigest.Java.\n\nThis issue affects Bouncy Castle for Java FIPS: from 2.1.0 through 2.1.1; Bouncy Castle for Java LTS: from 2.73.0 through 2.73.7.",
           "Severity": "MEDIUM",
