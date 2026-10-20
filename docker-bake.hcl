@@ -67,7 +67,7 @@ variable "PYTHON_3_10_FULL_VERSION" { default = "3.10.22-r3" }
 variable "PYTHON_3_11_FULL_VERSION" { default = "3.11.17-r3" }
 variable "PYTHON_3_12_FULL_VERSION" { default = "3.12.15-r3" }
 variable "PYTHON_3_13_FULL_VERSION" { default = "3.13.16_git20261016-r0" }
-variable "PYTHON_3_14_FULL_VERSION" { default = "3.14.8_git20261014-r0" }
+variable "PYTHON_3_14_FULL_VERSION" { default = "3.14.8_git20261014-r1" }
 
 # ==========================================
 # Bun Versions
@@ -102,8 +102,8 @@ variable "GO_1_22_FULL_VERSION" { default = "1.22.12-r8" }
 variable "GO_1_23_FULL_VERSION" { default = "1.23.12-r1" }
 variable "GO_1_24_FULL_VERSION" { default = "1.24.13-r3" }
 variable "GO_1_25_FULL_VERSION" { default = "1.25.12-r1" }
-variable "GO_1_26_FULL_VERSION" { default = "1.26.9-r0" }
-variable "GO_1_27_FULL_VERSION" { default = "1.27.2-r0" }
+variable "GO_1_26_FULL_VERSION" { default = "1.26.10-r0" }
+variable "GO_1_27_FULL_VERSION" { default = "1.27.3-r0" }
 
 variable "GO_FIPS_REPO" {
   default = "go-fips"
