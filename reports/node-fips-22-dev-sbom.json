@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "serialNumber": "urn:uuid:62fa6a2c-2f3f-4fb8-8f1e-3a40305f316a",
+  "serialNumber": "urn:uuid:478086fb-27f1-42e9-b1d8-9110734f1dcf",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-10-20T12:08:50+00:00",
+    "timestamp": "2026-10-20T12:30:23+00:00",
     "tools": {
       "components": [
         {
@@ -20,10 +20,10 @@
       ]
     },
     "component": {
-      "bom-ref": "pkg:oci/node-fips@sha256:dd363c45ef61b69e9ef88047ecd1954fe7d1a72561ba008f0a874bf764684276?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fnode-fips",
+      "bom-ref": "pkg:oci/node-fips@sha256:e8b33c954998a408f19f717530ccde1ae7ede3a2452608b67edff88861eed5ec?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fnode-fips",
       "type": "container",
       "name": "ghcr.io/taha2samy-3/node-fips:22-dev",
-      "purl": "pkg:oci/node-fips@sha256:dd363c45ef61b69e9ef88047ecd1954fe7d1a72561ba008f0a874bf764684276?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fnode-fips",
+      "purl": "pkg:oci/node-fips@sha256:e8b33c954998a408f19f717530ccde1ae7ede3a2452608b67edff88861eed5ec?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fnode-fips",
       "properties": [
         {
           "name": "aquasecurity:trivy:DiffID",
@@ -103,7 +103,7 @@
         },
         {
           "name": "aquasecurity:trivy:ImageID",
-          "value": "sha256:3344b23f15496801a5f2ddece20abd37143ad6f7d0e1f591fdfef38078c4a706"
+          "value": "sha256:265fc8aded63a4ec806a27dc6d4c83af5ae25b14eb01350adc7e1527d8f24fcd"
         },
         {
           "name": "aquasecurity:trivy:Labels:dev.chainguard.image.title",
@@ -111,7 +111,7 @@
         },
         {
           "name": "aquasecurity:trivy:Labels:io.github.taha2samy-3.build.fingerprint",
-          "value": "324684a760b90b0ab46327153a402a8f"
+          "value": "b4999eac66c6ad6f3f53c0488b6aef44"
         },
         {
           "name": "aquasecurity:trivy:Labels:org.opencontainers.image.authors",
@@ -151,7 +151,7 @@
         },
         {
           "name": "aquasecurity:trivy:RepoDigest",
-          "value": "ghcr.io/taha2samy-3/node-fips@sha256:dd363c45ef61b69e9ef88047ecd1954fe7d1a72561ba008f0a874bf764684276"
+          "value": "ghcr.io/taha2samy-3/node-fips@sha256:e8b33c954998a408f19f717530ccde1ae7ede3a2452608b67edff88861eed5ec"
         },
         {
           "name": "aquasecurity:trivy:RepoTag",
@@ -170,22 +170,7 @@
   },
   "components": [
     {
-      "bom-ref": "259af96a-63e3-47de-acfd-06d97193c822",
-      "type": "application",
-      "name": "usr/bin/secrets-entrypoint",
-      "properties": [
-        {
-          "name": "aquasecurity:trivy:Class",
-          "value": "lang-pkgs"
-        },
-        {
-          "name": "aquasecurity:trivy:Type",
-          "value": "gobinary"
-        }
-      ]
-    },
-    {
-      "bom-ref": "3311cd28-2040-4578-a8e9-b6ea61cba0f4",
+      "bom-ref": "1c48cdd4-1c99-4c86-adde-b96807579397",
       "type": "operating-system",
       "name": "wolfi",
       "version": "20230201",
@@ -197,6 +182,21 @@
         {
           "name": "aquasecurity:trivy:Type",
           "value": "wolfi"
+        }
+      ]
+    },
+    {
+      "bom-ref": "9359d5dc-831c-4114-9bef-17aed8a1ac08",
+      "type": "application",
+      "name": "usr/bin/secrets-entrypoint",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:Class",
+          "value": "lang-pkgs"
+        },
+        {
+          "name": "aquasecurity:trivy:Type",
+          "value": "gobinary"
         }
       ]
     },
@@ -1608,16 +1608,16 @@
   ],
   "dependencies": [
     {
-      "ref": "259af96a-63e3-47de-acfd-06d97193c822",
-      "dependsOn": [
-        "pkg:golang/secrets-entrypoint@v1.0.0%2Bdirty"
-      ]
-    },
-    {
-      "ref": "3311cd28-2040-4578-a8e9-b6ea61cba0f4",
+      "ref": "1c48cdd4-1c99-4c86-adde-b96807579397",
       "dependsOn": [
         "pkg:apk/wolfi/npm-12@12.2.1-r0?arch=x86_64&distro=20230201",
         "pkg:apk/wolfi/wolfi-base@1-r7?arch=x86_64&distro=20230201"
+      ]
+    },
+    {
+      "ref": "9359d5dc-831c-4114-9bef-17aed8a1ac08",
+      "dependsOn": [
+        "pkg:golang/secrets-entrypoint@v1.0.0%2Bdirty"
       ]
     },
     {
@@ -1852,10 +1852,10 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:oci/node-fips@sha256:dd363c45ef61b69e9ef88047ecd1954fe7d1a72561ba008f0a874bf764684276?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fnode-fips",
+      "ref": "pkg:oci/node-fips@sha256:e8b33c954998a408f19f717530ccde1ae7ede3a2452608b67edff88861eed5ec?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fnode-fips",
       "dependsOn": [
-        "259af96a-63e3-47de-acfd-06d97193c822",
-        "3311cd28-2040-4578-a8e9-b6ea61cba0f4"
+        "1c48cdd4-1c99-4c86-adde-b96807579397",
+        "9359d5dc-831c-4114-9bef-17aed8a1ac08"
       ]
     }
   ],
