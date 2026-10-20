@@ -173,7 +173,7 @@ python .github/scripts/update_dependencies.py --dry-run --group openjdk-fips  # 
 
 ### Pull request check
 
-**Pull Request Check** builds the images a pull request changes (linux/amd64, nothing is pushed) and runs the FIPS test suites against them. Make it a required status check in the `main` branch protection rules, so that a dependency update cannot be merged while it breaks an image or its FIPS behaviour. Dependency-update PRs are pushed with `GITHUB_TOKEN`, which GitHub never lets start `pull_request` workflows, so the update script dispatches this check on each `automation/deps-*` branch after pushing it.
+**Pull Request Check** builds the images a pull request changes (linux/amd64, nothing is pushed) and runs the FIPS test suites against them. Make it a required status check in the `main` branch protection rules, so that a dependency update cannot be merged while it breaks an image or its FIPS behaviour. Dependency-update PRs are opened with `GITHUB_TOKEN`, and GitHub holds their `pull_request` runs for a maintainer's approval. The update script therefore dispatches this check on each `automation/deps-*` branch after pushing it and deletes the held runs. The dispatched run reports its result on the PR as the `Pull Request Check` commit status, so make that status the required check.
 
 ### Benchmarks and certificate watch
 

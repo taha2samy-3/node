@@ -20,6 +20,7 @@ import re
 import subprocess
 import sys
 import tempfile
+import time
 import urllib.request
 from datetime import datetime, timezone
 
@@ -446,12 +447,33 @@ def sync_pull_request(branch, base, pr_title, body, message, catalog_changed=Fal
     dispatch_pr_check(branch)
 
 
+def delete_held_pr_runs(branch, attempts=6, wait=5):
+    """Delete this branch's pull_request runs that GitHub holds for approval.
+
+    PRs opened with GITHUB_TOKEN get pull_request runs that never start until a maintainer
+    approves them; the dispatched run already covers the check, so the held runs only leave an
+    "action required" check on the PR. They are created asynchronously, so poll briefly.
+    """
+    for attempt in range(attempts):
+        res = run(["gh", "run", "list", "--workflow", PR_CHECK_WORKFLOW, "--branch", branch, "--event", "pull_request",
+                   "--json", "databaseId,conclusion", "--limit", "20"], check=False, capture=True)
+        held = [r["databaseId"] for r in json.loads(res.stdout or "[]") if r.get("conclusion") == "action_required"] if res.returncode == 0 else []
+        for run_id in held:
+            deleted = run(["gh", "run", "delete", str(run_id)], check=False, capture=True).returncode == 0
+            print(f"  {'deleted' if deleted else 'could not delete'} held pull_request run {run_id}")
+        if held:
+            return
+        if attempt < attempts - 1:
+            time.sleep(wait)
+
+
 def dispatch_pr_check(branch):
     res = run(["gh", "workflow", "run", PR_CHECK_WORKFLOW, "--ref", branch], check=False, capture=True)
     if res.returncode == 0:
         print(f"  dispatched {PR_CHECK_WORKFLOW} on {branch}")
     else:
         print(f"::warning::could not dispatch {PR_CHECK_WORKFLOW} on {branch}: {res.stderr.strip()}")
+    delete_held_pr_runs(branch)
 
 
 def close_pr(branch, base, comment):

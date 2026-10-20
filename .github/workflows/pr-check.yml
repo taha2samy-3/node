@@ -6,8 +6,9 @@ on:
   pull_request:
     branches:
       - main
-  # Dependency-update PRs are pushed with GITHUB_TOKEN, which never triggers pull_request,
-  # so update_dependencies.py dispatches this workflow on the update branch instead
+  # Dependency-update PRs are opened with GITHUB_TOKEN. GitHub holds their pull_request runs at
+  # "action required" (approval), so update_dependencies.py dispatches this workflow on the update
+  # branch instead, deletes the held runs, and the report job below shows the result on the PR
   workflow_dispatch:
 
 concurrency:
@@ -114,3 +115,28 @@ jobs:
           name: pr-benchmarks-${{ matrix.unit }}
           path: benchmarks/
           retention-days: 7
+
+  # Dispatched runs are not listed in a pull request's checks, so publish the outcome as a commit
+  # status on the branch head, which the pull request does show
+  report:
+    needs: [plan, check]
+    if: always() && github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      statuses: write
+    steps:
+      - name: Publish Commit Status
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PLAN: ${{ needs.plan.result }}
+          CHECK: ${{ needs.check.result }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          if [ "$PLAN" = success ] && { [ "$CHECK" = success ] || [ "$CHECK" = skipped ]; }; then
+            state=success; description="Images build and FIPS suites pass"
+          else
+            state=failure; description="plan: $PLAN, check: $CHECK"
+          fi
+          gh api "repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
+            -f state="$state" -f context="Pull Request Check" \
+            -f description="$description" -f target_url="$RUN_URL"
