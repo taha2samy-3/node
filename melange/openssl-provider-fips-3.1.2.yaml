@@ -90,10 +90,11 @@ subpackages:
     dependencies:
       runtime:
         - ${{package.name}}=${{package.full-version}}
-      # libcrypto3 ships Chainguard's default /etc/ssl/openssl.cnf (default + legacy providers);
-      # this package takes that file over
+      # Wolfi's libcrypto ships Chainguard's default /etc/ssl/openssl.cnf (default + legacy
+      # providers); this package takes that file over from both the 3.x and the 4.0 stream
       replaces:
         - libcrypto3
+        - openssl-4.0-libcrypto
       replaces-priority: 100
     options:
       no-commands: true
@@ -108,11 +109,13 @@ subpackages:
           repositories:
             - https://packages.wolfi.dev/os
           packages:
-            # Wolfi's libcrypto3 is the library this provider is loaded by in the images
-            - openssl
+            - busybox
+            # The OpenSSL 3 stream: what libcrypto3 users and this repository's images load it with
+            - openssl-3.6
       pipeline:
         - name: Only the FIPS and base providers are active
           runs: |
+            openssl version
             providers="$(openssl list -providers)"
             echo "$providers"
             echo "$providers" | grep -q 'OpenSSL FIPS Provider'
@@ -137,10 +140,13 @@ test:
       repositories:
         - https://packages.wolfi.dev/os
       packages:
+        - busybox
+        # Wolfi's default openssl, currently the 4.0 stream
         - openssl
   pipeline:
     - name: Module and integrity MAC are installed
       runs: |
+        openssl version
         test -f /usr/lib/ossl-modules/fips.so
         grep -q '^module-mac' /etc/ssl/fipsmodule.cnf
     - name: Module passes its self tests when loaded explicitly
