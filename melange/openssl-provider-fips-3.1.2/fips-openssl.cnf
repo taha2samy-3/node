@@ -1,0 +1,36 @@
+# System OpenSSL configuration installed by openssl-config-fipshardened.
+#
+# Loads only the OpenSSL FIPS Provider 3.1.2 (CMVP #4985) and the base provider (encoders and
+# decoders, no cryptography), and makes fips=yes the default property query, so every algorithm
+# fetched without an explicit provider comes from the validated module.
+#
+# The [fips_sect] section is defined only by fipsmodule.cnf, which `openssl fipsinstall -pedantic`
+# wrote when the package was built. The security policy (section 11.1) forbids changing it by any
+# other means, so this file only references it.
+config_diagnostics = 1
+openssl_conf = openssl_init
+
+.pragma includedir:/etc/ssl
+.include fipsmodule.cnf
+
+[openssl_init]
+providers = provider_sect
+alg_section = algorithm_sect
+ssl_conf = ssl_module
+
+[provider_sect]
+fips = fips_sect
+base = base_sect
+
+[base_sect]
+activate = 1
+
+[algorithm_sect]
+default_properties = fips=yes
+
+[ssl_module]
+system_default = tls_policy
+
+# TLS 1.2 is the lowest version allowed for federal systems (NIST SP 800-52 Rev. 2)
+[tls_policy]
+MinProtocol = TLSv1.2

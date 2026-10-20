@@ -1,0 +1,178 @@
+# OpenSSL FIPS Provider 3.1.2 (CMVP certificate #4985) and the system configuration that puts
+# OpenSSL in the approved mode, packaged for Wolfi. Built and published as a signed APK repository
+# by .github/workflows/packages.yml; see melange/README.md.
+#
+# The build follows section 11.1 of the module's security policy exactly:
+#   - the source is the openssl-3.1.2.tar.gz named in the policy, checked against its SHA-256
+#   - ./Configure enable-fips, make, make install_fips, with no other Configure options or patches
+#   - fipsmodule.cnf is written only by the module's own `openssl fipsinstall -pedantic`
+#   - fips.so is never stripped or modified after its integrity MAC is recorded
+package:
+  name: openssl-provider-fips-3.1.2
+  version: "3.1.2"
+  epoch: 0
+  description: "OpenSSL FIPS Provider 3.1.2, FIPS 140-3 validated module (CMVP certificate #4985)"
+  url: https://github.com/taha2samy-3/node
+  copyright:
+    - license: Apache-2.0
+  target-architecture:
+    - x86_64
+    - aarch64
+  dependencies:
+    provides:
+      - openssl-provider-fips=${{package.full-version}}
+  options:
+    no-commands: true
+
+environment:
+  contents:
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+    repositories:
+      - https://packages.wolfi.dev/os
+    packages:
+      - build-base
+      - busybox
+      - ca-certificates-bundle
+      - linux-headers
+      - perl
+
+pipeline:
+  # SHA-256 from the FIPS 140-3 security policy of certificate #4985
+  - uses: fetch
+    with:
+      uri: https://github.com/openssl/openssl/releases/download/openssl-${{package.version}}/openssl-${{package.version}}.tar.gz
+      expected-sha256: a0ce69b8b97ea6a35b96875235aa453b966ba3cba8af2de23657d8b6767d6539
+
+  # Security policy 11.1, step 1
+  - name: Build the validated module
+    runs: |
+      ./Configure enable-fips
+      make -j$(nproc)
+
+  # install_fips installs fips.so and runs the module's self tests through fipsinstall
+  - name: make install_fips
+    runs: |
+      make install_fips DESTDIR="$PWD/fips-stage"
+      module="$(find fips-stage -type f -name fips.so)"
+      test "$(echo "$module" | wc -l)" -eq 1
+      install -Dm755 "$module" "${{targets.destdir}}/usr/lib/ossl-modules/fips.so"
+      cmp "$module" "${{targets.destdir}}/usr/lib/ossl-modules/fips.so"
+
+  # Security policy 11.1: the configuration is written by `openssl fipsinstall -pedantic`, using the
+  # 3.1.2 tools built above. In 3.1.2 the self tests run on every load (-self_test_onload, the
+  # default), which is how they run at least once on each target machine.
+  - name: Record the integrity MAC with fipsinstall -pedantic
+    runs: |
+      mkdir -p "${{targets.destdir}}/etc/ssl"
+      ./util/wrap.pl apps/openssl fipsinstall -pedantic -self_test_onload \
+        -module "${{targets.destdir}}/usr/lib/ossl-modules/fips.so" \
+        -out "${{targets.destdir}}/etc/ssl/fipsmodule.cnf"
+      ./util/wrap.pl apps/openssl fipsinstall -verify \
+        -module "${{targets.destdir}}/usr/lib/ossl-modules/fips.so" \
+        -in "${{targets.destdir}}/etc/ssl/fipsmodule.cnf"
+      cat "${{targets.destdir}}/etc/ssl/fipsmodule.cnf"
+      grep -q '^module-mac' "${{targets.destdir}}/etc/ssl/fipsmodule.cnf"
+      # No install-time status: the file is valid on every machine the package is installed on
+      if grep -q '^install-status' "${{targets.destdir}}/etc/ssl/fipsmodule.cnf"; then
+        echo "fipsmodule.cnf must not carry an install status" >&2
+        exit 1
+      fi
+
+  # Security policy 11.1, step 2
+  - name: Verify the version
+    runs: |
+      ./util/wrap.pl apps/openssl version -v | grep -q '^OpenSSL 3.1.2 '
+
+subpackages:
+  - name: openssl-config-fipshardened
+    description: "System OpenSSL configuration that loads only the FIPS 140-3 provider (fips=yes)"
+    dependencies:
+      runtime:
+        - ${{package.name}}=${{package.full-version}}
+      # libcrypto3 ships Chainguard's default /etc/ssl/openssl.cnf (default + legacy providers);
+      # this package takes that file over
+      replaces:
+        - libcrypto3
+      replaces-priority: 100
+    options:
+      no-commands: true
+    pipeline:
+      - runs: |
+          install -Dm644 fips-openssl.cnf "${{targets.subpkgdir}}/etc/ssl/openssl.cnf"
+    test:
+      environment:
+        contents:
+          keyring:
+            - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+          repositories:
+            - https://packages.wolfi.dev/os
+          packages:
+            # Wolfi's libcrypto3 is the library this provider is loaded by in the images
+            - openssl
+      pipeline:
+        - name: Only the FIPS and base providers are active
+          runs: |
+            providers="$(openssl list -providers)"
+            echo "$providers"
+            echo "$providers" | grep -q 'OpenSSL FIPS Provider'
+            echo "$providers" | grep -A2 'OpenSSL FIPS Provider' | grep -q '3.1.2'
+            if echo "$providers" | grep -qi 'legacy\|OpenSSL Default Provider'; then
+              echo "a non-FIPS provider is active" >&2
+              exit 1
+            fi
+        - name: Approved algorithms work, unapproved ones are refused
+          runs: |
+            openssl dgst -sha256 /etc/ssl/openssl.cnf
+            if openssl dgst -md5 /etc/ssl/openssl.cnf; then
+              echo "MD5 must be refused in FIPS mode" >&2
+              exit 1
+            fi
+
+test:
+  environment:
+    contents:
+      keyring:
+        - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+      repositories:
+        - https://packages.wolfi.dev/os
+      packages:
+        - openssl
+  pipeline:
+    - name: Module and integrity MAC are installed
+      runs: |
+        test -f /usr/lib/ossl-modules/fips.so
+        grep -q '^module-mac' /etc/ssl/fipsmodule.cnf
+    - name: Module passes its self tests when loaded explicitly
+      runs: |
+        cat > /tmp/fips-only.cnf <<'EOF'
+        config_diagnostics = 1
+        openssl_conf = openssl_init
+        .include /etc/ssl/fipsmodule.cnf
+        [openssl_init]
+        providers = provider_sect
+        alg_section = algorithm_sect
+        [provider_sect]
+        fips = fips_sect
+        base = base_sect
+        [base_sect]
+        activate = 1
+        [algorithm_sect]
+        default_properties = fips=yes
+        EOF
+        OPENSSL_CONF=/tmp/fips-only.cnf openssl list -providers | grep -A3 'OpenSSL FIPS Provider' | grep -q 'status: active'
+        OPENSSL_CONF=/tmp/fips-only.cnf openssl dgst -sha384 /etc/ssl/fipsmodule.cnf
+    - name: A tampered integrity MAC keeps the module from loading
+      runs: |
+        sed 's/^\(module-mac *= *\).*/\100:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00/' \
+          /etc/ssl/fipsmodule.cnf > /tmp/tampered.cnf
+        sed 's#/etc/ssl/fipsmodule.cnf#/tmp/tampered.cnf#' /tmp/fips-only.cnf > /tmp/fips-tampered.cnf
+        if OPENSSL_CONF=/tmp/fips-tampered.cnf openssl list -providers | grep -A3 'OpenSSL FIPS Provider' | grep -q 'status: active'; then
+          echo "module loaded with a tampered MAC" >&2
+          exit 1
+        fi
+
+update:
+  # Certified module: only changed by hand when NIST lists a new certificate
+  enabled: false
+  exclude-reason: "FIPS 140-3 validated module pinned to certificate #4985"

@@ -121,6 +121,10 @@ jobs:
     permissions:
       contents: write
       actions: write
+    # Shared with the APK repository publish in packages.yml, which writes to the same gh-pages branch
+    concurrency:
+      group: gh-pages-deploy
+      cancel-in-progress: false
 
     steps:
       - name: Checkout Code
@@ -200,6 +204,14 @@ jobs:
           mkdir -p web/dist/reports
           cp reports/*.json web/dist/reports/
           rm -rf reports reports4ms
+
+      # The APK repository (packages.yml) lives on the same branch; this deploy replaces the whole
+      # branch, so carry it over unchanged
+      - name: Keep the Published APK Repository
+        run: |
+          if git fetch --depth=1 origin gh-pages 2>/dev/null && git cat-file -e FETCH_HEAD:apk 2>/dev/null; then
+            git archive FETCH_HEAD apk | tar -x -C web/dist
+          fi
 
       - name: Push to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4

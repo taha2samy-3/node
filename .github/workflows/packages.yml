@@ -1,0 +1,171 @@
+name: FIPS APK Packages
+
+# Builds the melange packages in melange/ natively on x86_64 and aarch64, tests them, and publishes
+# them as a signed APK repository at https://taha2samy-3.github.io/node/apk (see melange/README.md).
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'melange/**'
+      - '.github/workflows/packages.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'melange/**'
+      - '.github/workflows/packages.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+env:
+  # cgr.dev/chainguard/melange v0.62.1, pinned by digest
+  MELANGE_IMAGE: cgr.dev/chainguard/melange@sha256:8013316244119e5932fa56606c5937d41ba516450e16a1f842bf78da4de894e8
+  KEY_NAME: taha2samy-3-fips.rsa
+  CONFIG: melange/openssl-provider-fips-3.1.2.yaml
+  SOURCE_DIR: melange/openssl-provider-fips-3.1.2
+
+jobs:
+  build:
+    name: build (${{ matrix.arch }})
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: x86_64
+            runner: ubuntu-24.04
+          - arch: aarch64
+            runner: ubuntu-24.04-arm
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+
+      # Signed with the repository key, so the packages built here are the ones that get published.
+      # Pull requests without access to the secret (forks, Dependabot) build with a throwaway key.
+      - name: Prepare Signing Key
+        env:
+          SIGNING_KEY: ${{ secrets.MELANGE_SIGNING_KEY }}
+        run: |
+          mkdir -p .keys
+          if [ -n "$SIGNING_KEY" ]; then
+            (umask 077; printf '%s\n' "$SIGNING_KEY" > ".keys/$KEY_NAME")
+            cp "melange/keys/$KEY_NAME.pub" ".keys/$KEY_NAME.pub"
+            # The secret must be the private half of the published public key
+            openssl pkey -in ".keys/$KEY_NAME" -pubout | diff -q - ".keys/$KEY_NAME.pub"
+          elif [ "${{ github.event_name }}" = pull_request ]; then
+            echo "::notice::MELANGE_SIGNING_KEY is not available; signing with a throwaway key"
+            docker run --rm -v "$PWD/.keys":/keys -w /keys "$MELANGE_IMAGE" keygen "$KEY_NAME"
+          else
+            echo "::error::The MELANGE_SIGNING_KEY secret is not set"
+            exit 1
+          fi
+
+      - name: Build Packages
+        run: |
+          docker run --rm --privileged -v "$PWD":/work -w /work "$MELANGE_IMAGE" build "$CONFIG" \
+            --arch "${{ matrix.arch }}" \
+            --source-dir "$SOURCE_DIR" \
+            --signing-key ".keys/$KEY_NAME" \
+            --out-dir out \
+            --namespace taha2samy-3 \
+            --license Apache-2.0
+          sudo chown -R "$(id -u):$(id -g)" out
+          ls -l "out/${{ matrix.arch }}"
+
+      # Runs the test pipelines of the package and its subpackage against the packages just built
+      - name: Test Packages
+        run: |
+          docker run --rm --privileged -v "$PWD":/work -w /work "$MELANGE_IMAGE" test "$CONFIG" \
+            --arch "${{ matrix.arch }}" \
+            --source-dir "$SOURCE_DIR" \
+            --repository-append /work/out \
+            --keyring-append "/work/.keys/$KEY_NAME.pub"
+
+      - name: Upload Packages
+        uses: actions/upload-artifact@v7
+        with:
+          name: apk-${{ matrix.arch }}
+          path: out/${{ matrix.arch }}/*.apk
+          if-no-files-found: error
+          retention-days: 7
+
+  publish:
+    needs: build
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    # Shared with the dashboard deploy in docs.yml, which writes to the same gh-pages branch
+    concurrency:
+      group: gh-pages-deploy
+      cancel-in-progress: false
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+
+      # Published packages are immutable: a file that is already in the repository is never replaced.
+      # Changing a package therefore needs a new version or epoch in its melange file.
+      - name: Restore Published Repository
+        run: |
+          mkdir -p apk
+          if git fetch --depth=1 origin gh-pages 2>/dev/null && git cat-file -e FETCH_HEAD:apk 2>/dev/null; then
+            git archive FETCH_HEAD apk | tar -x
+          fi
+
+      - name: Download New Packages
+        uses: actions/download-artifact@v8
+        with:
+          pattern: apk-*
+          path: new
+
+      - name: Add New Packages
+        run: |
+          for arch in x86_64 aarch64; do
+            mkdir -p "apk/$arch"
+            for pkg in new/apk-$arch/*.apk; do
+              name="$(basename "$pkg")"
+              if [ -e "apk/$arch/$name" ]; then
+                echo "::notice::$arch/$name is already published; keeping the published file"
+              else
+                cp "$pkg" "apk/$arch/$name"
+                echo "added $arch/$name"
+              fi
+            done
+          done
+          rm -rf new
+
+      - name: Sign Repository Indexes
+        env:
+          SIGNING_KEY: ${{ secrets.MELANGE_SIGNING_KEY }}
+        run: |
+          mkdir -p .keys
+          (umask 077; printf '%s\n' "$SIGNING_KEY" > ".keys/$KEY_NAME")
+          for arch in x86_64 aarch64; do
+            rm -f "apk/$arch/APKINDEX.tar.gz"
+            docker run --rm -v "$PWD":/work -w /work "$MELANGE_IMAGE" index \
+              --arch "$arch" --signing-key ".keys/$KEY_NAME" \
+              -o "apk/$arch/APKINDEX.tar.gz" apk/$arch/*.apk
+          done
+          sudo chown -R "$(id -u):$(id -g)" apk
+          rm -rf .keys
+          cp "melange/keys/$KEY_NAME.pub" "apk/$KEY_NAME.pub"
+          cp melange/README.md apk/README.md
+
+      - name: Publish to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./apk
+          destination_dir: apk
+          keep_files: true
