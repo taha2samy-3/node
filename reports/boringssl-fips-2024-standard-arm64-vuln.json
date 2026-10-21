@@ -1,10 +1,10 @@
 {
   "SchemaVersion": 2,
   "Trivy": {
-    "Version": "0.76.0"
+    "Version": "0.76.1"
   },
-  "ReportID": "01a15933-4ed4-7d0c-b53a-a1f3f836e12f",
-  "CreatedAt": "2026-10-20T12:04:57.172856755Z",
+  "ReportID": "01a15e50-ffda-74cc-bbb2-4f006667bf9f",
+  "CreatedAt": "2026-10-21T11:55:29.11431598Z",
   "ArtifactID": "sha256:0ba3cc228054f5befab1d1ef6d96338e3b8baea38dacffdd0ffd339d9f360fed",
   "ArtifactName": "ghcr.io/taha2samy-3/boringssl-fips:fips-2024",
   "ArtifactType": "container_image",
@@ -2659,6 +2659,112 @@
             "var/lib/db/sbom/wolfi-keys-1-r13.spdx.json"
           ],
           "AnalyzedBy": "apk"
+        }
+      ],
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2026-111943",
+          "PkgID": "ca-certificates@20260909-r2",
+          "PkgName": "ca-certificates",
+          "PkgIdentifier": {
+            "PURL": "pkg:apk/wolfi/ca-certificates@20260909-r2?arch=aarch64\u0026distro=20230201",
+            "UID": "4b8d80e3e9461564"
+          },
+          "InstalledVersion": "20260909-r2",
+          "FixedVersion": "20260909-r3",
+          "Status": "fixed",
+          "Layer": {
+            "Digest": "sha256:29ce45e32ef15b0331195c2a00e36a76549b11d143d4549ef4c4baa64ff74fe0",
+            "DiffID": "sha256:fdd4f36b9bd4e75670ba68a28750464f4fa71292712cdfb0dceaac722e7ca80c"
+          },
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-111943",
+          "DataSource": {
+            "ID": "wolfi",
+            "Name": "Wolfi Secdb",
+            "URL": "https://packages.wolfi.dev/os/security.json"
+          },
+          "Fingerprint": "sha256:ffb81a0a7143e38ea06a1a2fbcd6debc7797f62a3292059d5c46ebf290116cb7",
+          "Title": "golang: crypto/x509: Go: crypto/x509: mitigation for security concerns with a specific Certificate Authority",
+          "Description": "On most platforms, Go uses the given system root certificates. However, in some narrower cases, the system trust stores may not be updated without further action. To defend against the narrower set of cases that may remain affected, a denylist was added in crypto/x509 to return an error when calling Verify with any of the known intermediate certificates that are no longer considered to be trustworthy.",
+          "Severity": "HIGH",
+          "VendorSeverity": {
+            "oracle-oval": 3,
+            "redhat": 3
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:N",
+              "V3Score": 6.8
+            }
+          },
+          "References": [
+            "http://www.openwall.com/lists/oss-security/2026/10/20/29",
+            "https://access.redhat.com/security/cve/CVE-2026-111943",
+            "https://github.com/golang/go/issues/82345",
+            "https://go.dev/cl/851047",
+            "https://go.dev/issue/82345",
+            "https://groups.google.com/g/golang-announce/c/66pojueaQek",
+            "https://groups.google.com/g/golang-nuts/c/K22sG2AYnKU",
+            "https://linux.oracle.com/cve/CVE-2026-111943.html",
+            "https://linux.oracle.com/errata/ELSA-2026-500451.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2026-111943",
+            "https://pkg.go.dev/vuln/GO-2026-6809",
+            "https://www.cve.org/CVERecord?id=CVE-2026-111943"
+          ],
+          "PublishedDate": "2026-10-21T01:17:20.797Z",
+          "LastModifiedDate": "2026-10-21T02:17:06.71Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2026-111943",
+          "PkgID": "ca-certificates-bundle@20260909-r2",
+          "PkgName": "ca-certificates-bundle",
+          "PkgIdentifier": {
+            "PURL": "pkg:apk/wolfi/ca-certificates-bundle@20260909-r2?arch=aarch64\u0026distro=20230201",
+            "UID": "cf1375bbd07a2b8f"
+          },
+          "InstalledVersion": "20260909-r2",
+          "FixedVersion": "20260909-r3",
+          "Status": "fixed",
+          "Layer": {
+            "Digest": "sha256:e6e34819883728aceb6bec47d0a54399d36ff80d7dd79e1a1445bb3eafeb02e1",
+            "DiffID": "sha256:b2f14a2a61480ea304e7253ca5719871caa00f7883baebb7061c0c0bd1c0528d"
+          },
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-111943",
+          "DataSource": {
+            "ID": "wolfi",
+            "Name": "Wolfi Secdb",
+            "URL": "https://packages.wolfi.dev/os/security.json"
+          },
+          "Fingerprint": "sha256:34e0ca494cb8e868a88409be82f5dd8d6de890b4a709855473335e0b5a758629",
+          "Title": "golang: crypto/x509: Go: crypto/x509: mitigation for security concerns with a specific Certificate Authority",
+          "Description": "On most platforms, Go uses the given system root certificates. However, in some narrower cases, the system trust stores may not be updated without further action. To defend against the narrower set of cases that may remain affected, a denylist was added in crypto/x509 to return an error when calling Verify with any of the known intermediate certificates that are no longer considered to be trustworthy.",
+          "Severity": "HIGH",
+          "VendorSeverity": {
+            "oracle-oval": 3,
+            "redhat": 3
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:N",
+              "V3Score": 6.8
+            }
+          },
+          "References": [
+            "http://www.openwall.com/lists/oss-security/2026/10/20/29",
+            "https://access.redhat.com/security/cve/CVE-2026-111943",
+            "https://github.com/golang/go/issues/82345",
+            "https://go.dev/cl/851047",
+            "https://go.dev/issue/82345",
+            "https://groups.google.com/g/golang-announce/c/66pojueaQek",
+            "https://groups.google.com/g/golang-nuts/c/K22sG2AYnKU",
+            "https://linux.oracle.com/cve/CVE-2026-111943.html",
+            "https://linux.oracle.com/errata/ELSA-2026-500451.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2026-111943",
+            "https://pkg.go.dev/vuln/GO-2026-6809",
+            "https://www.cve.org/CVERecord?id=CVE-2026-111943"
+          ],
+          "PublishedDate": "2026-10-21T01:17:20.797Z",
+          "LastModifiedDate": "2026-10-21T02:17:06.71Z"
         }
       ]
     }
