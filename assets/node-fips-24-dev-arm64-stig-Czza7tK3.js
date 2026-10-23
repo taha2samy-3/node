@@ -1,1 +1,0 @@
-var e={id:`chainguard-gpos-srg`,title:`Chainguard GPOS SRG STIG Profile`,profile:`xccdf_basic_profile_.check`,image:`ghcr.io/taha2samy-3/node-fips:24-dev`,scanned_at:`2026-10-21T12:17:56.025952+00:00`,summary:{score:0,passed:0,failed:0,notapplicable:0,manual:0,total:0},rules:[]};export{e as default};
