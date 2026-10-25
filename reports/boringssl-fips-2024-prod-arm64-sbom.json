@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.7",
-  "serialNumber": "urn:uuid:be4ea876-5d92-4e21-8ee6-57fb49d8ca88",
+  "serialNumber": "urn:uuid:1effb802-e514-4876-8d36-ce72f4d59670",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-10-23T08:38:15+00:00",
+    "timestamp": "2026-10-25T08:08:53+00:00",
     "tools": {
       "components": [
         {
@@ -126,7 +126,7 @@
   },
   "components": [
     {
-      "bom-ref": "f73cbf7c-4fe4-410a-a489-18245d224db3",
+      "bom-ref": "ec21aa95-b260-4dfd-85a9-9c57ab5dd2f4",
       "type": "operating-system",
       "name": "wolfi",
       "version": "20230201",
@@ -142,7 +142,7 @@
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/ca-certificates-bundle@20260909-r2?arch=aarch64&distro=wolfi",
+      "bom-ref": "pkg:apk/wolfi/ca-certificates-bundle@20260909-r2?arch=aarch64&origin=ca-certificates",
       "type": "library",
       "name": "ca-certificates-bundle",
       "version": "20260909-r2",
@@ -151,7 +151,7 @@
           "expression": "MPL-2.0 AND MIT"
         }
       ],
-      "purl": "pkg:apk/wolfi/ca-certificates-bundle@20260909-r2?arch=aarch64&distro=wolfi",
+      "purl": "pkg:apk/wolfi/ca-certificates-bundle@20260909-r2?arch=aarch64&origin=ca-certificates",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
@@ -880,9 +880,9 @@
   ],
   "dependencies": [
     {
-      "ref": "f73cbf7c-4fe4-410a-a489-18245d224db3",
+      "ref": "ec21aa95-b260-4dfd-85a9-9c57ab5dd2f4",
       "dependsOn": [
-        "pkg:apk/wolfi/ca-certificates-bundle@20260909-r2?arch=aarch64&distro=wolfi",
+        "pkg:apk/wolfi/ca-certificates-bundle@20260909-r2?arch=aarch64&origin=ca-certificates",
         "pkg:apk/wolfi/ca-certificates@20260909-r3?arch=aarch64&distro=20230201",
         "pkg:apk/wolfi/libstdc%2B%2B@16.2.0-r1?arch=aarch64&distro=20230201",
         "pkg:apk/wolfi/openssl-provider-fips-3.1.2@3.1.2?distro=20230201",
@@ -891,7 +891,7 @@
       ]
     },
     {
-      "ref": "pkg:apk/wolfi/ca-certificates-bundle@20260909-r2?arch=aarch64&distro=wolfi",
+      "ref": "pkg:apk/wolfi/ca-certificates-bundle@20260909-r2?arch=aarch64&origin=ca-certificates",
       "dependsOn": []
     },
     {
@@ -1005,7 +1005,7 @@
     {
       "ref": "pkg:oci/boringssl-fips@sha256:01ed290205b2f32fd29a25b23128c255de1427799cb228687ad6ca814747cabb?arch=arm64&repository_url=ghcr.io%2Ftaha2samy-3%2Fboringssl-fips",
       "dependsOn": [
-        "f73cbf7c-4fe4-410a-a489-18245d224db3"
+        "ec21aa95-b260-4dfd-85a9-9c57ab5dd2f4"
       ]
     }
   ],
