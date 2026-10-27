@@ -1,0 +1,47 @@
+name: Renovate
+
+on:
+  schedule:
+    # Run daily at 04:00 UTC
+    - cron: '0 4 * * *'
+  workflow_dispatch:
+    inputs:
+      dryRun:
+        description: "Dry run mode: empty (full run) or 'full' / 'lookup'"
+        required: false
+        default: ""
+      logLevel:
+        description: "Renovate log level (debug, info, warn, error)"
+        required: false
+        default: "debug"
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  packages: read
+  actions: write
+  checks: read
+  statuses: read
+
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+
+      - name: Self-hosted Renovate
+        uses: renovatebot/github-action@v46.3.9
+        with:
+          configurationFile: renovate.json
+          token: ${{ secrets.RENOVATE_TOKEN || secrets.GITHUB_TOKEN }}
+        env:
+          RENOVATE_REPOSITORIES: ${{ github.repository }}
+          LOG_LEVEL: ${{ inputs.logLevel || 'debug' }}
+          RENOVATE_DRY_RUN: ${{ inputs.dryRun || '' }}
+          RENOVATE_AUTODISCOVER: 'false'
