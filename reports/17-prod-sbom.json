@@ -1,11 +1,11 @@
 {
-  "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
   "bomFormat": "CycloneDX",
-  "specVersion": "1.7",
-  "serialNumber": "urn:uuid:fc12be1d-611a-4a13-8061-c617e47772ac",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:1f7d5f83-16f1-4813-99a2-76755ac3e2c5",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-10-25T09:22:43+00:00",
+    "timestamp": "2026-10-27T05:23:16+00:00",
     "tools": {
       "components": [
         {
@@ -15,31 +15,31 @@
           },
           "group": "aquasecurity",
           "name": "trivy",
-          "version": "0.76.1"
+          "version": "0.64.1"
         }
       ]
     },
     "component": {
-      "bom-ref": "pkg:oci/java@sha256:487c67f761c1f6d9f400d52ffc328d10ca699b5fcb48df485cf6380a0f34e9a9?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fjava",
+      "bom-ref": "pkg:oci/java@sha256%3A925dfdc543c9894945367edccfb42bb7746c41200aba1cbe0f611e417ec6ee5f?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fjava",
       "type": "container",
       "name": "ghcr.io/taha2samy-3/java:17",
-      "purl": "pkg:oci/java@sha256:487c67f761c1f6d9f400d52ffc328d10ca699b5fcb48df485cf6380a0f34e9a9?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fjava",
+      "purl": "pkg:oci/java@sha256%3A925dfdc543c9894945367edccfb42bb7746c41200aba1cbe0f611e417ec6ee5f?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fjava",
       "properties": [
-        {
-          "name": "aquasecurity:trivy:DiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
-        },
         {
           "name": "aquasecurity:trivy:DiffID",
           "value": "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
         },
         {
+          "name": "aquasecurity:trivy:DiffID",
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
+        },
+        {
           "name": "aquasecurity:trivy:ImageID",
-          "value": "sha256:cd0edd94522694b029fc1365ba404ea61f1a4fae042597b29318a557894c034b"
+          "value": "sha256:cdcf48f504b2ccea3e423acc35288881c80fa8a86a33b01b52b5eb436ca65c8d"
         },
         {
           "name": "aquasecurity:trivy:Labels:io.github.taha2samy-3.build.fingerprint",
-          "value": "1951b0fc755b3c1229d67ea6c16eba7f"
+          "value": "01dd63d7f6df0614f5a6ab13ab34b1b3"
         },
         {
           "name": "aquasecurity:trivy:Labels:org.opencontainers.image.authors",
@@ -58,12 +58,8 @@
           "value": "https://github.com/taha2samy-3/node"
         },
         {
-          "name": "aquasecurity:trivy:Reference",
-          "value": "ghcr.io/taha2samy-3/java:17"
-        },
-        {
           "name": "aquasecurity:trivy:RepoDigest",
-          "value": "ghcr.io/taha2samy-3/java@sha256:487c67f761c1f6d9f400d52ffc328d10ca699b5fcb48df485cf6380a0f34e9a9"
+          "value": "ghcr.io/taha2samy-3/java@sha256:925dfdc543c9894945367edccfb42bb7746c41200aba1cbe0f611e417ec6ee5f"
         },
         {
           "name": "aquasecurity:trivy:RepoTag",
@@ -75,14 +71,29 @@
         },
         {
           "name": "aquasecurity:trivy:Size",
-          "value": "255032320"
+          "value": "255036416"
         }
       ]
     }
   },
   "components": [
     {
-      "bom-ref": "e093fe39-9247-4587-aec1-7947f47740cd",
+      "bom-ref": "8c91eb8b-455e-49a4-bd7d-cac0baf7d771",
+      "type": "application",
+      "name": "usr/bin/secrets-entrypoint",
+      "properties": [
+        {
+          "name": "aquasecurity:trivy:Class",
+          "value": "lang-pkgs"
+        },
+        {
+          "name": "aquasecurity:trivy:Type",
+          "value": "gobinary"
+        }
+      ]
+    },
+    {
+      "bom-ref": "d9213b13-edf1-4c87-a789-9b2aca9a2f9b",
       "type": "operating-system",
       "name": "wolfi",
       "version": "20230201",
@@ -98,41 +109,26 @@
       ]
     },
     {
-      "bom-ref": "fd25d105-c5c1-40ec-a345-673cb6ff0953",
-      "type": "application",
-      "name": "usr/bin/secrets-entrypoint",
-      "properties": [
-        {
-          "name": "aquasecurity:trivy:Class",
-          "value": "lang-pkgs"
-        },
-        {
-          "name": "aquasecurity:trivy:Type",
-          "value": "gobinary"
-        }
-      ]
-    },
-    {
-      "bom-ref": "pkg:apk/wolfi/alsa-lib@1.2.16.1-r3?arch=x86_64&distro=wolfi",
+      "bom-ref": "pkg:apk/wolfi/alsa-lib@1.2.16.1-r5?arch=x86_64&origin=alsa-lib",
       "type": "library",
       "name": "alsa-lib",
-      "version": "1.2.16.1-r3",
+      "version": "1.2.16.1-r5",
       "licenses": [
         {
           "license": {
-            "id": "LGPL-2.1-or-later"
+            "name": "LGPL-2.1-or-later"
           }
         }
       ],
-      "purl": "pkg:apk/wolfi/alsa-lib@1.2.16.1-r3?arch=x86_64&distro=wolfi",
+      "purl": "pkg:apk/wolfi/alsa-lib@1.2.16.1-r5?arch=x86_64&origin=alsa-lib",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
-          "value": "alsa-lib@1.2.16.1-r3"
+          "value": "alsa-lib@1.2.16.1-r5"
         },
         {
           "name": "aquasecurity:trivy:PkgType",
@@ -144,27 +140,27 @@
         },
         {
           "name": "aquasecurity:trivy:SrcVersion",
-          "value": "1.2.16.1-r3"
+          "value": "1.2.16.1-r5"
         }
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/apk-tools@2.14.10-r17?arch=x86_64&distro=wolfi",
+      "bom-ref": "pkg:apk/wolfi/apk-tools@2.14.10-r17?arch=x86_64&origin=apk-tools",
       "type": "library",
       "name": "apk-tools",
       "version": "2.14.10-r17",
       "licenses": [
         {
           "license": {
-            "id": "GPL-2.0-only"
+            "name": "GPL-2.0-only"
           }
         }
       ],
-      "purl": "pkg:apk/wolfi/apk-tools@2.14.10-r17?arch=x86_64&distro=wolfi",
+      "purl": "pkg:apk/wolfi/apk-tools@2.14.10-r17?arch=x86_64&origin=apk-tools",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -185,22 +181,22 @@
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/busybox@1.38.0-r3?arch=x86_64&distro=wolfi",
+      "bom-ref": "pkg:apk/wolfi/busybox@1.38.0-r3?arch=x86_64&origin=busybox",
       "type": "library",
       "name": "busybox",
       "version": "1.38.0-r3",
       "licenses": [
         {
           "license": {
-            "id": "GPL-2.0-only"
+            "name": "GPL-2.0-only"
           }
         }
       ],
-      "purl": "pkg:apk/wolfi/busybox@1.38.0-r3?arch=x86_64&distro=wolfi",
+      "purl": "pkg:apk/wolfi/busybox@1.38.0-r3?arch=x86_64&origin=busybox",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -227,14 +223,16 @@
       "version": "20260909-r3",
       "licenses": [
         {
-          "expression": "MPL-2.0 AND MIT"
+          "license": {
+            "name": "MPL-2.0 AND MIT"
+          }
         }
       ],
       "purl": "pkg:apk/wolfi/ca-certificates-bundle@20260909-r3?arch=x86_64&distro=wolfi",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -255,24 +253,26 @@
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/ca-certificates@20260909-r3?arch=x86_64&distro=wolfi",
+      "bom-ref": "pkg:apk/wolfi/ca-certificates@20261020-r0?arch=x86_64&distro=wolfi",
       "type": "library",
       "name": "ca-certificates",
-      "version": "20260909-r3",
+      "version": "20261020-r0",
       "licenses": [
         {
-          "expression": "MPL-2.0 AND MIT"
+          "license": {
+            "name": "MPL-2.0 AND MIT"
+          }
         }
       ],
-      "purl": "pkg:apk/wolfi/ca-certificates@20260909-r3?arch=x86_64&distro=wolfi",
+      "purl": "pkg:apk/wolfi/ca-certificates@20261020-r0?arch=x86_64&distro=wolfi",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
-          "value": "ca-certificates@20260909-r3"
+          "value": "ca-certificates@20261020-r0"
         },
         {
           "name": "aquasecurity:trivy:PkgType",
@@ -284,31 +284,31 @@
         },
         {
           "name": "aquasecurity:trivy:SrcVersion",
-          "value": "20260909-r3"
+          "value": "20261020-r0"
         }
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/fontconfig-config@2.18.3-r2?arch=x86_64&origin=fontconfig",
+      "bom-ref": "pkg:apk/wolfi/fontconfig-config@2.18.3-r4?arch=x86_64&origin=fontconfig",
       "type": "library",
       "name": "fontconfig-config",
-      "version": "2.18.3-r2",
+      "version": "2.18.3-r4",
       "licenses": [
         {
           "license": {
-            "id": "MIT"
+            "name": "MIT"
           }
         }
       ],
-      "purl": "pkg:apk/wolfi/fontconfig-config@2.18.3-r2?arch=x86_64&origin=fontconfig",
+      "purl": "pkg:apk/wolfi/fontconfig-config@2.18.3-r4?arch=x86_64&origin=fontconfig",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
-          "value": "fontconfig-config@2.18.3-r2"
+          "value": "fontconfig-config@2.18.3-r4"
         },
         {
           "name": "aquasecurity:trivy:PkgType",
@@ -320,25 +320,27 @@
         },
         {
           "name": "aquasecurity:trivy:SrcVersion",
-          "value": "2.18.3-r2"
+          "value": "2.18.3-r4"
         }
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/freetype@2.14.3-r7?arch=x86_64&distro=wolfi",
+      "bom-ref": "pkg:apk/wolfi/freetype@2.14.3-r7?arch=x86_64&origin=freetype",
       "type": "library",
       "name": "freetype",
       "version": "2.14.3-r7",
       "licenses": [
         {
-          "expression": "FTL OR GPL-2.0-or-later"
+          "license": {
+            "name": "(FTL OR GPL-2.0-or-later)"
+          }
         }
       ],
-      "purl": "pkg:apk/wolfi/freetype@2.14.3-r7?arch=x86_64&distro=wolfi",
+      "purl": "pkg:apk/wolfi/freetype@2.14.3-r7?arch=x86_64&origin=freetype",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -359,26 +361,26 @@
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/giflib@6.1.3-r2?arch=x86_64&distro=wolfi",
+      "bom-ref": "pkg:apk/wolfi/giflib@6.1.3-r4?arch=x86_64&origin=giflib",
       "type": "library",
       "name": "giflib",
-      "version": "6.1.3-r2",
+      "version": "6.1.3-r4",
       "licenses": [
         {
           "license": {
-            "id": "MIT"
+            "name": "MIT"
           }
         }
       ],
-      "purl": "pkg:apk/wolfi/giflib@6.1.3-r2?arch=x86_64&distro=wolfi",
+      "purl": "pkg:apk/wolfi/giflib@6.1.3-r4?arch=x86_64&origin=giflib",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
-          "value": "giflib@6.1.3-r2"
+          "value": "giflib@6.1.3-r4"
         },
         {
           "name": "aquasecurity:trivy:PkgType",
@@ -390,27 +392,27 @@
         },
         {
           "name": "aquasecurity:trivy:SrcVersion",
-          "value": "6.1.3-r2"
+          "value": "6.1.3-r4"
         }
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/glibc-2.44-locale-posix@2.44-r9?arch=x86_64&origin=glibc-2.44",
+      "bom-ref": "pkg:apk/wolfi/glibc-2.44-locale-posix@2.44-r9?arch=x86_64&distro=wolfi",
       "type": "library",
       "name": "glibc-2.44-locale-posix",
       "version": "2.44-r9",
       "licenses": [
         {
           "license": {
-            "id": "LGPL-2.1-or-later"
+            "name": "LGPL-2.1-or-later"
           }
         }
       ],
-      "purl": "pkg:apk/wolfi/glibc-2.44-locale-posix@2.44-r9?arch=x86_64&origin=glibc-2.44",
+      "purl": "pkg:apk/wolfi/glibc-2.44-locale-posix@2.44-r9?arch=x86_64&distro=wolfi",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -431,22 +433,22 @@
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&origin=glibc-2.44",
+      "bom-ref": "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&distro=wolfi",
       "type": "library",
       "name": "glibc-2.44",
       "version": "2.44-r9",
       "licenses": [
         {
           "license": {
-            "id": "LGPL-2.1-or-later"
+            "name": "LGPL-2.1-or-later"
           }
         }
       ],
-      "purl": "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&origin=glibc-2.44",
+      "purl": "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&distro=wolfi",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -467,24 +469,26 @@
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/java-cacerts@20260909-r3?arch=x86_64&distro=wolfi",
+      "bom-ref": "pkg:apk/wolfi/java-cacerts@20261020-r0?arch=x86_64&distro=wolfi",
       "type": "library",
       "name": "java-cacerts",
-      "version": "20260909-r3",
+      "version": "20261020-r0",
       "licenses": [
         {
-          "expression": "MPL-2.0 AND MIT"
+          "license": {
+            "name": "MPL-2.0 AND MIT"
+          }
         }
       ],
-      "purl": "pkg:apk/wolfi/java-cacerts@20260909-r3?arch=x86_64&distro=wolfi",
+      "purl": "pkg:apk/wolfi/java-cacerts@20261020-r0?arch=x86_64&distro=wolfi",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
-          "value": "java-cacerts@20260909-r3"
+          "value": "java-cacerts@20261020-r0"
         },
         {
           "name": "aquasecurity:trivy:PkgType",
@@ -496,29 +500,31 @@
         },
         {
           "name": "aquasecurity:trivy:SrcVersion",
-          "value": "20260909-r3"
+          "value": "20261020-r0"
         }
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/lcms2@2.19.1-r3?arch=x86_64&origin=lcms2",
+      "bom-ref": "pkg:apk/wolfi/lcms2@2.19.1-r5?arch=x86_64&distro=wolfi",
       "type": "library",
       "name": "lcms2",
-      "version": "2.19.1-r3",
+      "version": "2.19.1-r5",
       "licenses": [
         {
-          "expression": "MIT AND GPL-3.0-only"
+          "license": {
+            "name": "MIT AND GPL-3.0-only"
+          }
         }
       ],
-      "purl": "pkg:apk/wolfi/lcms2@2.19.1-r3?arch=x86_64&origin=lcms2",
+      "purl": "pkg:apk/wolfi/lcms2@2.19.1-r5?arch=x86_64&distro=wolfi",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
-          "value": "lcms2@2.19.1-r3"
+          "value": "lcms2@2.19.1-r5"
         },
         {
           "name": "aquasecurity:trivy:PkgType",
@@ -530,27 +536,27 @@
         },
         {
           "name": "aquasecurity:trivy:SrcVersion",
-          "value": "2.19.1-r3"
+          "value": "2.19.1-r5"
         }
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/ld-linux-2.44@2.44-r9?arch=x86_64&distro=wolfi",
+      "bom-ref": "pkg:apk/wolfi/ld-linux-2.44@2.44-r9?arch=x86_64&origin=glibc-2.44",
       "type": "library",
       "name": "ld-linux-2.44",
       "version": "2.44-r9",
       "licenses": [
         {
           "license": {
-            "id": "LGPL-2.1-or-later"
+            "name": "LGPL-2.1-or-later"
           }
         }
       ],
-      "purl": "pkg:apk/wolfi/ld-linux-2.44@2.44-r9?arch=x86_64&distro=wolfi",
+      "purl": "pkg:apk/wolfi/ld-linux-2.44@2.44-r9?arch=x86_64&origin=glibc-2.44",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -578,7 +584,7 @@
       "licenses": [
         {
           "license": {
-            "id": "MIT"
+            "name": "MIT"
           }
         }
       ],
@@ -586,7 +592,7 @@
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -607,22 +613,22 @@
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/libbrotlidec1@1.2.1-r1?arch=x86_64&distro=wolfi",
+      "bom-ref": "pkg:apk/wolfi/libbrotlidec1@1.2.1-r1?arch=x86_64&origin=brotli",
       "type": "library",
       "name": "libbrotlidec1",
       "version": "1.2.1-r1",
       "licenses": [
         {
           "license": {
-            "id": "MIT"
+            "name": "MIT"
           }
         }
       ],
-      "purl": "pkg:apk/wolfi/libbrotlidec1@1.2.1-r1?arch=x86_64&distro=wolfi",
+      "purl": "pkg:apk/wolfi/libbrotlidec1@1.2.1-r1?arch=x86_64&origin=brotli",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -643,22 +649,22 @@
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/libbrotlienc1@1.2.1-r1?arch=x86_64&origin=brotli",
+      "bom-ref": "pkg:apk/wolfi/libbrotlienc1@1.2.1-r1?arch=x86_64&distro=wolfi",
       "type": "library",
       "name": "libbrotlienc1",
       "version": "1.2.1-r1",
       "licenses": [
         {
           "license": {
-            "id": "MIT"
+            "name": "MIT"
           }
         }
       ],
-      "purl": "pkg:apk/wolfi/libbrotlienc1@1.2.1-r1?arch=x86_64&origin=brotli",
+      "purl": "pkg:apk/wolfi/libbrotlienc1@1.2.1-r1?arch=x86_64&distro=wolfi",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -679,24 +685,26 @@
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/libbz2-1@1.0.8-r27?arch=x86_64&distro=wolfi",
+      "bom-ref": "pkg:apk/wolfi/libbz2-1@1.0.8-r28?arch=x86_64&distro=wolfi",
       "type": "library",
       "name": "libbz2-1",
-      "version": "1.0.8-r27",
+      "version": "1.0.8-r28",
       "licenses": [
         {
-          "expression": "MPL-2.0 AND MIT"
+          "license": {
+            "name": "MPL-2.0 AND MIT"
+          }
         }
       ],
-      "purl": "pkg:apk/wolfi/libbz2-1@1.0.8-r27?arch=x86_64&distro=wolfi",
+      "purl": "pkg:apk/wolfi/libbz2-1@1.0.8-r28?arch=x86_64&distro=wolfi",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
-          "value": "libbz2-1@1.0.8-r27"
+          "value": "libbz2-1@1.0.8-r28"
         },
         {
           "name": "aquasecurity:trivy:PkgType",
@@ -708,27 +716,27 @@
         },
         {
           "name": "aquasecurity:trivy:SrcVersion",
-          "value": "1.0.8-r27"
+          "value": "1.0.8-r28"
         }
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/libcrypt1-2.44@2.44-r9?arch=x86_64&distro=wolfi",
+      "bom-ref": "pkg:apk/wolfi/libcrypt1-2.44@2.44-r9?arch=x86_64&origin=glibc-2.44",
       "type": "library",
       "name": "libcrypt1-2.44",
       "version": "2.44-r9",
       "licenses": [
         {
           "license": {
-            "id": "LGPL-2.1-or-later"
+            "name": "LGPL-2.1-or-later"
           }
         }
       ],
-      "purl": "pkg:apk/wolfi/libcrypt1-2.44@2.44-r9?arch=x86_64&distro=wolfi",
+      "purl": "pkg:apk/wolfi/libcrypt1-2.44@2.44-r9?arch=x86_64&origin=glibc-2.44",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -749,22 +757,22 @@
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/libexpat1@2.9.0-r0?arch=x86_64&origin=expat",
+      "bom-ref": "pkg:apk/wolfi/libexpat1@2.9.0-r0?arch=x86_64&distro=wolfi",
       "type": "library",
       "name": "libexpat1",
       "version": "2.9.0-r0",
       "licenses": [
         {
           "license": {
-            "id": "MIT"
+            "name": "MIT"
           }
         }
       ],
-      "purl": "pkg:apk/wolfi/libexpat1@2.9.0-r0?arch=x86_64&origin=expat",
+      "purl": "pkg:apk/wolfi/libexpat1@2.9.0-r0?arch=x86_64&distro=wolfi",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -792,7 +800,7 @@
       "licenses": [
         {
           "license": {
-            "id": "MIT"
+            "name": "MIT"
           }
         }
       ],
@@ -800,7 +808,7 @@
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -821,26 +829,26 @@
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/libfontconfig1@2.18.3-r2?arch=x86_64&distro=wolfi",
+      "bom-ref": "pkg:apk/wolfi/libfontconfig1@2.18.3-r4?arch=x86_64&origin=fontconfig",
       "type": "library",
       "name": "libfontconfig1",
-      "version": "2.18.3-r2",
+      "version": "2.18.3-r4",
       "licenses": [
         {
           "license": {
-            "id": "MIT"
+            "name": "MIT"
           }
         }
       ],
-      "purl": "pkg:apk/wolfi/libfontconfig1@2.18.3-r2?arch=x86_64&distro=wolfi",
+      "purl": "pkg:apk/wolfi/libfontconfig1@2.18.3-r4?arch=x86_64&origin=fontconfig",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
-          "value": "libfontconfig1@2.18.3-r2"
+          "value": "libfontconfig1@2.18.3-r4"
         },
         {
           "name": "aquasecurity:trivy:PkgType",
@@ -852,25 +860,27 @@
         },
         {
           "name": "aquasecurity:trivy:SrcVersion",
-          "value": "2.18.3-r2"
+          "value": "2.18.3-r4"
         }
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/libgcc@16.2.0-r1?arch=x86_64&distro=wolfi",
+      "bom-ref": "pkg:apk/wolfi/libgcc@16.2.0-r1?arch=x86_64&origin=gcc",
       "type": "library",
       "name": "libgcc",
       "version": "16.2.0-r1",
       "licenses": [
         {
-          "expression": "GPL-3.0-or-later WITH GCC-exception-3.1"
+          "license": {
+            "name": "(GPL-3.0-or-later WITH GCC-exception-3.1)"
+          }
         }
       ],
-      "purl": "pkg:apk/wolfi/libgcc@16.2.0-r1?arch=x86_64&distro=wolfi",
+      "purl": "pkg:apk/wolfi/libgcc@16.2.0-r1?arch=x86_64&origin=gcc",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -891,24 +901,26 @@
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/libjpeg-turbo@3.2.0-r6?arch=x86_64&origin=libjpeg-turbo",
+      "bom-ref": "pkg:apk/wolfi/libjpeg-turbo@3.2.0-r7?arch=x86_64&distro=wolfi",
       "type": "library",
       "name": "libjpeg-turbo",
-      "version": "3.2.0-r6",
+      "version": "3.2.0-r7",
       "licenses": [
         {
-          "expression": "BSD-3-Clause AND IJG AND Zlib"
+          "license": {
+            "name": "BSD-3-Clause AND IJG AND Zlib"
+          }
         }
       ],
-      "purl": "pkg:apk/wolfi/libjpeg-turbo@3.2.0-r6?arch=x86_64&origin=libjpeg-turbo",
+      "purl": "pkg:apk/wolfi/libjpeg-turbo@3.2.0-r7?arch=x86_64&distro=wolfi",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
-          "value": "libjpeg-turbo@3.2.0-r6"
+          "value": "libjpeg-turbo@3.2.0-r7"
         },
         {
           "name": "aquasecurity:trivy:PkgType",
@@ -920,27 +932,27 @@
         },
         {
           "name": "aquasecurity:trivy:SrcVersion",
-          "value": "3.2.0-r6"
+          "value": "3.2.0-r7"
         }
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/libpng@1.6.59-r0?arch=x86_64&origin=libpng",
+      "bom-ref": "pkg:apk/wolfi/libpng@1.6.59-r0?arch=x86_64&distro=wolfi",
       "type": "library",
       "name": "libpng",
       "version": "1.6.59-r0",
       "licenses": [
         {
           "license": {
-            "id": "libpng-2.0"
+            "name": "libpng-2.0"
           }
         }
       ],
-      "purl": "pkg:apk/wolfi/libpng@1.6.59-r0?arch=x86_64&origin=libpng",
+      "purl": "pkg:apk/wolfi/libpng@1.6.59-r0?arch=x86_64&distro=wolfi",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -961,26 +973,26 @@
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/libtasn1@4.21.0-r8?arch=x86_64&distro=wolfi",
+      "bom-ref": "pkg:apk/wolfi/libtasn1@4.21.0-r9?arch=x86_64&distro=wolfi",
       "type": "library",
       "name": "libtasn1",
-      "version": "4.21.0-r8",
+      "version": "4.21.0-r9",
       "licenses": [
         {
           "license": {
-            "id": "LGPL-2.1-or-later"
+            "name": "LGPL-2.1-or-later"
           }
         }
       ],
-      "purl": "pkg:apk/wolfi/libtasn1@4.21.0-r8?arch=x86_64&distro=wolfi",
+      "purl": "pkg:apk/wolfi/libtasn1@4.21.0-r9?arch=x86_64&distro=wolfi",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
-          "value": "libtasn1@4.21.0-r8"
+          "value": "libtasn1@4.21.0-r9"
         },
         {
           "name": "aquasecurity:trivy:PkgType",
@@ -992,31 +1004,31 @@
         },
         {
           "name": "aquasecurity:trivy:SrcVersion",
-          "value": "4.21.0-r8"
+          "value": "4.21.0-r9"
         }
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/libx11@1.8.14-r1?arch=x86_64&origin=libx11",
+      "bom-ref": "pkg:apk/wolfi/libx11@1.8.14-r3?arch=x86_64&origin=libx11",
       "type": "library",
       "name": "libx11",
-      "version": "1.8.14-r1",
+      "version": "1.8.14-r3",
       "licenses": [
         {
           "license": {
-            "id": "XFree86-1.1"
+            "name": "XFree86-1.1"
           }
         }
       ],
-      "purl": "pkg:apk/wolfi/libx11@1.8.14-r1?arch=x86_64&origin=libx11",
+      "purl": "pkg:apk/wolfi/libx11@1.8.14-r3?arch=x86_64&origin=libx11",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
-          "value": "libx11@1.8.14-r1"
+          "value": "libx11@1.8.14-r3"
         },
         {
           "name": "aquasecurity:trivy:PkgType",
@@ -1028,31 +1040,31 @@
         },
         {
           "name": "aquasecurity:trivy:SrcVersion",
-          "value": "1.8.14-r1"
+          "value": "1.8.14-r3"
         }
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/libxau@1.0.12-r9?arch=x86_64&origin=libxau",
+      "bom-ref": "pkg:apk/wolfi/libxau@1.0.12-r11?arch=x86_64&origin=libxau",
       "type": "library",
       "name": "libxau",
-      "version": "1.0.12-r9",
+      "version": "1.0.12-r11",
       "licenses": [
         {
           "license": {
-            "id": "MIT"
+            "name": "MIT"
           }
         }
       ],
-      "purl": "pkg:apk/wolfi/libxau@1.0.12-r9?arch=x86_64&origin=libxau",
+      "purl": "pkg:apk/wolfi/libxau@1.0.12-r11?arch=x86_64&origin=libxau",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
-          "value": "libxau@1.0.12-r9"
+          "value": "libxau@1.0.12-r11"
         },
         {
           "name": "aquasecurity:trivy:PkgType",
@@ -1064,31 +1076,31 @@
         },
         {
           "name": "aquasecurity:trivy:SrcVersion",
-          "value": "1.0.12-r9"
+          "value": "1.0.12-r11"
         }
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/libxcb@1.17.0-r17?arch=x86_64&distro=wolfi",
+      "bom-ref": "pkg:apk/wolfi/libxcb@1.17.0-r19?arch=x86_64&origin=libxcb",
       "type": "library",
       "name": "libxcb",
-      "version": "1.17.0-r17",
+      "version": "1.17.0-r19",
       "licenses": [
         {
           "license": {
-            "id": "MIT"
+            "name": "MIT"
           }
         }
       ],
-      "purl": "pkg:apk/wolfi/libxcb@1.17.0-r17?arch=x86_64&distro=wolfi",
+      "purl": "pkg:apk/wolfi/libxcb@1.17.0-r19?arch=x86_64&origin=libxcb",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
-          "value": "libxcb@1.17.0-r17"
+          "value": "libxcb@1.17.0-r19"
         },
         {
           "name": "aquasecurity:trivy:PkgType",
@@ -1100,7 +1112,7 @@
         },
         {
           "name": "aquasecurity:trivy:SrcVersion",
-          "value": "1.17.0-r17"
+          "value": "1.17.0-r19"
         }
       ]
     },
@@ -1111,14 +1123,16 @@
       "version": "4.5.2-r6",
       "licenses": [
         {
-          "expression": "GPL-2.0-or-later AND LGPL-2.1-or-later"
+          "license": {
+            "name": "GPL-2.0-or-later AND LGPL-2.1-or-later"
+          }
         }
       ],
       "purl": "pkg:apk/wolfi/libxcrypt@4.5.2-r6?arch=x86_64&distro=wolfi",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -1139,26 +1153,26 @@
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/libxdmcp@1.1.5-r12?arch=x86_64&origin=libxdmcp",
+      "bom-ref": "pkg:apk/wolfi/libxdmcp@1.1.5-r14?arch=x86_64&distro=wolfi",
       "type": "library",
       "name": "libxdmcp",
-      "version": "1.1.5-r12",
+      "version": "1.1.5-r14",
       "licenses": [
         {
           "license": {
-            "id": "MIT"
+            "name": "MIT"
           }
         }
       ],
-      "purl": "pkg:apk/wolfi/libxdmcp@1.1.5-r12?arch=x86_64&origin=libxdmcp",
+      "purl": "pkg:apk/wolfi/libxdmcp@1.1.5-r14?arch=x86_64&distro=wolfi",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
-          "value": "libxdmcp@1.1.5-r12"
+          "value": "libxdmcp@1.1.5-r14"
         },
         {
           "name": "aquasecurity:trivy:PkgType",
@@ -1170,7 +1184,7 @@
         },
         {
           "name": "aquasecurity:trivy:SrcVersion",
-          "value": "1.1.5-r12"
+          "value": "1.1.5-r14"
         }
       ]
     },
@@ -1182,7 +1196,7 @@
       "licenses": [
         {
           "license": {
-            "id": "MIT"
+            "name": "MIT"
           }
         }
       ],
@@ -1190,7 +1204,7 @@
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -1211,20 +1225,22 @@
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/libxi@1.8.4-r0?arch=x86_64&origin=libxi",
+      "bom-ref": "pkg:apk/wolfi/libxi@1.8.4-r0?arch=x86_64&distro=wolfi",
       "type": "library",
       "name": "libxi",
       "version": "1.8.4-r0",
       "licenses": [
         {
-          "expression": "MIT AND X11"
+          "license": {
+            "name": "MIT AND X11"
+          }
         }
       ],
-      "purl": "pkg:apk/wolfi/libxi@1.8.4-r0?arch=x86_64&origin=libxi",
+      "purl": "pkg:apk/wolfi/libxi@1.8.4-r0?arch=x86_64&distro=wolfi",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -1245,22 +1261,22 @@
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/libxrender@0.9.13-r0?arch=x86_64&distro=wolfi",
+      "bom-ref": "pkg:apk/wolfi/libxrender@0.9.13-r0?arch=x86_64&origin=libxrender",
       "type": "library",
       "name": "libxrender",
       "version": "0.9.13-r0",
       "licenses": [
         {
           "license": {
-            "id": "XFree86-1.1"
+            "name": "XFree86-1.1"
           }
         }
       ],
-      "purl": "pkg:apk/wolfi/libxrender@0.9.13-r0?arch=x86_64&distro=wolfi",
+      "purl": "pkg:apk/wolfi/libxrender@0.9.13-r0?arch=x86_64&origin=libxrender",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -1281,22 +1297,22 @@
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/libxtst@1.2.6-r0?arch=x86_64&distro=wolfi",
+      "bom-ref": "pkg:apk/wolfi/libxtst@1.2.6-r0?arch=x86_64&origin=libxtst",
       "type": "library",
       "name": "libxtst",
       "version": "1.2.6-r0",
       "licenses": [
         {
           "license": {
-            "id": "XFree86-1.1"
+            "name": "XFree86-1.1"
           }
         }
       ],
-      "purl": "pkg:apk/wolfi/libxtst@1.2.6-r0?arch=x86_64&distro=wolfi",
+      "purl": "pkg:apk/wolfi/libxtst@1.2.6-r0?arch=x86_64&origin=libxtst",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -1317,20 +1333,22 @@
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/openjdk-17@17.0.21.0.2-r0?arch=x86_64&distro=wolfi",
+      "bom-ref": "pkg:apk/wolfi/openjdk-17@17.0.21.0.2-r0?arch=x86_64&origin=openjdk-17",
       "type": "library",
       "name": "openjdk-17",
       "version": "17.0.21.0.2-r0",
       "licenses": [
         {
-          "expression": "GPL-2.0-only WITH Classpath-exception-2.0"
+          "license": {
+            "name": "(GPL-2.0 WITH Classpath-exception-2.0)"
+          }
         }
       ],
-      "purl": "pkg:apk/wolfi/openjdk-17@17.0.21.0.2-r0?arch=x86_64&distro=wolfi",
+      "purl": "pkg:apk/wolfi/openjdk-17@17.0.21.0.2-r0?arch=x86_64&origin=openjdk-17",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -1358,7 +1376,7 @@
       "licenses": [
         {
           "license": {
-            "id": "Apache-2.0"
+            "name": "Apache-2.0"
           }
         }
       ],
@@ -1366,7 +1384,7 @@
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -1387,22 +1405,22 @@
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/openssl-4.0-libssl@4.0.3-r8?arch=x86_64&origin=openssl-4.0",
+      "bom-ref": "pkg:apk/wolfi/openssl-4.0-libssl@4.0.3-r8?arch=x86_64&distro=wolfi",
       "type": "library",
       "name": "openssl-4.0-libssl",
       "version": "4.0.3-r8",
       "licenses": [
         {
           "license": {
-            "id": "Apache-2.0"
+            "name": "Apache-2.0"
           }
         }
       ],
-      "purl": "pkg:apk/wolfi/openssl-4.0-libssl@4.0.3-r8?arch=x86_64&origin=openssl-4.0",
+      "purl": "pkg:apk/wolfi/openssl-4.0-libssl@4.0.3-r8?arch=x86_64&distro=wolfi",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -1430,7 +1448,7 @@
       "licenses": [
         {
           "license": {
-            "id": "Apache-2.0"
+            "name": "Apache-2.0"
           }
         }
       ],
@@ -1438,7 +1456,7 @@
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -1466,7 +1484,7 @@
       "licenses": [
         {
           "license": {
-            "id": "BSD-3-Clause"
+            "name": "BSD-3-Clause"
           }
         }
       ],
@@ -1474,7 +1492,7 @@
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -1502,7 +1520,7 @@
       "licenses": [
         {
           "license": {
-            "id": "BSD-3-Clause"
+            "name": "BSD-3-Clause"
           }
         }
       ],
@@ -1510,7 +1528,7 @@
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -1538,7 +1556,7 @@
       "licenses": [
         {
           "license": {
-            "id": "MIT"
+            "name": "MIT"
           }
         }
       ],
@@ -1546,7 +1564,7 @@
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -1567,22 +1585,22 @@
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/ttf-dejavu@2.37-r9?arch=x86_64&distro=wolfi",
+      "bom-ref": "pkg:apk/wolfi/ttf-dejavu@2.37-r9?arch=x86_64&origin=ttf-dejavu",
       "type": "library",
       "name": "ttf-dejavu",
       "version": "2.37-r9",
       "licenses": [
         {
           "license": {
-            "id": "Bitstream-Vera"
+            "name": "Bitstream-Vera"
           }
         }
       ],
-      "purl": "pkg:apk/wolfi/ttf-dejavu@2.37-r9?arch=x86_64&distro=wolfi",
+      "purl": "pkg:apk/wolfi/ttf-dejavu@2.37-r9?arch=x86_64&origin=ttf-dejavu",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -1610,7 +1628,7 @@
       "licenses": [
         {
           "license": {
-            "id": "MIT"
+            "name": "MIT"
           }
         }
       ],
@@ -1618,7 +1636,7 @@
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -1639,22 +1657,22 @@
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/wolfi-baselayout@20230201-r30?arch=x86_64&distro=wolfi",
+      "bom-ref": "pkg:apk/wolfi/wolfi-baselayout@20230201-r30?arch=x86_64&origin=wolfi-baselayout",
       "type": "library",
       "name": "wolfi-baselayout",
       "version": "20230201-r30",
       "licenses": [
         {
           "license": {
-            "id": "MIT"
+            "name": "MIT"
           }
         }
       ],
-      "purl": "pkg:apk/wolfi/wolfi-baselayout@20230201-r30?arch=x86_64&distro=wolfi",
+      "purl": "pkg:apk/wolfi/wolfi-baselayout@20230201-r30?arch=x86_64&origin=wolfi-baselayout",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -1675,22 +1693,22 @@
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/wolfi-keys@1-r14?arch=x86_64&origin=wolfi-keys",
+      "bom-ref": "pkg:apk/wolfi/wolfi-keys@1-r14?arch=x86_64&distro=wolfi",
       "type": "library",
       "name": "wolfi-keys",
       "version": "1-r14",
       "licenses": [
         {
           "license": {
-            "id": "MIT"
+            "name": "MIT"
           }
         }
       ],
-      "purl": "pkg:apk/wolfi/wolfi-keys@1-r14?arch=x86_64&origin=wolfi-keys",
+      "purl": "pkg:apk/wolfi/wolfi-keys@1-r14?arch=x86_64&distro=wolfi",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -1711,20 +1729,22 @@
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/zlib@1.3.2.1_rc20260921-r0?arch=x86_64&origin=zlib",
+      "bom-ref": "pkg:apk/wolfi/zlib@1.3.2.1_rc20260921-r0?arch=x86_64&distro=wolfi",
       "type": "library",
       "name": "zlib",
       "version": "1.3.2.1_rc20260921-r0",
       "licenses": [
         {
-          "expression": "MPL-2.0 AND MIT"
+          "license": {
+            "name": "MPL-2.0 AND MIT"
+          }
         }
       ],
-      "purl": "pkg:apk/wolfi/zlib@1.3.2.1_rc20260921-r0?arch=x86_64&origin=zlib",
+      "purl": "pkg:apk/wolfi/zlib@1.3.2.1_rc20260921-r0?arch=x86_64&distro=wolfi",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -1745,19 +1765,19 @@
       ]
     },
     {
-      "bom-ref": "pkg:golang/secrets-entrypoint@v1.0.1%2Bdirty",
+      "bom-ref": "pkg:golang/secrets-entrypoint@v1.0.2%2Bdirty",
       "type": "library",
       "name": "secrets-entrypoint",
-      "version": "v1.0.1+dirty",
-      "purl": "pkg:golang/secrets-entrypoint@v1.0.1%2Bdirty",
+      "version": "v1.0.2+dirty",
+      "purl": "pkg:golang/secrets-entrypoint@v1.0.2%2Bdirty",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
-          "value": "secrets-entrypoint@v1.0.1+dirty"
+          "value": "secrets-entrypoint@v1.0.2+dirty"
         },
         {
           "name": "aquasecurity:trivy:PkgType",
@@ -1766,19 +1786,19 @@
       ]
     },
     {
-      "bom-ref": "pkg:golang/stdlib@v1.26.9",
+      "bom-ref": "pkg:golang/stdlib@v1.26.10",
       "type": "library",
       "name": "stdlib",
-      "version": "v1.26.9",
-      "purl": "pkg:golang/stdlib@v1.26.9",
+      "version": "v1.26.10",
+      "purl": "pkg:golang/stdlib@v1.26.10",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
-          "value": "stdlib@v1.26.9"
+          "value": "stdlib@v1.26.10"
         },
         {
           "name": "aquasecurity:trivy:PkgType",
@@ -1792,12 +1812,6 @@
       "group": "jrt-fs",
       "name": "jrt-fs",
       "version": "17.0.21.0.2",
-      "hashes": [
-        {
-          "alg": "SHA-1",
-          "content": "19e247af9f7bd3fe9e6e3ad50cd2118148c65ff1"
-        }
-      ],
       "licenses": [
         {
           "license": {
@@ -1809,7 +1823,7 @@
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
-          "value": "sha256:35954f53601a439fe283b62317fa3f0e77ec69da07b3d4b29435b5f611e1a843"
+          "value": "sha256:b6db30999260184a3240c8485007b385284dd5e424ba62eac28097663a8900ba"
         },
         {
           "name": "aquasecurity:trivy:PkgID",
@@ -1824,72 +1838,72 @@
   ],
   "dependencies": [
     {
-      "ref": "e093fe39-9247-4587-aec1-7947f47740cd",
+      "ref": "8c91eb8b-455e-49a4-bd7d-cac0baf7d771",
       "dependsOn": [
-        "pkg:apk/wolfi/alsa-lib@1.2.16.1-r3?arch=x86_64&distro=wolfi",
-        "pkg:apk/wolfi/apk-tools@2.14.10-r17?arch=x86_64&distro=wolfi",
-        "pkg:apk/wolfi/busybox@1.38.0-r3?arch=x86_64&distro=wolfi",
+        "pkg:golang/secrets-entrypoint@v1.0.2%2Bdirty"
+      ]
+    },
+    {
+      "ref": "d9213b13-edf1-4c87-a789-9b2aca9a2f9b",
+      "dependsOn": [
+        "pkg:apk/wolfi/alsa-lib@1.2.16.1-r5?arch=x86_64&origin=alsa-lib",
+        "pkg:apk/wolfi/apk-tools@2.14.10-r17?arch=x86_64&origin=apk-tools",
+        "pkg:apk/wolfi/busybox@1.38.0-r3?arch=x86_64&origin=busybox",
         "pkg:apk/wolfi/ca-certificates-bundle@20260909-r3?arch=x86_64&distro=wolfi",
-        "pkg:apk/wolfi/ca-certificates@20260909-r3?arch=x86_64&distro=wolfi",
-        "pkg:apk/wolfi/fontconfig-config@2.18.3-r2?arch=x86_64&origin=fontconfig",
-        "pkg:apk/wolfi/freetype@2.14.3-r7?arch=x86_64&distro=wolfi",
-        "pkg:apk/wolfi/giflib@6.1.3-r2?arch=x86_64&distro=wolfi",
-        "pkg:apk/wolfi/glibc-2.44-locale-posix@2.44-r9?arch=x86_64&origin=glibc-2.44",
-        "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&origin=glibc-2.44",
-        "pkg:apk/wolfi/java-cacerts@20260909-r3?arch=x86_64&distro=wolfi",
-        "pkg:apk/wolfi/lcms2@2.19.1-r3?arch=x86_64&origin=lcms2",
-        "pkg:apk/wolfi/ld-linux-2.44@2.44-r9?arch=x86_64&distro=wolfi",
+        "pkg:apk/wolfi/ca-certificates@20261020-r0?arch=x86_64&distro=wolfi",
+        "pkg:apk/wolfi/fontconfig-config@2.18.3-r4?arch=x86_64&origin=fontconfig",
+        "pkg:apk/wolfi/freetype@2.14.3-r7?arch=x86_64&origin=freetype",
+        "pkg:apk/wolfi/giflib@6.1.3-r4?arch=x86_64&origin=giflib",
+        "pkg:apk/wolfi/glibc-2.44-locale-posix@2.44-r9?arch=x86_64&distro=wolfi",
+        "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&distro=wolfi",
+        "pkg:apk/wolfi/java-cacerts@20261020-r0?arch=x86_64&distro=wolfi",
+        "pkg:apk/wolfi/lcms2@2.19.1-r5?arch=x86_64&distro=wolfi",
+        "pkg:apk/wolfi/ld-linux-2.44@2.44-r9?arch=x86_64&origin=glibc-2.44",
         "pkg:apk/wolfi/libbrotlicommon1@1.2.1-r1?arch=x86_64&distro=wolfi",
-        "pkg:apk/wolfi/libbrotlidec1@1.2.1-r1?arch=x86_64&distro=wolfi",
-        "pkg:apk/wolfi/libbrotlienc1@1.2.1-r1?arch=x86_64&origin=brotli",
-        "pkg:apk/wolfi/libbz2-1@1.0.8-r27?arch=x86_64&distro=wolfi",
-        "pkg:apk/wolfi/libcrypt1-2.44@2.44-r9?arch=x86_64&distro=wolfi",
-        "pkg:apk/wolfi/libexpat1@2.9.0-r0?arch=x86_64&origin=expat",
+        "pkg:apk/wolfi/libbrotlidec1@1.2.1-r1?arch=x86_64&origin=brotli",
+        "pkg:apk/wolfi/libbrotlienc1@1.2.1-r1?arch=x86_64&distro=wolfi",
+        "pkg:apk/wolfi/libbz2-1@1.0.8-r28?arch=x86_64&distro=wolfi",
+        "pkg:apk/wolfi/libcrypt1-2.44@2.44-r9?arch=x86_64&origin=glibc-2.44",
+        "pkg:apk/wolfi/libexpat1@2.9.0-r0?arch=x86_64&distro=wolfi",
         "pkg:apk/wolfi/libffi@3.8.0-r2?arch=x86_64&origin=libffi",
-        "pkg:apk/wolfi/libfontconfig1@2.18.3-r2?arch=x86_64&distro=wolfi",
-        "pkg:apk/wolfi/libgcc@16.2.0-r1?arch=x86_64&distro=wolfi",
-        "pkg:apk/wolfi/libjpeg-turbo@3.2.0-r6?arch=x86_64&origin=libjpeg-turbo",
-        "pkg:apk/wolfi/libpng@1.6.59-r0?arch=x86_64&origin=libpng",
-        "pkg:apk/wolfi/libtasn1@4.21.0-r8?arch=x86_64&distro=wolfi",
-        "pkg:apk/wolfi/libx11@1.8.14-r1?arch=x86_64&origin=libx11",
-        "pkg:apk/wolfi/libxau@1.0.12-r9?arch=x86_64&origin=libxau",
-        "pkg:apk/wolfi/libxcb@1.17.0-r17?arch=x86_64&distro=wolfi",
+        "pkg:apk/wolfi/libfontconfig1@2.18.3-r4?arch=x86_64&origin=fontconfig",
+        "pkg:apk/wolfi/libgcc@16.2.0-r1?arch=x86_64&origin=gcc",
+        "pkg:apk/wolfi/libjpeg-turbo@3.2.0-r7?arch=x86_64&distro=wolfi",
+        "pkg:apk/wolfi/libpng@1.6.59-r0?arch=x86_64&distro=wolfi",
+        "pkg:apk/wolfi/libtasn1@4.21.0-r9?arch=x86_64&distro=wolfi",
+        "pkg:apk/wolfi/libx11@1.8.14-r3?arch=x86_64&origin=libx11",
+        "pkg:apk/wolfi/libxau@1.0.12-r11?arch=x86_64&origin=libxau",
+        "pkg:apk/wolfi/libxcb@1.17.0-r19?arch=x86_64&origin=libxcb",
         "pkg:apk/wolfi/libxcrypt@4.5.2-r6?arch=x86_64&distro=wolfi",
-        "pkg:apk/wolfi/libxdmcp@1.1.5-r12?arch=x86_64&origin=libxdmcp",
+        "pkg:apk/wolfi/libxdmcp@1.1.5-r14?arch=x86_64&distro=wolfi",
         "pkg:apk/wolfi/libxext@1.3.7-r4?arch=x86_64&origin=libxext",
-        "pkg:apk/wolfi/libxi@1.8.4-r0?arch=x86_64&origin=libxi",
-        "pkg:apk/wolfi/libxrender@0.9.13-r0?arch=x86_64&distro=wolfi",
-        "pkg:apk/wolfi/libxtst@1.2.6-r0?arch=x86_64&distro=wolfi",
-        "pkg:apk/wolfi/openjdk-17@17.0.21.0.2-r0?arch=x86_64&distro=wolfi",
+        "pkg:apk/wolfi/libxi@1.8.4-r0?arch=x86_64&distro=wolfi",
+        "pkg:apk/wolfi/libxrender@0.9.13-r0?arch=x86_64&origin=libxrender",
+        "pkg:apk/wolfi/libxtst@1.2.6-r0?arch=x86_64&origin=libxtst",
+        "pkg:apk/wolfi/openjdk-17@17.0.21.0.2-r0?arch=x86_64&origin=openjdk-17",
         "pkg:apk/wolfi/openssl-4.0-libcrypto@4.0.3-r8?arch=x86_64&origin=openssl-4.0",
-        "pkg:apk/wolfi/openssl-4.0-libssl@4.0.3-r8?arch=x86_64&origin=openssl-4.0",
+        "pkg:apk/wolfi/openssl-4.0-libssl@4.0.3-r8?arch=x86_64&distro=wolfi",
         "pkg:apk/wolfi/openssl-provider-legacy-allowed@4.0.3-r1?arch=x86_64&origin=openssl-provider-legacy-allowed",
         "pkg:apk/wolfi/p11-kit-trust@0.26.5-r1?arch=x86_64&distro=wolfi",
         "pkg:apk/wolfi/p11-kit@0.26.5-r1?arch=x86_64&distro=wolfi",
         "pkg:apk/wolfi/tini@0.19.0-r26?arch=x86_64&distro=wolfi",
-        "pkg:apk/wolfi/ttf-dejavu@2.37-r9?arch=x86_64&distro=wolfi",
+        "pkg:apk/wolfi/ttf-dejavu@2.37-r9?arch=x86_64&origin=ttf-dejavu",
         "pkg:apk/wolfi/wolfi-base@1-r7?arch=x86_64",
-        "pkg:apk/wolfi/wolfi-baselayout@20230201-r30?arch=x86_64&distro=wolfi",
-        "pkg:apk/wolfi/wolfi-keys@1-r14?arch=x86_64&origin=wolfi-keys",
-        "pkg:apk/wolfi/zlib@1.3.2.1_rc20260921-r0?arch=x86_64&origin=zlib"
+        "pkg:apk/wolfi/wolfi-baselayout@20230201-r30?arch=x86_64&origin=wolfi-baselayout",
+        "pkg:apk/wolfi/wolfi-keys@1-r14?arch=x86_64&distro=wolfi",
+        "pkg:apk/wolfi/zlib@1.3.2.1_rc20260921-r0?arch=x86_64&distro=wolfi"
       ]
     },
     {
-      "ref": "fd25d105-c5c1-40ec-a345-673cb6ff0953",
-      "dependsOn": [
-        "pkg:golang/secrets-entrypoint@v1.0.1%2Bdirty"
-      ]
-    },
-    {
-      "ref": "pkg:apk/wolfi/alsa-lib@1.2.16.1-r3?arch=x86_64&distro=wolfi",
+      "ref": "pkg:apk/wolfi/alsa-lib@1.2.16.1-r5?arch=x86_64&origin=alsa-lib",
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/apk-tools@2.14.10-r17?arch=x86_64&distro=wolfi",
+      "ref": "pkg:apk/wolfi/apk-tools@2.14.10-r17?arch=x86_64&origin=apk-tools",
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/busybox@1.38.0-r3?arch=x86_64&distro=wolfi",
+      "ref": "pkg:apk/wolfi/busybox@1.38.0-r3?arch=x86_64&origin=busybox",
       "dependsOn": []
     },
     {
@@ -1897,39 +1911,39 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/ca-certificates@20260909-r3?arch=x86_64&distro=wolfi",
+      "ref": "pkg:apk/wolfi/ca-certificates@20261020-r0?arch=x86_64&distro=wolfi",
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/fontconfig-config@2.18.3-r2?arch=x86_64&origin=fontconfig",
+      "ref": "pkg:apk/wolfi/fontconfig-config@2.18.3-r4?arch=x86_64&origin=fontconfig",
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/freetype@2.14.3-r7?arch=x86_64&distro=wolfi",
+      "ref": "pkg:apk/wolfi/freetype@2.14.3-r7?arch=x86_64&origin=freetype",
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/giflib@6.1.3-r2?arch=x86_64&distro=wolfi",
+      "ref": "pkg:apk/wolfi/giflib@6.1.3-r4?arch=x86_64&origin=giflib",
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/glibc-2.44-locale-posix@2.44-r9?arch=x86_64&origin=glibc-2.44",
+      "ref": "pkg:apk/wolfi/glibc-2.44-locale-posix@2.44-r9?arch=x86_64&distro=wolfi",
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&origin=glibc-2.44",
+      "ref": "pkg:apk/wolfi/glibc-2.44@2.44-r9?arch=x86_64&distro=wolfi",
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/java-cacerts@20260909-r3?arch=x86_64&distro=wolfi",
+      "ref": "pkg:apk/wolfi/java-cacerts@20261020-r0?arch=x86_64&distro=wolfi",
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/lcms2@2.19.1-r3?arch=x86_64&origin=lcms2",
+      "ref": "pkg:apk/wolfi/lcms2@2.19.1-r5?arch=x86_64&distro=wolfi",
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/ld-linux-2.44@2.44-r9?arch=x86_64&distro=wolfi",
+      "ref": "pkg:apk/wolfi/ld-linux-2.44@2.44-r9?arch=x86_64&origin=glibc-2.44",
       "dependsOn": []
     },
     {
@@ -1937,23 +1951,23 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/libbrotlidec1@1.2.1-r1?arch=x86_64&distro=wolfi",
+      "ref": "pkg:apk/wolfi/libbrotlidec1@1.2.1-r1?arch=x86_64&origin=brotli",
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/libbrotlienc1@1.2.1-r1?arch=x86_64&origin=brotli",
+      "ref": "pkg:apk/wolfi/libbrotlienc1@1.2.1-r1?arch=x86_64&distro=wolfi",
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/libbz2-1@1.0.8-r27?arch=x86_64&distro=wolfi",
+      "ref": "pkg:apk/wolfi/libbz2-1@1.0.8-r28?arch=x86_64&distro=wolfi",
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/libcrypt1-2.44@2.44-r9?arch=x86_64&distro=wolfi",
+      "ref": "pkg:apk/wolfi/libcrypt1-2.44@2.44-r9?arch=x86_64&origin=glibc-2.44",
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/libexpat1@2.9.0-r0?arch=x86_64&origin=expat",
+      "ref": "pkg:apk/wolfi/libexpat1@2.9.0-r0?arch=x86_64&distro=wolfi",
       "dependsOn": []
     },
     {
@@ -1961,35 +1975,35 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/libfontconfig1@2.18.3-r2?arch=x86_64&distro=wolfi",
+      "ref": "pkg:apk/wolfi/libfontconfig1@2.18.3-r4?arch=x86_64&origin=fontconfig",
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/libgcc@16.2.0-r1?arch=x86_64&distro=wolfi",
+      "ref": "pkg:apk/wolfi/libgcc@16.2.0-r1?arch=x86_64&origin=gcc",
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/libjpeg-turbo@3.2.0-r6?arch=x86_64&origin=libjpeg-turbo",
+      "ref": "pkg:apk/wolfi/libjpeg-turbo@3.2.0-r7?arch=x86_64&distro=wolfi",
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/libpng@1.6.59-r0?arch=x86_64&origin=libpng",
+      "ref": "pkg:apk/wolfi/libpng@1.6.59-r0?arch=x86_64&distro=wolfi",
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/libtasn1@4.21.0-r8?arch=x86_64&distro=wolfi",
+      "ref": "pkg:apk/wolfi/libtasn1@4.21.0-r9?arch=x86_64&distro=wolfi",
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/libx11@1.8.14-r1?arch=x86_64&origin=libx11",
+      "ref": "pkg:apk/wolfi/libx11@1.8.14-r3?arch=x86_64&origin=libx11",
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/libxau@1.0.12-r9?arch=x86_64&origin=libxau",
+      "ref": "pkg:apk/wolfi/libxau@1.0.12-r11?arch=x86_64&origin=libxau",
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/libxcb@1.17.0-r17?arch=x86_64&distro=wolfi",
+      "ref": "pkg:apk/wolfi/libxcb@1.17.0-r19?arch=x86_64&origin=libxcb",
       "dependsOn": []
     },
     {
@@ -1997,7 +2011,7 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/libxdmcp@1.1.5-r12?arch=x86_64&origin=libxdmcp",
+      "ref": "pkg:apk/wolfi/libxdmcp@1.1.5-r14?arch=x86_64&distro=wolfi",
       "dependsOn": []
     },
     {
@@ -2005,19 +2019,15 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/libxi@1.8.4-r0?arch=x86_64&origin=libxi",
+      "ref": "pkg:apk/wolfi/libxi@1.8.4-r0?arch=x86_64&distro=wolfi",
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/libxrender@0.9.13-r0?arch=x86_64&distro=wolfi",
+      "ref": "pkg:apk/wolfi/libxrender@0.9.13-r0?arch=x86_64&origin=libxrender",
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/libxtst@1.2.6-r0?arch=x86_64&distro=wolfi",
-      "dependsOn": []
-    },
-    {
-      "ref": "pkg:apk/wolfi/openjdk-17@17.0.21.0.2-r0?arch=x86_64&distro=wolfi",
+      "ref": "pkg:apk/wolfi/libxtst@1.2.6-r0?arch=x86_64&origin=libxtst",
       "dependsOn": []
     },
     {
@@ -2025,7 +2035,7 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/openssl-4.0-libssl@4.0.3-r8?arch=x86_64&origin=openssl-4.0",
+      "ref": "pkg:apk/wolfi/openssl-4.0-libssl@4.0.3-r8?arch=x86_64&distro=wolfi",
       "dependsOn": []
     },
     {
@@ -2045,7 +2055,7 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/ttf-dejavu@2.37-r9?arch=x86_64&distro=wolfi",
+      "ref": "pkg:apk/wolfi/ttf-dejavu@2.37-r9?arch=x86_64&origin=ttf-dejavu",
       "dependsOn": []
     },
     {
@@ -2053,25 +2063,25 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/wolfi-baselayout@20230201-r30?arch=x86_64&distro=wolfi",
+      "ref": "pkg:apk/wolfi/wolfi-baselayout@20230201-r30?arch=x86_64&origin=wolfi-baselayout",
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/wolfi-keys@1-r14?arch=x86_64&origin=wolfi-keys",
+      "ref": "pkg:apk/wolfi/wolfi-keys@1-r14?arch=x86_64&distro=wolfi",
       "dependsOn": []
     },
     {
-      "ref": "pkg:apk/wolfi/zlib@1.3.2.1_rc20260921-r0?arch=x86_64&origin=zlib",
+      "ref": "pkg:apk/wolfi/zlib@1.3.2.1_rc20260921-r0?arch=x86_64&distro=wolfi",
       "dependsOn": []
     },
     {
-      "ref": "pkg:golang/secrets-entrypoint@v1.0.1%2Bdirty",
+      "ref": "pkg:golang/secrets-entrypoint@v1.0.2%2Bdirty",
       "dependsOn": [
-        "pkg:golang/stdlib@v1.26.9"
+        "pkg:golang/stdlib@v1.26.10"
       ]
     },
     {
-      "ref": "pkg:golang/stdlib@v1.26.9",
+      "ref": "pkg:golang/stdlib@v1.26.10",
       "dependsOn": []
     },
     {
@@ -2079,10 +2089,10 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:oci/java@sha256:487c67f761c1f6d9f400d52ffc328d10ca699b5fcb48df485cf6380a0f34e9a9?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fjava",
+      "ref": "pkg:oci/java@sha256%3A925dfdc543c9894945367edccfb42bb7746c41200aba1cbe0f611e417ec6ee5f?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fjava",
       "dependsOn": [
-        "e093fe39-9247-4587-aec1-7947f47740cd",
-        "fd25d105-c5c1-40ec-a345-673cb6ff0953",
+        "8c91eb8b-455e-49a4-bd7d-cac0baf7d771",
+        "d9213b13-edf1-4c87-a789-9b2aca9a2f9b",
         "pkg:maven/jrt-fs/jrt-fs@17.0.21.0.2"
       ]
     }
