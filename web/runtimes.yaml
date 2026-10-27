@@ -60,15 +60,14 @@ runtimes:
     title: "Wolfi BoringSSL FIPS"
     icon: "https://cdn.simpleicons.org/google/4285F4"
     fips:
-      module: "BoringCrypto Module (BCM)"
-      certificate: 4735
-      enforcement: "BoringSSL is built from source with -DFIPS=1 -DBUILD_SHARED_LIBS=1 using Clang; the module text section is hashed with inject_hash, and power-on integrity check (POST) runs on library load."
-      verify: "docker run --rm {tag} isfips"
+      module: "BoringCrypto (BoringSSL built with -DFIPS=1, not CMVP-validated)"
+      enforcement: "BoringSSL commit 85897d0 (2024-05-28) is built from source with -DFIPS=1 using Wolfi's Clang, which adds the module integrity check and self-tests. This is not the validated BoringCrypto release: CMVP certificate #4735 covers tag fips-20220613 built with the toolchain in its security policy. BoringSSL has no approved-only mode, so non-approved algorithms such as MD5 stay available."
+      verify: "docker run --rm --entrypoint /usr/local/bin/bssl {tag} isfips"
     architectures:
       - "linux/amd64"
       - "linux/arm64"
     versions:
-      - version: "fips-2024"
+      - version: "20240528"
         flavors:
           - id: "prod"
             name: "Distroless FIPS Runtime (Scratch)"

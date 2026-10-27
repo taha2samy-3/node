@@ -116,10 +116,15 @@ variable "BORINGSSL_REPO" {
   default = "boringssl-fips"
 }
 
+# Date of the pinned commit. BoringSSL's FIPS releases are tags named fips-YYYYMMDD; this commit
+# is not one of them, so the label must not look like one.
 variable "BORINGSSL_VERSION" {
-  default = "fips-20240407"
+  default = "20240528"
 }
 
+# boringssl main, 2024-05-28 ("Expose the FIPS module hash at build- and run-time"). Not a
+# CMVP-validated release: certificate #4735 covers tag fips-20220613 (0c6f40132b8) built with the
+# toolchain its security policy names, and that tag does not compile with Wolfi's current clang.
 variable "BORINGSSL_COMMIT" {
   default = "85897d07196b7bf164dbd4673fc78b762aff3e8b"
 }
