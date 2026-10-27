@@ -133,7 +133,9 @@ RUN if [ -z "${BORINGSSL_COMMIT}" ]; then \
       exit 1; \
     fi; \
     git clone https://boringssl.googlesource.com/boringssl boringssl && \
-    git -C boringssl checkout "${BORINGSSL_COMMIT}"
+    git -C boringssl checkout "${BORINGSSL_COMMIT}" && \
+    sed -i 's/return memchr(s, c, n);/return (void *)memchr(s, c, n);/g' boringssl/crypto/internal.h && \
+    sed -i 's/-Werror//g' boringssl/CMakeLists.txt
 
 WORKDIR /src/boringssl/build
 RUN cmake -GNinja \
