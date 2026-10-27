@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 2,
-  "CreatedAt": "2026-10-27T06:58:49.242998595Z",
+  "CreatedAt": "2026-10-27T07:50:41.112930193Z",
   "ArtifactName": "ghcr.io/taha2samy-3/java:21",
   "ArtifactType": "container_image",
   "Metadata": {
@@ -9,7 +9,7 @@
       "Family": "wolfi",
       "Name": "20230201"
     },
-    "ImageID": "sha256:72e892c3859c0cd9850cbd81f3099b5c08423cf9f9a716e53389f974959d0285",
+    "ImageID": "sha256:35e18f6253d52217f4b61c716c1489781b3a483836a4896753e45602a36145a5",
     "DiffIDs": [
       "sha256:01de37ebc7bff0531373e64fabed2a9e477a20b3e6d419148a1251ebbea1777a",
       "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
@@ -18,7 +18,7 @@
       "ghcr.io/taha2samy-3/java:21"
     ],
     "RepoDigests": [
-      "ghcr.io/taha2samy-3/java@sha256:0740906313ed5397705047b717bb4450a5576fc208f992d942a54ca42173ecf7"
+      "ghcr.io/taha2samy-3/java@sha256:fc76886d52589005e23739578b96d72b5711db72844db87213609df7735e0d05"
     ],
     "ImageConfig": {
       "architecture": "amd64",
@@ -54,6 +54,12 @@
         },
         {
           "created": "2026-10-27T06:36:53.785881552Z",
+          "created_by": "HEALTHCHECK {Test:[CMD /usr/bin/java -version] Interval:30s Timeout:5s StartPeriod:10s StartInterval:0s Retries:3}",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-27T06:36:53.785881552Z",
           "created_by": "ENTRYPOINT [\"/sbin/tini\" \"--\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
@@ -78,6 +84,17 @@
           "java",
           "-version"
         ],
+        "Healthcheck": {
+          "Test": [
+            "CMD",
+            "/usr/bin/java",
+            "-version"
+          ],
+          "Interval": 30000000000,
+          "Timeout": 5000000000,
+          "StartPeriod": 10000000000,
+          "Retries": 3
+        },
         "Entrypoint": [
           "/sbin/tini",
           "--"
@@ -88,7 +105,7 @@
           "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt"
         ],
         "Labels": {
-          "io.github.taha2samy-3.build.fingerprint": "1e8fd177df9b9790ab79be67ed41c772",
+          "io.github.taha2samy-3.build.fingerprint": "a777295484564a5bf25c20edefb57d4d",
           "org.opencontainers.image.authors": "Taha Samy",
           "org.opencontainers.image.description": "Ultra-secure minimal Java OpenJDK 21 (21.0.13.0.2-r0) production runtime based on Chainguard Wolfi and scratch",
           "org.opencontainers.image.licenses": "MIT",

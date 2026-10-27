@@ -1,15 +1,15 @@
 {
   "SchemaVersion": 2,
-  "CreatedAt": "2026-10-27T06:59:11.861665384Z",
+  "CreatedAt": "2026-10-27T07:50:26.407163896Z",
   "ArtifactName": "ghcr.io/taha2samy-3/bun:1-dev",
   "ArtifactType": "container_image",
   "Metadata": {
-    "Size": 138237952,
+    "Size": 138238976,
     "OS": {
       "Family": "wolfi",
       "Name": "20230201"
     },
-    "ImageID": "sha256:e77ce6ccbc6a546eab5b724631ba5f22b63e05f1f5e62442d68e2874745cc6fc",
+    "ImageID": "sha256:c1207c1cc5c944f067796dc6b11e1c18dc4f0278afdb37182f4e38320af04ed6",
     "DiffIDs": [
       "sha256:3a45993e04db84df3623dbfd6091d99e0f4af3ec200d30c7ddd60e9f89d2b228",
       "sha256:b53731855fa373496952a82670621c1782316a4d06b14042c819aa708b651623",
@@ -22,21 +22,21 @@
       "sha256:e2aba71c4b63b2d89a00d1304f333fee56333cb4379b497df20a5e3159ce74b9",
       "sha256:c9feb10d156c52ea8c0a2fcd11e568f4ca3e1efe4c968a32d5ee4eb5a29d5b19",
       "sha256:842512fb877ef450e7f9cd6c64b3ed59549601f8832c1175a4b0b5986ce87dcd",
-      "sha256:f323abe86dc0b9974d22b5f795e1a6e6e5c276bb0da01c49a7017e65b9d8f7f5",
-      "sha256:7813ba2835da9a9c855534aeb45ff2fa4dda06201b369a7be06366d74c2d4e0b",
-      "sha256:0c97bb7470b7152210ac7dd279f76246d6595415665cb0039ee18aa3d6a5c9db",
+      "sha256:ae0445c1923172e6a139d3c15242f7d4e9d0176c30c955cb89ada56ef178218b",
+      "sha256:045c6a7090ee1f2568f87a7cb5f49171f67ef218ede78272ac9f3a6941d6bc22",
+      "sha256:d192d4db31846d0603e1742dd7a05173ea94ffedfaac4b1cfff9baccdfc700a4",
       "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
     ],
     "RepoTags": [
       "ghcr.io/taha2samy-3/bun:1-dev"
     ],
     "RepoDigests": [
-      "ghcr.io/taha2samy-3/bun@sha256:ad4d484417febfbb32ad1b81e321cd3e5e10b08fc945bef37e718002b91d038e"
+      "ghcr.io/taha2samy-3/bun@sha256:83700ef31a045b5b9c27bd00a39299ccdd76a00f16046177bfb4efa41629df16"
     ],
     "ImageConfig": {
       "architecture": "arm64",
       "author": "github.com/chainguard-dev/apko",
-      "created": "2026-10-27T06:35:31.192350382Z",
+      "created": "2026-10-27T07:33:06.975428314Z",
       "history": [
         {
           "author": "apko",
@@ -105,51 +105,57 @@
           "comment": "wolfi-base by Chainguard"
         },
         {
-          "created": "2026-10-27T06:35:31.104634597Z",
+          "created": "2026-10-27T07:33:06.869700067Z",
           "created_by": "ARG BUN_FULL_VERSION=1.4.4-r0",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T06:35:31.104634597Z",
+          "created": "2026-10-27T07:33:06.869700067Z",
           "created_by": "USER root",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T06:35:31.104634597Z",
+          "created": "2026-10-27T07:33:06.869700067Z",
           "created_by": "RUN |1 BUN_FULL_VERSION=1.4.4-r0 /bin/sh -c apk update \u0026\u0026 apk add --no-cache     bun=${BUN_FULL_VERSION}     tini # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-27T06:35:31.133852918Z",
+          "created": "2026-10-27T07:33:06.908405814Z",
           "created_by": "COPY /out/ /usr/bin/ # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-27T06:35:31.181044898Z",
+          "created": "2026-10-27T07:33:06.959024286Z",
           "created_by": "RUN |1 BUN_FULL_VERSION=1.4.4-r0 /bin/sh -c adduser -D -u 1000 bun \u0026\u0026     mkdir /app \u0026\u0026 chown bun:bun /app # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-27T06:35:31.192350382Z",
+          "created": "2026-10-27T07:33:06.975428314Z",
           "created_by": "WORKDIR /app",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-27T06:35:31.192350382Z",
+          "created": "2026-10-27T07:33:06.975428314Z",
           "created_by": "USER bun",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T06:35:31.192350382Z",
+          "created": "2026-10-27T07:33:06.975428314Z",
+          "created_by": "HEALTHCHECK {Test:[CMD bun --version] Interval:30s Timeout:5s StartPeriod:5s StartInterval:0s Retries:3}",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-27T07:33:06.975428314Z",
           "created_by": "ENTRYPOINT [\"/sbin/tini\" \"--\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T06:35:31.192350382Z",
+          "created": "2026-10-27T07:33:06.975428314Z",
           "created_by": "CMD [\"bun\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
@@ -170,9 +176,9 @@
           "sha256:e2aba71c4b63b2d89a00d1304f333fee56333cb4379b497df20a5e3159ce74b9",
           "sha256:c9feb10d156c52ea8c0a2fcd11e568f4ca3e1efe4c968a32d5ee4eb5a29d5b19",
           "sha256:842512fb877ef450e7f9cd6c64b3ed59549601f8832c1175a4b0b5986ce87dcd",
-          "sha256:f323abe86dc0b9974d22b5f795e1a6e6e5c276bb0da01c49a7017e65b9d8f7f5",
-          "sha256:7813ba2835da9a9c855534aeb45ff2fa4dda06201b369a7be06366d74c2d4e0b",
-          "sha256:0c97bb7470b7152210ac7dd279f76246d6595415665cb0039ee18aa3d6a5c9db",
+          "sha256:ae0445c1923172e6a139d3c15242f7d4e9d0176c30c955cb89ada56ef178218b",
+          "sha256:045c6a7090ee1f2568f87a7cb5f49171f67ef218ede78272ac9f3a6941d6bc22",
+          "sha256:d192d4db31846d0603e1742dd7a05173ea94ffedfaac4b1cfff9baccdfc700a4",
           "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
         ]
       },
@@ -180,6 +186,17 @@
         "Cmd": [
           "bun"
         ],
+        "Healthcheck": {
+          "Test": [
+            "CMD",
+            "bun",
+            "--version"
+          ],
+          "Interval": 30000000000,
+          "Timeout": 5000000000,
+          "StartPeriod": 5000000000,
+          "Retries": 3
+        },
         "Entrypoint": [
           "/sbin/tini",
           "--"
@@ -191,7 +208,7 @@
         "Labels": {
           "dev.chainguard.image.title": "wolfi-base",
           "dev.chainguard.package.main": "",
-          "io.github.taha2samy-3.build.fingerprint": "b866f5b1ae2ad01b88b300206b9bb62a",
+          "io.github.taha2samy-3.build.fingerprint": "d409ee9cb5e7e0eb2e3a584b265e5d31",
           "org.opencontainers.image.authors": "Taha Samy",
           "org.opencontainers.image.created": "2026-10-23T17:13:10Z",
           "org.opencontainers.image.description": "Optimized Bun 1 (1.4.4-r0) development image based on Chainguard Wolfi",
@@ -263,19 +280,19 @@
         "DiffID": "sha256:842512fb877ef450e7f9cd6c64b3ed59549601f8832c1175a4b0b5986ce87dcd"
       },
       {
-        "Size": 115338752,
-        "Digest": "sha256:6b9286ce37abf2006fceaef368653521b8ce3b2246cbbe92c2b00c4132befd91",
-        "DiffID": "sha256:f323abe86dc0b9974d22b5f795e1a6e6e5c276bb0da01c49a7017e65b9d8f7f5"
+        "Size": 115339776,
+        "Digest": "sha256:4b6eafcf97822c6188a159f84c044192df445ef277a514d93cbe623b4018e696",
+        "DiffID": "sha256:ae0445c1923172e6a139d3c15242f7d4e9d0176c30c955cb89ada56ef178218b"
       },
       {
         "Size": 5770752,
-        "Digest": "sha256:e22d0daa40cd70f7662de8c6c2677e6736e851e286647ea84bc48c1ca7815c5f",
-        "DiffID": "sha256:7813ba2835da9a9c855534aeb45ff2fa4dda06201b369a7be06366d74c2d4e0b"
+        "Digest": "sha256:47c4af5e34333d89184999969f4f8447244176ce1cea848035f43fd095aca1eb",
+        "DiffID": "sha256:045c6a7090ee1f2568f87a7cb5f49171f67ef218ede78272ac9f3a6941d6bc22"
       },
       {
         "Size": 11264,
-        "Digest": "sha256:2f231d1d49d76b6bf70cf6bacdf347ab4a71adfbb7bd001bea8e7a1840cbb35f",
-        "DiffID": "sha256:0c97bb7470b7152210ac7dd279f76246d6595415665cb0039ee18aa3d6a5c9db"
+        "Digest": "sha256:13a47740545be730f869a4026dceab80cd18148fbc3d030b99347cd9281dd80e",
+        "DiffID": "sha256:d192d4db31846d0603e1742dd7a05173ea94ffedfaac4b1cfff9baccdfc700a4"
       },
       {
         "Size": 1024,

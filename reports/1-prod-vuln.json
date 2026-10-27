@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 2,
-  "CreatedAt": "2026-10-27T06:58:54.022309845Z",
+  "CreatedAt": "2026-10-27T07:48:24.112448737Z",
   "ArtifactName": "ghcr.io/taha2samy-3/bun:1",
   "ArtifactType": "container_image",
   "Metadata": {
@@ -9,7 +9,7 @@
       "Family": "wolfi",
       "Name": "20230201"
     },
-    "ImageID": "sha256:f22572daf2836735b8a21a6c4006766c3ceae59453a084f066d5da96fedd3cde",
+    "ImageID": "sha256:b5296f1fc3b8eb79263fc10f7e33dd7a8e22f204869ef12ffa006f1c112d797d",
     "DiffIDs": [
       "sha256:536deb9c62a429f2e39f67e894857abb512b10bdd95fd7323fb25e6f9194dea0",
       "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
@@ -18,7 +18,7 @@
       "ghcr.io/taha2samy-3/bun:1"
     ],
     "RepoDigests": [
-      "ghcr.io/taha2samy-3/bun@sha256:c8d8ecbfe9e7d988d48993019d383c3f9ab4673c8fb469337407d6c2df028a3b"
+      "ghcr.io/taha2samy-3/bun@sha256:b8cae021f454bf8399f9b52ef325ea70336eab26ab7400592d3d4df540a26c9b"
     ],
     "ImageConfig": {
       "architecture": "amd64",
@@ -48,6 +48,12 @@
         },
         {
           "created": "2026-10-27T06:37:02.961876309Z",
+          "created_by": "HEALTHCHECK {Test:[CMD /usr/bin/bun --version] Interval:30s Timeout:5s StartPeriod:5s StartInterval:0s Retries:3}",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-27T06:37:02.961876309Z",
           "created_by": "ENTRYPOINT [\"/sbin/tini\" \"--\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
@@ -71,6 +77,17 @@
         "Cmd": [
           "bun"
         ],
+        "Healthcheck": {
+          "Test": [
+            "CMD",
+            "/usr/bin/bun",
+            "--version"
+          ],
+          "Interval": 30000000000,
+          "Timeout": 5000000000,
+          "StartPeriod": 5000000000,
+          "Retries": 3
+        },
         "Entrypoint": [
           "/sbin/tini",
           "--"
@@ -80,7 +97,7 @@
           "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt"
         ],
         "Labels": {
-          "io.github.taha2samy-3.build.fingerprint": "78dd854b698694c06ad05b3fad178445",
+          "io.github.taha2samy-3.build.fingerprint": "0651fc54e6b5c43984fd1a4aecf5f58c",
           "org.opencontainers.image.authors": "Taha Samy",
           "org.opencontainers.image.description": "Ultra-secure minimal Bun 1 (1.4.4-r0) production runtime based on Chainguard Wolfi and scratch",
           "org.opencontainers.image.licenses": "MIT",

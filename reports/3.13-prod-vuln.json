@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 2,
-  "CreatedAt": "2026-10-27T06:55:51.39502976Z",
+  "CreatedAt": "2026-10-27T07:50:12.29878148Z",
   "ArtifactName": "ghcr.io/taha2samy-3/python:3.13",
   "ArtifactType": "container_image",
   "Metadata": {
@@ -9,7 +9,7 @@
       "Family": "wolfi",
       "Name": "20230201"
     },
-    "ImageID": "sha256:562722647366ce67307233dbff9edf2a63656d3ee41de1962ae525a8231c14cb",
+    "ImageID": "sha256:5708bb7afc3f842e2fbf67106ec167d0a37ce7c3c001b840e7b66553e813edf5",
     "DiffIDs": [
       "sha256:59e70ea0958d1f78241ad4cd59b9425de4f73dabaa5a8ba00ec2cde55a7f4ca5",
       "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
@@ -18,7 +18,7 @@
       "ghcr.io/taha2samy-3/python:3.13"
     ],
     "RepoDigests": [
-      "ghcr.io/taha2samy-3/python@sha256:281afa4a3864469b934a9bdba517be20459b407a775a19a84b1b3d74a5cdb9b4"
+      "ghcr.io/taha2samy-3/python@sha256:c72fd872aa9c8079ec36148ec6546ee9249b40f3fbc371513d6d6c0eed5c4023"
     ],
     "ImageConfig": {
       "architecture": "amd64",
@@ -60,6 +60,12 @@
         },
         {
           "created": "2026-10-27T06:36:50.4018721Z",
+          "created_by": "HEALTHCHECK {Test:[CMD /usr/bin/python -c import sys; sys.exit(0)] Interval:30s Timeout:5s StartPeriod:5s StartInterval:0s Retries:3}",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-27T06:36:50.4018721Z",
           "created_by": "ENTRYPOINT [\"/sbin/tini\" \"--\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
@@ -83,6 +89,18 @@
         "Cmd": [
           "python"
         ],
+        "Healthcheck": {
+          "Test": [
+            "CMD",
+            "/usr/bin/python",
+            "-c",
+            "import sys; sys.exit(0)"
+          ],
+          "Interval": 30000000000,
+          "Timeout": 5000000000,
+          "StartPeriod": 5000000000,
+          "Retries": 3
+        },
         "Entrypoint": [
           "/sbin/tini",
           "--"
@@ -94,7 +112,7 @@
           "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt"
         ],
         "Labels": {
-          "io.github.taha2samy-3.build.fingerprint": "5a35e628be6f7b63dd6fe9f5c503fb11",
+          "io.github.taha2samy-3.build.fingerprint": "47aed43ff44f5fc42aba9cca57bc6d17",
           "org.opencontainers.image.authors": "Taha Samy",
           "org.opencontainers.image.description": "Ultra-secure minimal Python 3.13 (3.13.16_git20261016-r2) production runtime based on Chainguard Wolfi and scratch",
           "org.opencontainers.image.licenses": "MIT",

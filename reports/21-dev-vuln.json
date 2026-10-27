@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 2,
-  "CreatedAt": "2026-10-27T06:58:58.061829667Z",
+  "CreatedAt": "2026-10-27T07:51:39.808404454Z",
   "ArtifactName": "ghcr.io/taha2samy-3/java:21-dev",
   "ArtifactType": "container_image",
   "Metadata": {
@@ -9,7 +9,7 @@
       "Family": "wolfi",
       "Name": "20230201"
     },
-    "ImageID": "sha256:022b3e6a81a0823e5894b1fc17aeac4f9ed935c8f1b781fbbca7f48a44a4d131",
+    "ImageID": "sha256:a021dbf2d6cc91815e7048d2c2ac57ba05801d1c27198daf5a840a6b6d6c4c63",
     "DiffIDs": [
       "sha256:c86e4445c72addddcaa6610aa97ebdc38a274bb3ac5eb0679ebdc42317388971",
       "sha256:81ac36f4bee4102128a3f1f63d1a2a057922351d656f4a4fcdb1b92cd28a95f2",
@@ -32,7 +32,7 @@
       "ghcr.io/taha2samy-3/java:21-dev"
     ],
     "RepoDigests": [
-      "ghcr.io/taha2samy-3/java@sha256:237dfc08b5d0b2bf7a091f6f5f1d46e4b1ecf2b5b36a768e60d6d7798362b827"
+      "ghcr.io/taha2samy-3/java@sha256:f015502c3112ed91db5ad6c945123c8a8948ecf74ec7b514cb9d0686dab2b320"
     ],
     "ImageConfig": {
       "architecture": "amd64",
@@ -156,6 +156,12 @@
         },
         {
           "created": "2026-10-27T06:36:51.841746318Z",
+          "created_by": "HEALTHCHECK {Test:[CMD java -version] Interval:30s Timeout:5s StartPeriod:10s StartInterval:0s Retries:3}",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-27T06:36:51.841746318Z",
           "created_by": "ENTRYPOINT [\"/sbin/tini\" \"--\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
@@ -194,6 +200,17 @@
           "java",
           "-version"
         ],
+        "Healthcheck": {
+          "Test": [
+            "CMD",
+            "java",
+            "-version"
+          ],
+          "Interval": 30000000000,
+          "Timeout": 5000000000,
+          "StartPeriod": 10000000000,
+          "Retries": 3
+        },
         "Entrypoint": [
           "/sbin/tini",
           "--"
@@ -205,7 +222,7 @@
         "Labels": {
           "dev.chainguard.image.title": "wolfi-base",
           "dev.chainguard.package.main": "",
-          "io.github.taha2samy-3.build.fingerprint": "cd6b1f301e7507f401704b2c7bcbc5f7",
+          "io.github.taha2samy-3.build.fingerprint": "675e1843d2cfa8cf8a8af7f70f731805",
           "org.opencontainers.image.authors": "Taha Samy",
           "org.opencontainers.image.created": "2026-10-23T17:13:10Z",
           "org.opencontainers.image.description": "Optimized Java OpenJDK 21 (21.0.13.0.2-r0) development image based on Chainguard Wolfi",

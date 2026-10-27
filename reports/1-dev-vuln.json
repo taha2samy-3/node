@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 2,
-  "CreatedAt": "2026-10-27T06:59:11.970463092Z",
+  "CreatedAt": "2026-10-27T07:49:15.40433484Z",
   "ArtifactName": "ghcr.io/taha2samy-3/bun:1-dev",
   "ArtifactType": "container_image",
   "Metadata": {
@@ -9,7 +9,7 @@
       "Family": "wolfi",
       "Name": "20230201"
     },
-    "ImageID": "sha256:751683ea4ba85b116c24ff24b8ab4c68d90345a467d66b8dbdee58ce39056969",
+    "ImageID": "sha256:e4bd9c55cabcb2b84704e79d3caa4664a7f7c87a2f200a8f1ff2b6bf7e91d276",
     "DiffIDs": [
       "sha256:c86e4445c72addddcaa6610aa97ebdc38a274bb3ac5eb0679ebdc42317388971",
       "sha256:81ac36f4bee4102128a3f1f63d1a2a057922351d656f4a4fcdb1b92cd28a95f2",
@@ -31,7 +31,7 @@
       "ghcr.io/taha2samy-3/bun:1-dev"
     ],
     "RepoDigests": [
-      "ghcr.io/taha2samy-3/bun@sha256:ad4d484417febfbb32ad1b81e321cd3e5e10b08fc945bef37e718002b91d038e"
+      "ghcr.io/taha2samy-3/bun@sha256:83700ef31a045b5b9c27bd00a39299ccdd76a00f16046177bfb4efa41629df16"
     ],
     "ImageConfig": {
       "architecture": "amd64",
@@ -144,6 +144,12 @@
         },
         {
           "created": "2026-10-27T06:37:01.901785654Z",
+          "created_by": "HEALTHCHECK {Test:[CMD bun --version] Interval:30s Timeout:5s StartPeriod:5s StartInterval:0s Retries:3}",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-27T06:37:01.901785654Z",
           "created_by": "ENTRYPOINT [\"/sbin/tini\" \"--\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
@@ -180,6 +186,17 @@
         "Cmd": [
           "bun"
         ],
+        "Healthcheck": {
+          "Test": [
+            "CMD",
+            "bun",
+            "--version"
+          ],
+          "Interval": 30000000000,
+          "Timeout": 5000000000,
+          "StartPeriod": 5000000000,
+          "Retries": 3
+        },
         "Entrypoint": [
           "/sbin/tini",
           "--"
@@ -191,7 +208,7 @@
         "Labels": {
           "dev.chainguard.image.title": "wolfi-base",
           "dev.chainguard.package.main": "",
-          "io.github.taha2samy-3.build.fingerprint": "b866f5b1ae2ad01b88b300206b9bb62a",
+          "io.github.taha2samy-3.build.fingerprint": "d409ee9cb5e7e0eb2e3a584b265e5d31",
           "org.opencontainers.image.authors": "Taha Samy",
           "org.opencontainers.image.created": "2026-10-23T17:13:10Z",
           "org.opencontainers.image.description": "Optimized Bun 1 (1.4.4-r0) development image based on Chainguard Wolfi",

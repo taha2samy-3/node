@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 2,
-  "CreatedAt": "2026-10-27T06:58:21.415225906Z",
+  "CreatedAt": "2026-10-27T07:49:17.418093595Z",
   "ArtifactName": "ghcr.io/taha2samy-3/node:26-dev",
   "ArtifactType": "container_image",
   "Metadata": {
@@ -9,7 +9,7 @@
       "Family": "wolfi",
       "Name": "20230201"
     },
-    "ImageID": "sha256:b5f8aa203ccc7fed918e0b02e6cd4660dc607e819d9746fe054e40a237d7c78c",
+    "ImageID": "sha256:b2d86b78381a91317475198a140626639648f4ab8fe55124eeff227fbd1f7f99",
     "DiffIDs": [
       "sha256:c86e4445c72addddcaa6610aa97ebdc38a274bb3ac5eb0679ebdc42317388971",
       "sha256:81ac36f4bee4102128a3f1f63d1a2a057922351d656f4a4fcdb1b92cd28a95f2",
@@ -33,7 +33,7 @@
       "ghcr.io/taha2samy-3/node:26-dev"
     ],
     "RepoDigests": [
-      "ghcr.io/taha2samy-3/node@sha256:6bcf88a11f586d7bf66cd5eadeb293dc4e9dfb4441560c17ba22a58cbb65cba3"
+      "ghcr.io/taha2samy-3/node@sha256:11b6c32ce236167accedd2e09b73c691767c8501cef2d268a1bb51058d610f60"
     ],
     "ImageConfig": {
       "architecture": "amd64",
@@ -162,6 +162,12 @@
         },
         {
           "created": "2026-10-27T06:36:36.976110478Z",
+          "created_by": "HEALTHCHECK {Test:[CMD node -e process.exit(0)] Interval:30s Timeout:5s StartPeriod:5s StartInterval:0s Retries:3}",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-27T06:36:36.976110478Z",
           "created_by": "ENTRYPOINT [\"/usr/bin/docker-entrypoint.sh\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
@@ -200,6 +206,18 @@
         "Cmd": [
           "node"
         ],
+        "Healthcheck": {
+          "Test": [
+            "CMD",
+            "node",
+            "-e",
+            "process.exit(0)"
+          ],
+          "Interval": 30000000000,
+          "Timeout": 5000000000,
+          "StartPeriod": 5000000000,
+          "Retries": 3
+        },
         "Entrypoint": [
           "/usr/bin/docker-entrypoint.sh"
         ],
@@ -210,7 +228,7 @@
         "Labels": {
           "dev.chainguard.image.title": "wolfi-base",
           "dev.chainguard.package.main": "",
-          "io.github.taha2samy-3.build.fingerprint": "69b377c9ce43647a51896acd593b1f27",
+          "io.github.taha2samy-3.build.fingerprint": "1c2f4845b3f835fe999a2bce63352eb6",
           "org.opencontainers.image.authors": "Taha Samy",
           "org.opencontainers.image.created": "2026-10-23T17:13:10Z",
           "org.opencontainers.image.description": "Optimized Node.js 26 (26.12.1-r2) development image with npm based on Chainguard Wolfi",

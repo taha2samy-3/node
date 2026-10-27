@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 2,
-  "CreatedAt": "2026-10-27T06:56:29.276482509Z",
+  "CreatedAt": "2026-10-27T07:48:23.782290579Z",
   "ArtifactName": "ghcr.io/taha2samy-3/node-fips:24",
   "ArtifactType": "container_image",
   "Metadata": {
@@ -9,7 +9,7 @@
       "Family": "wolfi",
       "Name": "20230201"
     },
-    "ImageID": "sha256:6189ebb1d1c080ea8f985606e65854999d60251ab4ce217193d7d8ffb2092914",
+    "ImageID": "sha256:e535d13aad7f4bef182f66dae2c70acc07920aef25f6eff051b98e044c966069",
     "DiffIDs": [
       "sha256:0573f33aececb563f4767bb9d11147c6f41718348f95e794bcaf660978d7ff45",
       "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
@@ -20,7 +20,7 @@
       "ghcr.io/taha2samy-3/node-fips:24"
     ],
     "RepoDigests": [
-      "ghcr.io/taha2samy-3/node-fips@sha256:4fcaf71a70e0e47c8cc2d36ec8fcd026e8c54c8df10b22f2d355a923fbdd4f28"
+      "ghcr.io/taha2samy-3/node-fips@sha256:6d9bde34815f2ad8b85b05f0dd9aab8ce84e0eb59a856f93bbb43f8a859b3ffb"
     ],
     "ImageConfig": {
       "architecture": "arm64",
@@ -32,30 +32,36 @@
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-27T06:37:02.997352603Z",
+          "created": "2026-10-27T06:37:03.128633026Z",
           "created_by": "ENV NODE_ENV=production SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T06:37:02.997352603Z",
+          "created": "2026-10-27T06:37:03.128633026Z",
           "created_by": "WORKDIR /app",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-27T06:37:02.997352603Z",
+          "created": "2026-10-27T06:37:03.128633026Z",
           "created_by": "USER node",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T06:37:02.997352603Z",
+          "created": "2026-10-27T06:37:03.128633026Z",
+          "created_by": "HEALTHCHECK {Test:[CMD /usr/bin/node -e process.exit(0)] Interval:30s Timeout:5s StartPeriod:5s StartInterval:0s Retries:3}",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-27T06:37:03.128633026Z",
           "created_by": "ENTRYPOINT [\"/sbin/tini\" \"--\" \"/usr/bin/docker-entrypoint.sh\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T06:37:02.997352603Z",
+          "created": "2026-10-27T06:37:03.128633026Z",
           "created_by": "CMD [\"node\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
@@ -91,6 +97,18 @@
         "Cmd": [
           "node"
         ],
+        "Healthcheck": {
+          "Test": [
+            "CMD",
+            "/usr/bin/node",
+            "-e",
+            "process.exit(0)"
+          ],
+          "Interval": 30000000000,
+          "Timeout": 5000000000,
+          "StartPeriod": 5000000000,
+          "Retries": 3
+        },
         "Entrypoint": [
           "/sbin/tini",
           "--",
@@ -105,7 +123,7 @@
           "NODE_OPTIONS=--force-fips"
         ],
         "Labels": {
-          "io.github.taha2samy-3.build.fingerprint": "e3a1fb6f8c56175496a973075c1f7c4a",
+          "io.github.taha2samy-3.build.fingerprint": "d4ec7ab89c60f7d3799b1aaaf0bb6c2a",
           "org.opencontainers.image.authors": "Taha Samy",
           "org.opencontainers.image.description": "Minimal Node.js runtime with the OpenSSL FIPS 140-3 provider enforced, on Wolfi (Node.js 24.22.1-r2)",
           "org.opencontainers.image.licenses": "Apache-2.0",

@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 2,
-  "CreatedAt": "2026-10-27T05:23:45.224961278Z",
+  "CreatedAt": "2026-10-27T07:50:25.460364782Z",
   "ArtifactName": "ghcr.io/taha2samy-3/java:23",
   "ArtifactType": "container_image",
   "Metadata": {
@@ -9,57 +9,63 @@
       "Family": "wolfi",
       "Name": "20230201"
     },
-    "ImageID": "sha256:87ed4277b46b795aa165e6977e939f67bcd47102d28096d43a9f07fc2cc6e71e",
+    "ImageID": "sha256:66543849676de4cd233c88c530444fff3e99629b682c4c57ed200c75d850a55d",
     "DiffIDs": [
-      "sha256:2112f1dcd18aff222f0f0e85b5276e06d19cf68ae11d18fd8b53ca390111d33b",
+      "sha256:018604dd6347f981d9ae4c403c1247f5ad2f802f247b64c856ad675ce428a2fb",
       "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
     ],
     "RepoTags": [
       "ghcr.io/taha2samy-3/java:23"
     ],
     "RepoDigests": [
-      "ghcr.io/taha2samy-3/java@sha256:d54d0fef3cb6bf6d0ea9a0a4feba96b90781def54bf480931a3770958497403d"
+      "ghcr.io/taha2samy-3/java@sha256:aafd5b43761a3e215b89ceb750540148e6bac011775082bdd20dcf798a9d36e1"
     ],
     "ImageConfig": {
       "architecture": "amd64",
-      "created": "2026-10-27T03:57:34.807182294Z",
+      "created": "2026-10-27T07:34:51.013035185Z",
       "history": [
         {
-          "created": "2026-10-27T03:57:34.342999138Z",
+          "created": "2026-10-27T07:34:49.415713154Z",
           "created_by": "COPY / / # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-27T03:57:34.807182294Z",
+          "created": "2026-10-27T07:34:51.013035185Z",
           "created_by": "ENV JAVA_OPTS=-XX:+UseZGC -XX:+ZGenerational",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T03:57:34.807182294Z",
+          "created": "2026-10-27T07:34:51.013035185Z",
           "created_by": "ENV SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T03:57:34.807182294Z",
+          "created": "2026-10-27T07:34:51.013035185Z",
           "created_by": "WORKDIR /app",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-27T03:57:34.807182294Z",
+          "created": "2026-10-27T07:34:51.013035185Z",
           "created_by": "USER java",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T03:57:34.807182294Z",
+          "created": "2026-10-27T07:34:51.013035185Z",
+          "created_by": "HEALTHCHECK {Test:[CMD /usr/bin/java -version] Interval:30s Timeout:5s StartPeriod:10s StartInterval:0s Retries:3}",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-27T07:34:51.013035185Z",
           "created_by": "ENTRYPOINT [\"/sbin/tini\" \"--\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T03:57:34.807182294Z",
+          "created": "2026-10-27T07:34:51.013035185Z",
           "created_by": "CMD [\"java\" \"-version\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
@@ -69,7 +75,7 @@
       "rootfs": {
         "type": "layers",
         "diff_ids": [
-          "sha256:2112f1dcd18aff222f0f0e85b5276e06d19cf68ae11d18fd8b53ca390111d33b",
+          "sha256:018604dd6347f981d9ae4c403c1247f5ad2f802f247b64c856ad675ce428a2fb",
           "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
         ]
       },
@@ -78,6 +84,17 @@
           "java",
           "-version"
         ],
+        "Healthcheck": {
+          "Test": [
+            "CMD",
+            "/usr/bin/java",
+            "-version"
+          ],
+          "Interval": 30000000000,
+          "Timeout": 5000000000,
+          "StartPeriod": 10000000000,
+          "Retries": 3
+        },
         "Entrypoint": [
           "/sbin/tini",
           "--"
@@ -88,7 +105,7 @@
           "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt"
         ],
         "Labels": {
-          "io.github.taha2samy-3.build.fingerprint": "c1e5b6a05fec92bb59a8204e00726be7",
+          "io.github.taha2samy-3.build.fingerprint": "152377e41841e46136e3d57641619b64",
           "org.opencontainers.image.authors": "Taha Samy",
           "org.opencontainers.image.description": "Ultra-secure minimal Java OpenJDK 23 (23.0.2-r8) production runtime based on Chainguard Wolfi and scratch",
           "org.opencontainers.image.licenses": "MIT",
@@ -102,8 +119,8 @@
     "Layers": [
       {
         "Size": 290843648,
-        "Digest": "sha256:a57f017975bfdda1a7f0e2a3690e8a513097f55eb8590476377bf6cfc1e8df13",
-        "DiffID": "sha256:2112f1dcd18aff222f0f0e85b5276e06d19cf68ae11d18fd8b53ca390111d33b"
+        "Digest": "sha256:3e7545295815995fb2f7e3d500df5d2ddb259326a687aa67c91e0b01f54849e3",
+        "DiffID": "sha256:018604dd6347f981d9ae4c403c1247f5ad2f802f247b64c856ad675ce428a2fb"
       },
       {
         "Size": 1024,

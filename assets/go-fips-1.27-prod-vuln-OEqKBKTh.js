@@ -1,1 +1,0 @@
-var e={CreatedAt:`2026-10-27T05:23:35.252655928Z`,Results:[{Target:`ghcr.io/taha2samy-3/go-fips:1.27 (wolfi 20230201)`,Vulnerabilities:[]},{Target:`usr/bin/secrets-entrypoint`,Vulnerabilities:[]},{Target:`usr/share/go-fips/fips-check`,Vulnerabilities:[]}]};export{e as default};

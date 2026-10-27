@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 2,
-  "CreatedAt": "2026-10-27T06:56:26.9724517Z",
+  "CreatedAt": "2026-10-27T07:49:21.647204471Z",
   "ArtifactName": "ghcr.io/taha2samy-3/node:24",
   "ArtifactType": "container_image",
   "Metadata": {
@@ -9,7 +9,7 @@
       "Family": "wolfi",
       "Name": "20230201"
     },
-    "ImageID": "sha256:b6fb7a6999a0210149199030d1dee5a47703ac0509684fa99b9a671124b9c90e",
+    "ImageID": "sha256:44a15bd5abee0fb126f17f150bcba5331c7a47fcc2012da39f8b134f0c7bde1b",
     "DiffIDs": [
       "sha256:a25f81dfd686b3bec7e15e12b898aa96ee11e0dbe70735695cf62d68124dcfaf",
       "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
@@ -18,7 +18,7 @@
       "ghcr.io/taha2samy-3/node:24"
     ],
     "RepoDigests": [
-      "ghcr.io/taha2samy-3/node@sha256:a1c7e87514f8a5f2c98123e2844936261dc1fcee42c3cb269e4893153f967c7d"
+      "ghcr.io/taha2samy-3/node@sha256:b0350dce67a7049e846d29763a1074547eb0a91928c42d2f9cf1251715654a19"
     ],
     "ImageConfig": {
       "architecture": "amd64",
@@ -48,6 +48,12 @@
         },
         {
           "created": "2026-10-27T06:36:15.642968089Z",
+          "created_by": "HEALTHCHECK {Test:[CMD /usr/bin/node -e process.exit(0)] Interval:30s Timeout:5s StartPeriod:5s StartInterval:0s Retries:3}",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-27T06:36:15.642968089Z",
           "created_by": "ENTRYPOINT [\"/sbin/tini\" \"--\" \"/usr/bin/docker-entrypoint.sh\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
@@ -71,6 +77,18 @@
         "Cmd": [
           "node"
         ],
+        "Healthcheck": {
+          "Test": [
+            "CMD",
+            "/usr/bin/node",
+            "-e",
+            "process.exit(0)"
+          ],
+          "Interval": 30000000000,
+          "Timeout": 5000000000,
+          "StartPeriod": 5000000000,
+          "Retries": 3
+        },
         "Entrypoint": [
           "/sbin/tini",
           "--",
@@ -82,7 +100,7 @@
           "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt"
         ],
         "Labels": {
-          "io.github.taha2samy-3.build.fingerprint": "c43f3d3109f2390a8efa37082f739989",
+          "io.github.taha2samy-3.build.fingerprint": "9cdc72375c0448b5a23ec9b8ce89e8a6",
           "org.opencontainers.image.authors": "Taha Samy",
           "org.opencontainers.image.description": "Ultra-secure minimal Node.js 24 (24.22.1-r2) production runtime based on Chainguard Wolfi and scratch",
           "org.opencontainers.image.licenses": "MIT",

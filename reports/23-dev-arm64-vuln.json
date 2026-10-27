@@ -1,15 +1,15 @@
 {
   "SchemaVersion": 2,
-  "CreatedAt": "2026-10-27T05:24:43.611816245Z",
+  "CreatedAt": "2026-10-27T07:48:36.357283454Z",
   "ArtifactName": "ghcr.io/taha2samy-3/java:23-dev",
   "ArtifactType": "container_image",
   "Metadata": {
-    "Size": 300857856,
+    "Size": 300861440,
     "OS": {
       "Family": "wolfi",
       "Name": "20230201"
     },
-    "ImageID": "sha256:5760ac21c2ec4fd7fa29a61adbf5f17197c4994e89ed566f383be7c4cc72aecf",
+    "ImageID": "sha256:a3345de79291b51e547e9ab0b53bb6414b93ffbdb7da93a33be863f24b583977",
     "DiffIDs": [
       "sha256:3a45993e04db84df3623dbfd6091d99e0f4af3ec200d30c7ddd60e9f89d2b228",
       "sha256:b53731855fa373496952a82670621c1782316a4d06b14042c819aa708b651623",
@@ -22,22 +22,22 @@
       "sha256:e2aba71c4b63b2d89a00d1304f333fee56333cb4379b497df20a5e3159ce74b9",
       "sha256:c9feb10d156c52ea8c0a2fcd11e568f4ca3e1efe4c968a32d5ee4eb5a29d5b19",
       "sha256:842512fb877ef450e7f9cd6c64b3ed59549601f8832c1175a4b0b5986ce87dcd",
-      "sha256:8c2412f3e425f7edfc79bf62b0678fb2bc01f1c8264839ed88a01d450b5d2bfe",
-      "sha256:c06d8635f00466031f91aa49a22a9f105885a9fac163b26304df78b59f3ef4dd",
-      "sha256:1f35f956e362c65ff571397ea8179741d830ab6378466787396deb5192623a40",
-      "sha256:b607281f5668d6091f5f91030ebcc592f591d5ccc25c0b92d6434af0edeba0df",
+      "sha256:e6d2ad8316261bfbcd310c8d203f8f30ab442f78aef2b56c37bb87c87d06eb77",
+      "sha256:361eb099011759d830415ce3cde1019ef8b3953afd934a3ebc4beeb60a3ebc84",
+      "sha256:4f1c4f06d07b1b17e02aefb0191ed198f1b49bd9416931f6329d5924b65dd10d",
+      "sha256:e4ab635aa1dc0098697d24fa296057726ff799b57937782290c5e19b79a05019",
       "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
     ],
     "RepoTags": [
       "ghcr.io/taha2samy-3/java:23-dev"
     ],
     "RepoDigests": [
-      "ghcr.io/taha2samy-3/java@sha256:f98376bfe9a52fd62be62055947416453f0ac0436704c1471b078eb9a4770713"
+      "ghcr.io/taha2samy-3/java@sha256:59c5a89e970905796f21f276267f7df2e75a9cc7ca95bc21a709a7d4e68da41a"
     ],
     "ImageConfig": {
       "architecture": "arm64",
       "author": "github.com/chainguard-dev/apko",
-      "created": "2026-10-27T03:58:17.990672557Z",
+      "created": "2026-10-27T07:32:54.918865202Z",
       "history": [
         {
           "author": "apko",
@@ -106,62 +106,68 @@
           "comment": "wolfi-base by Chainguard"
         },
         {
-          "created": "2026-10-27T03:58:17.848245976Z",
+          "created": "2026-10-27T07:32:54.735860175Z",
           "created_by": "ARG JAVA_VERSION=23",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T03:58:17.848245976Z",
+          "created": "2026-10-27T07:32:54.735860175Z",
           "created_by": "ARG JAVA_FULL_VERSION=23.0.2-r8",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T03:58:17.848245976Z",
+          "created": "2026-10-27T07:32:54.735860175Z",
           "created_by": "USER root",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T03:58:17.848245976Z",
+          "created": "2026-10-27T07:32:54.735860175Z",
           "created_by": "RUN |2 JAVA_VERSION=23 JAVA_FULL_VERSION=23.0.2-r8 /bin/sh -c apk update \u0026\u0026 apk add --no-cache     openjdk-${JAVA_VERSION}-default-jdk=${JAVA_FULL_VERSION}     tini # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-27T03:58:17.91299457Z",
+          "created": "2026-10-27T07:32:54.798885299Z",
           "created_by": "RUN |2 JAVA_VERSION=23 JAVA_FULL_VERSION=23.0.2-r8 /bin/sh -c if [ -f /etc/ssl/certs/java/cacerts ]; then (cd /etc/ssl/certs/java \u0026\u0026 sha256sum cacerts \u003e .cacerts.sha256 \u0026\u0026 chmod 444 .cacerts.sha256); fi # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-27T03:58:17.936478164Z",
+          "created": "2026-10-27T07:32:54.847673952Z",
           "created_by": "COPY /out/ /usr/bin/ # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-27T03:58:17.982196463Z",
+          "created": "2026-10-27T07:32:54.903964204Z",
           "created_by": "RUN |2 JAVA_VERSION=23 JAVA_FULL_VERSION=23.0.2-r8 /bin/sh -c adduser -D -u 1000 java \u0026\u0026     mkdir /app \u0026\u0026 chown java:java /app # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-27T03:58:17.990672557Z",
+          "created": "2026-10-27T07:32:54.918865202Z",
           "created_by": "WORKDIR /app",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-27T03:58:17.990672557Z",
+          "created": "2026-10-27T07:32:54.918865202Z",
           "created_by": "USER java",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T03:58:17.990672557Z",
+          "created": "2026-10-27T07:32:54.918865202Z",
+          "created_by": "HEALTHCHECK {Test:[CMD java -version] Interval:30s Timeout:5s StartPeriod:10s StartInterval:0s Retries:3}",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-27T07:32:54.918865202Z",
           "created_by": "ENTRYPOINT [\"/sbin/tini\" \"--\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T03:58:17.990672557Z",
+          "created": "2026-10-27T07:32:54.918865202Z",
           "created_by": "CMD [\"java\" \"-version\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
@@ -182,10 +188,10 @@
           "sha256:e2aba71c4b63b2d89a00d1304f333fee56333cb4379b497df20a5e3159ce74b9",
           "sha256:c9feb10d156c52ea8c0a2fcd11e568f4ca3e1efe4c968a32d5ee4eb5a29d5b19",
           "sha256:842512fb877ef450e7f9cd6c64b3ed59549601f8832c1175a4b0b5986ce87dcd",
-          "sha256:8c2412f3e425f7edfc79bf62b0678fb2bc01f1c8264839ed88a01d450b5d2bfe",
-          "sha256:c06d8635f00466031f91aa49a22a9f105885a9fac163b26304df78b59f3ef4dd",
-          "sha256:1f35f956e362c65ff571397ea8179741d830ab6378466787396deb5192623a40",
-          "sha256:b607281f5668d6091f5f91030ebcc592f591d5ccc25c0b92d6434af0edeba0df",
+          "sha256:e6d2ad8316261bfbcd310c8d203f8f30ab442f78aef2b56c37bb87c87d06eb77",
+          "sha256:361eb099011759d830415ce3cde1019ef8b3953afd934a3ebc4beeb60a3ebc84",
+          "sha256:4f1c4f06d07b1b17e02aefb0191ed198f1b49bd9416931f6329d5924b65dd10d",
+          "sha256:e4ab635aa1dc0098697d24fa296057726ff799b57937782290c5e19b79a05019",
           "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
         ]
       },
@@ -194,6 +200,17 @@
           "java",
           "-version"
         ],
+        "Healthcheck": {
+          "Test": [
+            "CMD",
+            "java",
+            "-version"
+          ],
+          "Interval": 30000000000,
+          "Timeout": 5000000000,
+          "StartPeriod": 10000000000,
+          "Retries": 3
+        },
         "Entrypoint": [
           "/sbin/tini",
           "--"
@@ -205,7 +222,7 @@
         "Labels": {
           "dev.chainguard.image.title": "wolfi-base",
           "dev.chainguard.package.main": "",
-          "io.github.taha2samy-3.build.fingerprint": "e7f74948b788ae2031e20641f268c373",
+          "io.github.taha2samy-3.build.fingerprint": "07a7f8dbb98ce7a83886f05aaf189270",
           "org.opencontainers.image.authors": "Taha Samy",
           "org.opencontainers.image.created": "2026-10-23T17:13:10Z",
           "org.opencontainers.image.description": "Optimized Java OpenJDK 23 (23.0.2-r8) development image based on Chainguard Wolfi",
@@ -277,24 +294,24 @@
         "DiffID": "sha256:842512fb877ef450e7f9cd6c64b3ed59549601f8832c1175a4b0b5986ce87dcd"
       },
       {
-        "Size": 277954560,
-        "Digest": "sha256:7ac8e8435f83c1280443627c1a92a16ae9121da66d810c9baa847dda6e23c292",
-        "DiffID": "sha256:8c2412f3e425f7edfc79bf62b0678fb2bc01f1c8264839ed88a01d450b5d2bfe"
+        "Size": 277958144,
+        "Digest": "sha256:8476afdd0f3b33861cfe4b6da65f3776fc1339265948d6ecc6ade5eec700cbda",
+        "DiffID": "sha256:e6d2ad8316261bfbcd310c8d203f8f30ab442f78aef2b56c37bb87c87d06eb77"
       },
       {
         "Size": 4096,
-        "Digest": "sha256:5b8afb8ab03fefa203652d63520257e67a4e6e5948692250e7101180db5bc479",
-        "DiffID": "sha256:c06d8635f00466031f91aa49a22a9f105885a9fac163b26304df78b59f3ef4dd"
+        "Digest": "sha256:70e619e94c1da72f0a4758beb3841d6e325f42b870adf89c1a5c6227f273a43c",
+        "DiffID": "sha256:361eb099011759d830415ce3cde1019ef8b3953afd934a3ebc4beeb60a3ebc84"
       },
       {
         "Size": 5770752,
-        "Digest": "sha256:05248e6647ff2ca18b318eb10b0065979bfc07cb940c411b8111fa2a35a84439",
-        "DiffID": "sha256:1f35f956e362c65ff571397ea8179741d830ab6378466787396deb5192623a40"
+        "Digest": "sha256:c8377d6ecd6a89efde8b3cefd90ec41beb143fe75a8da291b498ed646b46c5c7",
+        "DiffID": "sha256:4f1c4f06d07b1b17e02aefb0191ed198f1b49bd9416931f6329d5924b65dd10d"
       },
       {
         "Size": 11264,
-        "Digest": "sha256:e7a97c1d3c64249112f3f81330aae47bed62a700ad269396cc80b33405682957",
-        "DiffID": "sha256:b607281f5668d6091f5f91030ebcc592f591d5ccc25c0b92d6434af0edeba0df"
+        "Digest": "sha256:b31bcefcf70648e35ac776b585dcc4bbdb86ed070682c3b2e74e842ae492e542",
+        "DiffID": "sha256:e4ab635aa1dc0098697d24fa296057726ff799b57937782290c5e19b79a05019"
       },
       {
         "Size": 1024,

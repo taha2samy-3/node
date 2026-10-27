@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 2,
-  "CreatedAt": "2026-10-27T06:57:54.973917696Z",
+  "CreatedAt": "2026-10-27T07:49:19.003804555Z",
   "ArtifactName": "ghcr.io/taha2samy-3/python:3.14",
   "ArtifactType": "container_image",
   "Metadata": {
@@ -9,63 +9,69 @@
       "Family": "wolfi",
       "Name": "20230201"
     },
-    "ImageID": "sha256:20b15a1ae368607b7d81385fbdd8a1baeead554e5312bf3c7c18f62e8edc5ca9",
+    "ImageID": "sha256:062589012700399acd54957b32d19dcc84f480414a96b0b41abbf5904516a920",
     "DiffIDs": [
-      "sha256:dfcf69557457a85fff86627a36ab56d8bbe00e3dbeda6a8639507b95ec2dad8c",
+      "sha256:a1395e7a2aa6977591ada49c0b345ddfd7e3faa8316e9b4ecc8757297e577ef6",
       "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
     ],
     "RepoTags": [
       "ghcr.io/taha2samy-3/python:3.14"
     ],
     "RepoDigests": [
-      "ghcr.io/taha2samy-3/python@sha256:7d776396d80211eb8317c9f097a0eb955af5a102e1ed73d52eca967ea8676a46"
+      "ghcr.io/taha2samy-3/python@sha256:f68aa38e08e379091cbd74638a75edfb8a64b450631f33b4cf2ef0bd10486bf9"
     ],
     "ImageConfig": {
       "architecture": "amd64",
-      "created": "2026-10-27T06:35:14.367050094Z",
+      "created": "2026-10-27T07:34:25.880153488Z",
       "history": [
         {
-          "created": "2026-10-27T06:35:13.129952575Z",
+          "created": "2026-10-27T07:34:25.392617257Z",
           "created_by": "COPY / / # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-27T06:35:14.367050094Z",
+          "created": "2026-10-27T07:34:25.880153488Z",
           "created_by": "ENV PYTHONUNBUFFERED=1",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T06:35:14.367050094Z",
+          "created": "2026-10-27T07:34:25.880153488Z",
           "created_by": "ENV PYTHONDONTWRITEBYTECODE=1",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T06:35:14.367050094Z",
+          "created": "2026-10-27T07:34:25.880153488Z",
           "created_by": "ENV SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T06:35:14.367050094Z",
+          "created": "2026-10-27T07:34:25.880153488Z",
           "created_by": "WORKDIR /app",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-27T06:35:14.367050094Z",
+          "created": "2026-10-27T07:34:25.880153488Z",
           "created_by": "USER python",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T06:35:14.367050094Z",
+          "created": "2026-10-27T07:34:25.880153488Z",
+          "created_by": "HEALTHCHECK {Test:[CMD /usr/bin/python -c import sys; sys.exit(0)] Interval:30s Timeout:5s StartPeriod:5s StartInterval:0s Retries:3}",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-27T07:34:25.880153488Z",
           "created_by": "ENTRYPOINT [\"/sbin/tini\" \"--\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T06:35:14.367050094Z",
+          "created": "2026-10-27T07:34:25.880153488Z",
           "created_by": "CMD [\"python\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
@@ -75,7 +81,7 @@
       "rootfs": {
         "type": "layers",
         "diff_ids": [
-          "sha256:dfcf69557457a85fff86627a36ab56d8bbe00e3dbeda6a8639507b95ec2dad8c",
+          "sha256:a1395e7a2aa6977591ada49c0b345ddfd7e3faa8316e9b4ecc8757297e577ef6",
           "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
         ]
       },
@@ -83,6 +89,18 @@
         "Cmd": [
           "python"
         ],
+        "Healthcheck": {
+          "Test": [
+            "CMD",
+            "/usr/bin/python",
+            "-c",
+            "import sys; sys.exit(0)"
+          ],
+          "Interval": 30000000000,
+          "Timeout": 5000000000,
+          "StartPeriod": 5000000000,
+          "Retries": 3
+        },
         "Entrypoint": [
           "/sbin/tini",
           "--"
@@ -94,7 +112,7 @@
           "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt"
         ],
         "Labels": {
-          "io.github.taha2samy-3.build.fingerprint": "c32ce8322b490663a9c70877a28e7bc7",
+          "io.github.taha2samy-3.build.fingerprint": "f153bb385e1b85d7b6508aae82fcc573",
           "org.opencontainers.image.authors": "Taha Samy",
           "org.opencontainers.image.description": "Ultra-secure minimal Python 3.14 (3.14.8_git20261021-r2) production runtime based on Chainguard Wolfi and scratch",
           "org.opencontainers.image.licenses": "MIT",
@@ -108,8 +126,8 @@
     "Layers": [
       {
         "Size": 77142528,
-        "Digest": "sha256:5e5563cb114a1ad84e624d86d4a7e3b37db77f4d8b8d234097b8620f95fefab4",
-        "DiffID": "sha256:dfcf69557457a85fff86627a36ab56d8bbe00e3dbeda6a8639507b95ec2dad8c"
+        "Digest": "sha256:2a69ba6a2045ab2905992700143d2514f5c943a1af28ee019948eb8e0414b638",
+        "DiffID": "sha256:a1395e7a2aa6977591ada49c0b345ddfd7e3faa8316e9b4ecc8757297e577ef6"
       },
       {
         "Size": 1024,

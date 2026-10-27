@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 2,
-  "CreatedAt": "2026-10-27T06:56:42.719285706Z",
+  "CreatedAt": "2026-10-27T07:51:13.862361649Z",
   "ArtifactName": "ghcr.io/taha2samy-3/python:3.10-dev",
   "ArtifactType": "container_image",
   "Metadata": {
@@ -9,7 +9,7 @@
       "Family": "wolfi",
       "Name": "20230201"
     },
-    "ImageID": "sha256:1e5aca59ff341c2a555bdd74fb87b2fe78760632961b540e6d3b0da5d1bc1eb6",
+    "ImageID": "sha256:ef9b67a465c6c0062f4af086d7ca19c8779c9db1ca5ef8eaee32982c16fc5e57",
     "DiffIDs": [
       "sha256:c86e4445c72addddcaa6610aa97ebdc38a274bb3ac5eb0679ebdc42317388971",
       "sha256:81ac36f4bee4102128a3f1f63d1a2a057922351d656f4a4fcdb1b92cd28a95f2",
@@ -31,7 +31,7 @@
       "ghcr.io/taha2samy-3/python:3.10-dev"
     ],
     "RepoDigests": [
-      "ghcr.io/taha2samy-3/python@sha256:57b7752634923d21f1b6e78caf8c868ddb4fba315a079c47f54887f16e20f3a9"
+      "ghcr.io/taha2samy-3/python@sha256:dce25fb3cabd3c9307d18038b47f6fee2861cd5b7c26c2d31cfee84f213da888"
     ],
     "ImageConfig": {
       "architecture": "amd64",
@@ -162,6 +162,12 @@
         },
         {
           "created": "2026-10-27T06:37:15.641150888Z",
+          "created_by": "HEALTHCHECK {Test:[CMD python -c import sys; sys.exit(0)] Interval:30s Timeout:5s StartPeriod:5s StartInterval:0s Retries:3}",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-27T06:37:15.641150888Z",
           "created_by": "ENTRYPOINT [\"/sbin/tini\" \"--\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
@@ -198,6 +204,18 @@
         "Cmd": [
           "python"
         ],
+        "Healthcheck": {
+          "Test": [
+            "CMD",
+            "python",
+            "-c",
+            "import sys; sys.exit(0)"
+          ],
+          "Interval": 30000000000,
+          "Timeout": 5000000000,
+          "StartPeriod": 5000000000,
+          "Retries": 3
+        },
         "Entrypoint": [
           "/sbin/tini",
           "--"
@@ -211,7 +229,7 @@
         "Labels": {
           "dev.chainguard.image.title": "wolfi-base",
           "dev.chainguard.package.main": "",
-          "io.github.taha2samy-3.build.fingerprint": "37061f77470e1366daea6e3e83d237c3",
+          "io.github.taha2samy-3.build.fingerprint": "c5e6a40f0881009cc44a51b87071de05",
           "org.opencontainers.image.authors": "Taha Samy",
           "org.opencontainers.image.created": "2026-10-23T17:13:10Z",
           "org.opencontainers.image.description": "Optimized Python 3.10 (3.10.22-r5) development image based on Chainguard Wolfi",

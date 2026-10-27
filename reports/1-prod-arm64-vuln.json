@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 2,
-  "CreatedAt": "2026-10-27T06:58:37.365718407Z",
+  "CreatedAt": "2026-10-27T07:49:35.251751103Z",
   "ArtifactName": "ghcr.io/taha2samy-3/bun:1",
   "ArtifactType": "container_image",
   "Metadata": {
@@ -9,51 +9,57 @@
       "Family": "wolfi",
       "Name": "20230201"
     },
-    "ImageID": "sha256:ecb483670ed21128c22f7c595fa746020b13a10be494144565d7181481f19204",
+    "ImageID": "sha256:3b64413fd972a991137d782e06a831f1862049e8d157271ad8ef3f2456f73486",
     "DiffIDs": [
-      "sha256:8cac5ee46610b84c387c693bb69b1b5aeca364b5a3f21b8f847f9c9cb0a21efb",
+      "sha256:238b6d0dad5ffc238d4d9ad39aa6e8e7205bbaa61e79f655afdd4f126dbd4d3b",
       "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
     ],
     "RepoTags": [
       "ghcr.io/taha2samy-3/bun:1"
     ],
     "RepoDigests": [
-      "ghcr.io/taha2samy-3/bun@sha256:c8d8ecbfe9e7d988d48993019d383c3f9ab4673c8fb469337407d6c2df028a3b"
+      "ghcr.io/taha2samy-3/bun@sha256:b8cae021f454bf8399f9b52ef325ea70336eab26ab7400592d3d4df540a26c9b"
     ],
     "ImageConfig": {
       "architecture": "arm64",
-      "created": "2026-10-27T06:35:31.825625004Z",
+      "created": "2026-10-27T07:33:07.744764548Z",
       "history": [
         {
-          "created": "2026-10-27T06:35:31.401136033Z",
+          "created": "2026-10-27T07:33:07.180070035Z",
           "created_by": "COPY / / # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-27T06:35:31.825625004Z",
+          "created": "2026-10-27T07:33:07.744764548Z",
           "created_by": "ENV SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T06:35:31.825625004Z",
+          "created": "2026-10-27T07:33:07.744764548Z",
           "created_by": "WORKDIR /app",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-27T06:35:31.825625004Z",
+          "created": "2026-10-27T07:33:07.744764548Z",
           "created_by": "USER bun",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T06:35:31.825625004Z",
+          "created": "2026-10-27T07:33:07.744764548Z",
+          "created_by": "HEALTHCHECK {Test:[CMD /usr/bin/bun --version] Interval:30s Timeout:5s StartPeriod:5s StartInterval:0s Retries:3}",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-27T07:33:07.744764548Z",
           "created_by": "ENTRYPOINT [\"/sbin/tini\" \"--\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T06:35:31.825625004Z",
+          "created": "2026-10-27T07:33:07.744764548Z",
           "created_by": "CMD [\"bun\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
@@ -63,7 +69,7 @@
       "rootfs": {
         "type": "layers",
         "diff_ids": [
-          "sha256:8cac5ee46610b84c387c693bb69b1b5aeca364b5a3f21b8f847f9c9cb0a21efb",
+          "sha256:238b6d0dad5ffc238d4d9ad39aa6e8e7205bbaa61e79f655afdd4f126dbd4d3b",
           "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
         ]
       },
@@ -71,6 +77,17 @@
         "Cmd": [
           "bun"
         ],
+        "Healthcheck": {
+          "Test": [
+            "CMD",
+            "/usr/bin/bun",
+            "--version"
+          ],
+          "Interval": 30000000000,
+          "Timeout": 5000000000,
+          "StartPeriod": 5000000000,
+          "Retries": 3
+        },
         "Entrypoint": [
           "/sbin/tini",
           "--"
@@ -80,7 +97,7 @@
           "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt"
         ],
         "Labels": {
-          "io.github.taha2samy-3.build.fingerprint": "78dd854b698694c06ad05b3fad178445",
+          "io.github.taha2samy-3.build.fingerprint": "0651fc54e6b5c43984fd1a4aecf5f58c",
           "org.opencontainers.image.authors": "Taha Samy",
           "org.opencontainers.image.description": "Ultra-secure minimal Bun 1 (1.4.4-r0) production runtime based on Chainguard Wolfi and scratch",
           "org.opencontainers.image.licenses": "MIT",
@@ -94,8 +111,8 @@
     "Layers": [
       {
         "Size": 129444352,
-        "Digest": "sha256:03ac03a2034331b2d739c8e1299b6aa7e028c55085eb7974b6f7d7e25953ae71",
-        "DiffID": "sha256:8cac5ee46610b84c387c693bb69b1b5aeca364b5a3f21b8f847f9c9cb0a21efb"
+        "Digest": "sha256:cabc373ba973ebd23c25bf39bf494f084f6301f75258fb4f3b006c58418b67c2",
+        "DiffID": "sha256:238b6d0dad5ffc238d4d9ad39aa6e8e7205bbaa61e79f655afdd4f126dbd4d3b"
       },
       {
         "Size": 1024,

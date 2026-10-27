@@ -1,6 +1,6 @@
 {
   "SchemaVersion": 2,
-  "CreatedAt": "2026-10-27T05:19:51.428111169Z",
+  "CreatedAt": "2026-10-27T07:48:15.924654978Z",
   "ArtifactName": "ghcr.io/taha2samy-3/node:18",
   "ArtifactType": "container_image",
   "Metadata": {
@@ -9,51 +9,57 @@
       "Family": "wolfi",
       "Name": "20230201"
     },
-    "ImageID": "sha256:63b993aecb85f8036e0f40ceef57ca67a0585b57049f1232782d87ecde611262",
+    "ImageID": "sha256:a80a8100805b07565e7b9fa7fe0757e8eb6ae7fc1cc09a678a8a9be15ef08a25",
     "DiffIDs": [
-      "sha256:4a7af84ba02b886eedb557f750f1825a99790c027a86db00ef7210f205f8b32c",
+      "sha256:908549ad98984fed0edb51ff9fc68f31cce4f88845d93c4e14faaa02c7aaa9d1",
       "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
     ],
     "RepoTags": [
       "ghcr.io/taha2samy-3/node:18"
     ],
     "RepoDigests": [
-      "ghcr.io/taha2samy-3/node@sha256:44989d658d9e22efe016f9b186439dc495c49d96908b869c5b9033db72182436"
+      "ghcr.io/taha2samy-3/node@sha256:b7d50e53d9521b95c9287346b388e91bbbd0c73ae65893fa7ead232c83f6b235"
     ],
     "ImageConfig": {
       "architecture": "amd64",
-      "created": "2026-10-27T03:58:51.654985429Z",
+      "created": "2026-10-27T07:34:58.179856743Z",
       "history": [
         {
-          "created": "2026-10-27T03:58:50.9571562Z",
+          "created": "2026-10-27T07:34:57.465388583Z",
           "created_by": "COPY / / # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-27T03:58:51.654985429Z",
+          "created": "2026-10-27T07:34:58.179856743Z",
           "created_by": "ENV NODE_ENV=production SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T03:58:51.654985429Z",
+          "created": "2026-10-27T07:34:58.179856743Z",
           "created_by": "WORKDIR /app",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-27T03:58:51.654985429Z",
+          "created": "2026-10-27T07:34:58.179856743Z",
           "created_by": "USER node",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T03:58:51.654985429Z",
+          "created": "2026-10-27T07:34:58.179856743Z",
+          "created_by": "HEALTHCHECK {Test:[CMD /usr/bin/node -e process.exit(0)] Interval:30s Timeout:5s StartPeriod:5s StartInterval:0s Retries:3}",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-27T07:34:58.179856743Z",
           "created_by": "ENTRYPOINT [\"/sbin/tini\" \"--\" \"/usr/bin/docker-entrypoint.sh\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T03:58:51.654985429Z",
+          "created": "2026-10-27T07:34:58.179856743Z",
           "created_by": "CMD [\"node\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
@@ -63,7 +69,7 @@
       "rootfs": {
         "type": "layers",
         "diff_ids": [
-          "sha256:4a7af84ba02b886eedb557f750f1825a99790c027a86db00ef7210f205f8b32c",
+          "sha256:908549ad98984fed0edb51ff9fc68f31cce4f88845d93c4e14faaa02c7aaa9d1",
           "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
         ]
       },
@@ -71,6 +77,18 @@
         "Cmd": [
           "node"
         ],
+        "Healthcheck": {
+          "Test": [
+            "CMD",
+            "/usr/bin/node",
+            "-e",
+            "process.exit(0)"
+          ],
+          "Interval": 30000000000,
+          "Timeout": 5000000000,
+          "StartPeriod": 5000000000,
+          "Retries": 3
+        },
         "Entrypoint": [
           "/sbin/tini",
           "--",
@@ -82,7 +100,7 @@
           "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt"
         ],
         "Labels": {
-          "io.github.taha2samy-3.build.fingerprint": "8968a8a1cd0594833621d838ca81dd88",
+          "io.github.taha2samy-3.build.fingerprint": "7a0e0adb8125bce6071eb4b25d1ea5e3",
           "org.opencontainers.image.authors": "Taha Samy",
           "org.opencontainers.image.description": "Ultra-secure minimal Node.js 18 (18.20.8-r9) production runtime based on Chainguard Wolfi and scratch",
           "org.opencontainers.image.licenses": "MIT",
@@ -96,8 +114,8 @@
     "Layers": [
       {
         "Size": 127281152,
-        "Digest": "sha256:e287444c512b5de440525f9948d52aa13029896821677fa87126d9272c7df28c",
-        "DiffID": "sha256:4a7af84ba02b886eedb557f750f1825a99790c027a86db00ef7210f205f8b32c"
+        "Digest": "sha256:5ef7ebd93be7996dd66b03480bd7849c54c53e886111b9182f10ccc5d64005e4",
+        "DiffID": "sha256:908549ad98984fed0edb51ff9fc68f31cce4f88845d93c4e14faaa02c7aaa9d1"
       },
       {
         "Size": 1024,

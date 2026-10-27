@@ -1,15 +1,15 @@
 {
   "SchemaVersion": 2,
-  "CreatedAt": "2026-10-27T05:24:42.25195893Z",
+  "CreatedAt": "2026-10-27T07:51:59.89064685Z",
   "ArtifactName": "ghcr.io/taha2samy-3/go:1.25-dev",
   "ArtifactType": "container_image",
   "Metadata": {
-    "Size": 799646720,
+    "Size": 799650304,
     "OS": {
       "Family": "wolfi",
       "Name": "20230201"
     },
-    "ImageID": "sha256:0b69e66a381b978d8584b646fe38f1edb5ffabb87cc2fe62e9fb0e25c6499524",
+    "ImageID": "sha256:c617557b2bb647c9699a4d5f4ec8ce23cd1d12e2e840b85429b8d48e450dba31",
     "DiffIDs": [
       "sha256:3a45993e04db84df3623dbfd6091d99e0f4af3ec200d30c7ddd60e9f89d2b228",
       "sha256:b53731855fa373496952a82670621c1782316a4d06b14042c819aa708b651623",
@@ -22,21 +22,21 @@
       "sha256:e2aba71c4b63b2d89a00d1304f333fee56333cb4379b497df20a5e3159ce74b9",
       "sha256:c9feb10d156c52ea8c0a2fcd11e568f4ca3e1efe4c968a32d5ee4eb5a29d5b19",
       "sha256:842512fb877ef450e7f9cd6c64b3ed59549601f8832c1175a4b0b5986ce87dcd",
-      "sha256:587151f7ca5ebb4812c72459000020d7994f7fcc7188ea7ce8ce3275d6e063fe",
-      "sha256:fc599701ed341b34e762ab0c920c431d3386daa95b1a97ec7b130729e6ed996b",
-      "sha256:10df3879be915879e50116a6d1eec8fa107047a538e0ca12ea9b5048d7618d7e",
+      "sha256:efec8b78e72f7294b3d8ff60e2ceca5475285bf917bc5cfbfc29e20f017d1995",
+      "sha256:cd8fd89c0719baa835eacba7aefea24bb86724447c5cbfeae8a5907fb00c0666",
+      "sha256:654194a1769fd3cb5ba9ae68fbd88a9d2e5581141d6c8ee77004ac132557ae65",
       "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
     ],
     "RepoTags": [
       "ghcr.io/taha2samy-3/go:1.25-dev"
     ],
     "RepoDigests": [
-      "ghcr.io/taha2samy-3/go@sha256:ddaab7be293e2d0e62b2d364a3f0ab551be14c747576f85a696e0cc7db72be59"
+      "ghcr.io/taha2samy-3/go@sha256:01a00fa45294770dec361b71d08be01b8a6583fdf6b6d014ebe0c21f567a9b8f"
     ],
     "ImageConfig": {
       "architecture": "arm64",
       "author": "github.com/chainguard-dev/apko",
-      "created": "2026-10-27T03:55:38.26641502Z",
+      "created": "2026-10-27T07:34:06.912261782Z",
       "history": [
         {
           "author": "apko",
@@ -105,69 +105,75 @@
           "comment": "wolfi-base by Chainguard"
         },
         {
-          "created": "2026-10-27T03:55:38.125597484Z",
+          "created": "2026-10-27T07:34:06.78610274Z",
           "created_by": "ARG GO_VERSION=1.25",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T03:55:38.125597484Z",
+          "created": "2026-10-27T07:34:06.78610274Z",
           "created_by": "ARG GO_FULL_VERSION=1.25.12-r1",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T03:55:38.125597484Z",
+          "created": "2026-10-27T07:34:06.78610274Z",
           "created_by": "USER root",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T03:55:38.125597484Z",
+          "created": "2026-10-27T07:34:06.78610274Z",
           "created_by": "RUN |2 GO_VERSION=1.25 GO_FULL_VERSION=1.25.12-r1 /bin/sh -c apk update \u0026\u0026 apk add --no-cache     go-${GO_VERSION}${GO_FULL_VERSION:+=$GO_FULL_VERSION}     build-base     git     tini # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-27T03:55:38.204480786Z",
+          "created": "2026-10-27T07:34:06.857280541Z",
           "created_by": "COPY /out/ /usr/bin/ # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-27T03:55:38.254603516Z",
+          "created": "2026-10-27T07:34:06.900275772Z",
           "created_by": "RUN |2 GO_VERSION=1.25 GO_FULL_VERSION=1.25.12-r1 /bin/sh -c adduser -D -u 1000 go \u0026\u0026     mkdir /app \u0026\u0026 chown go:go /app # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-27T03:55:38.26641502Z",
+          "created": "2026-10-27T07:34:06.912261782Z",
           "created_by": "WORKDIR /app",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-27T03:55:38.26641502Z",
+          "created": "2026-10-27T07:34:06.912261782Z",
           "created_by": "USER go",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T03:55:38.26641502Z",
+          "created": "2026-10-27T07:34:06.912261782Z",
           "created_by": "ENV GOPATH=/app/go",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T03:55:38.26641502Z",
+          "created": "2026-10-27T07:34:06.912261782Z",
           "created_by": "ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/sbin:/sbin:/bin:/app/go/bin",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T03:55:38.26641502Z",
+          "created": "2026-10-27T07:34:06.912261782Z",
+          "created_by": "HEALTHCHECK {Test:[CMD go version] Interval:30s Timeout:5s StartPeriod:5s StartInterval:0s Retries:3}",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-27T07:34:06.912261782Z",
           "created_by": "ENTRYPOINT [\"/sbin/tini\" \"--\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T03:55:38.26641502Z",
+          "created": "2026-10-27T07:34:06.912261782Z",
           "created_by": "CMD [\"go\" \"version\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
@@ -188,9 +194,9 @@
           "sha256:e2aba71c4b63b2d89a00d1304f333fee56333cb4379b497df20a5e3159ce74b9",
           "sha256:c9feb10d156c52ea8c0a2fcd11e568f4ca3e1efe4c968a32d5ee4eb5a29d5b19",
           "sha256:842512fb877ef450e7f9cd6c64b3ed59549601f8832c1175a4b0b5986ce87dcd",
-          "sha256:587151f7ca5ebb4812c72459000020d7994f7fcc7188ea7ce8ce3275d6e063fe",
-          "sha256:fc599701ed341b34e762ab0c920c431d3386daa95b1a97ec7b130729e6ed996b",
-          "sha256:10df3879be915879e50116a6d1eec8fa107047a538e0ca12ea9b5048d7618d7e",
+          "sha256:efec8b78e72f7294b3d8ff60e2ceca5475285bf917bc5cfbfc29e20f017d1995",
+          "sha256:cd8fd89c0719baa835eacba7aefea24bb86724447c5cbfeae8a5907fb00c0666",
+          "sha256:654194a1769fd3cb5ba9ae68fbd88a9d2e5581141d6c8ee77004ac132557ae65",
           "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
         ]
       },
@@ -199,6 +205,17 @@
           "go",
           "version"
         ],
+        "Healthcheck": {
+          "Test": [
+            "CMD",
+            "go",
+            "version"
+          ],
+          "Interval": 30000000000,
+          "Timeout": 5000000000,
+          "StartPeriod": 5000000000,
+          "Retries": 3
+        },
         "Entrypoint": [
           "/sbin/tini",
           "--"
@@ -211,7 +228,7 @@
         "Labels": {
           "dev.chainguard.image.title": "wolfi-base",
           "dev.chainguard.package.main": "",
-          "io.github.taha2samy-3.build.fingerprint": "dd1e99da9a515ea85fb58466696aeae9",
+          "io.github.taha2samy-3.build.fingerprint": "6a5c2bcb6a3051650092ce724dc6f39f",
           "org.opencontainers.image.authors": "Taha Samy",
           "org.opencontainers.image.created": "2026-10-23T17:13:10Z",
           "org.opencontainers.image.description": "Optimized Go 1.25 development image based on Chainguard Wolfi",
@@ -283,19 +300,19 @@
         "DiffID": "sha256:842512fb877ef450e7f9cd6c64b3ed59549601f8832c1175a4b0b5986ce87dcd"
       },
       {
-        "Size": 776747520,
-        "Digest": "sha256:c83e94b158e3c8652024452cbeecf90f5b01df387ba1c0b6673c348cedce2b25",
-        "DiffID": "sha256:587151f7ca5ebb4812c72459000020d7994f7fcc7188ea7ce8ce3275d6e063fe"
+        "Size": 776751104,
+        "Digest": "sha256:7ac02beb5ffbc3333ed6fb313d76a16e3f2b07a2baba69f95c5ebb6b550dbee5",
+        "DiffID": "sha256:efec8b78e72f7294b3d8ff60e2ceca5475285bf917bc5cfbfc29e20f017d1995"
       },
       {
         "Size": 5770752,
-        "Digest": "sha256:67dc1607b8a3a6b7e4c3c3ff6bc98980939d11d6ad5990bd82d37d01513bf686",
-        "DiffID": "sha256:fc599701ed341b34e762ab0c920c431d3386daa95b1a97ec7b130729e6ed996b"
+        "Digest": "sha256:3bc2c23764ec712fc573dea78895379bacc73a408906a3cb98185011dd764bc4",
+        "DiffID": "sha256:cd8fd89c0719baa835eacba7aefea24bb86724447c5cbfeae8a5907fb00c0666"
       },
       {
         "Size": 11264,
-        "Digest": "sha256:cc2986f00312ec639d017c2c0d3e1c1e79ede12981ae8ce5de4238e9af212d6f",
-        "DiffID": "sha256:10df3879be915879e50116a6d1eec8fa107047a538e0ca12ea9b5048d7618d7e"
+        "Digest": "sha256:44c4066c4e1001693f0e30835a6514cd9324872f9f58a874a9af0e31ad72f9da",
+        "DiffID": "sha256:654194a1769fd3cb5ba9ae68fbd88a9d2e5581141d6c8ee77004ac132557ae65"
       },
       {
         "Size": 1024,
