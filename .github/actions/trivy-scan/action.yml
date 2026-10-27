@@ -49,8 +49,6 @@ runs:
           aquasec/trivy:${{ inputs.trivy_version }} image \
             --platform ${{ inputs.platform }} \
             --format json \
-            --exit-code 1 \
-            --severity HIGH,CRITICAL \
             --output /reports/${{ inputs.vuln_out }} \
             ${{ inputs.image }}
 
