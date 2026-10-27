@@ -267,15 +267,15 @@ variable "OPENJDK_NCURSES_VER" { default = "6.6.20261017-r0" }
 # envoke (secrets-entrypoint) Binary
 # ==========================================
 variable "ENVOKE_VERSION" {
-  default = "v1.0.1"
+  default = "v1.0.2"
 }
 
 variable "ENVOKE_SHA256_AMD64" {
-  default = "924a81eabd1d460029baf6f624ce3c109a1aa07f0c6f9cc4633f616833a3a418"
+  default = "ced96d0d38c15f666b2f35204848b84c70eeb1f01940e99e52d10b0f3a23e8d2"
 }
 
 variable "ENVOKE_SHA256_ARM64" {
-  default = "a0bffe48a6c6f824426415ac704adb316475d555ed343b37107658c41328b567"
+  default = "152e74002d6e73f9b47c23a346c71536e3520c607e9f59f6cb791cbe3ce33b97"
 }
 
 target "_envoke" {
