@@ -117,7 +117,8 @@ USER root
 # Build a self-contained binary then immediately execute it — build fails if BoringCrypto is absent
 RUN CGO_ENABLED=1 GOEXPERIMENT=boringcrypto \
       go build -o /usr/share/go-fips/fips-check /usr/share/go-fips/fips-check.go && \
-    /usr/share/go-fips/fips-check
+    /usr/share/go-fips/fips-check && \
+    go clean -cache && rm -rf /root/.cache/go-build
 USER go
 
 # ==========================================

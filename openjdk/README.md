@@ -1,30 +1,24 @@
 # Wolfi OpenJDK FIPS 140-3 Hardened Runtime
 
-[![FIPS 140-3](https://img.shields.io/badge/FIPS-140--3%20Enforced-blue?style=for-the-badge&logo=shield)](https://github.com/taha2samy/openjdk)
-[![Zero CVE](https://img.shields.io/badge/Zero--CVE-Wolfi%20OS-brightgreen?style=for-the-badge)](https://github.com/chainguard-dev)
-[![SLSA Level 3](https://img.shields.io/badge/SLSA-Level%203-orange?style=for-the-badge)](https://github.com/taha2samy-3/node/actions)
+[![FIPS 140-3](https://img.shields.io/badge/FIPS-140--3%20bc--fips%202.1.1-blue?style=for-the-badge&logo=shield)](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4943)
+[![SLSA Build Level 3](https://img.shields.io/badge/SLSA-Build%20L3-orange?style=for-the-badge)](../README.md#3-supply-chain-slsa-build-level-3)
 [![License](https://img.shields.io/badge/License-Apache%202.0-lightgrey?style=for-the-badge)](LICENSE)
 
-A high-assurance, **FIPS 140-3 compliant** OpenJDK container image designed for mission-critical, enterprise, and regulated environments (FedRAMP, DoD, HIPAA, PCI-DSS).
-
-Built on top of **Wolfi OS** (undistro) with **Eclipse Adoptium OpenJDK 8, 17, 21 and 25 (LTS)** and **Bouncy Castle FIPS Java modules** (`bc-fips`, `bcpkix-fips`, `bctls-fips`).
+OpenJDK container images on **Wolfi** with **Eclipse Temurin 8, 17, 21 and 25 (LTS)** and the **Bouncy Castle FIPS Java API** (`bc-fips` 2.1.1, CMVP certificate [#4943](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4943)), with `bcutil-fips` and `bctls-fips`.
 
 ---
 
 ## 🛡️ Architecture & Security Controls
 
-This runtime enforces a strict **Cryptographic Boundary** at the JVM layer:
+1. **Bouncy Castle first:** `BCFIPS` is security provider 1 and `BCJSSE` provider 2 in `conf/security/java.security`.
+2. **Approved-only mode:** `JAVA_TOOL_OPTIONS` sets `org.bouncycastle.fips.approved_only=true`, so the BCFIPS provider refuses non-approved algorithms. A deployment that replaces `JAVA_TOOL_OPTIONS` also removes this setting and the boot class path that loads Bouncy Castle.
+3. **Sun providers stay registered.** `Sun`, `SunRsaSign`, `SunEC` and `SunJCE` are providers 3 to 6. Code that requests an algorithm without naming a provider, for example `MessageDigest.getInstance("MD5")`, `Cipher.getInstance("DES/...")` or `KeyStore.getInstance("JKS")`, gets the non-validated Sun implementation. Name `BCFIPS` explicitly where FIPS is required.
+4. **Keystores:** the default keystore type is **BCFKS**, and the JDK trust store is converted to BCFKS.
+5. **Random numbers:** `SecureRandom` defaults come from the BCFIPS SP 800-90A DRBG; `getInstanceStrong()` still maps to the Sun providers.
+6. **Certificate and TLS policy:** `jdk.certpath.disabledAlgorithms` and `jdk.tls.disabledAlgorithms` disable MD2, MD5, SSLv3, TLS 1.0 and 1.1, RC4, DES, 3DES, anonymous and NULL suites, and small RSA, DSA and DH keys for the JDK's own TLS and certificate code.
+7. **Known CVEs:** `bc-fips` 2.1.1 has five open advisories, fixed only in 2.1.2 and 2.1.3, which no certificate lists yet.
 
-1. **Wolfi OS Minimal Base:** Glibc-based zero-known-CVE minimal attack surface with rapid vulnerability remediation.
-2. **Bouncy Castle FIPS Priority:** `BCFIPS` is registered as Security Provider 1, and `BCJSSE` as Provider 2 in `conf/security/java.security`.
-3. **Approved Mode Enforcement:** JVM property `org.bouncycastle.fips.approved_only=true` is enabled by default to strictly prohibit non-approved cryptographic primitives.
-4. **KeyStore Integrity:** System certificates and keystores operate exclusively on **BCFKS** (Bouncy Castle FIPS KeyStore) format.
-5. **NIST SP 800-90A DRBG:** Deterministic Random Bit Generator seeded by system entropy sources (`/dev/urandom`).
-6. **Strict Cryptographic Restrictions:** Explicit rejection of:
-   - Weak hashing: MD4, MD5, SHA-1 (for digital signatures).
-   - Insecure ciphers: DES, 3DES, RC4, anonymous TLS cipher suites.
-   - Weak keys: RSA < 2048-bit, DSA < 2048-bit, non-NIST elliptic curves.
-   - Insecure protocols: SSLv3, TLS 1.0, TLS 1.1.
+The certificate covers the module, not this image: running it on Wolfi, and on arm64, is an operator-affirmed port.
 
 ---
 
@@ -34,9 +28,11 @@ Every Java version (`8`, `17`, `21`, `25`) provides three distinct tiers optimiz
 
 | Target | Image Tag | Base | Capabilities | Intended Use Case |
 | :--- | :--- | :--- | :--- | :--- |
-| **`dev`** | `ghcr.io/taha2samy-3/wolfi-openjdk-fips:21-dev` | Wolfi Dev | Full JDK + shell (`bash`) + package manager (`apk`) + debug utilities (`curl`, `jq`, `git`, `gdb`) | CI/CD build environments, debugging & compiling |
-| **`standard`** | `ghcr.io/taha2samy-3/wolfi-openjdk-fips:21` | Wolfi Base | JRE + Glibc + Libstdc++ + CA Certs + Bouncy Castle FIPS | Standard production workloads requiring basic maintenance |
-| **`prod`** | `ghcr.io/taha2samy-3/wolfi-openjdk-fips:21-distroless` | Distroless | JRE + CA Certs + BCFIPS only, **No Shell, No Package Manager, Non-Root (65532:65532)** | Hardened distroless production deployment |
+| **`dev`** | `ghcr.io/taha2samy-3/wolfi-openjdk-fips:21-dev` | Wolfi | Full JDK (`javac`, no Maven or Gradle) + `bash`, busybox, `apk`, `curl` | Building applications |
+| **`standard`** | `ghcr.io/taha2samy-3/wolfi-openjdk-fips:21` | Wolfi | JRE + Bouncy Castle FIPS + `bash`, busybox and `apk` | Production workloads that need a shell |
+| **`prod`** | `ghcr.io/taha2samy-3/wolfi-openjdk-fips:21-distroless` | Distroless | JRE + CA certificates + Bouncy Castle FIPS, **no shell, no package manager** | Production |
+
+All three flavors run as UID `1001`.
 
 ---
 
@@ -92,22 +88,22 @@ The module includes a comprehensive pytest and JUnit test suite located in `test
 
 - **Core & Provider Verification:** `1_core_test.py`
   - Validates `BCFIPS` is registered at position 1.
-  - Verifies approved-only mode is active (`CryptoServicesRegistrar.isInApprovedOnlyMode() == true`).
-- **Cryptographic Negative Rejection:** `2_crypto_negative_test.py`
+  - Reads back the `org.bouncycastle.fips.approved_only` system property (the test harness sets it, so this does not prove the image sets it).
+- **Cryptographic Negative Rejection:** `2_crypto_negative_test.py` (every test requests the algorithm from the `BCFIPS` provider by name)
   - Rejection of MD4, MD5, SHA-1 signatures.
   - Rejection of DES, 3DES, RC4.
   - Rejection of RSA keys < 2048-bit, DSA keys < 2048-bit, and non-NIST curves.
   - Rejection of short HMAC keys and short salt PBKDF2.
 - **Cryptographic Positive Operations:** `3_crypto_positive_test.py`
-  - Validation of AES-GCM, AES-CBC (128/192/256-bit).
-  - Validation of RSA-2048/3072/4096 and ECDSA P-256/P-384/P-521.
+  - Validation of AES-GCM and AES-256-CBC.
+  - Validation of RSA-2048 and ECDSA P-256.
   - Validation of HMAC-SHA256, PBKDF2, and ECDH key agreement.
 - **KeyStore & Truststore:** `4_keystore_test.py`
   - Enforces `BCFKS` as default KeyStore type.
-  - Validates rejection of legacy `JKS` keystores.
+  - Checks that the `BCFIPS` provider has no `JKS` keystore (the Sun provider still does).
 - **Network & TLS:** `5_network_test.py`
-  - Validates TLS 1.3 and TLS 1.2 with BCFIPS cipher suites.
-  - Enforces rejection of anonymous and null ciphers.
+  - TLS 1.3 handshake with BCJSSE against a public server (needs internet access).
+  - Anonymous, NULL and RC4 cipher handshakes fail (the public server never offers them, so this cannot fail).
 - **Random Number Generation:** `6_rng_test.py`
   - Validates NIST SP 800-90A DRBG entropy generation.
 
@@ -146,6 +142,6 @@ Temurin, Bouncy Castle TLS/utility jars and the Wolfi packages are updated by th
 ## 📊 Supply Chain & Attestation
 
 Every image built in the pipeline includes:
-- **SLSA Level 3 Provenance:** Digitally signed with GitHub OIDC token.
-- **CycloneDX Software Bill of Materials (SBOM):** Embedded directly at `/usr/share/sbom/application.cdx.json`.
+- **SLSA Build Level 3 provenance** signed by the reusable `build-images.yml` workflow; verify with `gh attestation verify oci://<image> --owner taha2samy-3 --signer-workflow taha2samy-3/node/.github/workflows/build-images.yml`.
+- **CycloneDX SBOMs** per architecture, attested to GHCR. The image also carries a one-component CycloneDX file for the JDK at `/opt/java/java.cdx.json`.
 - **Trivy Vulnerability Scans:** Continuous scanning for CVEs against the Wolfi security advisories database.

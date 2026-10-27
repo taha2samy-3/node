@@ -164,11 +164,10 @@ RUN --mount=type=cache,target=/var/cache/apk \
     done; \
     ln -sf busybox /rootfs/development/usr/bin/sh; \
     echo "hosts: files dns" > /rootfs/development/etc/nsswitch.conf; \
-    touch /rootfs/development/etc/resolv.conf /rootfs/development/etc/hosts; \
-    for dir in /rootfs/distroless /rootfs/standard /rootfs/development; do \
-        mkdir -p "$dir/usr/lib/apk/db"; \
-        printf "P:openssl-config-fipshardened-3.1.2\nV:3.1.2\nP:openssl-provider-fips-3.1.2\nV:3.1.2\n" >> "$dir/usr/lib/apk/db/installed"; \
-    done
+    touch /rootfs/development/etc/resolv.conf /rootfs/development/etc/hosts
+# No package records are written for openssl-provider-fips / openssl-config-fipshardened: this image
+# builds its own provider instead of installing those packages, and a hand-written record would make
+# the STIG FIPS rules pass on evidence that is not true. melange/ builds the real packages.
 
 
 

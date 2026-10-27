@@ -40,6 +40,8 @@ export interface Runtime {
 export const OWNER = 'taha2samy-3';
 export const REPO_URL = `https://github.com/${OWNER}/node`;
 export const ATTESTATIONS_URL = `${REPO_URL}/attestations`;
+// Reusable workflow that builds, merges and attests every image (SLSA Build L3 signer identity)
+export const SIGNER_WORKFLOW = `${OWNER}/node/.github/workflows/build-images.yml`;
 
 export const runtimes: Runtime[] = (runtimesData as { runtimes: Runtime[] }).runtimes;
 

@@ -1,6 +1,6 @@
 import { ExternalLink } from 'lucide-react';
 import { Card, Command, Stagger, StaggerItem } from '../../components/ui';
-import { ATTESTATIONS_URL, OWNER, REPO_URL, packageUrl, type Flavor } from '../../lib/catalog';
+import { ATTESTATIONS_URL, OWNER, REPO_URL, SIGNER_WORKFLOW, packageUrl, type Flavor } from '../../lib/catalog';
 import { getImageMeta, type Arch } from '../../lib/reports';
 
 export default function ProvenanceTab({ flavor, arch }: { flavor: Flavor; arch: Arch }) {
@@ -11,15 +11,15 @@ export default function ProvenanceTab({ flavor, arch }: { flavor: Flavor; arch: 
   const checks = [
     {
       title: 'Verify the build provenance',
-      text: 'Checks the SLSA provenance signed by GitHub Actions for this image against the workflow in this repository.',
-      command: `gh attestation verify oci://${tag} --owner ${OWNER}`,
+      text: 'Checks the SLSA Build L3 provenance: it must be signed by the reusable build workflow that built, merged and attested the image, not by any other workflow in the repository.',
+      command: `gh attestation verify oci://${tag} --owner ${OWNER} --signer-workflow ${SIGNER_WORKFLOW}`,
     },
     {
       title: `Verify the ${arch} SBOM attestation`,
       text: `Each architecture's SBOM is attested on its own image manifest, so this checks the linux/${arch} image.`,
       command: platformDigest
-        ? `gh attestation verify oci://${repository}@${platformDigest} --owner ${OWNER} --predicate-type https://cyclonedx.org/bom`
-        : `gh attestation verify oci://${repository}@<linux/${arch} digest> --owner ${OWNER} --predicate-type https://cyclonedx.org/bom`,
+        ? `gh attestation verify oci://${repository}@${platformDigest} --owner ${OWNER} --signer-workflow ${SIGNER_WORKFLOW} --predicate-type https://cyclonedx.org/bom`
+        : `gh attestation verify oci://${repository}@<linux/${arch} digest> --owner ${OWNER} --signer-workflow ${SIGNER_WORKFLOW} --predicate-type https://cyclonedx.org/bom`,
     },
     {
       title: 'Download the attestations',
@@ -31,7 +31,7 @@ export default function ProvenanceTab({ flavor, arch }: { flavor: Flavor; arch: 
   const links = [
     { label: 'Attestations in this repository', href: ATTESTATIONS_URL },
     { label: 'Container package', href: packageUrl(tag) },
-    { label: 'Build workflow', href: `${REPO_URL}/actions/workflows/build.yml` },
+    { label: 'Build workflow', href: `${REPO_URL}/blob/main/.github/workflows/build-images.yml` },
     ...(indexDigest ? [{ label: 'Sigstore transparency log', href: `https://search.sigstore.dev/?hash=${indexDigest.replace('sha256:', '')}` }] : []),
   ];
 
@@ -39,7 +39,8 @@ export default function ProvenanceTab({ flavor, arch }: { flavor: Flavor; arch: 
     <div className="space-y-6">
       <p className="max-w-3xl text-sm leading-relaxed text-slate-600 dark:text-slate-400">
         After each build, GitHub Actions attaches signed attestations to the image: SLSA build provenance for the multi-platform image and a CycloneDX SBOM for each architecture.
-        They are signed with the workflow's OIDC identity through Sigstore, so anyone can verify where and how the image was built.
+        They are signed through Sigstore with the OIDC identity of the reusable workflow that built the image, which is what SLSA Build Level 3 requires, so anyone can verify where and how it was built.
+        Images last rebuilt before the move to that workflow are signed by build.yml instead, and pass only without --signer-workflow until their next rebuild.
       </p>
 
       <Stagger className="space-y-4">

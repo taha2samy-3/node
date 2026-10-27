@@ -39,12 +39,13 @@ certified:
     certificate: 4735
     version: "2022061300"
     variables: []
-    used_by: [boringssl-fips, go-fips]
+    # boringssl-fips builds a non-validated commit with a newer toolchain, so only go-fips claims this module
+    used_by: [go-fips]
 
 # Variables that look like pins but are not versions to track
 not_pinned:
   NODE_FIPS_PROVIDER_IMAGE: built from OPENSSL_REPO and OPENSSL_CORE_VERSION (the OpenSSL FIPS image of this repository)
-  BORINGSSL_VERSION: release label used in the boringssl-fips image tags (fips-2024), not a version to track
+  BORINGSSL_VERSION: release label used in the boringssl-fips image tags (the date of BORINGSSL_COMMIT), not a version to track
   OPENJDK_LATEST_VERSION: policy setting, the Java version that gets the floating dev / latest / distroless tags
 
 dependencies:

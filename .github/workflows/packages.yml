@@ -133,7 +133,7 @@ jobs:
         run: |
           for arch in x86_64 aarch64; do
             mkdir -p "apk/$arch"
-            for pkg in new/apk-$arch/*.apk; do
+            for pkg in "new/apk-$arch"/*.apk; do
               name="$(basename "$pkg")"
               if [ -e "apk/$arch/$name" ]; then
                 echo "::notice::$arch/$name is already published; keeping the published file"

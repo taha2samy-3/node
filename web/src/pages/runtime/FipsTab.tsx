@@ -59,7 +59,9 @@ export default function FipsTab({ fips, flavor }: { fips: FipsInfo; flavor: Flav
 
       <p className="flex items-start gap-2 text-xs text-slate-500 dark:text-slate-400">
         <Info className="mt-0.5 h-3.5 w-3.5 shrink-0" />
-        The image uses a FIPS 140-3 validated cryptographic module. Validation applies to the module, not to the image as a whole.
+        {fips.certificate
+          ? 'The image uses a FIPS 140-3 validated cryptographic module. Validation applies to the module on the operational environments its certificate lists; running it in this image is an operator-affirmed port, not a validated configuration.'
+          : 'The image runs its cryptographic library in FIPS mode, but that module is not covered by a CMVP certificate.'}
         {cert && <> Certificate data checked {formatDate(cert.checkedAt)}.</>}
       </p>
     </div>

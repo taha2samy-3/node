@@ -1,23 +1,23 @@
 # Wolfi OpenSSL FIPS 140-3 Hardened Runtime
 
-[![FIPS 140-3](https://img.shields.io/badge/FIPS-140--3%20Validated-blue?style=for-the-badge&logo=shield)](https://github.com/taha2samy-3/node)
-[![Zero CVE](https://img.shields.io/badge/Zero--CVE-Wolfi%20OS-brightgreen?style=for-the-badge)](https://github.com/chainguard-dev)
-[![SLSA Level 3](https://img.shields.io/badge/SLSA-Level%203-orange?style=for-the-badge)](https://github.com/taha2samy-3/node/actions)
+[![FIPS 140-3](https://img.shields.io/badge/FIPS-140--3%20provider%203.1.2-blue?style=for-the-badge&logo=shield)](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4985)
+[![SLSA Build Level 3](https://img.shields.io/badge/SLSA-Build%20L3-orange?style=for-the-badge)](../README.md#3-supply-chain-slsa-build-level-3)
 [![License](https://img.shields.io/badge/License-Apache%202.0-lightgrey?style=for-the-badge)](LICENSE)
 
-A high-assurance container runtime delivering **OpenSSL 3.5.x** with the **FIPS 140-3 cryptographic module** built from source and strictly enforced on **Wolfi OS** (undistro).
+**OpenSSL 3.5.9** on **Wolfi** with the **OpenSSL FIPS Provider 3.1.2** (CMVP certificate [#4985](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4985)), both built from checksum-verified source.
 
 ---
 
 ## 🛡️ Architecture & Security Features
 
-- **Built from Source with FIPS:** Full source compilation of OpenSSL 3.5 with `enable-fips` and runtime integrity checks.
-- **Strict FIPS Configuration:** Hardened `openssl.cnf` and `fipsmodule.cnf` setting the `fips` provider as default with strict fallback rejection.
-- **Wolfi Minimal Attack Surface:** Glibc-based zero-known-CVE OS layer with isolated development toolchains.
-- **Multi-Stage Flavors:**
-  - **`openssl-dev` (`3.5.9-dev`):** OpenSSL binaries + C headers, compilers, build utilities, and test suites.
-  - **`openssl-standard` (`3.5.9`):** OpenSSL CLI + runtime libraries + basic shell.
-  - **`openssl-prod` (`3.5.9-distroless`):** Distroless container running as non-root UID/GID `65532:65532` without shells or package managers.
+- **The validated module:** the FIPS provider is built from the `openssl-3.1.2.tar.gz` named in its security policy with `./Configure enable-fips`. The 3.5.9 core library loads it.
+- **FIPS configuration:** `openssl.cnf` loads only the FIPS and base providers and sets `default_properties = fips=yes`, so default algorithm fetches come from the FIPS provider. An application can still load another provider explicitly.
+- **What the certificate covers:** the module on its tested environments (Intel x86_64 Ubuntu, Debian, FreeBSD, Windows, macOS; Apple M1 macOS). Running it on Wolfi, and on arm64, is an operator-affirmed port. `melange/` builds the same module strictly by the security policy as Wolfi packages.
+- **Flavors:**
+  - **`openssl-dev` (`3.5.9-dev`):** OpenSSL binaries, C headers and the C toolchain.
+  - **`openssl-standard` (`3.5.9`):** OpenSSL CLI and libraries with a busybox shell.
+  - **`openssl-prod` (`3.5.9-distroless`):** no shell and no package manager.
+  - All flavors run as UID/GID `65532:65532`.
 
 ---
 
@@ -25,9 +25,9 @@ A high-assurance container runtime delivering **OpenSSL 3.5.x** with the **FIPS 
 
 | Target | Image Tag | Description |
 | :--- | :--- | :--- |
-| `openssl-dev` | `ghcr.io/taha2samy-3/openssl-fips:3.5.9-dev` | Development image with C headers, compiler, and debug tools |
+| `openssl-dev` | `ghcr.io/taha2samy-3/openssl-fips:3.5.9-dev` | Development image with C headers and the C toolchain |
 | `openssl-standard` | `ghcr.io/taha2samy-3/openssl-fips:3.5.9` | Standard runtime with OpenSSL binary and core shared libs |
-| `openssl-prod` | `ghcr.io/taha2samy-3/openssl-fips:3.5.9-distroless` | Hardened distroless container for secure microservices |
+| `openssl-prod` | `ghcr.io/taha2samy-3/openssl-fips:3.5.9-distroless` | Distroless: no shell, no package manager |
 
 ---
 
@@ -38,7 +38,7 @@ A high-assurance container runtime delivering **OpenSSL 3.5.x** with the **FIPS 
 docker pull ghcr.io/taha2samy-3/openssl-fips:3.5.9-distroless
 
 # Verify FIPS provider status
-docker run --rm ghcr.io/taha2samy-3/openssl-fips:3.5.9 openssl list -providers -verbose
+docker run --rm ghcr.io/taha2samy-3/openssl-fips:3.5.9 list -providers -verbose
 ```
 
 ---
