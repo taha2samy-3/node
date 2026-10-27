@@ -50,6 +50,9 @@ RUN adduser -D -u 1000 java && \
 WORKDIR /app
 USER java
 
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+    CMD ["java", "-version"]
+
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["java", "-version"]
 
@@ -103,6 +106,9 @@ ENV JAVA_OPTS="-XX:+UseZGC -XX:+ZGenerational"
 ENV SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
 WORKDIR /app
 USER java
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+    CMD ["/usr/bin/java", "-version"]
 
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["java", "-version"]

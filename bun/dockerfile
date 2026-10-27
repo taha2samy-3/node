@@ -47,6 +47,9 @@ RUN adduser -D -u 1000 bun && \
 WORKDIR /app
 USER bun
 
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
+    CMD ["bun", "--version"]
+
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["bun"]
 
@@ -87,6 +90,9 @@ COPY --from=minimal-cleaner / /
 ENV SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
 WORKDIR /app
 USER bun
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
+    CMD ["/usr/bin/bun", "--version"]
 
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["bun"]
