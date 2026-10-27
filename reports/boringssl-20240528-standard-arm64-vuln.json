@@ -1,0 +1,191 @@
+{
+  "SchemaVersion": 2,
+  "CreatedAt": "2026-10-27T05:48:33.898688862Z",
+  "ArtifactName": "ghcr.io/taha2samy-3/boringssl-fips:20240528",
+  "ArtifactType": "container_image",
+  "Metadata": {
+    "Size": 39550976,
+    "OS": {
+      "Family": "wolfi",
+      "Name": "20230201"
+    },
+    "ImageID": "sha256:9d344d67efec7b3ab93c05e471abf65d86ef03c6f2baf4aaacc33a35096ed326",
+    "DiffIDs": [
+      "sha256:b2f14a2a61480ea304e7253ca5719871caa00f7883baebb7061c0c0bd1c0528d",
+      "sha256:fcdd7d11ccee287f89701b24637ce52026083cb9f3dfd2bef62bfee661f3200b",
+      "sha256:474ee85b1d92b98251b77ee0fc0538304548dfb5944c9c4f41cdeb31cb8a214c",
+      "sha256:5db2b817f187e1ebc55afb8a62182d9e723b27b9b15abd459639517bcd931d2a",
+      "sha256:931c9c8b50cea9f419a3878efb936107a6b35168628c0387ff23d141e688f30d",
+      "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
+    ],
+    "RepoTags": [
+      "ghcr.io/taha2samy-3/boringssl-fips:20240528"
+    ],
+    "RepoDigests": [
+      "ghcr.io/taha2samy-3/boringssl-fips@sha256:abed929ba78f4f3fbf5f5746f6af94af770a1d1366f454c025aab042e97302c8"
+    ],
+    "ImageConfig": {
+      "architecture": "arm64",
+      "author": "github.com/chainguard-dev/apko",
+      "created": "2026-10-27T05:34:39.281656425Z",
+      "history": [
+        {
+          "author": "apko",
+          "created": "2026-10-01T15:12:42Z",
+          "created_by": "apko",
+          "comment": "static by Chainguard"
+        },
+        {
+          "created": "2026-10-27T05:33:57.027991758Z",
+          "created_by": "ARG BORINGSSL_VERSION",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-27T05:33:57.027991758Z",
+          "created_by": "COPY /rootfs/standard / # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2026-10-27T05:33:57.027991758Z",
+          "created_by": "ENV PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/sbin:/sbin:/bin LD_LIBRARY_PATH=/usr/local/lib:/usr/lib:/lib SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt TZ=UTC LANG=C.UTF-8",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-27T05:34:39.108933433Z",
+          "created_by": "COPY /usr/local/bin/bssl /usr/local/bin/bssl # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2026-10-27T05:34:39.211301347Z",
+          "created_by": "COPY /usr/local/lib/libcrypto.so /usr/local/lib/ # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2026-10-27T05:34:39.252501756Z",
+          "created_by": "COPY /usr/local/lib/libssl.so /usr/local/lib/ # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2026-10-27T05:34:39.252501756Z",
+          "created_by": "LABEL org.opencontainers.image.title=Wolfi BoringSSL FIPS (Standard) org.opencontainers.image.vendor=taha2samy-3 org.opencontainers.image.version=20240528 org.opencontainers.image.licenses=OpenSSL",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-27T05:34:39.252501756Z",
+          "created_by": "USER nonroot",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-27T05:34:39.281656425Z",
+          "created_by": "WORKDIR /home/nonroot",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2026-10-27T05:34:39.281656425Z",
+          "created_by": "HEALTHCHECK \u0026{[\"CMD-SHELL\" \"/usr/local/bin/bssl isfips || exit 1\"] \"30s\" \"3s\" \"2s\" \"0s\" '\\x03'}",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-27T05:34:39.281656425Z",
+          "created_by": "ENTRYPOINT [\"/usr/local/bin/bssl\"]",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        }
+      ],
+      "os": "linux",
+      "rootfs": {
+        "type": "layers",
+        "diff_ids": [
+          "sha256:b2f14a2a61480ea304e7253ca5719871caa00f7883baebb7061c0c0bd1c0528d",
+          "sha256:fcdd7d11ccee287f89701b24637ce52026083cb9f3dfd2bef62bfee661f3200b",
+          "sha256:474ee85b1d92b98251b77ee0fc0538304548dfb5944c9c4f41cdeb31cb8a214c",
+          "sha256:5db2b817f187e1ebc55afb8a62182d9e723b27b9b15abd459639517bcd931d2a",
+          "sha256:931c9c8b50cea9f419a3878efb936107a6b35168628c0387ff23d141e688f30d",
+          "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
+        ]
+      },
+      "config": {
+        "Healthcheck": {
+          "Test": [
+            "CMD-SHELL",
+            "/usr/local/bin/bssl isfips || exit 1"
+          ],
+          "Interval": 30000000000,
+          "Timeout": 3000000000,
+          "StartPeriod": 2000000000,
+          "Retries": 3
+        },
+        "Entrypoint": [
+          "/usr/local/bin/bssl"
+        ],
+        "Env": [
+          "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/sbin:/sbin:/bin",
+          "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt",
+          "LD_LIBRARY_PATH=/usr/local/lib:/usr/lib:/lib",
+          "TZ=UTC",
+          "LANG=C.UTF-8"
+        ],
+        "Labels": {
+          "dev.chainguard.image.title": "static",
+          "dev.chainguard.package.main": "",
+          "io.github.taha2samy-3.build.fingerprint": "7e6770a8f957c73de752b937288cd602",
+          "org.opencontainers.image.authors": "Taha Samy",
+          "org.opencontainers.image.created": "2026-10-01T15:12:42Z",
+          "org.opencontainers.image.description": "Hardened BoringSSL (FIPS build flags) standard runtime image on Wolfi",
+          "org.opencontainers.image.licenses": "OpenSSL",
+          "org.opencontainers.image.source": "https://github.com/taha2samy-3/node",
+          "org.opencontainers.image.title": "Wolfi BoringSSL FIPS (Standard)",
+          "org.opencontainers.image.url": "https://images.chainguard.dev/directory/image/static/overview",
+          "org.opencontainers.image.vendor": "taha2samy-3",
+          "org.opencontainers.image.version": "20240528"
+        },
+        "User": "nonroot",
+        "WorkingDir": "/home/nonroot"
+      }
+    },
+    "Layers": [
+      {
+        "Size": 3070464,
+        "Digest": "sha256:e6e34819883728aceb6bec47d0a54399d36ff80d7dd79e1a1445bb3eafeb02e1",
+        "DiffID": "sha256:b2f14a2a61480ea304e7253ca5719871caa00f7883baebb7061c0c0bd1c0528d"
+      },
+      {
+        "Size": 24202752,
+        "Digest": "sha256:f5ff02c22f1f37c6d835dd5bf23bef0af30d7bc40bdd63ee8abed4eea67f5df8",
+        "DiffID": "sha256:fcdd7d11ccee287f89701b24637ce52026083cb9f3dfd2bef62bfee661f3200b"
+      },
+      {
+        "Size": 2234368,
+        "Digest": "sha256:39d7707909e2331fd8d96b99779571681916575de9c25520ef949270428abcfc",
+        "DiffID": "sha256:474ee85b1d92b98251b77ee0fc0538304548dfb5944c9c4f41cdeb31cb8a214c"
+      },
+      {
+        "Size": 6661632,
+        "Digest": "sha256:7b4108c7b517003d48a568afdca95a68466278302313a2e42e736d30998e768b",
+        "DiffID": "sha256:5db2b817f187e1ebc55afb8a62182d9e723b27b9b15abd459639517bcd931d2a"
+      },
+      {
+        "Size": 3380736,
+        "Digest": "sha256:0ce085263fa7181a518b7867f362653f5126d9f2548f6c5ef2677c63c434e90e",
+        "DiffID": "sha256:931c9c8b50cea9f419a3878efb936107a6b35168628c0387ff23d141e688f30d"
+      },
+      {
+        "Size": 1024,
+        "Digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1",
+        "DiffID": "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
+      }
+    ]
+  },
+  "Results": [
+    {
+      "Target": "ghcr.io/taha2samy-3/boringssl-fips:20240528 (wolfi 20230201)",
+      "Class": "os-pkgs",
+      "Type": "wolfi"
+    }
+  ]
+}
