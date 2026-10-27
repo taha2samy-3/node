@@ -1,11 +1,11 @@
 {
-  "$schema": "http://cyclonedx.org/schema/bom-1.7.schema.json",
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
   "bomFormat": "CycloneDX",
-  "specVersion": "1.7",
-  "serialNumber": "urn:uuid:563d5e7a-0d73-41be-ae92-7a5743a5d457",
+  "specVersion": "1.6",
+  "serialNumber": "urn:uuid:0ead5624-1431-49c8-bed1-02c3484c43db",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-10-25T09:17:41+00:00",
+    "timestamp": "2026-10-27T02:36:23+00:00",
     "tools": {
       "components": [
         {
@@ -15,15 +15,15 @@
           },
           "group": "aquasecurity",
           "name": "trivy",
-          "version": "0.76.1"
+          "version": "0.64.1"
         }
       ]
     },
     "component": {
-      "bom-ref": "pkg:oci/boringssl-fips@sha256:4473d109d4f646ec381a889141234a8d1bef2b9a9cc15f92533ee42ebc751327?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fboringssl-fips",
+      "bom-ref": "pkg:oci/boringssl-fips@sha256%3A4473d109d4f646ec381a889141234a8d1bef2b9a9cc15f92533ee42ebc751327?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fboringssl-fips",
       "type": "container",
       "name": "ghcr.io/taha2samy-3/boringssl-fips:fips-2024-distroless",
-      "purl": "pkg:oci/boringssl-fips@sha256:4473d109d4f646ec381a889141234a8d1bef2b9a9cc15f92533ee42ebc751327?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fboringssl-fips",
+      "purl": "pkg:oci/boringssl-fips@sha256%3A4473d109d4f646ec381a889141234a8d1bef2b9a9cc15f92533ee42ebc751327?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fboringssl-fips",
       "properties": [
         {
           "name": "aquasecurity:trivy:DiffID",
@@ -102,10 +102,6 @@
           "value": "fips-2024"
         },
         {
-          "name": "aquasecurity:trivy:Reference",
-          "value": "ghcr.io/taha2samy-3/boringssl-fips:fips-2024-distroless"
-        },
-        {
           "name": "aquasecurity:trivy:RepoDigest",
           "value": "ghcr.io/taha2samy-3/boringssl-fips@sha256:4473d109d4f646ec381a889141234a8d1bef2b9a9cc15f92533ee42ebc751327"
         },
@@ -126,7 +122,7 @@
   },
   "components": [
     {
-      "bom-ref": "f67ecdf4-73c9-40ce-a099-59b8918ba31d",
+      "bom-ref": "087f8c03-f80c-4e47-8ee0-72bbcf5e8fbe",
       "type": "operating-system",
       "name": "wolfi",
       "version": "20230201",
@@ -148,7 +144,9 @@
       "version": "20260909-r2",
       "licenses": [
         {
-          "expression": "MPL-2.0 AND MIT"
+          "license": {
+            "name": "(MPL-2.0 AND MIT)"
+          }
         }
       ],
       "purl": "pkg:apk/wolfi/ca-certificates-bundle@20260909-r2?arch=x86_64&origin=ca-certificates",
@@ -192,12 +190,12 @@
       "licenses": [
         {
           "license": {
-            "id": "MPL-2.0"
+            "name": "MPL-2.0"
           }
         },
         {
           "license": {
-            "id": "MIT"
+            "name": "MIT"
           }
         }
       ],
@@ -242,12 +240,12 @@
       "licenses": [
         {
           "license": {
-            "id": "MPL-2.0"
+            "name": "MPL-2.0"
           }
         },
         {
           "license": {
-            "id": "MIT"
+            "name": "MIT"
           }
         }
       ],
@@ -292,7 +290,7 @@
       "licenses": [
         {
           "license": {
-            "id": "LGPL-2.1-or-later"
+            "name": "LGPL-2.1-or-later"
           }
         }
       ],
@@ -337,7 +335,7 @@
       "licenses": [
         {
           "license": {
-            "id": "LGPL-2.1-or-later"
+            "name": "LGPL-2.1-or-later"
           }
         }
       ],
@@ -382,7 +380,7 @@
       "licenses": [
         {
           "license": {
-            "id": "LGPL-2.1-or-later"
+            "name": "LGPL-2.1-or-later"
           }
         }
       ],
@@ -427,7 +425,7 @@
       "licenses": [
         {
           "license": {
-            "id": "MIT"
+            "name": "MIT"
           }
         }
       ],
@@ -472,7 +470,7 @@
       "licenses": [
         {
           "license": {
-            "id": "MIT"
+            "name": "MIT"
           }
         }
       ],
@@ -517,7 +515,7 @@
       "licenses": [
         {
           "license": {
-            "id": "MIT"
+            "name": "MIT"
           }
         }
       ],
@@ -561,7 +559,19 @@
       ],
       "licenses": [
         {
-          "expression": "GPL-3.0-or-later WITH GCC-exception-3.1"
+          "license": {
+            "name": "GPL-3.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "name": "WITH"
+          }
+        },
+        {
+          "license": {
+            "name": "GCC-exception-3.1"
+          }
         }
       ],
       "purl": "pkg:apk/wolfi/libgcc@16.2.0-r1?arch=x86_64&distro=20230201",
@@ -604,7 +614,19 @@
       ],
       "licenses": [
         {
-          "expression": "GPL-3.0-or-later WITH GCC-exception-3.1"
+          "license": {
+            "name": "GPL-3.0-or-later"
+          }
+        },
+        {
+          "license": {
+            "name": "WITH"
+          }
+        },
+        {
+          "license": {
+            "name": "GCC-exception-3.1"
+          }
         }
       ],
       "purl": "pkg:apk/wolfi/libstdc%2B%2B@16.2.0-r1?arch=x86_64&distro=20230201",
@@ -648,7 +670,7 @@
       "licenses": [
         {
           "license": {
-            "id": "Apache-2.0"
+            "name": "Apache-2.0"
           }
         }
       ],
@@ -714,7 +736,7 @@
       "licenses": [
         {
           "license": {
-            "id": "Apache-2.0"
+            "name": "Apache-2.0"
           }
         }
       ],
@@ -759,7 +781,7 @@
       "licenses": [
         {
           "license": {
-            "id": "CC-PDDC"
+            "name": "CC-PDDC"
           }
         }
       ],
@@ -804,7 +826,7 @@
       "licenses": [
         {
           "license": {
-            "id": "MIT"
+            "name": "MIT"
           }
         }
       ],
@@ -849,7 +871,7 @@
       "licenses": [
         {
           "license": {
-            "id": "MIT"
+            "name": "MIT"
           }
         }
       ],
@@ -880,7 +902,7 @@
   ],
   "dependencies": [
     {
-      "ref": "f67ecdf4-73c9-40ce-a099-59b8918ba31d",
+      "ref": "087f8c03-f80c-4e47-8ee0-72bbcf5e8fbe",
       "dependsOn": [
         "pkg:apk/wolfi/ca-certificates-bundle@20260909-r2?arch=x86_64&origin=ca-certificates",
         "pkg:apk/wolfi/ca-certificates@20260909-r3?arch=x86_64&distro=20230201",
@@ -1000,9 +1022,9 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:oci/boringssl-fips@sha256:4473d109d4f646ec381a889141234a8d1bef2b9a9cc15f92533ee42ebc751327?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fboringssl-fips",
+      "ref": "pkg:oci/boringssl-fips@sha256%3A4473d109d4f646ec381a889141234a8d1bef2b9a9cc15f92533ee42ebc751327?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fboringssl-fips",
       "dependsOn": [
-        "f67ecdf4-73c9-40ce-a099-59b8918ba31d"
+        "087f8c03-f80c-4e47-8ee0-72bbcf5e8fbe"
       ]
     }
   ],

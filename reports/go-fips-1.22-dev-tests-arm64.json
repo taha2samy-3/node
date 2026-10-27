@@ -3,49 +3,49 @@
  "flavor": "dev",
  "arch": "arm64",
  "suite": "go/fips/tests",
- "ran_at": "2026-10-25T09:06:41+00:00",
+ "ran_at": "2026-10-27T02:29:43+00:00",
  "summary": {
-  "passed": 5,
-  "failed": 0,
+  "passed": 4,
+  "failed": 1,
   "xfail": 0,
   "skipped": 0,
   "total": 5,
-  "duration": 20.05
+  "duration": 19.82
  },
  "tests": [
   {
    "name": "test_fips_check_passes",
    "classname": "test_fips",
-   "outcome": "passed",
-   "duration": 6.421,
-   "message": ""
+   "outcome": "failed",
+   "duration": 6.291,
+   "message": "AssertionError: assert 'BoringCrypto / fipsonly enforced' in 'FIPS check passed: Go go1.22.12 X:boringcrypto (linux/arm64), BoringCrypto active, KATs verified\\n'\n +  where 'FIPS check passed: Go go1.22.12 X:boringcrypto (linux/arm64), BoringCrypto active, KATs verified\\n' = CleanResult(returncode=0, stdout='FIPS check passed: Go go1.22.12 X:boringcrypto (linux/arm64), BoringCrypto active, KATs verified\\n', stderr='').stdout"
   },
   {
    "name": "test_boringcrypto_environment",
    "classname": "test_fips",
    "outcome": "passed",
-   "duration": 0.46,
+   "duration": 0.303,
    "message": ""
   },
   {
    "name": "test_boringcrypto_symbol_linkage",
    "classname": "test_fips",
    "outcome": "passed",
-   "duration": 5.804,
+   "duration": 5.769,
    "message": ""
   },
   {
    "name": "test_fipsonly_tls_negotiation",
    "classname": "test_fips",
    "outcome": "passed",
-   "duration": 7.197,
+   "duration": 7.304,
    "message": ""
   },
   {
    "name": "test_non_root_execution",
    "classname": "test_fips",
    "outcome": "passed",
-   "duration": 0.169,
+   "duration": 0.149,
    "message": ""
   }
  ]
