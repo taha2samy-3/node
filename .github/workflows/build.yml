@@ -35,6 +35,8 @@ jobs:
       has_dependents: ${{ steps.plan.outputs.has_dependents }}
       has_images: ${{ steps.plan.outputs.has_images }}
       has_tests: ${{ steps.plan.outputs.has_tests }}
+      packages: ${{ steps.plan.outputs.packages }}
+      has_packages: ${{ steps.plan.outputs.has_packages }}
 
     steps:
       - name: Checkout Code
@@ -106,31 +108,18 @@ jobs:
   # Runs after attestation and never gates it. Tagged images keep their platform manifests and
   # referrers (attestations), so only leftovers of failed or superseded builds are removed.
   cleanup:
-    needs: [images, images-dependents]
-    if: "!cancelled() && (needs.images.result != 'skipped' || needs.images-dependents.result != 'skipped')"
+    needs: [plan, images, images-dependents]
+    if: "!cancelled() && !contains(needs.*.result, 'failure') && needs.plan.outputs.has_packages == 'true'"
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
-      contents: read
       packages: write
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v7
-
-      # Every package this repository publishes; without the list the action only cleans the
-      # package named after the repository
-      - name: List Published Packages
-        id: packages
-        run: |
-          packages=$(docker buildx bake --print 2>/dev/null \
-            | jq -r '[.target[].tags[]? | split(":")[0] | split("/")[-1]] | unique | join(",")')
-          test -n "$packages"
-          echo "packages=$packages" >> "$GITHUB_OUTPUT"
-
       - name: Cleanup Untagged Images
         uses: dataaxiom/ghcr-cleanup-action@v1
         with:
-          packages: ${{ steps.packages.outputs.packages }}
+          packages: ${{ needs.plan.outputs.packages }}
           delete-untagged: true
 
   # ==========================================

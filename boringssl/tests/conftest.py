@@ -110,6 +110,7 @@ def fips_runner(run_docker, image_tag):
         # Find dev image for compilation
         dev_candidates = [
             image_tag if "dev" in image_tag else None,
+            "ghcr.io/taha2samy-3/boringssl-fips:20240528-dev",
             "ghcr.io/taha2samy-3/boringssl-fips:fips-2024-dev",
             "ghcr.io/taha2samy-3/boringssl-fips:dev",
         ]

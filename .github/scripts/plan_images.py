@@ -384,6 +384,7 @@ def cmd_build(args):
         rows.append(f"| `{image['tag']}` | `{image['target']}` | {status} |")
     write_summary(f"### Build plan: {len(rebuilt)} of {len(images)} images\n\n" + "\n".join(rows))
 
+    packages = sorted({i["tag"].rsplit(":", 1)[0].split("/")[-1] for i in rebuilt})
     write_outputs({
         "build": build_entries(stage1, fingerprints, targets),
         "merge": [{"unit": u, "targets": ",".join(n)} for u, n in stage1.items()],
@@ -394,6 +395,8 @@ def cmd_build(args):
         "images_dependents": attest_stage2,
         "tests": tests,
         "pr": pr,
+        "packages": ",".join(packages),
+        "has_packages": str(bool(packages)).lower(),
         "has_build": str(bool(stage1)).lower(),
         "has_dependents": str(bool(stage2)).lower(),
         "has_images": str(bool(attest)).lower(),
