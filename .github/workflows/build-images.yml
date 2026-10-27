@@ -1,0 +1,233 @@
+name: Build, Merge and Attest Images
+
+# Reusable workflow called by build.yml, once per build stage.
+#
+# SLSA Build Level 3: the images are built, merged and attested inside this one reusable workflow,
+# so the provenance is signed with this workflow's identity (the OIDC job_workflow_ref claim), not
+# the caller's. The caller only passes the build plan as inputs; it cannot run steps inside these
+# jobs or reach their signing token. Verify an image against this workflow with:
+#
+#   gh attestation verify oci://ghcr.io/taha2samy-3/<image>:<tag> --owner taha2samy-3 \
+#     --signer-workflow taha2samy-3/node/.github/workflows/build-images.yml
+on:
+  workflow_call:
+    inputs:
+      build:
+        description: "JSON list of build jobs (unit, arch, runner, targets, set[, requires])"
+        type: string
+        required: true
+      merge:
+        description: "JSON list of merge jobs (unit, targets)"
+        type: string
+        required: true
+      images:
+        description: "JSON list of images to attest (image, tag, suffix, fingerprint)"
+        type: string
+        required: true
+      check-requires:
+        description: "Build only after the images listed in each job's 'requires' were published by this run"
+        type: boolean
+        default: false
+
+permissions: {}
+
+env:
+  # Each architecture job pushes untagged images by digest; the merge job tags the multi-platform image
+  PUSH_BY_DIGEST: "*.output=type=image,push-by-digest=true,name-canonical=true,push=true"
+
+jobs:
+  # Native runner per architecture, no QEMU
+  build:
+    if: inputs.build != '[]'
+    runs-on: ${{ matrix.runner }}
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(inputs.build) }}
+
+    name: build (${{ matrix.unit }}, ${{ matrix.arch }})
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        if: inputs.check-requires
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - name: Install Planner Dependencies
+        if: inputs.check-requires
+        run: pip install pyyaml
+
+      - name: Log in to GitHub Container Registry
+        if: inputs.check-requires
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Dependents only wait for the images they use; if one failed, skip and retry on the next run
+      - name: Check Required Images Were Published
+        id: requires
+        env:
+          CHECK: ${{ inputs.check-requires }}
+          REQUIRES: ${{ matrix.requires }}
+        run: |
+          if [ "$CHECK" = true ]; then
+            python .github/scripts/plan_images.py verify --requires "$REQUIRES"
+          else
+            echo "built=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build Images
+        id: attempt1
+        if: steps.requires.outputs.built == 'true'
+        continue-on-error: true
+        uses: ./.github/actions/bake-build
+        with:
+          targets: ${{ matrix.targets }}
+          set: |
+            ${{ matrix.set }}
+            ${{ env.PUSH_BY_DIGEST }}
+          registry-username: ${{ github.actor }}
+          registry-token: ${{ secrets.GITHUB_TOKEN }}
+
+      # Registries occasionally answer 403/429 or drop connections; one delayed retry absorbs that
+      - name: Wait Before Retrying
+        if: steps.attempt1.outcome == 'failure'
+        run: sleep 60
+
+      - name: Build Images (Retry)
+        id: attempt2
+        if: steps.attempt1.outcome == 'failure'
+        uses: ./.github/actions/bake-build
+        with:
+          targets: ${{ matrix.targets }}
+          set: |
+            ${{ matrix.set }}
+            ${{ env.PUSH_BY_DIGEST }}
+          registry-username: ${{ github.actor }}
+          registry-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Record Image Digests
+        if: steps.requires.outputs.built == 'true'
+        env:
+          BAKE_METADATA: ${{ steps.attempt2.outputs.metadata || steps.attempt1.outputs.metadata }}
+          ARCH: ${{ matrix.arch }}
+        run: python3 .github/scripts/merge_manifests.py record --arch "$ARCH" --out digests
+
+      - name: Upload Image Digests
+        if: steps.requires.outputs.built == 'true'
+        uses: actions/upload-artifact@v7
+        with:
+          name: digests-${{ matrix.unit }}-${{ matrix.arch }}
+          path: digests/
+          retention-days: 1
+
+  merge:
+    needs: build
+    if: "!cancelled() && inputs.merge != '[]'"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(inputs.merge) }}
+
+    name: merge (${{ matrix.unit }})
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Download Image Digests
+        uses: actions/download-artifact@v8
+        continue-on-error: ${{ inputs.check-requires }}
+        with:
+          pattern: digests-${{ matrix.unit }}-*
+          path: digests
+          merge-multiple: true
+
+      - name: Create Multi-Platform Images
+        env:
+          TARGETS: ${{ matrix.targets }}
+        run: python3 .github/scripts/merge_manifests.py merge --targets "$TARGETS" --digests digests
+
+  # SLSA provenance and per-architecture CycloneDX SBOMs, signed through Sigstore with this
+  # reusable workflow's OIDC identity
+  attest:
+    needs: merge
+    if: "!cancelled() && inputs.images != '[]'"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      id-token: write
+      attestations: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(inputs.images) }}
+
+    name: attest (${{ matrix.suffix }})
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+
+      - name: Install Planner Dependencies
+        run: pip install pyyaml
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Only images this run actually published get attested
+      - name: Check Image Was Rebuilt
+        id: verify
+        env:
+          TAG: ${{ matrix.image }}:${{ matrix.tag }}
+          FINGERPRINT: ${{ matrix.fingerprint }}
+        run: python .github/scripts/plan_images.py verify --tag "$TAG" --fingerprint "$FINGERPRINT"
+
+      - name: Attest Runtime Image
+        if: steps.verify.outputs.built == 'true'
+        uses: ./.github/actions/attest-image
+        with:
+          image-name: ${{ matrix.image }}
+          image-tag: ${{ matrix.tag }}
+          artifact-suffix: ${{ matrix.suffix }}
+          registry-username: ${{ github.actor }}
+          registry-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload SBOM to GitHub Dependency Graph
+        if: steps.verify.outputs.built == 'true'
+        uses: ./.github/actions/upload-dependency-graph
+        with:
+          sbom-path: "${{ matrix.suffix }}.cyclonedx.json"
+          target-name: ${{ matrix.suffix }}
+          repo: ${{ github.repository }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}

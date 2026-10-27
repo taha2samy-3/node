@@ -369,7 +369,11 @@ def cmd_build(args):
         for unit, names in {**stage1, **stage2}.items()
     ]
     attest = [{"image": i["tag"].rsplit(":", 1)[0], "tag": i["tag"].rsplit(":", 1)[1], "suffix": i["suffix"],
-               "fingerprint": i["fingerprint"]} for i in rebuilt]
+               "fingerprint": i["fingerprint"], "target": i["target"]} for i in rebuilt]
+    # Each stage attests the images it built, inside the reusable workflow that built them (SLSA Build L3)
+    stage2_targets = {n for names in stage2.values() for n in names}
+    attest_stage1 = [a for a in attest if a["target"] not in stage2_targets]
+    attest_stage2 = [a for a in attest if a["target"] in stage2_targets]
 
     with open(args.output, "w", encoding="utf-8") as f:
         json.dump({"images": rebuilt}, f, indent=2)
@@ -386,6 +390,8 @@ def cmd_build(args):
         "build_dependents": build_entries(stage2, fingerprints, targets, requires),
         "merge_dependents": [{"unit": u, "targets": ",".join(n)} for u, n in stage2.items()],
         "images": attest,
+        "images_stage1": attest_stage1,
+        "images_dependents": attest_stage2,
         "tests": tests,
         "pr": pr,
         "has_build": str(bool(stage1)).lower(),

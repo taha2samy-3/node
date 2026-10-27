@@ -3,17 +3,18 @@ import pytest
 
 
 def test_fips_check_passes(run_docker, image_tag, flavor):
-    """The build-time fips-check.go script must pass successfully."""
+    """The build-time fips-check binary must pass successfully."""
     if flavor == "prod":
-        # Prod flavor is scratch containing only ca-certificates, tzdata, and runtime
-        res = run_docker(image_tag, ["/bin/sh", "-c", "echo ok"])
-        assert res.returncode == 0 or "executable file not found" in res.stderr
+        res = run_docker(image_tag, ["/usr/share/go-fips/fips-check"])
+        assert res.returncode == 0, f"fips-check failed in prod: {res.stdout}\n{res.stderr}"
+        assert "FIPS check passed" in res.stdout
+        assert "BoringCrypto active, KATs verified" in res.stdout
         return
 
-    res = run_docker(image_tag, ["go", "run", "/usr/share/go-fips/fips-check.go"])
-    assert res.returncode == 0, f"fips-check.go failed: {res.stdout}\n{res.stderr}"
+    res = run_docker(image_tag, ["/usr/share/go-fips/fips-check"])
+    assert res.returncode == 0, f"fips-check failed: {res.stdout}\n{res.stderr}"
     assert "FIPS check passed" in res.stdout
-    assert "BoringCrypto / fipsonly enforced" in res.stdout
+    assert "BoringCrypto active, KATs verified" in res.stdout
 
 
 def test_boringcrypto_environment(run_docker, image_tag, flavor):

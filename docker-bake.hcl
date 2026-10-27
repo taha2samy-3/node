@@ -117,11 +117,11 @@ variable "BORINGSSL_REPO" {
 }
 
 variable "BORINGSSL_VERSION" {
-  default = "fips-2024"
+  default = "fips-20240407"
 }
 
 variable "BORINGSSL_COMMIT" {
-  default = "master"
+  default = "85897d07196b7bf164dbd4673fc78b762aff3e8b"
 }
 
 variable "BORINGSSL_STATIC_IMAGE" {
