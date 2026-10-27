@@ -2,10 +2,10 @@
   "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
   "bomFormat": "CycloneDX",
   "specVersion": "1.6",
-  "serialNumber": "urn:uuid:f55d2baa-22ad-4148-a611-e50573c9440f",
+  "serialNumber": "urn:uuid:99443688-0388-4d5a-af96-aa92682c52a1",
   "version": 1,
   "metadata": {
-    "timestamp": "2026-10-27T05:49:12+00:00",
+    "timestamp": "2026-10-27T05:57:09+00:00",
     "tools": {
       "components": [
         {
@@ -20,10 +20,10 @@
       ]
     },
     "component": {
-      "bom-ref": "pkg:oci/boringssl-fips@sha256%3Aabed929ba78f4f3fbf5f5746f6af94af770a1d1366f454c025aab042e97302c8?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fboringssl-fips",
+      "bom-ref": "pkg:oci/boringssl-fips@sha256%3A320beab2c8ccb491bb744fd6a585be7b8eda75aff64177f3480cb30444f423da?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fboringssl-fips",
       "type": "container",
       "name": "ghcr.io/taha2samy-3/boringssl-fips:20240528",
-      "purl": "pkg:oci/boringssl-fips@sha256%3Aabed929ba78f4f3fbf5f5746f6af94af770a1d1366f454c025aab042e97302c8?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fboringssl-fips",
+      "purl": "pkg:oci/boringssl-fips@sha256%3A320beab2c8ccb491bb744fd6a585be7b8eda75aff64177f3480cb30444f423da?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fboringssl-fips",
       "properties": [
         {
           "name": "aquasecurity:trivy:DiffID",
@@ -99,7 +99,7 @@
         },
         {
           "name": "aquasecurity:trivy:RepoDigest",
-          "value": "ghcr.io/taha2samy-3/boringssl-fips@sha256:abed929ba78f4f3fbf5f5746f6af94af770a1d1366f454c025aab042e97302c8"
+          "value": "ghcr.io/taha2samy-3/boringssl-fips@sha256:320beab2c8ccb491bb744fd6a585be7b8eda75aff64177f3480cb30444f423da"
         },
         {
           "name": "aquasecurity:trivy:RepoTag",
@@ -118,7 +118,7 @@
   },
   "components": [
     {
-      "bom-ref": "eeb9c08c-0bcc-4334-b76b-4b30933411c0",
+      "bom-ref": "8117eb8e-5693-4054-b173-02fb5c3cee26",
       "type": "operating-system",
       "name": "wolfi",
       "version": "20230201",
@@ -224,18 +224,18 @@
       ]
     },
     {
-      "bom-ref": "pkg:apk/wolfi/ca-certificates-bundle@20260909-r2?arch=x86_64&distro=wolfi",
+      "bom-ref": "pkg:apk/wolfi/ca-certificates-bundle@20260909-r2?arch=x86_64&origin=ca-certificates",
       "type": "library",
       "name": "ca-certificates-bundle",
       "version": "20260909-r2",
       "licenses": [
         {
           "license": {
-            "name": "MPL-2.0 AND MIT"
+            "name": "(MPL-2.0 AND MIT)"
           }
         }
       ],
-      "purl": "pkg:apk/wolfi/ca-certificates-bundle@20260909-r2?arch=x86_64&distro=wolfi",
+      "purl": "pkg:apk/wolfi/ca-certificates-bundle@20260909-r2?arch=x86_64&origin=ca-certificates",
       "properties": [
         {
           "name": "aquasecurity:trivy:LayerDiffID",
@@ -1242,10 +1242,10 @@
   ],
   "dependencies": [
     {
-      "ref": "eeb9c08c-0bcc-4334-b76b-4b30933411c0",
+      "ref": "8117eb8e-5693-4054-b173-02fb5c3cee26",
       "dependsOn": [
         "pkg:apk/wolfi/busybox@1.38.0-r3?arch=x86_64&distro=20230201",
-        "pkg:apk/wolfi/ca-certificates-bundle@20260909-r2?arch=x86_64&distro=wolfi",
+        "pkg:apk/wolfi/ca-certificates-bundle@20260909-r2?arch=x86_64&origin=ca-certificates",
         "pkg:apk/wolfi/ca-certificates@20261020-r0?arch=x86_64&distro=20230201",
         "pkg:apk/wolfi/libstdc%2B%2B@16.2.0-r2?arch=x86_64&distro=20230201",
         "pkg:apk/wolfi/posix-libc-utils-2.44@2.44-r10?arch=x86_64&distro=20230201",
@@ -1272,7 +1272,7 @@
       ]
     },
     {
-      "ref": "pkg:apk/wolfi/ca-certificates-bundle@20260909-r2?arch=x86_64&distro=wolfi",
+      "ref": "pkg:apk/wolfi/ca-certificates-bundle@20260909-r2?arch=x86_64&origin=ca-certificates",
       "dependsOn": []
     },
     {
@@ -1418,9 +1418,9 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:oci/boringssl-fips@sha256%3Aabed929ba78f4f3fbf5f5746f6af94af770a1d1366f454c025aab042e97302c8?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fboringssl-fips",
+      "ref": "pkg:oci/boringssl-fips@sha256%3A320beab2c8ccb491bb744fd6a585be7b8eda75aff64177f3480cb30444f423da?arch=amd64&repository_url=ghcr.io%2Ftaha2samy-3%2Fboringssl-fips",
       "dependsOn": [
-        "eeb9c08c-0bcc-4334-b76b-4b30933411c0"
+        "8117eb8e-5693-4054-b173-02fb5c3cee26"
       ]
     }
   ],
