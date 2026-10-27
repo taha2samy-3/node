@@ -262,7 +262,7 @@ variable "OPENJDK_BC_TLS_FIPS_SHA" { default = "af604aa5b337725872651067a819ebc0
 variable "OPENJDK_KEYSTORE_PWD" { default = "changeit" }
 
 # Image used only to download and verify the Temurin archives
-variable "OPENJDK_ALPINE_IMAGE" { default = "alpine@sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6" }
+variable "OPENJDK_ALPINE_IMAGE" { default = "alpine@sha256:c6b073f8e9e58d881f6ffba6ebf3b9ebd60b9e7d6e8337018c0e68bb5c356873" }
 variable "OPENJDK_LIBCRYPTO3_VER" { default = "3.6.5-r5" }
 variable "OPENJDK_LIBSSL3_VER" { default = "3.6.5-r5" }
 variable "OPENJDK_NCURSES_VER" { default = "6.6.20261017-r0" }
