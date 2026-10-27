@@ -1,11 +1,9 @@
-# Wolfi BoringSSL FIPS 140-3 Hardened Runtime
+# Wolfi BoringSSL FIPS Hardened Runtime
 
-[![FIPS 140-3](https://img.shields.io/badge/FIPS-140--3%20Validated-blue?style=for-the-badge&logo=shield)](https://github.com/taha2samy-3/node)
-[![Zero CVE](https://img.shields.io/badge/Zero--CVE-Wolfi%20OS-brightgreen?style=for-the-badge)](https://github.com/chainguard-dev)
-[![SLSA Level 3](https://img.shields.io/badge/SLSA-Level%203-orange?style=for-the-badge)](https://github.com/taha2samy-3/node/actions)
+[![FIPS Build Flags](https://img.shields.io/badge/BoringSSL-FIPS%20Build%20Flags%20(-DFIPS%3D1)-blue?style=for-the-badge&logo=shield)](https://github.com/taha2samy-3/node)
 [![License](https://img.shields.io/badge/License-OpenSSL-lightgrey?style=for-the-badge)](LICENSE)
 
-A high-assurance container runtime delivering **Google BoringSSL** with the **BoringCrypto Module (BCM) FIPS 140-3** cryptographic core (NIST CMVP Certificate [#4735](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4735) / [#5104](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5104)) compiled from source using Clang with `-DFIPS=1` and strictly enforced on **Wolfi OS** (undistro).
+> **Note on FIPS validation:** This image compiles BoringSSL with `-DFIPS=1` using Clang + lld, which activates the BoringCrypto integrity HMAC and power-on self-tests. It is **not** a CMVP-validated module unless `BORINGSSL_COMMIT` is set to the exact source commit listed in an active NIST certificate security policy (e.g. [#4735](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/4735)). By default the build uses HEAD and carries no CMVP certificate.
 
 ---
 

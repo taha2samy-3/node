@@ -81,7 +81,9 @@ RUN rm -rf \
     /usr/share/apk \
     /usr/share/man \
     /usr/share/doc \
-    /tmp/*
+    /tmp/* && \
+    # Remove apk binary so no package manager is present in production images
+    rm -f /sbin/apk /usr/bin/apk
 
 FROM scratch AS minimal
 

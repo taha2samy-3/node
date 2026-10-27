@@ -865,10 +865,10 @@ target "openssl-dev" {
     "org.opencontainers.image.authors" = "Taha Samy"
     "org.opencontainers.image.source" = "https://github.com/${OWNER}/${SOURCE_REPO}"
     "org.opencontainers.image.licenses" = "Apache-2.0"
-    "org.opencontainers.image.description" = "Hardened FIPS 140-3 compliant OpenSSL development SDK image on Wolfi"
+    "org.opencontainers.image.description" = "Hardened OpenSSL FIPS 140-3 development SDK image on Wolfi"
   }
   annotations = [
-    "manifest:org.opencontainers.image.description=Hardened FIPS 140-3 compliant OpenSSL development SDK image on Wolfi",
+    "manifest:org.opencontainers.image.description=Hardened OpenSSL FIPS 140-3 development SDK image on Wolfi",
     "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
   ]
 }
@@ -889,10 +889,10 @@ target "openssl-standard" {
     "org.opencontainers.image.authors" = "Taha Samy"
     "org.opencontainers.image.source" = "https://github.com/${OWNER}/${SOURCE_REPO}"
     "org.opencontainers.image.licenses" = "Apache-2.0"
-    "org.opencontainers.image.description" = "Hardened FIPS 140-3 compliant OpenSSL standard runtime image on Wolfi"
+    "org.opencontainers.image.description" = "Hardened OpenSSL FIPS 140-3 standard runtime image on Wolfi"
   }
   annotations = [
-    "manifest:org.opencontainers.image.description=Hardened FIPS 140-3 compliant OpenSSL standard runtime image on Wolfi",
+    "manifest:org.opencontainers.image.description=Hardened OpenSSL FIPS 140-3 standard runtime image on Wolfi",
     "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
   ]
 }
@@ -913,10 +913,10 @@ target "openssl-prod" {
     "org.opencontainers.image.authors" = "Taha Samy"
     "org.opencontainers.image.source" = "https://github.com/${OWNER}/${SOURCE_REPO}"
     "org.opencontainers.image.licenses" = "Apache-2.0"
-    "org.opencontainers.image.description" = "Hardened FIPS 140-3 compliant Zero-CVE distroless OpenSSL container on Wolfi"
+    "org.opencontainers.image.description" = "Hardened OpenSSL FIPS 140-3 distroless container on Wolfi"
   }
   annotations = [
-    "manifest:org.opencontainers.image.description=Hardened FIPS 140-3 compliant Zero-CVE distroless OpenSSL container on Wolfi",
+    "manifest:org.opencontainers.image.description=Hardened OpenSSL FIPS 140-3 distroless container on Wolfi",
     "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
   ]
 }
@@ -949,10 +949,10 @@ target "boringssl-dev" {
     "org.opencontainers.image.authors" = "Taha Samy"
     "org.opencontainers.image.source" = "https://github.com/${OWNER}/${SOURCE_REPO}"
     "org.opencontainers.image.licenses" = "OpenSSL"
-    "org.opencontainers.image.description" = "Hardened FIPS 140-3 compliant BoringSSL development SDK image on Wolfi"
+    "org.opencontainers.image.description" = "Hardened BoringSSL (FIPS build flags) development SDK image on Wolfi"
   }
   annotations = [
-    "manifest:org.opencontainers.image.description=Hardened FIPS 140-3 compliant BoringSSL development SDK image on Wolfi",
+    "manifest:org.opencontainers.image.description=Hardened BoringSSL (FIPS build flags) development SDK image on Wolfi",
     "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
   ]
 }
@@ -973,10 +973,10 @@ target "boringssl-standard" {
     "org.opencontainers.image.authors" = "Taha Samy"
     "org.opencontainers.image.source" = "https://github.com/${OWNER}/${SOURCE_REPO}"
     "org.opencontainers.image.licenses" = "OpenSSL"
-    "org.opencontainers.image.description" = "Hardened FIPS 140-3 compliant BoringSSL standard runtime image on Wolfi"
+    "org.opencontainers.image.description" = "Hardened BoringSSL (FIPS build flags) standard runtime image on Wolfi"
   }
   annotations = [
-    "manifest:org.opencontainers.image.description=Hardened FIPS 140-3 compliant BoringSSL standard runtime image on Wolfi",
+    "manifest:org.opencontainers.image.description=Hardened BoringSSL (FIPS build flags) standard runtime image on Wolfi",
     "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
   ]
 }
@@ -997,10 +997,10 @@ target "boringssl-prod" {
     "org.opencontainers.image.authors" = "Taha Samy"
     "org.opencontainers.image.source" = "https://github.com/${OWNER}/${SOURCE_REPO}"
     "org.opencontainers.image.licenses" = "OpenSSL"
-    "org.opencontainers.image.description" = "Hardened FIPS 140-3 compliant Zero-CVE distroless BoringSSL container on Wolfi"
+    "org.opencontainers.image.description" = "Hardened BoringSSL (FIPS build flags) distroless container on Wolfi"
   }
   annotations = [
-    "manifest:org.opencontainers.image.description=Hardened FIPS 140-3 compliant Zero-CVE distroless BoringSSL container on Wolfi",
+    "manifest:org.opencontainers.image.description=Hardened BoringSSL (FIPS build flags) distroless container on Wolfi",
     "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
   ]
 }
@@ -1062,9 +1062,9 @@ target "openjdk" {
       }
     ]
     flavor = [
-      { id = "dev", stage = "openjdk-dev", tag_suffix = "-dev", legacy_tag = "jdk_standard", floating_tag = "dev", description = "Hardened FIPS 140-3 compliant OpenJDK development SDK image on Wolfi" },
-      { id = "standard", stage = "openjdk-standard", tag_suffix = "", legacy_tag = "jre_standard", floating_tag = "latest", description = "Hardened FIPS 140-3 compliant OpenJDK standard JRE runtime on Wolfi" },
-      { id = "prod", stage = "openjdk-distroless", tag_suffix = "-distroless", legacy_tag = "jre_distroless", floating_tag = "distroless", description = "Hardened FIPS 140-3 compliant Zero-CVE distroless OpenJDK JRE container on Wolfi" }
+      { id = "dev", stage = "openjdk-dev", tag_suffix = "-dev", legacy_tag = "jdk_standard", floating_tag = "dev", description = "Hardened OpenJDK FIPS 140-3 development SDK image on Wolfi" },
+      { id = "standard", stage = "openjdk-standard", tag_suffix = "", legacy_tag = "jre_standard", floating_tag = "latest", description = "Hardened OpenJDK FIPS 140-3 standard JRE runtime on Wolfi" },
+      { id = "prod", stage = "openjdk-distroless", tag_suffix = "-distroless", legacy_tag = "jre_distroless", floating_tag = "distroless", description = "Hardened OpenJDK FIPS 140-3 distroless JRE container on Wolfi" }
     ]
   }
   platforms = ["linux/amd64", "linux/arm64"]

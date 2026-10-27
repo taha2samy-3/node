@@ -1,0 +1,54 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+
+  "description": "Renovate manages only GitHub Actions versions. Docker image pins and language runtime versions are handled by .github/scripts/update_dependencies.py via the Daily Dependency Update workflow.",
+
+  "extends": [
+    "config:base"
+  ],
+
+  "timezone": "Africa/Cairo",
+
+  "enabledManagers": ["github-actions"],
+
+  "packageRules": [
+    {
+      "description": "Block all major version upgrades — review manually before adopting a new major",
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    },
+    {
+      "description": "Security fixes: automerge immediately once CI passes",
+      "matchCategories": ["security"],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash",
+      "minimumReleaseAge": "0 days",
+      "labels": ["security", "automerge"]
+    },
+    {
+      "description": "Non-major updates: wait 4-day stability period then automerge on CI pass",
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "matchCategories": ["!security"],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash",
+      "minimumReleaseAge": "4 days",
+      "labels": ["automerge"]
+    }
+  ],
+
+  "schedule": ["before 6am on Monday"],
+
+  "prHourlyLimit": 5,
+  "prConcurrentLimit": 10,
+
+  "commitMessagePrefix": "chore(actions):",
+  "commitMessageAction": "update",
+
+  "labels": ["dependencies"],
+
+  "ignorePaths": [
+    "**/node_modules/**"
+  ]
+}

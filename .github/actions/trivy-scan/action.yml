@@ -1,6 +1,9 @@
 name: Trivy Security Scan
 description: Runs Vulnerability, CIS, and Trivy SBOM scans, cleans up image, and uploads reports.
 
+# inputs:
+#   trivy_version: optional pinned version, e.g. "0.64.1". Defaults to the
+#                  version below. Update this when you intentionally upgrade Trivy.
 inputs:
   image:
     description: "The full image reference to scan"
@@ -25,6 +28,10 @@ inputs:
   artifact_name:
     description: "Unique name for the artifact"
     required: true
+  trivy_version:
+    description: "Pinned Trivy version tag (without 'v' prefix)"
+    required: false
+    default: "0.64.1"
 
 runs:
   using: "composite"
@@ -39,7 +46,13 @@ runs:
         docker run --rm \
           -v /var/run/docker.sock:/var/run/docker.sock \
           -v "$(pwd)/reports:/reports" \
-          aquasec/trivy image --platform ${{ inputs.platform }} --format json --output /reports/${{ inputs.vuln_out }} ${{ inputs.image }}
+          aquasec/trivy:${{ inputs.trivy_version }} image \
+            --platform ${{ inputs.platform }} \
+            --format json \
+            --exit-code 1 \
+            --severity HIGH,CRITICAL \
+            --output /reports/${{ inputs.vuln_out }} \
+            ${{ inputs.image }}
 
     - name: Run Trivy CIS Compliance Scan
       shell: bash
@@ -47,7 +60,12 @@ runs:
         docker run --rm \
           -v /var/run/docker.sock:/var/run/docker.sock \
           -v "$(pwd)/reports:/reports" \
-          aquasec/trivy image --platform ${{ inputs.platform }} --compliance docker-cis-1.6.0 --format json --output /reports/${{ inputs.cis_out }} ${{ inputs.image }}
+          aquasec/trivy:${{ inputs.trivy_version }} image \
+            --platform ${{ inputs.platform }} \
+            --compliance docker-cis-1.6.0 \
+            --format json \
+            --output /reports/${{ inputs.cis_out }} \
+            ${{ inputs.image }}
 
     - name: Run Chainguard STIG Compliance Scan
       if: inputs.stig_out != ''
@@ -64,14 +82,18 @@ runs:
         docker run --rm \
           -v /var/run/docker.sock:/var/run/docker.sock \
           -v "$(pwd)/reports:/reports" \
-          aquasec/trivy image --platform ${{ inputs.platform }} --format cyclonedx --output /reports/${{ inputs.sbom_out }} ${{ inputs.image }}
+          aquasec/trivy:${{ inputs.trivy_version }} image \
+            --platform ${{ inputs.platform }} \
+            --format cyclonedx \
+            --output /reports/${{ inputs.sbom_out }} \
+            ${{ inputs.image }}
 
     - name: Clean Up Pulled Image
       shell: bash
       run: docker rmi ${{ inputs.image }} || true
 
     - name: Upload Scan Report Artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: ${{ inputs.artifact_name }}
         path: reports/

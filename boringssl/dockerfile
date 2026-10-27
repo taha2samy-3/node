@@ -5,7 +5,10 @@ ARG BASE_IMAGE="cgr.dev/chainguard/wolfi-base@sha256:1c451d46a0d5c4e9f2b38e0e8d3
 ARG STATIC_IMAGE="cgr.dev/chainguard/static@sha256:11ec91f0372630a2ca3764cea6325bebb0189a514084463cbb3724e5bb350d14"
 
 # --- Version Variables ---
-ARG BORINGSSL_COMMIT="master"
+# BORINGSSL_COMMIT: pin to a specific commit for reproducible builds.
+# The build is NOT a CMVP-validated module unless this matches the exact commit
+# referenced in an active NIST certificate security policy.
+ARG BORINGSSL_COMMIT
 ARG BORINGSSL_VERSION="fips-2024"
 
 # --- Producer Stage for Root Filesystems ---
@@ -98,11 +101,10 @@ RUN --mount=type=cache,target=/var/cache/apk \
     ln -sf busybox /rootfs/development/usr/bin/sh; \
     echo "hosts: files dns" > /rootfs/development/etc/nsswitch.conf; \
     touch /rootfs/development/etc/resolv.conf /rootfs/development/etc/hosts; \
+    # BoringSSL does not ship an OpenSSL-compatible config or provider;
+    # only create the SSL directory so that ca-certificates path is valid.
     for root in /rootfs/distroless /rootfs/standard /rootfs/development; do \
-      mkdir -p "$root/etc/ssl" "$root/usr/lib/apk/db"; \
-      printf 'config_diagnostics = 1\nopenssl_conf = openssl_init\n\n.pragma includedir:/etc/ssl\n.include fipsmodule.cnf\n\n[openssl_init]\nproviders = provider_sect\nalg_section = algorithm_sect\n\n[algorithm_sect]\ndefault_properties = fips=yes\n\n[provider_sect]\nfips = fips_sect\nbase = base_sect\n\n[base_sect]\nactivate = 1\n' > "$root/etc/ssl/openssl.cnf"; \
-      touch "$root/etc/ssl/fipsmodule.cnf"; \
-      printf "P:openssl-config-fipshardened-3.1.2\nV:3.1.2\nP:openssl-provider-fips-3.1.2\nV:3.1.2\n" >> "$root/usr/lib/apk/db/installed"; \
+      mkdir -p "$root/etc/ssl"; \
     done
 
 # --- FIPS Builder Stage ---
@@ -125,7 +127,13 @@ RUN --mount=type=cache,target=/var/cache/apk \
       ca-certificates
 
 WORKDIR /src
-RUN git clone --depth 1 https://boringssl.googlesource.com/boringssl boringssl
+# Clone the pinned commit; fail loudly if BORINGSSL_COMMIT is not supplied
+RUN if [ -z "${BORINGSSL_COMMIT}" ]; then \
+      echo '::error::BORINGSSL_COMMIT must be set to a specific commit SHA for reproducible builds' >&2; \
+      exit 1; \
+    fi; \
+    git clone https://boringssl.googlesource.com/boringssl boringssl && \
+    git -C boringssl checkout "${BORINGSSL_COMMIT}"
 
 WORKDIR /src/boringssl/build
 RUN cmake -GNinja \
@@ -140,7 +148,6 @@ RUN cmake -GNinja \
     mkdir -p /usr/local/bin /usr/local/lib /usr/local/include && \
     cp bssl /usr/local/bin/bssl && \
     cp libcrypto.so libssl.so /usr/local/lib/ && \
-    ln -sf libcrypto.so /usr/local/lib/fips.so && \
     cp -r ../include/openssl /usr/local/include/
 
 # --- Standard Image ---
@@ -150,14 +157,12 @@ COPY --from=producer /rootfs/standard /
 ENV PATH="/usr/local/bin:${PATH}" \
     LD_LIBRARY_PATH="/usr/local/lib:/usr/lib:/lib" \
     SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
-    OPENSSL_CONF=/etc/ssl/openssl.cnf \
     TZ=UTC \
     LANG=C.UTF-8
 
 COPY --from=boringssl-builder /usr/local/bin/bssl /usr/local/bin/bssl
 COPY --from=boringssl-builder /usr/local/lib/libcrypto.so /usr/local/lib/
 COPY --from=boringssl-builder /usr/local/lib/libssl.so /usr/local/lib/
-COPY --from=boringssl-builder /usr/local/lib/fips.so /usr/local/lib/
 
 LABEL org.opencontainers.image.title="Wolfi BoringSSL FIPS (Standard)" \
       org.opencontainers.image.vendor="taha2samy-3" \
@@ -179,14 +184,12 @@ COPY --from=producer /rootfs/distroless /
 ENV PATH="/usr/local/bin:${PATH}" \
     LD_LIBRARY_PATH="/usr/local/lib:/usr/lib:/lib" \
     SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
-    OPENSSL_CONF=/etc/ssl/openssl.cnf \
     TZ=UTC \
     LANG=C.UTF-8
 
 COPY --from=boringssl-builder /usr/local/bin/bssl /usr/local/bin/bssl
 COPY --from=boringssl-builder /usr/local/lib/libcrypto.so /usr/local/lib/
 COPY --from=boringssl-builder /usr/local/lib/libssl.so /usr/local/lib/
-COPY --from=boringssl-builder /usr/local/lib/fips.so /usr/local/lib/
 
 LABEL org.opencontainers.image.title="Wolfi BoringSSL FIPS (Distroless)" \
       org.opencontainers.image.vendor="taha2samy-3" \
@@ -208,7 +211,6 @@ COPY --from=producer /rootfs/development /
 ENV PATH="/usr/local/bin:${PATH}" \
     LD_LIBRARY_PATH="/usr/local/lib:/usr/lib:/lib" \
     SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
-    OPENSSL_CONF=/etc/ssl/openssl.cnf \
     TZ=UTC \
     LANG=C.UTF-8
 

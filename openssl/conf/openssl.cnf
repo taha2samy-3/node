@@ -2,6 +2,8 @@ config_diagnostics = 1
 openssl_conf = openssl_init
 
 .pragma includedir:/etc/ssl
+# [fips_sect] must NOT be defined here — it is generated exclusively by
+# `openssl fipsinstall` and loaded via the .include below.
 .include fipsmodule.cnf
 
 [openssl_init]
@@ -14,12 +16,6 @@ default_properties = fips=yes
 [provider_sect]
 fips = fips_sect
 base = base_sect
-
-[fips_sect]
-activate = 1
-security-checks = 1
-hmac-key-check = 1
-tdes-encrypt-disabled = 1
 
 [base_sect]
 activate = 1

@@ -103,29 +103,30 @@ ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["/bin/sh"]
 
 # ==========================================
-# Stage 5: Go FIPS Verification Layer
-# ==========================================
-FROM scratch AS fips-layer
-COPY go/fips/fips-check.go /usr/share/go-fips/fips-check.go
-
-# ==========================================
-# Stage 6: Go FIPS Development (fips-dev)
+# Stage 5: Go FIPS Development (fips-dev)
+# Builds fips-check binary with BoringCrypto and runs it to verify the toolchain.
 # ==========================================
 FROM full-dev AS fips-dev
 
-COPY --from=fips-layer / /
+COPY go/fips/fips-check.go /usr/share/go-fips/fips-check.go
 
 ENV CGO_ENABLED=1 \
     GOEXPERIMENT=boringcrypto
 
 USER root
-RUN go run /usr/share/go-fips/fips-check.go
+# Build a self-contained binary then immediately execute it — build fails if BoringCrypto is absent
+RUN CGO_ENABLED=1 GOEXPERIMENT=boringcrypto \
+      go build -o /usr/share/go-fips/fips-check /usr/share/go-fips/fips-check.go && \
+    /usr/share/go-fips/fips-check
 USER go
 
 # ==========================================
-# Stage 7: Go FIPS Production (fips-prod)
+# Stage 6: Go FIPS Production (fips-prod)
+# Copies the pre-verified binary and re-executes it in the production rootfs.
 # ==========================================
 FROM minimal AS fips-prod
 
-COPY --from=fips-layer / /
+COPY --from=fips-dev /usr/share/go-fips/fips-check /usr/share/go-fips/fips-check
 
+# Re-run the check inside the production image to confirm the runtime environment
+RUN ["/usr/share/go-fips/fips-check"]
