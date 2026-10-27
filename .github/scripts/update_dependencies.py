@@ -162,6 +162,10 @@ def resolve_openssl(dep, current):
     return updates, f"https://github.com/openssl/openssl/releases/tag/openssl-{newest}"
 
 
+class PendingRelease(Exception):
+    """An upstream release is only partly published; keep the current pins until it is complete."""
+
+
 def resolve_adoptium(dep):
     prefix, updates, release = dep["prefix"], {}, None
     for kind in ("jdk", "jre"):
@@ -172,7 +176,9 @@ def resolve_adoptium(dep):
             updates[f"{prefix}_{kind.upper()}_{arch}_SHA"] = package["checksum"]
             version = asset["version"]["openjdk_version"]
             if release and release != version:
-                sys.exit(f"Temurin {dep['feature']}: assets disagree on the version ({release} vs {version})")
+                # Adoptium publishes a release one platform at a time; wait until every asset has it
+                raise PendingRelease(f"Temurin {dep['feature']}: assets disagree on the version ({release} vs {version}), "
+                                     "a release is still rolling out")
             release, release_name = version, asset["release_name"]
     updates[f"{prefix}_FULL_VERSION"] = release
     return updates, f"https://adoptium.net/temurin/release-notes/?version={release_name}"
@@ -234,7 +240,11 @@ def resolve_group(deps, variables):
         elif source == "openssl":
             values, link = resolve_openssl(dep, variables[dep["variable"]])
         elif source == "adoptium":
-            values, link = resolve_adoptium(dep)
+            try:
+                values, link = resolve_adoptium(dep)
+            except PendingRelease as e:
+                print(f"::warning::{e}; keeping the current pins")
+                continue
         elif source == "maven":
             values, link = resolve_maven(dep, variables[dep["variable"]])
         elif source == "github-release":
