@@ -143,7 +143,7 @@ int main(int argc, char **argv) {
     }
 
     if (strcmp(cmd, "self_test_all") == 0) {
-        printf("%d\n", BORINGSSL_self_test_all());
+        printf("%d\n", BORINGSSL_self_test());
         return 0;
     }
 
