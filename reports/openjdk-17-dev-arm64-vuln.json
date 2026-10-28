@@ -1,113 +1,113 @@
 {
   "SchemaVersion": 2,
-  "CreatedAt": "2026-10-28T09:46:45.974178132Z",
+  "CreatedAt": "2026-10-28T10:17:32.215693353Z",
   "ArtifactName": "ghcr.io/taha2samy-3/wolfi-openjdk-fips:17-dev",
   "ArtifactType": "container_image",
   "Metadata": {
-    "Size": 393746432,
+    "Size": 394329600,
     "OS": {
       "Family": "wolfi",
       "Name": "20230201"
     },
-    "ImageID": "sha256:f2a30fc18b6ce231e846ceb466ed226d837c5340db8eb6dca4b90455c3947032",
+    "ImageID": "sha256:3403701307fe47690e0634f416ee44d43e6bb5b6b7b9eb77b9637cd8f5f60b5c",
     "DiffIDs": [
-      "sha256:9121ed058582d3aecfa10495070525d534c590c787d68ea2fa2af4d37c551cfa",
-      "sha256:2091c80cd4d531539a6148c2677cd325b3ac542420656d109a42da6719d91592",
+      "sha256:ea707b5b4dd1446315ea4975550d582841584563728acdc86448d0c50988bb6f",
+      "sha256:a7bcc3fbc64b6ef3665eb9303e542185ab32968bb63d7c6d719da82e1125031b",
       "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
     ],
     "RepoTags": [
       "ghcr.io/taha2samy-3/wolfi-openjdk-fips:17-dev"
     ],
     "RepoDigests": [
-      "ghcr.io/taha2samy-3/wolfi-openjdk-fips@sha256:4c8724363388939b1570bdacdb4c24386034ac9036a0024ec79f45e356e409ad"
+      "ghcr.io/taha2samy-3/wolfi-openjdk-fips@sha256:48745d29dba13186262b8f2665bf58bfc21e7d1f61e472776eeebfb84bac898b"
     ],
     "ImageConfig": {
       "architecture": "arm64",
-      "created": "2026-10-28T09:09:50.18624093Z",
+      "created": "2026-10-28T09:41:28.835388616Z",
       "history": [
         {
-          "created": "2026-10-28T09:09:22.799028328Z",
+          "created": "2026-10-28T09:41:27.30486918Z",
           "created_by": "COPY / / # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-28T09:09:50.091417978Z",
+          "created": "2026-10-28T09:41:28.785030214Z",
           "created_by": "COPY /opt/jdk /opt/java # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-28T09:09:50.18624093Z",
+          "created": "2026-10-28T09:41:28.835388616Z",
           "created_by": "ENV JAVA_HOME=/opt/java PATH=/opt/java/bin:/usr/local/bin:/usr/bin:/bin LANG=C.UTF-8 TZ=UTC SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-28T09:09:50.18624093Z",
+          "created": "2026-10-28T09:41:28.835388616Z",
           "created_by": "ARG KEYSTORE_PWD=changeit",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-28T09:09:50.18624093Z",
+          "created": "2026-10-28T09:41:28.835388616Z",
           "created_by": "ARG JDK_TRUSTSTORE",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-28T09:09:50.18624093Z",
+          "created": "2026-10-28T09:41:28.835388616Z",
           "created_by": "ARG JDK_BC_DIR",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-28T09:09:50.18624093Z",
+          "created": "2026-10-28T09:41:28.835388616Z",
           "created_by": "ENV JAVA_TOOL_OPTIONS=-Dorg.bouncycastle.fips.approved_only=true -Dorg.bouncycastle.jsse.client.assumeExtendedKeyUsage=false -Dorg.bouncycastle.jsse.trustManager.checkEKU=true -Djdk.tls.trustNameService=true -Dkeystore.type=BCFKS -Djavax.net.ssl.trustStore=/opt/java/lib/security/cacerts -Djavax.net.ssl.trustStoreType=BCFKS -Djavax.net.ssl.trustStorePassword=changeit -Xbootclasspath/a:/opt/java/lib/bc-fips.jar:/opt/java/lib/bcutil-fips.jar:/opt/java/lib/bctls-fips.jar",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-28T09:09:50.18624093Z",
+          "created": "2026-10-28T09:41:28.835388616Z",
           "created_by": "ARG JAVA_VERSION=21",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-28T09:09:50.18624093Z",
+          "created": "2026-10-28T09:41:28.835388616Z",
           "created_by": "ARG JAVA_FULL_VERSION=21.0.11+10-LTS",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-28T09:09:50.18624093Z",
+          "created": "2026-10-28T09:41:28.835388616Z",
           "created_by": "ARG BC_FIPS_VERSION=2.1.2",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-28T09:09:50.18624093Z",
-          "created_by": "LABEL org.opencontainers.image.authors=Taha Samy org.opencontainers.image.source=https://github.com/taha2samy-3/node org.opencontainers.image.version=17.0.20.1+1 org.opencontainers.image.vendor=taha2samy-3 org.opencontainers.image.title=Wolfi OpenJDK 17 JDK FIPS (Development) org.opencontainers.image.description=Hardened OpenJDK 17 JDK with Bouncy Castle FIPS 2.1.1 on Wolfi OS com.taha2samy.fips.version=2.1.1",
+          "created": "2026-10-28T09:41:28.835388616Z",
+          "created_by": "LABEL org.opencontainers.image.authors=Taha Samy org.opencontainers.image.source=https://github.com/taha2samy-3/node org.opencontainers.image.version=17.0.21+9 org.opencontainers.image.vendor=taha2samy-3 org.opencontainers.image.title=Wolfi OpenJDK 17 JDK FIPS (Development) org.opencontainers.image.description=Hardened OpenJDK 17 JDK with Bouncy Castle FIPS 2.1.1 on Wolfi OS com.taha2samy.fips.version=2.1.1",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-28T09:09:50.18624093Z",
+          "created": "2026-10-28T09:41:28.835388616Z",
           "created_by": "HEALTHCHECK \u0026{[\"CMD\" \"/opt/java/bin/java\" \"-version\"] \"30s\" \"5s\" \"10s\" \"0s\" '\\x03'}",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-28T09:09:50.18624093Z",
+          "created": "2026-10-28T09:41:28.835388616Z",
           "created_by": "USER 1001",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-28T09:09:50.18624093Z",
+          "created": "2026-10-28T09:41:28.835388616Z",
           "created_by": "WORKDIR /home/java",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-28T09:09:50.18624093Z",
+          "created": "2026-10-28T09:41:28.835388616Z",
           "created_by": "ENTRYPOINT []",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
@@ -117,8 +117,8 @@
       "rootfs": {
         "type": "layers",
         "diff_ids": [
-          "sha256:9121ed058582d3aecfa10495070525d534c590c787d68ea2fa2af4d37c551cfa",
-          "sha256:2091c80cd4d531539a6148c2677cd325b3ac542420656d109a42da6719d91592",
+          "sha256:ea707b5b4dd1446315ea4975550d582841584563728acdc86448d0c50988bb6f",
+          "sha256:a7bcc3fbc64b6ef3665eb9303e542185ab32968bb63d7c6d719da82e1125031b",
           "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
         ]
       },
@@ -144,14 +144,14 @@
         ],
         "Labels": {
           "com.taha2samy.fips.version": "2.1.1",
-          "io.github.taha2samy-3.build.fingerprint": "e35b4a2ffe3e27f517fc8a0b2ff9bcfd",
+          "io.github.taha2samy-3.build.fingerprint": "2a4cb28b5e93b94c567ce6ada9cd812e",
           "org.opencontainers.image.authors": "Taha Samy",
           "org.opencontainers.image.description": "Hardened OpenJDK FIPS 140-3 development SDK image on Wolfi",
           "org.opencontainers.image.licenses": "Apache-2.0",
           "org.opencontainers.image.source": "https://github.com/taha2samy-3/node",
           "org.opencontainers.image.title": "Wolfi OpenJDK 17 JDK FIPS (Development)",
           "org.opencontainers.image.vendor": "taha2samy-3",
-          "org.opencontainers.image.version": "17.0.20.1+1"
+          "org.opencontainers.image.version": "17.0.21+9"
         },
         "User": "1001",
         "WorkingDir": "/home/java"
@@ -160,13 +160,13 @@
     "Layers": [
       {
         "Size": 53499392,
-        "Digest": "sha256:5f79898bbe56282c5c63ec75ddf137c0178cbf2aa90a8d34ced2725585e3af0c",
-        "DiffID": "sha256:9121ed058582d3aecfa10495070525d534c590c787d68ea2fa2af4d37c551cfa"
+        "Digest": "sha256:3208d2a429725ed5cb5a905ad588e75c5fa4462ea0c0dcecc67fba9a9295a0ff",
+        "DiffID": "sha256:ea707b5b4dd1446315ea4975550d582841584563728acdc86448d0c50988bb6f"
       },
       {
-        "Size": 340246016,
-        "Digest": "sha256:c6849816c4e4a4666f349b4e9c03f5ec4409ce809c130a0936916f0de23f55d1",
-        "DiffID": "sha256:2091c80cd4d531539a6148c2677cd325b3ac542420656d109a42da6719d91592"
+        "Size": 340829184,
+        "Digest": "sha256:6470e618a8734d57ed834394d7f106962d06b2d0acdc19494b89476eea165c32",
+        "DiffID": "sha256:a7bcc3fbc64b6ef3665eb9303e542185ab32968bb63d7c6d719da82e1125031b"
       },
       {
         "Size": 1024,
@@ -198,8 +198,8 @@
           "FixedVersion": "1.0.2.7, 2.0.2, 2.1.3",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:c6849816c4e4a4666f349b4e9c03f5ec4409ce809c130a0936916f0de23f55d1",
-            "DiffID": "sha256:2091c80cd4d531539a6148c2677cd325b3ac542420656d109a42da6719d91592"
+            "Digest": "sha256:6470e618a8734d57ed834394d7f106962d06b2d0acdc19494b89476eea165c32",
+            "DiffID": "sha256:a7bcc3fbc64b6ef3665eb9303e542185ab32968bb63d7c6d719da82e1125031b"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-8763",
@@ -263,8 +263,8 @@
           "FixedVersion": "1.0.2.7, 2.0.2, 2.1.3",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:c6849816c4e4a4666f349b4e9c03f5ec4409ce809c130a0936916f0de23f55d1",
-            "DiffID": "sha256:2091c80cd4d531539a6148c2677cd325b3ac542420656d109a42da6719d91592"
+            "Digest": "sha256:6470e618a8734d57ed834394d7f106962d06b2d0acdc19494b89476eea165c32",
+            "DiffID": "sha256:a7bcc3fbc64b6ef3665eb9303e542185ab32968bb63d7c6d719da82e1125031b"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-13505",
@@ -317,8 +317,8 @@
           "FixedVersion": "1.0.2.7, 2.0.2, 2.1.3",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:c6849816c4e4a4666f349b4e9c03f5ec4409ce809c130a0936916f0de23f55d1",
-            "DiffID": "sha256:2091c80cd4d531539a6148c2677cd325b3ac542420656d109a42da6719d91592"
+            "Digest": "sha256:6470e618a8734d57ed834394d7f106962d06b2d0acdc19494b89476eea165c32",
+            "DiffID": "sha256:a7bcc3fbc64b6ef3665eb9303e542185ab32968bb63d7c6d719da82e1125031b"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-13506",
@@ -380,8 +380,8 @@
           "FixedVersion": "2.1.3",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:c6849816c4e4a4666f349b4e9c03f5ec4409ce809c130a0936916f0de23f55d1",
-            "DiffID": "sha256:2091c80cd4d531539a6148c2677cd325b3ac542420656d109a42da6719d91592"
+            "Digest": "sha256:6470e618a8734d57ed834394d7f106962d06b2d0acdc19494b89476eea165c32",
+            "DiffID": "sha256:a7bcc3fbc64b6ef3665eb9303e542185ab32968bb63d7c6d719da82e1125031b"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-8798",
@@ -427,8 +427,8 @@
           "FixedVersion": "2.1.2",
           "Status": "fixed",
           "Layer": {
-            "Digest": "sha256:c6849816c4e4a4666f349b4e9c03f5ec4409ce809c130a0936916f0de23f55d1",
-            "DiffID": "sha256:2091c80cd4d531539a6148c2677cd325b3ac542420656d109a42da6719d91592"
+            "Digest": "sha256:6470e618a8734d57ed834394d7f106962d06b2d0acdc19494b89476eea165c32",
+            "DiffID": "sha256:a7bcc3fbc64b6ef3665eb9303e542185ab32968bb63d7c6d719da82e1125031b"
           },
           "SeveritySource": "ghsa",
           "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-12194",

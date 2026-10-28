@@ -1,15 +1,15 @@
 {
   "SchemaVersion": 2,
-  "CreatedAt": "2026-10-28T09:48:01.571144106Z",
+  "CreatedAt": "2026-10-28T10:13:14.51014134Z",
   "ArtifactName": "ghcr.io/taha2samy-3/python:3.13-dev",
   "ArtifactType": "container_image",
   "Metadata": {
-    "Size": 588401664,
+    "Size": 588397568,
     "OS": {
       "Family": "wolfi",
       "Name": "20230201"
     },
-    "ImageID": "sha256:1166e82d4a82c883c33cf01eedd8916aee654b5006dc6ee1586a46a80a5ac56e",
+    "ImageID": "sha256:2b40861ac174e6f2126356823378b2022dae01fb86f3b2138d1281647edb33be",
     "DiffIDs": [
       "sha256:ce1cd332b1e27c43abcf9dc848795154f679f35b7d902f0cec0eb109615fb497",
       "sha256:81ac36f4bee4102128a3f1f63d1a2a057922351d656f4a4fcdb1b92cd28a95f2",
@@ -22,21 +22,21 @@
       "sha256:2af97d351f066d95be4835564d4e9445047a023e1f572d129b8462635b998e05",
       "sha256:e47c746c42dd8b0528f6898e40cd7d4203fcb820e4702eaa10871eaeb3fb1ebe",
       "sha256:9f44124191fe2ea63f1a76b02b9fb1758e64d5b224bcc3b6d2cfb9ee7e97a0fd",
-      "sha256:dc8db94668f81e1752de6b7d6aa7cd52f650cc481e6f8cc79101f175b50e9fac",
-      "sha256:899b8c742ca709f9119b94079dbdb7cbc7d48020c7d31027ec4461f6bf497fec",
-      "sha256:7a7489e46369a68459ac356f26421a9356c83b3989a3efc0b00b6e5c5807f381",
+      "sha256:8f6e3a869828604453e63f99f576ffc88c66e774d69e4013e5d260dfba537508",
+      "sha256:d8cb2ec5bc03fe407ff82a3511874c43a79436bbd22de79c3a3dcd9f8bced521",
+      "sha256:51ada556963c1f396fa5248b2f47f38574f667314589fec133bd057f445e2028",
       "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
     ],
     "RepoTags": [
       "ghcr.io/taha2samy-3/python:3.13-dev"
     ],
     "RepoDigests": [
-      "ghcr.io/taha2samy-3/python@sha256:952252ddc52bdbc65c9d2b6d62c2c8fb579fc697284326f65d0c2200d340c459"
+      "ghcr.io/taha2samy-3/python@sha256:a8a83b446753a8bcdd9f90ec8cf0e029e01f8acbc662d98845405ee516889bb7"
     ],
     "ImageConfig": {
       "architecture": "amd64",
       "author": "github.com/chainguard-dev/apko",
-      "created": "2026-10-28T09:12:32.04459728Z",
+      "created": "2026-10-28T09:41:20.392169291Z",
       "history": [
         {
           "author": "apko",
@@ -105,75 +105,75 @@
           "comment": "wolfi-base by Chainguard"
         },
         {
-          "created": "2026-10-28T09:12:31.90874155Z",
+          "created": "2026-10-28T09:41:20.253827811Z",
           "created_by": "ARG PYTHON_VERSION=3.13",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-28T09:12:31.90874155Z",
-          "created_by": "ARG PYTHON_FULL_VERSION=3.13.16_git20261016-r2",
+          "created": "2026-10-28T09:41:20.253827811Z",
+          "created_by": "ARG PYTHON_FULL_VERSION=3.13.17_git20261023-r1",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-28T09:12:31.90874155Z",
+          "created": "2026-10-28T09:41:20.253827811Z",
           "created_by": "USER root",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-28T09:12:31.90874155Z",
-          "created_by": "RUN |2 PYTHON_VERSION=3.13 PYTHON_FULL_VERSION=3.13.16_git20261016-r2 /bin/sh -c apk update \u0026\u0026 apk add --no-cache     python-${PYTHON_VERSION}=${PYTHON_FULL_VERSION}     py${PYTHON_VERSION}-pip     build-base     tini # buildkit",
+          "created": "2026-10-28T09:41:20.253827811Z",
+          "created_by": "RUN |2 PYTHON_VERSION=3.13 PYTHON_FULL_VERSION=3.13.17_git20261023-r1 /bin/sh -c apk update \u0026\u0026 apk add --no-cache     python-${PYTHON_VERSION}=${PYTHON_FULL_VERSION}     py${PYTHON_VERSION}-pip     build-base     tini # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-28T09:12:31.968962829Z",
+          "created": "2026-10-28T09:41:20.327103846Z",
           "created_by": "COPY /out/ /usr/bin/ # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-28T09:12:32.03347831Z",
-          "created_by": "RUN |2 PYTHON_VERSION=3.13 PYTHON_FULL_VERSION=3.13.16_git20261016-r2 /bin/sh -c adduser -D -u 1000 python \u0026\u0026     mkdir /app \u0026\u0026 chown python:python /app \u0026\u0026     ln -sf /usr/bin/python${PYTHON_VERSION} /usr/bin/python \u0026\u0026     ln -sf /usr/bin/pip${PYTHON_VERSION} /usr/bin/pip # buildkit",
+          "created": "2026-10-28T09:41:20.385097643Z",
+          "created_by": "RUN |2 PYTHON_VERSION=3.13 PYTHON_FULL_VERSION=3.13.17_git20261023-r1 /bin/sh -c adduser -D -u 1000 python \u0026\u0026     mkdir /app \u0026\u0026 chown python:python /app \u0026\u0026     ln -sf /usr/bin/python${PYTHON_VERSION} /usr/bin/python \u0026\u0026     ln -sf /usr/bin/pip${PYTHON_VERSION} /usr/bin/pip # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-28T09:12:32.04459728Z",
+          "created": "2026-10-28T09:41:20.392169291Z",
           "created_by": "WORKDIR /app",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-28T09:12:32.04459728Z",
+          "created": "2026-10-28T09:41:20.392169291Z",
           "created_by": "USER python",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-28T09:12:32.04459728Z",
+          "created": "2026-10-28T09:41:20.392169291Z",
           "created_by": "ENV PYTHONUNBUFFERED=1",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-28T09:12:32.04459728Z",
+          "created": "2026-10-28T09:41:20.392169291Z",
           "created_by": "ENV PYTHONDONTWRITEBYTECODE=1",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-28T09:12:32.04459728Z",
+          "created": "2026-10-28T09:41:20.392169291Z",
           "created_by": "HEALTHCHECK {Test:[CMD python -c import sys; sys.exit(0)] Interval:30s Timeout:5s StartPeriod:5s StartInterval:0s Retries:3}",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-28T09:12:32.04459728Z",
+          "created": "2026-10-28T09:41:20.392169291Z",
           "created_by": "ENTRYPOINT [\"/sbin/tini\" \"--\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-28T09:12:32.04459728Z",
+          "created": "2026-10-28T09:41:20.392169291Z",
           "created_by": "CMD [\"python\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
@@ -194,9 +194,9 @@
           "sha256:2af97d351f066d95be4835564d4e9445047a023e1f572d129b8462635b998e05",
           "sha256:e47c746c42dd8b0528f6898e40cd7d4203fcb820e4702eaa10871eaeb3fb1ebe",
           "sha256:9f44124191fe2ea63f1a76b02b9fb1758e64d5b224bcc3b6d2cfb9ee7e97a0fd",
-          "sha256:dc8db94668f81e1752de6b7d6aa7cd52f650cc481e6f8cc79101f175b50e9fac",
-          "sha256:899b8c742ca709f9119b94079dbdb7cbc7d48020c7d31027ec4461f6bf497fec",
-          "sha256:7a7489e46369a68459ac356f26421a9356c83b3989a3efc0b00b6e5c5807f381",
+          "sha256:8f6e3a869828604453e63f99f576ffc88c66e774d69e4013e5d260dfba537508",
+          "sha256:d8cb2ec5bc03fe407ff82a3511874c43a79436bbd22de79c3a3dcd9f8bced521",
+          "sha256:51ada556963c1f396fa5248b2f47f38574f667314589fec133bd057f445e2028",
           "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
         ]
       },
@@ -229,10 +229,10 @@
         "Labels": {
           "dev.chainguard.image.title": "wolfi-base",
           "dev.chainguard.package.main": "",
-          "io.github.taha2samy-3.build.fingerprint": "4cb8e63d0b35bc90a7ec894cd9c4fc21",
+          "io.github.taha2samy-3.build.fingerprint": "a6ffcbb363df2a6908a44a696aeca19d",
           "org.opencontainers.image.authors": "Taha Samy",
           "org.opencontainers.image.created": "2026-10-27T13:51:39Z",
-          "org.opencontainers.image.description": "Optimized Python 3.13 (3.13.16_git20261016-r2) development image based on Chainguard Wolfi",
+          "org.opencontainers.image.description": "Optimized Python 3.13 (3.13.17_git20261023-r1) development image based on Chainguard Wolfi",
           "org.opencontainers.image.licenses": "MIT",
           "org.opencontainers.image.source": "https://github.com/taha2samy-3/node",
           "org.opencontainers.image.title": "wolfi-base",
@@ -301,19 +301,19 @@
         "DiffID": "sha256:9f44124191fe2ea63f1a76b02b9fb1758e64d5b224bcc3b6d2cfb9ee7e97a0fd"
       },
       {
-        "Size": 563489280,
-        "Digest": "sha256:f0706c78783f61b602631744005a00e9fa7c971024308f1a6ff3de45ad56afa0",
-        "DiffID": "sha256:dc8db94668f81e1752de6b7d6aa7cd52f650cc481e6f8cc79101f175b50e9fac"
+        "Size": 563485184,
+        "Digest": "sha256:3013068d8f24638920ef26ee027924584186a4149f60360617120022ef7249d5",
+        "DiffID": "sha256:8f6e3a869828604453e63f99f576ffc88c66e774d69e4013e5d260dfba537508"
       },
       {
         "Size": 6233600,
-        "Digest": "sha256:669d4fd8cb9da23d694dd0cdfe9a4570bc464500f00c3b1eb088355834aed786",
-        "DiffID": "sha256:899b8c742ca709f9119b94079dbdb7cbc7d48020c7d31027ec4461f6bf497fec"
+        "Digest": "sha256:004ea5045aba4735f85340967153ccda6d7edec813d36a846cb0a98c7f68508d",
+        "DiffID": "sha256:d8cb2ec5bc03fe407ff82a3511874c43a79436bbd22de79c3a3dcd9f8bced521"
       },
       {
         "Size": 13312,
-        "Digest": "sha256:40c64d0825c06a48d8261040cce9bc12a021bb26239d13cf43e70c088ec74cbd",
-        "DiffID": "sha256:7a7489e46369a68459ac356f26421a9356c83b3989a3efc0b00b6e5c5807f381"
+        "Digest": "sha256:0e18dfe22ebd2c07a7e60ed5d1314710266ba1058819643860e2bddede05d6b6",
+        "DiffID": "sha256:51ada556963c1f396fa5248b2f47f38574f667314589fec133bd057f445e2028"
       },
       {
         "Size": 1024,
