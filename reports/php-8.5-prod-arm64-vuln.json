@@ -1,0 +1,198 @@
+{
+  "SchemaVersion": 2,
+  "CreatedAt": "2026-10-28T12:22:06.208674252Z",
+  "ArtifactName": "ghcr.io/taha2samy-3/php:8.5",
+  "ArtifactType": "container_image",
+  "Metadata": {
+    "Size": 159945216,
+    "OS": {
+      "Family": "wolfi",
+      "Name": "20230201"
+    },
+    "ImageID": "sha256:f2d57d82909e57dacf74df1648e7f1afbc77029ae3a05884ffe6c49ea0320e55",
+    "DiffIDs": [
+      "sha256:294eb9affc8a9bc06183b9186139defddce61e6c97722abecd8c800cab3ab503",
+      "sha256:250febfa708a06b51b31be52497d2062ba4e4c878a6dd5a90231ec1e51c20243",
+      "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+      "sha256:61367f87330c72a64b5fe9b03837731c978752e60f128db6547ccb06cf38c4b4",
+      "sha256:d7f294dffaac401fb7967f78a33dfc48ba40764029e4fe96ae33fd6f2e09734d",
+      "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
+    ],
+    "RepoTags": [
+      "ghcr.io/taha2samy-3/php:8.5"
+    ],
+    "RepoDigests": [
+      "ghcr.io/taha2samy-3/php@sha256:3ea47abbfa1bcadd757d89a60358e30692a0295f47c9394ac709673f40a49071"
+    ],
+    "ImageConfig": {
+      "architecture": "arm64",
+      "created": "2026-10-28T12:18:10.308964256Z",
+      "history": [
+        {
+          "created": "2026-10-28T12:18:09.676267028Z",
+          "created_by": "COPY /rootfs / # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2026-10-28T12:18:10.108199459Z",
+          "created_by": "COPY /out/ /usr/bin/ # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2026-10-28T12:18:10.127685814Z",
+          "created_by": "ENV SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt PHP_INI_SCAN_DIR=/etc/php/conf.d",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-28T12:18:10.127685814Z",
+          "created_by": "WORKDIR /app",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2026-10-28T12:18:10.127685814Z",
+          "created_by": "USER 1000:1000",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-28T12:18:10.160006533Z",
+          "created_by": "COPY php/conf/verify-prod.php /tmp/verify-prod.php # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2026-10-28T12:18:10.235171965Z",
+          "created_by": "RUN /usr/bin/php /tmp/verify-prod.php # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2026-10-28T12:18:10.308964256Z",
+          "created_by": "RUN /usr/sbin/php-fpm --test # buildkit",
+          "comment": "buildkit.dockerfile.v0"
+        },
+        {
+          "created": "2026-10-28T12:18:10.308964256Z",
+          "created_by": "EXPOSE map[9000/tcp:{}]",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-28T12:18:10.308964256Z",
+          "created_by": "HEALTHCHECK \u0026{[\"CMD\" \"/usr/bin/php\" \"-n\" \"-r\" \"exit(@fsockopen('127.0.0.1', 9000) ? 0 : 1);\"] \"30s\" \"5s\" \"10s\" \"0s\" '\\x03'}",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-28T12:18:10.308964256Z",
+          "created_by": "ENTRYPOINT [\"/sbin/tini\" \"--\"]",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-10-28T12:18:10.308964256Z",
+          "created_by": "CMD [\"/usr/sbin/php-fpm\" \"--nodaemonize\" \"--force-stderr\"]",
+          "comment": "buildkit.dockerfile.v0",
+          "empty_layer": true
+        }
+      ],
+      "os": "linux",
+      "rootfs": {
+        "type": "layers",
+        "diff_ids": [
+          "sha256:294eb9affc8a9bc06183b9186139defddce61e6c97722abecd8c800cab3ab503",
+          "sha256:250febfa708a06b51b31be52497d2062ba4e4c878a6dd5a90231ec1e51c20243",
+          "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+          "sha256:61367f87330c72a64b5fe9b03837731c978752e60f128db6547ccb06cf38c4b4",
+          "sha256:d7f294dffaac401fb7967f78a33dfc48ba40764029e4fe96ae33fd6f2e09734d",
+          "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
+        ]
+      },
+      "config": {
+        "Cmd": [
+          "/usr/sbin/php-fpm",
+          "--nodaemonize",
+          "--force-stderr"
+        ],
+        "Healthcheck": {
+          "Test": [
+            "CMD",
+            "/usr/bin/php",
+            "-n",
+            "-r",
+            "exit(@fsockopen('127.0.0.1', 9000) ? 0 : 1);"
+          ],
+          "Interval": 30000000000,
+          "Timeout": 5000000000,
+          "StartPeriod": 10000000000,
+          "Retries": 3
+        },
+        "Entrypoint": [
+          "/sbin/tini",
+          "--"
+        ],
+        "Env": [
+          "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+          "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt",
+          "PHP_INI_SCAN_DIR=/etc/php/conf.d"
+        ],
+        "Labels": {
+          "io.github.taha2samy-3.build.fingerprint": "b9b332f2510dba8a745852763dae856b",
+          "org.opencontainers.image.authors": "Taha Samy",
+          "org.opencontainers.image.description": "PHP 8.5 (8.5.12-r0) PHP-FPM production image without shell or package manager, hardened php.ini, based on Chainguard Wolfi",
+          "org.opencontainers.image.licenses": "MIT",
+          "org.opencontainers.image.source": "https://github.com/taha2samy-3/node"
+        },
+        "User": "1000:1000",
+        "WorkingDir": "/app",
+        "ExposedPorts": {
+          "9000/tcp": {}
+        },
+        "ArgsEscaped": true
+      }
+    },
+    "Layers": [
+      {
+        "Size": 154166272,
+        "Digest": "sha256:56ff48c12e3c2ed505d3fa83b10b0fac46b5ef98c5e77eb64f84d2c79fc74e52",
+        "DiffID": "sha256:294eb9affc8a9bc06183b9186139defddce61e6c97722abecd8c800cab3ab503"
+      },
+      {
+        "Size": 5770752,
+        "Digest": "sha256:3d494b07c562527be28a1760c118a570063ae9a36b785c59c8bf82e05116aa42",
+        "DiffID": "sha256:250febfa708a06b51b31be52497d2062ba4e4c878a6dd5a90231ec1e51c20243"
+      },
+      {
+        "Size": 1024,
+        "Digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1",
+        "DiffID": "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
+      },
+      {
+        "Size": 4096,
+        "Digest": "sha256:8f0c9afebf927ca7497cc848396aa0ca0421b4bf052bb591b30ded22ab6bf9b9",
+        "DiffID": "sha256:61367f87330c72a64b5fe9b03837731c978752e60f128db6547ccb06cf38c4b4"
+      },
+      {
+        "Size": 2048,
+        "Digest": "sha256:a68d71126c645c71b9551c7b328d02319463c6c80dba98ae93dcf6ba60d169df",
+        "DiffID": "sha256:d7f294dffaac401fb7967f78a33dfc48ba40764029e4fe96ae33fd6f2e09734d"
+      },
+      {
+        "Size": 1024,
+        "Digest": "sha256:4f4fb700ef54461cfa02571ae0db9a0dc1e0cdb5577484a6d75e68dc38e8acc1",
+        "DiffID": "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
+      }
+    ]
+  },
+  "Results": [
+    {
+      "Target": "ghcr.io/taha2samy-3/php:8.5 (wolfi 20230201)",
+      "Class": "os-pkgs",
+      "Type": "wolfi"
+    },
+    {
+      "Target": "usr/bin/secrets-entrypoint",
+      "Class": "lang-pkgs",
+      "Type": "gobinary"
+    }
+  ]
+}
