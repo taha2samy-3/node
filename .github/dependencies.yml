@@ -12,7 +12,7 @@
 #   openssl         newest release on the same major.minor line, with its SHA-256
 #   adoptium        newest Eclipse Temurin build of the same feature release, per architecture
 #   maven           newest release on the same major.minor line, with its SHA-256
-#   github-release  newest release, with checksums from the release's checksum file
+#   github-release  newest release, with checksums from the release's checksum file (or checksum_url)
 
 groups:
   runtimes: Language runtimes
@@ -68,6 +68,17 @@ dependencies:
       ENVOKE_SHA256_AMD64: secrets-entrypoint_linux_amd64
       ENVOKE_SHA256_ARM64: secrets-entrypoint_linux_arm64
 
+  # Composer in the PHP dev images. The GitHub release has no checksum file, so the SHA-256 comes
+  # from getcomposer.org, which publishes one per release.
+  - name: composer
+    group: runtimes
+    source: github-release
+    repo: composer/composer
+    variable: COMPOSER_VERSION
+    checksum_url: https://getcomposer.org/download/{tag}/composer.phar.sha256sum
+    checksums:
+      COMPOSER_SHA256: composer.phar
+
   # ==========================================
   # Language runtimes (Wolfi packages)
   # ==========================================
@@ -84,6 +95,10 @@ dependencies:
       PYTHON_3_12_FULL_VERSION: python-3.12
       PYTHON_3_13_FULL_VERSION: python-3.13
       PYTHON_3_14_FULL_VERSION: python-3.14
+      PHP_8_2_FULL_VERSION: php-8.2
+      PHP_8_3_FULL_VERSION: php-8.3
+      PHP_8_4_FULL_VERSION: php-8.4
+      PHP_8_5_FULL_VERSION: php-8.5
       BUN_1_FULL_VERSION: bun
       JAVA_17_FULL_VERSION: openjdk-17-default-jdk
       JAVA_21_FULL_VERSION: openjdk-21-default-jdk

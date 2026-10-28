@@ -208,12 +208,16 @@ def resolve_maven(dep, current):
 def resolve_github_release(dep):
     release = json.loads(http(f"https://api.github.com/repos/{dep['repo']}/releases/latest"))
     tag = release["tag_name"]
-    sums = http(f"https://github.com/{dep['repo']}/releases/download/{tag}/{dep['checksum_file']}")
+    if dep.get("checksum_url"):
+        # Projects that publish checksums outside the release (getcomposer.org for Composer)
+        sums = http(dep["checksum_url"].format(tag=tag))
+    else:
+        sums = http(f"https://github.com/{dep['repo']}/releases/download/{tag}/{dep['checksum_file']}")
     by_file = {line.split()[1].lstrip("*"): line.split()[0] for line in sums.splitlines() if len(line.split()) == 2}
     updates = {dep["variable"]: tag}
     for variable, filename in dep["checksums"].items():
         if filename not in by_file:
-            sys.exit(f"{dep['repo']} {tag}: {filename} missing from {dep['checksum_file']}")
+            sys.exit(f"{dep['repo']} {tag}: {filename} missing from {dep.get('checksum_url') or dep['checksum_file']}")
         updates[variable] = by_file[filename]
     return updates, release["html_url"]
 

@@ -57,6 +57,23 @@ variable "NODE_FIPS_PROVIDER_IMAGE" {
 }
 
 # ==========================================
+# PHP Versions (the branches php.net supports; each pin is at or above the PHP2Shell fix:
+# 8.2.35, 8.3.36, 8.4.27, 8.5.12)
+# ==========================================
+variable "PHP_REPO" {
+  default = "php"
+}
+
+variable "PHP_8_2_FULL_VERSION" { default = "8.2.35-r0" }
+variable "PHP_8_3_FULL_VERSION" { default = "8.3.36-r0" }
+variable "PHP_8_4_FULL_VERSION" { default = "8.4.27-r0" }
+variable "PHP_8_5_FULL_VERSION" { default = "8.5.12-r0" }
+
+# Composer for the PHP dev images, checked against getcomposer.org's published SHA-256
+variable "COMPOSER_VERSION" { default = "2.10.3" }
+variable "COMPOSER_SHA256" { default = "7a2d379d5b8ffdaa028580ef26494c36d2feef4b178d3dd1473a4dbc5e17c8d6" }
+
+# ==========================================
 # Python Versions
 # ==========================================
 variable "PYTHON_REPO" {
@@ -295,7 +312,7 @@ target "_envoke" {
 # Groups
 # ==========================================
 group "default" {
-  targets = ["dev", "prod", "python-dev", "python-prod", "bun-dev", "bun-prod", "java-dev", "java-prod", "go-dev", "go-prod", "go-fips-dev", "go-fips-prod", "openssl-dev", "openssl-standard", "openssl-prod", "boringssl-dev", "boringssl-standard", "boringssl-prod", "openjdk", "node-fips"]
+  targets = ["dev", "prod", "python-dev", "python-prod", "php-dev", "php-prod", "bun-dev", "bun-prod", "java-dev", "java-prod", "go-dev", "go-prod", "go-fips-dev", "go-fips-prod", "openssl-dev", "openssl-standard", "openssl-prod", "boringssl-dev", "boringssl-standard", "boringssl-prod", "openjdk", "node-fips"]
 }
 
 # ==========================================
@@ -497,6 +514,87 @@ target "python-prod" {
   }
   annotations = [
     "manifest:org.opencontainers.image.description=Ultra-secure minimal Python ${item.version} (${item.full_version}) production runtime based on Chainguard Wolfi and scratch",
+    "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
+  ]
+}
+
+# ==========================================
+# PHP Targets
+# ==========================================
+target "php-dev" {
+  inherits = ["_envoke"]
+  name = "php-dev-${item.id}"
+  matrix = {
+    item = [
+      { id = "8-2", version = "8.2", full_version = PHP_8_2_FULL_VERSION },
+      { id = "8-3", version = "8.3", full_version = PHP_8_3_FULL_VERSION },
+      { id = "8-4", version = "8.4", full_version = PHP_8_4_FULL_VERSION },
+      { id = "8-5", version = "8.5", full_version = PHP_8_5_FULL_VERSION }
+    ]
+  }
+  context = "."
+  dockerfile = "php/dockerfile"
+  target = "full-dev"
+  args = {
+    PHP_VERSION = item.version
+    PHP_FULL_VERSION = item.full_version
+    COMPOSER_VERSION = COMPOSER_VERSION
+    COMPOSER_SHA256 = COMPOSER_SHA256
+    BASE_IMAGE = BASE_IMAGE
+  }
+  platforms = ["linux/amd64", "linux/arm64"]
+  tags = [
+    "${REGISTRY}/${OWNER}/${PHP_REPO}:${item.version}-dev"
+  ]
+  cache-from = ["type=gha,scope=php-dev-${item.id}"]
+  cache-to = ["type=gha,mode=max,scope=php-dev-${item.id},compression=zstd,compression-level=3"]
+  labels = {
+    "org.opencontainers.image.authors" = "Taha Samy"
+    "org.opencontainers.image.source" = "https://github.com/${OWNER}/${SOURCE_REPO}"
+    "org.opencontainers.image.licenses" = "MIT"
+    "org.opencontainers.image.description" = "PHP ${item.version} (${item.full_version}) development image with PHP-FPM, Composer and hardened php.ini, based on Chainguard Wolfi"
+  }
+  annotations = [
+    "manifest:org.opencontainers.image.description=PHP ${item.version} (${item.full_version}) development image with PHP-FPM, Composer and hardened php.ini, based on Chainguard Wolfi",
+    "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
+  ]
+}
+
+target "php-prod" {
+  inherits = ["_envoke"]
+  name = "php-prod-${item.id}"
+  matrix = {
+    item = [
+      { id = "8-2", version = "8.2", full_version = PHP_8_2_FULL_VERSION },
+      { id = "8-3", version = "8.3", full_version = PHP_8_3_FULL_VERSION },
+      { id = "8-4", version = "8.4", full_version = PHP_8_4_FULL_VERSION },
+      { id = "8-5", version = "8.5", full_version = PHP_8_5_FULL_VERSION }
+    ]
+  }
+  context = "."
+  dockerfile = "php/dockerfile"
+  target = "prod"
+  args = {
+    PHP_VERSION = item.version
+    PHP_FULL_VERSION = item.full_version
+    COMPOSER_VERSION = COMPOSER_VERSION
+    COMPOSER_SHA256 = COMPOSER_SHA256
+    BASE_IMAGE = BASE_IMAGE
+  }
+  platforms = ["linux/amd64", "linux/arm64"]
+  tags = [
+    "${REGISTRY}/${OWNER}/${PHP_REPO}:${item.version}"
+  ]
+  cache-from = ["type=gha,scope=php-prod-${item.id}"]
+  cache-to = ["type=gha,mode=max,scope=php-prod-${item.id},compression=zstd,compression-level=3"]
+  labels = {
+    "org.opencontainers.image.authors" = "Taha Samy"
+    "org.opencontainers.image.source" = "https://github.com/${OWNER}/${SOURCE_REPO}"
+    "org.opencontainers.image.licenses" = "MIT"
+    "org.opencontainers.image.description" = "PHP ${item.version} (${item.full_version}) PHP-FPM production image without shell or package manager, hardened php.ini, based on Chainguard Wolfi"
+  }
+  annotations = [
+    "manifest:org.opencontainers.image.description=PHP ${item.version} (${item.full_version}) PHP-FPM production image without shell or package manager, hardened php.ini, based on Chainguard Wolfi",
     "manifest:org.opencontainers.image.source=https://github.com/${OWNER}/${SOURCE_REPO}"
   ]
 }

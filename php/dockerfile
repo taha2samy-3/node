@@ -1,0 +1,167 @@
+# syntax=docker/dockerfile:1.6
+ARG BASE_IMAGE=cgr.dev/chainguard/wolfi-base:latest
+ARG PHP_VERSION=8.4
+ARG PHP_FULL_VERSION
+# Extensions installed in both flavors (session and tokenizer are built into PHP; opcache is built
+# into 8.5 and added separately for older versions)
+ARG PHP_EXTENSIONS="bcmath ctype curl dom fileinfo gd iconv intl mbstring mysqlnd openssl pdo pdo_mysql pdo_pgsql pdo_sqlite phar simplexml sodium sockets xml xmlreader xmlwriter zip"
+
+# ==========================================
+# envoke (secrets-entrypoint) binary
+# ==========================================
+FROM ${BASE_IMAGE} AS envoke
+
+ARG TARGETARCH
+ARG ENVOKE_VERSION
+ARG ENVOKE_SHA256_AMD64
+ARG ENVOKE_SHA256_ARM64
+
+ADD https://github.com/taha2samy-3/envoke/releases/download/${ENVOKE_VERSION}/secrets-entrypoint_linux_${TARGETARCH} /out/secrets-entrypoint
+
+RUN set -e; \
+    case "${TARGETARCH}" in \
+      amd64) sum="${ENVOKE_SHA256_AMD64}" ;; \
+      arm64) sum="${ENVOKE_SHA256_ARM64}" ;; \
+      *) echo "envoke: unsupported architecture ${TARGETARCH}" >&2; exit 1 ;; \
+    esac; \
+    if [ -z "${sum}" ]; then echo "envoke: missing checksum for ${TARGETARCH}" >&2; exit 1; fi; \
+    echo "${sum}  /out/secrets-entrypoint" | sha256sum -c -; \
+    chmod 0755 /out/secrets-entrypoint; \
+    ln -s secrets-entrypoint /out/envoke
+
+# ==========================================
+# Composer, verified against the checksum getcomposer.org publishes for the release
+# ==========================================
+FROM ${BASE_IMAGE} AS composer
+
+ARG COMPOSER_VERSION
+ARG COMPOSER_SHA256
+
+ADD https://github.com/composer/composer/releases/download/${COMPOSER_VERSION}/composer.phar /out/composer
+
+RUN set -e; \
+    if [ -z "${COMPOSER_SHA256}" ]; then echo "composer: missing checksum" >&2; exit 1; fi; \
+    echo "${COMPOSER_SHA256}  /out/composer" | sha256sum -c -; \
+    chmod 0755 /out/composer
+
+# ==========================================
+# Stage 1: Development image (dev)
+# ==========================================
+FROM ${BASE_IMAGE} AS full-dev
+
+ARG PHP_VERSION
+ARG PHP_FULL_VERSION
+ARG PHP_EXTENSIONS
+
+USER root
+
+# Every PHP package is pinned to the same release, so no extension built for another PHP version
+# (another module API) can be pulled in
+RUN set -eux; \
+    test -n "${PHP_FULL_VERSION}"; \
+    exts="${PHP_EXTENSIONS}"; \
+    case "${PHP_VERSION}" in 8.5) ;; *) exts="${exts} opcache" ;; esac; \
+    pkgs="php-${PHP_VERSION}=${PHP_FULL_VERSION} php-${PHP_VERSION}-fpm=${PHP_FULL_VERSION}"; \
+    for e in ${exts}; do pkgs="${pkgs} php-${PHP_VERSION}-${e}=${PHP_FULL_VERSION}"; done; \
+    apk add --no-cache ${pkgs} build-base git unzip tini; \
+    php -v; php -m; \
+    # Fail on any startup warning, such as an extension that cannot load
+    test -z "$(php -r '' 2>&1)"
+
+COPY --from=envoke /out/ /usr/bin/
+COPY --from=composer /out/composer /usr/bin/composer
+COPY php/conf/php-hardened.ini /etc/php/conf.d/90-hardened.ini
+COPY php/conf/php-8.5.ini /tmp/php-8.5.ini
+
+RUN set -eux; \
+    case "${PHP_VERSION}" in 8.5) mv /tmp/php-8.5.ini /etc/php/conf.d/91-php-8.5.ini ;; *) rm /tmp/php-8.5.ini ;; esac; \
+    adduser -D -u 1000 php; \
+    mkdir /app && chown php:php /app; \
+    # Fail the build if the hardening did not take effect
+    test "$(php -r 'echo (int) ini_get("session.upload_progress.enabled");')" = 0; \
+    test "$(php -r 'echo ini_get("expose_php") ? 1 : 0;')" = 0; \
+    composer --version
+
+WORKDIR /app
+USER php
+
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \
+    CMD ["php", "-r", "exit(0);"]
+
+ENTRYPOINT ["/sbin/tini", "--"]
+CMD ["php", "-a"]
+
+# ==========================================
+# Stage 2: Production root filesystem (no shell, no busybox, no apk)
+# ==========================================
+FROM ${BASE_IMAGE} AS prod-rootfs
+
+ARG PHP_VERSION
+ARG PHP_FULL_VERSION
+ARG PHP_EXTENSIONS
+
+USER root
+
+# The package database stays in the rootfs so vulnerability scanners can see every package,
+# but apk itself is not installed
+RUN set -eux; \
+    test -n "${PHP_FULL_VERSION}"; \
+    exts="${PHP_EXTENSIONS}"; \
+    case "${PHP_VERSION}" in 8.5) ;; *) exts="${exts} opcache" ;; esac; \
+    pkgs="php-${PHP_VERSION}=${PHP_FULL_VERSION} php-${PHP_VERSION}-fpm=${PHP_FULL_VERSION}"; \
+    for e in ${exts}; do pkgs="${pkgs} php-${PHP_VERSION}-${e}=${PHP_FULL_VERSION}"; done; \
+    mkdir -p /rootfs/etc/apk; \
+    apk add --no-cache --initdb --no-scripts --root /rootfs \
+      --keys-dir /etc/apk/keys --repositories-file /etc/apk/repositories \
+      wolfi-baselayout ca-certificates-bundle tzdata tini ${pkgs}; \
+    rm -rf /rootfs/etc/apk /rootfs/var/cache/apk /rootfs/usr/share/man /rootfs/usr/share/doc; \
+    if [ -e /rootfs/bin/sh ] || [ -e /rootfs/usr/bin/sh ] || [ -e /rootfs/sbin/apk ] || [ -e /rootfs/usr/bin/apk ]; then \
+      echo "prod rootfs must not contain a shell or apk" >&2; exit 1; \
+    fi; \
+    echo "php:x:1000:1000:php:/app:/sbin/nologin" >> /rootfs/etc/passwd; \
+    echo "php:x:1000:" >> /rootfs/etc/group; \
+    mkdir -p /rootfs/app /rootfs/tmp; \
+    chown 1000:1000 /rootfs/app; \
+    chmod 1777 /rootfs/tmp; \
+    # Replace the package's FPM pool and apko defaults with the hardened container configuration
+    rm -f /rootfs/etc/php/php-fpm.d/*.conf; \
+    # Record the CA bundle digest that STIG SV-263659 checks
+    (cd /rootfs/etc/ssl/certs && sha256sum ca-certificates.crt > .ca-certificates.crt.sha256 && chmod 444 .ca-certificates.crt.sha256)
+
+COPY php/conf/php-hardened.ini /rootfs/etc/php/conf.d/90-hardened.ini
+COPY php/conf/php-prod.ini /rootfs/etc/php/conf.d/95-prod.ini
+COPY php/conf/php-8.5.ini /tmp/php-8.5.ini
+COPY php/conf/php-fpm.conf /rootfs/etc/php/php-fpm.conf
+COPY php/conf/www.conf /rootfs/etc/php/php-fpm.d/www.conf
+
+RUN case "${PHP_VERSION}" in 8.5) cp /tmp/php-8.5.ini /rootfs/etc/php/conf.d/91-php-8.5.ini ;; esac
+
+# ==========================================
+# Stage 3: Production image (prod): PHP-FPM only
+# ==========================================
+FROM scratch AS prod
+
+COPY --from=prod-rootfs /rootfs /
+COPY --from=envoke /out/ /usr/bin/
+
+ENV SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \
+    PHP_INI_SCAN_DIR=/etc/php/conf.d
+
+WORKDIR /app
+# Everything from here runs as the runtime user, so the checks see what FPM sees in production
+# (as root, FPM would also demand a pool user)
+USER 1000:1000
+
+# Fails the build if a hardening setting, the PHP2Shell fix level or an extension is missing
+COPY --chown=1000:1000 php/conf/verify-prod.php /tmp/verify-prod.php
+RUN ["/usr/bin/php", "/tmp/verify-prod.php"]
+RUN ["/usr/sbin/php-fpm", "--test"]
+
+EXPOSE 9000
+
+# FPM answers on 127.0.0.1:9000 once it has started
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+    CMD ["/usr/bin/php", "-n", "-r", "exit(@fsockopen('127.0.0.1', 9000) ? 0 : 1);"]
+
+ENTRYPOINT ["/sbin/tini", "--"]
+CMD ["/usr/sbin/php-fpm", "--nodaemonize", "--force-stderr"]

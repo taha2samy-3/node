@@ -24,6 +24,7 @@ Hardened container base images on [Wolfi](https://github.com/wolfi-dev), built f
 | **Node.js** | `18`, `20`, `22`, `24`, `26` | `dev`, `prod` | None, use Node.js FIPS | Wolfi |
 | **Go** | `1.22` to `1.27` | `dev`, `prod` | None, use Go FIPS | Wolfi |
 | **Python** | `3.10` to `3.14` | `dev`, `prod` | None | Wolfi |
+| **[PHP](php/README.md)** | `8.2`, `8.3`, `8.4`, `8.5` (php.net supported) | `dev`, `prod` (PHP-FPM, no shell) | None | Wolfi |
 | **Bun** | `1` | `dev`, `prod` | None | Wolfi |
 
 ---
@@ -252,6 +253,7 @@ The dashboard shows, for each image and each architecture (amd64 / arm64):
 ├── boringssl/                  # BoringSSL built with -DFIPS=1 (not CMVP-validated)
 ├── melange/                    # melange packages: OpenSSL FIPS Provider 3.1.2 for Wolfi
 ├── go/, python/, bun/, java/   # Runtime images (go/ also builds Go FIPS)
+├── php/                        # PHP-FPM images: hardened php.ini, FPM pool, build-time checks
 ├── web/                        # React/Vite security dashboard
 │   ├── src/                    # Dashboard pages and components
 │   └── runtimes.yaml           # Runtime metadata and report mappings
