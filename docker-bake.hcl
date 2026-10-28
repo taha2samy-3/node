@@ -160,32 +160,32 @@ variable "OPENSSL_FIPS_SHA256" {
 }
 
 variable "OPENSSL_STATIC_IMAGE" {
-  default = "cgr.dev/chainguard/static@sha256:c12f0107f8afb0bbc1b0eff96ff8675e85a10c6083d039b777c51fef5c27420f"
+  default = "cgr.dev/chainguard/static@sha256:9e2306b457ff71ce370043dc68c7b52bb1e6622c1c6c6714edbed57496f3116e"
 }
 variable "OPENSSL_BUILD_BASE_VER" { default = "1-r10" }
-variable "OPENSSL_PERL_VER" { default = "5.44.0-r2" }
+variable "OPENSSL_PERL_VER" { default = "5.44.0-r4" }
 variable "OPENSSL_LINUX_HEADERS_VER" { default = "7.3-r0" }
 variable "OPENSSL_WGET_VER" { default = "1.25.0-r20" }
-variable "OPENSSL_CA_CERTIFICATES_VER" { default = "20260909-r3" }
-variable "OPENSSL_LIBSTDC_PLUS_PLUS_VER" { default = "16.2.0-r1" }
-variable "OPENSSL_ZLIB_VER" { default = "1.3.2.1_rc20260921-r0" }
+variable "OPENSSL_CA_CERTIFICATES_VER" { default = "20261020-r0" }
+variable "OPENSSL_LIBSTDC_PLUS_PLUS_VER" { default = "16.2.0-r2" }
+variable "OPENSSL_ZLIB_VER" { default = "1.3.2.1_rc20260921-r1" }
 variable "OPENSSL_TZDATA_VER" { default = "2026e-r0" }
 variable "OPENSSL_POSIX_LIBC_UTILS_VER" { default = "2.43-r13" }
-variable "OPENSSL_PKGCONF_VER" { default = "3.0.10-r1" }
+variable "OPENSSL_PKGCONF_VER" { default = "3.0.10-r2" }
 variable "OPENSSL_PCRE_DEV_VER" { default = "8.45-r11" }
-variable "OPENSSL_ZLIB_DEV_VER" { default = "1.3.2.1_rc20260921-r0" }
+variable "OPENSSL_ZLIB_DEV_VER" { default = "1.3.2.1_rc20260921-r1" }
 variable "OPENSSL_BASH_VER" { default = "5.3-r14" }
 variable "OPENSSL_CURL_VER" { default = "8.23.0-r2" }
 variable "OPENSSL_JQ_VER" { default = "1.8.2-r3" }
 variable "OPENSSL_UNZIP_VER" { default = "6.0-r8" }
-variable "OPENSSL_APK_TOOLS_VER" { default = "2.14.10-r17" }
+variable "OPENSSL_APK_TOOLS_VER" { default = "2.14.12-r0" }
 variable "OPENSSL_BUSYBOX_VER" { default = "1.38.0-r3" }
 variable "OPENSSL_GLIBC_VER" { default = "2.43-r13" }
 variable "OPENSSL_GLIBC_LOCALE_POSIX_VER" { default = "2.43-r13" }
 variable "OPENSSL_LD_LINUX_VER" { default = "2.43-r13" }
 variable "OPENSSL_LIBCRYPT1_VER" { default = "2.43-r13" }
 variable "OPENSSL_LIBXCRYPT_VER" { default = "4.5.2-r6" }
-variable "OPENSSL_LIBGCC_VER" { default = "16.2.0-r1" }
+variable "OPENSSL_LIBGCC_VER" { default = "16.2.0-r2" }
 variable "OPENSSL_WOLFI_BASE_VER" { default = "1-r7" }
 variable "OPENSSL_WOLFI_BASELAYOUT_VER" { default = "20230201-r30" }
 variable "OPENSSL_WOLFI_KEYS_VER" { default = "1-r14" }
