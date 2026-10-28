@@ -111,7 +111,10 @@ jobs:
     needs: [plan, images, images-dependents]
     if: "!cancelled() && !contains(needs.*.result, 'failure') && needs.plan.outputs.has_packages == 'true'"
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    # Housekeeping only: a slow or failed cleanup must not mark a successful build as failed.
+    # The first runs over all packages work through a large backlog; later runs are short.
+    timeout-minutes: 45
+    continue-on-error: true
     permissions:
       packages: write
 

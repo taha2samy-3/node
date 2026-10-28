@@ -33,6 +33,8 @@ CONFIG_FILE = ".github/dependencies.yml"
 BAKE_FILE = "docker-bake.hcl"
 RUNNER_IMAGE = "cgr.dev/chainguard/wolfi-base:latest"
 PR_LABEL = "dependencies"
+# PRs with this label are merged by pr-check.yml once the dispatched check passes on their head commit
+AUTOMERGE_LABEL = "automerge"
 # Pushes and PRs made with GITHUB_TOKEN never start pull_request workflows, but workflow_dispatch
 # is allowed, so the PR check is dispatched on the branch after every push
 PR_CHECK_WORKFLOW = "pr-check.yml"
@@ -381,6 +383,7 @@ Only these images are rebuilt, re-attested and rescanned; every other image keep
 
 - Maintained by `.github/workflows/daily-image-update.yml` from `.github/dependencies.yml` and **refreshed in place** on every run; manual commits to `{BRANCH_PREFIX}{group}` are overwritten.
 - **Closed automatically** once `{base}` has every version, and **recreated** if closed while updates are still pending.
+- **Merged automatically** (label `automerge`) once the Pull Request Check builds the changed images and passes their FIPS suites on the latest commit. PRs with a major version bump do not get the label and wait for review.
 
 | Field | Value |
 | :--- | :--- |
@@ -430,7 +433,15 @@ def sync_catalog(updates):
     return changed
 
 
-def sync_pull_request(branch, base, pr_title, body, message, catalog_changed=False):
+def set_automerge_label(number, automerge):
+    if automerge:
+        run(["gh", "label", "create", AUTOMERGE_LABEL, "--color", "0e8a16", "--description",
+             "Merged automatically once the Pull Request Check passes"], check=False, capture=True)
+    flag = "--add-label" if automerge else "--remove-label"
+    run(["gh", "pr", "edit", str(number), flag, AUTOMERGE_LABEL], check=False, capture=True)
+
+
+def sync_pull_request(branch, base, pr_title, body, message, catalog_changed=False, automerge=False):
     run(["git", "checkout", "-B", branch])
     files_to_add = [BAKE_FILE]
     if catalog_changed and os.path.exists(plan_images.RUNTIMES_FILE):
@@ -439,6 +450,7 @@ def sync_pull_request(branch, base, pr_title, body, message, catalog_changed=Fal
     run(["git", "commit", "-m", message])
     open_pr = find_open_pr(branch, base)
     if open_pr:
+        set_automerge_label(open_pr["number"], automerge)
         if remote_tree_matches_head(branch):
             print(f"  PR #{open_pr['number']} is already up to date: {open_pr['url']}")
         else:
@@ -452,7 +464,10 @@ def sync_pull_request(branch, base, pr_title, body, message, catalog_changed=Fal
         run(["git", "push", "origin", "--delete", branch], check=False)
     run(["git", "push", "origin", branch])
     run(["gh", "label", "create", PR_LABEL, "--color", "0366d6", "--description", "Pull requests that update a dependency file"], check=False, capture=True)
-    url = run(["gh", "pr", "create", "--title", pr_title, "--body", body, "--base", base, "--head", branch, "--label", PR_LABEL], capture=True).stdout.strip()
+    run(["gh", "label", "create", AUTOMERGE_LABEL, "--color", "0e8a16", "--description", "Merged automatically once the Pull Request Check passes"], check=False, capture=True)
+    labels = [PR_LABEL] + ([AUTOMERGE_LABEL] if automerge else [])
+    url = run(["gh", "pr", "create", "--title", pr_title, "--body", body, "--base", base, "--head", branch]
+              + [arg for label in labels for arg in ("--label", label)], capture=True).stdout.strip()
     print(f"  created PR: {url}")
     dispatch_pr_check(branch)
 
@@ -560,7 +575,10 @@ def main():
                 f.write(updated)
             catalog_changed = sync_catalog(updates)
             try:
-                sync_pull_request(branch, args.base, title(group_title, updates), body, commit_message(group_title, updates), catalog_changed=catalog_changed)
+                # Major version bumps wait for review; everything else merges once the PR check passes
+                automerge = not any(u["change"] == "major" for u in updates)
+                sync_pull_request(branch, args.base, title(group_title, updates), body, commit_message(group_title, updates),
+                                  catalog_changed=catalog_changed, automerge=automerge)
             finally:
                 run(["git", "checkout", "-q", args.base])
                 run(["git", "checkout", "-q", "--", BAKE_FILE])

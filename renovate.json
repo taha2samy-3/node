@@ -8,40 +8,75 @@
     ":semanticCommitTypeAll(chore)"
   ],
   "timezone": "Africa/Cairo",
-  "enabledManagers": ["github-actions"],
-  "schedule": ["before 6am on monday"],
-  "labels": ["dependencies"],
+  "enabledManagers": [
+    "github-actions"
+  ],
+  "schedule": [
+    "before 6am on monday"
+  ],
+  "labels": [
+    "dependencies"
+  ],
   "commitMessagePrefix": "chore(actions):",
   "prHourlyLimit": 5,
   "prConcurrentLimit": 10,
-
   "automerge": true,
   "automergeType": "pr",
   "automergeStrategy": "squash",
-  "platformAutomerge": true,
+  "platformAutomerge": false,
   "ignoreTests": false,
-
   "packageRules": [
     {
       "description": "Major versions change behaviour: review them by hand",
-      "matchUpdateTypes": ["major"],
+      "matchUpdateTypes": [
+        "major"
+      ],
       "automerge": false,
-      "labels": ["dependencies", "major"]
+      "labels": [
+        "dependencies",
+        "major"
+      ]
+    },
+    {
+      "description": "Python, Node.js and runner image versions used by the workflows change the CI environment itself: open the PR, but merge it by hand",
+      "matchDepNames": [
+        "python",
+        "node",
+        "ubuntu"
+      ],
+      "automerge": false,
+      "labels": [
+        "dependencies",
+        "ci-runtime"
+      ]
     },
     {
       "description": "Minor, patch and digest updates merge on their own after a 4-day stability period, once every check on the PR has passed",
-      "matchUpdateTypes": ["minor", "patch", "pin", "pinDigest", "digest"],
+      "matchUpdateTypes": [
+        "minor",
+        "patch",
+        "pin",
+        "pinDigest",
+        "digest"
+      ],
       "minimumReleaseAge": "4 days",
-      "labels": ["dependencies", "automerge"]
+      "labels": [
+        "dependencies",
+        "automerge"
+      ]
     }
   ],
-
   "vulnerabilityAlerts": {
     "description": "Security fixes skip the schedule and the stability period, and still merge only after checks pass",
     "enabled": true,
     "automerge": true,
-    "schedule": ["at any time"],
+    "schedule": [
+      "at any time"
+    ],
     "minimumReleaseAge": null,
-    "labels": ["dependencies", "security"]
+    "labels": [
+      "dependencies",
+      "security"
+    ]
   }
 }

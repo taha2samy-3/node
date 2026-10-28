@@ -13,7 +13,7 @@ on:
       logLevel:
         description: "Renovate log level (debug, info, warn, error)"
         required: false
-        default: "debug"
+        default: "info"
 
 concurrency:
   group: ${{ github.workflow }}
@@ -35,6 +35,18 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v7
 
+      # GITHUB_TOKEN cannot push changes to .github/workflows (every update Renovate makes here) and
+      # cannot read Dependabot alerts, and its pushes start no CI on the PRs. RENOVATE_TOKEN must be a
+      # fine-grained token with Contents, Pull requests, Issues, Workflows: read/write and
+      # Dependabot alerts: read on this repository.
+      - name: Check Renovate Token
+        env:
+          HAS_TOKEN: ${{ secrets.RENOVATE_TOKEN != '' }}
+        run: |
+          if [ "$HAS_TOKEN" != true ]; then
+            echo "::warning::RENOVATE_TOKEN is not set: Renovate falls back to GITHUB_TOKEN, cannot update workflow files or read vulnerability alerts, and its PRs get no CI runs"
+          fi
+
       - name: Self-hosted Renovate
         uses: renovatebot/github-action@v46.3.9
         with:
@@ -42,6 +54,6 @@ jobs:
           token: ${{ secrets.RENOVATE_TOKEN || secrets.GITHUB_TOKEN }}
         env:
           RENOVATE_REPOSITORIES: ${{ github.repository }}
-          LOG_LEVEL: ${{ inputs.logLevel || 'debug' }}
+          LOG_LEVEL: ${{ inputs.logLevel || 'info' }}
           RENOVATE_DRY_RUN: ${{ inputs.dryRun || '' }}
           RENOVATE_AUTODISCOVER: 'false'

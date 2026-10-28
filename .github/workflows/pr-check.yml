@@ -124,8 +124,12 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       statuses: write
+      contents: write
+      pull-requests: write
+      actions: write
     steps:
       - name: Publish Commit Status
+        id: status
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PLAN: ${{ needs.plan.result }}
@@ -140,3 +144,29 @@ jobs:
           gh api "repos/${GITHUB_REPOSITORY}/statuses/${GITHUB_SHA}" \
             -f state="$state" -f context="Pull Request Check" \
             -f description="$description" -f target_url="$RUN_URL"
+          echo "state=$state" >> "$GITHUB_OUTPUT"
+
+      # Dependency-update PRs labelled 'automerge' (no major version bump) are merged once the check
+      # has passed on their head commit. --match-head-commit refuses the merge if the branch moved
+      # after this run started, so only the tested commit can land on main.
+      - name: Merge Dependency Update
+        if: steps.status.outputs.state == 'success' && startsWith(github.ref_name, 'automation/deps-')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          pr=$(gh pr list --repo "$GITHUB_REPOSITORY" --head "$BRANCH" --base main --state open \
+                 --label automerge --json number --jq '.[0].number // empty')
+          if [ -z "$pr" ]; then
+            echo "No open PR with the automerge label for $BRANCH; leaving it for review"
+            exit 0
+          fi
+          if gh pr merge "$pr" --repo "$GITHUB_REPOSITORY" --squash --delete-branch --match-head-commit "$GITHUB_SHA"; then
+            echo "merged=true" >> "$GITHUB_OUTPUT"
+            # A merge made with GITHUB_TOKEN starts no workflows, so start the image build explicitly
+            gh workflow run build.yml --repo "$GITHUB_REPOSITORY" --ref main
+            echo "Merged PR #$pr and started Build and Push Images"
+          else
+            # Usually a conflict with another update merged first; the next daily run rebases the PR
+            echo "::warning::Could not merge PR #$pr; the next Daily Dependency Update refreshes it"
+          fi
