@@ -63,11 +63,11 @@ variable "PYTHON_REPO" {
   default = "python"
 }
 
-variable "PYTHON_3_10_FULL_VERSION" { default = "3.10.22-r5" }
-variable "PYTHON_3_11_FULL_VERSION" { default = "3.11.18-r0" }
-variable "PYTHON_3_12_FULL_VERSION" { default = "3.12.16-r0" }
-variable "PYTHON_3_13_FULL_VERSION" { default = "3.13.16_git20261016-r2" }
-variable "PYTHON_3_14_FULL_VERSION" { default = "3.14.8_git20261021-r2" }
+variable "PYTHON_3_10_FULL_VERSION" { default = "3.10.22-r6" }
+variable "PYTHON_3_11_FULL_VERSION" { default = "3.11.18-r1" }
+variable "PYTHON_3_12_FULL_VERSION" { default = "3.12.16-r1" }
+variable "PYTHON_3_13_FULL_VERSION" { default = "3.13.17_git20261023-r1" }
+variable "PYTHON_3_14_FULL_VERSION" { default = "3.14.8_git20261021-r3" }
 
 # ==========================================
 # Bun Versions
@@ -87,8 +87,8 @@ variable "JAVA_REPO" {
   default = "java"
 }
 
-variable "JAVA_17_FULL_VERSION" { default = "17.0.21.0.2-r0" }
-variable "JAVA_21_FULL_VERSION" { default = "21.0.13.0.2-r0" }
+variable "JAVA_17_FULL_VERSION" { default = "17.0.21.0.3-r0" }
+variable "JAVA_21_FULL_VERSION" { default = "21.0.13.0.3-r0" }
 variable "JAVA_23_FULL_VERSION" { default = "23.0.2-r8" }
 
 # ==========================================
