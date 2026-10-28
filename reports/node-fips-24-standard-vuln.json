@@ -1,84 +1,84 @@
 {
   "SchemaVersion": 2,
-  "CreatedAt": "2026-10-27T07:51:07.01660762Z",
+  "CreatedAt": "2026-10-28T09:45:11.715909999Z",
   "ArtifactName": "ghcr.io/taha2samy-3/node-fips:24",
   "ArtifactType": "container_image",
   "Metadata": {
-    "Size": 155501056,
+    "Size": 155514368,
     "OS": {
       "Family": "wolfi",
       "Name": "20230201"
     },
-    "ImageID": "sha256:43dc817811b514a9f5451997a2400a60781d278d0c7836b814f9074814e95ff1",
+    "ImageID": "sha256:c205f5524df0ac15c959a6493c09b7b4fad2d58e4f37701dc492b2c06fbc5f05",
     "DiffIDs": [
-      "sha256:f5113730aeaa35699d649768c0fcb4914166e0813b48180a505e077d94361a30",
+      "sha256:cd4f0c668ef6a32f01f28c725b4e37f801d0ba048c273811435affbb1e0d1adc",
       "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
-      "sha256:dd83e189d46b7f4af793954758988bc8be7f7fc86a96eabfb9cda1d3540d3a9c",
+      "sha256:b813420a7b1d03fa727e0fa7a283c1bc8c10eb24edc7d119addae78b278861e3",
       "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
     ],
     "RepoTags": [
       "ghcr.io/taha2samy-3/node-fips:24"
     ],
     "RepoDigests": [
-      "ghcr.io/taha2samy-3/node-fips@sha256:6d9bde34815f2ad8b85b05f0dd9aab8ce84e0eb59a856f93bbb43f8a859b3ffb"
+      "ghcr.io/taha2samy-3/node-fips@sha256:e239337554b91639b9df6653af991ef43c1ac0269ba32def77e0252f4ddede61"
     ],
     "ImageConfig": {
       "architecture": "amd64",
-      "created": "2026-10-27T07:34:56.665940417Z",
+      "created": "2026-10-28T09:28:04.701390602Z",
       "history": [
         {
-          "created": "2026-10-27T07:34:55.418376216Z",
+          "created": "2026-10-28T09:28:04.487194839Z",
           "created_by": "COPY / / # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-27T07:34:56.435225754Z",
+          "created": "2026-10-28T09:28:04.533335759Z",
           "created_by": "ENV NODE_ENV=production SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T07:34:56.435225754Z",
+          "created": "2026-10-28T09:28:04.533335759Z",
           "created_by": "WORKDIR /app",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-27T07:34:56.435225754Z",
+          "created": "2026-10-28T09:28:04.533335759Z",
           "created_by": "USER node",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T07:34:56.435225754Z",
+          "created": "2026-10-28T09:28:04.533335759Z",
           "created_by": "HEALTHCHECK {Test:[CMD /usr/bin/node -e process.exit(0)] Interval:30s Timeout:5s StartPeriod:5s StartInterval:0s Retries:3}",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T07:34:56.435225754Z",
+          "created": "2026-10-28T09:28:04.533335759Z",
           "created_by": "ENTRYPOINT [\"/sbin/tini\" \"--\" \"/usr/bin/docker-entrypoint.sh\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T07:34:56.435225754Z",
+          "created": "2026-10-28T09:28:04.533335759Z",
           "created_by": "CMD [\"node\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T07:34:56.545754441Z",
+          "created": "2026-10-28T09:28:04.549380696Z",
           "created_by": "COPY / / # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-27T07:34:56.545754441Z",
+          "created": "2026-10-28T09:28:04.549380696Z",
           "created_by": "ENV OPENSSL_CONF=/etc/ssl/fips/openssl-fips.cnf OPENSSL_MODULES=/usr/lib/ossl-modules-fips NODE_OPTIONS=--force-fips",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-27T07:34:56.665940417Z",
+          "created": "2026-10-28T09:28:04.701390602Z",
           "created_by": "RUN /usr/bin/node /usr/share/nodejs-fips/fips-check.js # buildkit",
           "comment": "buildkit.dockerfile.v0"
         }
@@ -87,9 +87,9 @@
       "rootfs": {
         "type": "layers",
         "diff_ids": [
-          "sha256:f5113730aeaa35699d649768c0fcb4914166e0813b48180a505e077d94361a30",
+          "sha256:cd4f0c668ef6a32f01f28c725b4e37f801d0ba048c273811435affbb1e0d1adc",
           "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
-          "sha256:dd83e189d46b7f4af793954758988bc8be7f7fc86a96eabfb9cda1d3540d3a9c",
+          "sha256:b813420a7b1d03fa727e0fa7a283c1bc8c10eb24edc7d119addae78b278861e3",
           "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
         ]
       },
@@ -123,7 +123,7 @@
           "NODE_OPTIONS=--force-fips"
         ],
         "Labels": {
-          "io.github.taha2samy-3.build.fingerprint": "d4ec7ab89c60f7d3799b1aaaf0bb6c2a",
+          "io.github.taha2samy-3.build.fingerprint": "7877c816dcb7fd95c9b622f38f0bdd75",
           "org.opencontainers.image.authors": "Taha Samy",
           "org.opencontainers.image.description": "Minimal Node.js runtime with the OpenSSL FIPS 140-3 provider enforced, on Wolfi (Node.js 24.22.1-r2)",
           "org.opencontainers.image.licenses": "Apache-2.0",
@@ -136,9 +136,9 @@
     },
     "Layers": [
       {
-        "Size": 152820736,
-        "Digest": "sha256:35b314bdd2283564c0e040d90dac38e0ec95cd909f414c8852a5de9a8d8300fb",
-        "DiffID": "sha256:f5113730aeaa35699d649768c0fcb4914166e0813b48180a505e077d94361a30"
+        "Size": 152834048,
+        "Digest": "sha256:895eab2b453c14aa5df3ed5a98db156467339b25ca0b0953129e2c5885192592",
+        "DiffID": "sha256:cd4f0c668ef6a32f01f28c725b4e37f801d0ba048c273811435affbb1e0d1adc"
       },
       {
         "Size": 1024,
@@ -147,8 +147,8 @@
       },
       {
         "Size": 2678272,
-        "Digest": "sha256:9d8b6c0f22bf8b689a409de0e169192320b0fb25b603c0133df992989849d86b",
-        "DiffID": "sha256:dd83e189d46b7f4af793954758988bc8be7f7fc86a96eabfb9cda1d3540d3a9c"
+        "Digest": "sha256:7d3b1a6b3ac3a44dd536bb3f0cc600b1bba462ec3a024bfb489623958919728a",
+        "DiffID": "sha256:b813420a7b1d03fa727e0fa7a283c1bc8c10eb24edc7d119addae78b278861e3"
       },
       {
         "Size": 1024,
