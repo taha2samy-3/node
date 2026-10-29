@@ -147,7 +147,7 @@ variable "BORINGSSL_COMMIT" {
 }
 
 variable "BORINGSSL_STATIC_IMAGE" {
-  default = "cgr.dev/chainguard/static@sha256:9e2306b457ff71ce370043dc68c7b52bb1e6622c1c6c6714edbed57496f3116e"
+  default = "cgr.dev/chainguard/static@sha256:fc42af33e643f20d08baf03cddcc1c02ba57052dfb02edb0d79f3fc47bcea8d9"
 }
 
 # ==========================================
