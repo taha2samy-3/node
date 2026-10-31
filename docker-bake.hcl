@@ -181,7 +181,7 @@ variable "OPENSSL_STATIC_IMAGE" {
 }
 variable "OPENSSL_BUILD_BASE_VER" { default = "1-r10" }
 variable "OPENSSL_PERL_VER" { default = "5.44.0-r4" }
-variable "OPENSSL_LINUX_HEADERS_VER" { default = "7.3-r0" }
+variable "OPENSSL_LINUX_HEADERS_VER" { default = "7.3.1-r0" }
 variable "OPENSSL_WGET_VER" { default = "1.25.0-r20" }
 variable "OPENSSL_CA_CERTIFICATES_VER" { default = "20261020-r0" }
 variable "OPENSSL_LIBSTDC_PLUS_PLUS_VER" { default = "16.2.0-r2" }
