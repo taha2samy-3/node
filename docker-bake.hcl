@@ -37,11 +37,11 @@ variable "NODE_22_FULL_VERSION" {
 }
 
 variable "NODE_24_FULL_VERSION" {
-  default = "24.22.1-r2"
+  default = "24.22.2-r0"
 }
 
 variable "NODE_26_FULL_VERSION" {
-  default = "26.12.1-r2"
+  default = "26.13.0-r0"
 }
 
 # ==========================================
@@ -64,10 +64,10 @@ variable "PHP_REPO" {
   default = "php"
 }
 
-variable "PHP_8_2_FULL_VERSION" { default = "8.2.35-r0" }
-variable "PHP_8_3_FULL_VERSION" { default = "8.3.36-r0" }
-variable "PHP_8_4_FULL_VERSION" { default = "8.4.27-r0" }
-variable "PHP_8_5_FULL_VERSION" { default = "8.5.12-r0" }
+variable "PHP_8_2_FULL_VERSION" { default = "8.2.35-r1" }
+variable "PHP_8_3_FULL_VERSION" { default = "8.3.36-r1" }
+variable "PHP_8_4_FULL_VERSION" { default = "8.4.27-r1" }
+variable "PHP_8_5_FULL_VERSION" { default = "8.5.12-r1" }
 
 # Composer for the PHP dev images, checked against getcomposer.org's published SHA-256
 variable "COMPOSER_VERSION" { default = "2.11.1" }
