@@ -82,9 +82,9 @@ variable "PYTHON_REPO" {
 
 variable "PYTHON_3_10_FULL_VERSION" { default = "3.10.22-r6" }
 variable "PYTHON_3_11_FULL_VERSION" { default = "3.11.18-r1" }
-variable "PYTHON_3_12_FULL_VERSION" { default = "3.12.16-r3" }
+variable "PYTHON_3_12_FULL_VERSION" { default = "3.12.16_git20261030-r0" }
 variable "PYTHON_3_13_FULL_VERSION" { default = "3.13.18_git20261030-r0" }
-variable "PYTHON_3_14_FULL_VERSION" { default = "3.14.10_git20261028-r0" }
+variable "PYTHON_3_14_FULL_VERSION" { default = "3.14.10_git20261104-r0" }
 
 # ==========================================
 # Bun Versions
