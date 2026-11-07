@@ -37,11 +37,11 @@ variable "NODE_22_FULL_VERSION" {
 }
 
 variable "NODE_24_FULL_VERSION" {
-  default = "24.22.2-r0"
+  default = "24.22.2-r2"
 }
 
 variable "NODE_26_FULL_VERSION" {
-  default = "26.13.0-r0"
+  default = "26.13.0-r1"
 }
 
 # ==========================================
