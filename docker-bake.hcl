@@ -282,7 +282,7 @@ variable "OPENJDK_KEYSTORE_PWD" { default = "changeit" }
 variable "OPENJDK_ALPINE_IMAGE" { default = "alpine@sha256:3f4d6b32e26703c6082839234f43769d5046b3ac7c910033911d1e71d8cd630a" }
 variable "OPENJDK_LIBCRYPTO3_VER" { default = "3.6.5-r5" }
 variable "OPENJDK_LIBSSL3_VER" { default = "3.6.5-r5" }
-variable "OPENJDK_NCURSES_VER" { default = "6.6.20261031-r0" }
+variable "OPENJDK_NCURSES_VER" { default = "6.6.20261107-r0" }
 
 
 # ==========================================
