@@ -35,9 +35,21 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v7
 
+      - name: Check GitHub App Secrets
+        id: setup
+        env:
+          CLIENT_ID: ${{ secrets.RENOVATE_APP_CLIENT_ID }}
+          PRIVATE_KEY: ${{ secrets.RENOVATE_APP_PRIVATE_KEY }}
+        run: |
+          if [[ -n "${CLIENT_ID}" && -n "${PRIVATE_KEY}" ]]; then
+            echo "has_app=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_app=false" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Generate Renovate App Token
         id: app-token
-        if: ${{ secrets.RENOVATE_APP_CLIENT_ID != '' && secrets.RENOVATE_APP_PRIVATE_KEY != '' }}
+        if: steps.setup.outputs.has_app == 'true'
         uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
         with:
           client-id: ${{ secrets.RENOVATE_APP_CLIENT_ID }}
