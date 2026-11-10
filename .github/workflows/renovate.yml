@@ -35,23 +35,31 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v7
 
-      # GITHUB_TOKEN cannot push changes to .github/workflows (every update Renovate makes here) and
-      # cannot read Dependabot alerts, and its pushes start no CI on the PRs. RENOVATE_TOKEN must be a
-      # fine-grained token with Contents, Pull requests, Issues, Workflows: read/write and
-      # Dependabot alerts: read on this repository.
+      - name: Generate Renovate App Token
+        id: app-token
+        if: ${{ secrets.RENOVATE_APP_CLIENT_ID != '' && secrets.RENOVATE_APP_PRIVATE_KEY != '' }}
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          client-id: ${{ secrets.RENOVATE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.RENOVATE_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: ${{ github.event.repository.name }}
+
+      # Renovate needs an App token or fine-grained PAT so its commits trigger CI on PRs
+      # and can update workflow files in .github/workflows.
       - name: Check Renovate Token
         env:
-          HAS_TOKEN: ${{ secrets.RENOVATE_TOKEN != '' }}
+          HAS_TOKEN: ${{ steps.app-token.outputs.token != '' || secrets.RENOVATE_TOKEN != '' }}
         run: |
           if [ "$HAS_TOKEN" != true ]; then
-            echo "::warning::RENOVATE_TOKEN is not set: Renovate falls back to GITHUB_TOKEN, cannot update workflow files or read vulnerability alerts, and its PRs get no CI runs"
+            echo "::warning::Neither Renovate App nor RENOVATE_TOKEN is set: Renovate falls back to GITHUB_TOKEN, cannot update workflow files or read vulnerability alerts, and its PRs get no CI runs"
           fi
 
       - name: Self-hosted Renovate
         uses: renovatebot/github-action@v46.3.9
         with:
           configurationFile: renovate.json
-          token: ${{ secrets.RENOVATE_TOKEN || secrets.GITHUB_TOKEN }}
+          token: ${{ steps.app-token.outputs.token || secrets.RENOVATE_TOKEN || secrets.GITHUB_TOKEN }}
         env:
           RENOVATE_REPOSITORIES: ${{ github.repository }}
           LOG_LEVEL: ${{ inputs.logLevel || 'info' }}

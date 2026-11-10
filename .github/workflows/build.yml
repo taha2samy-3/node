@@ -123,6 +123,7 @@ jobs:
         uses: dataaxiom/ghcr-cleanup-action@v1
         with:
           packages: ${{ needs.plan.outputs.packages }}
+          older-than: 90 days
           delete-untagged: true
 
   # ==========================================
