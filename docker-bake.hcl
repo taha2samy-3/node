@@ -70,8 +70,8 @@ variable "PHP_8_4_FULL_VERSION" { default = "8.4.27-r1" }
 variable "PHP_8_5_FULL_VERSION" { default = "8.5.12-r1" }
 
 # Composer for the PHP dev images, checked against getcomposer.org's published SHA-256
-variable "COMPOSER_VERSION" { default = "2.11.1" }
-variable "COMPOSER_SHA256" { default = "6f1b891e1d4927d62740276c540fb490e47689e19e102c49e8da849794882f8c" }
+variable "COMPOSER_VERSION" { default = "2.11.2" }
+variable "COMPOSER_SHA256" { default = "dd158c0afd41d15fac89e1b4e47b5d42911fe316c3687cd5edac98319b25d028" }
 
 # ==========================================
 # Python Versions
@@ -94,7 +94,7 @@ variable "BUN_REPO" {
 }
 
 variable "BUN_1_FULL_VERSION" {
-  default = "1.4.4-r0"
+  default = "1.4.4-r1"
 }
 
 # ==========================================
@@ -119,8 +119,8 @@ variable "GO_1_22_FULL_VERSION" { default = "1.22.12-r8" }
 variable "GO_1_23_FULL_VERSION" { default = "1.23.12-r1" }
 variable "GO_1_24_FULL_VERSION" { default = "1.24.13-r3" }
 variable "GO_1_25_FULL_VERSION" { default = "1.25.12-r1" }
-variable "GO_1_26_FULL_VERSION" { default = "1.26.10-r0" }
-variable "GO_1_27_FULL_VERSION" { default = "1.27.3-r0" }
+variable "GO_1_26_FULL_VERSION" { default = "1.26.11-r0" }
+variable "GO_1_27_FULL_VERSION" { default = "1.27.4-r0" }
 
 variable "GO_FIPS_REPO" {
   default = "go-fips"
