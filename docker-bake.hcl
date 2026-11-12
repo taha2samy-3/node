@@ -37,11 +37,11 @@ variable "NODE_22_FULL_VERSION" {
 }
 
 variable "NODE_24_FULL_VERSION" {
-  default = "24.22.2-r2"
+  default = "24.22.3-r0"
 }
 
 variable "NODE_26_FULL_VERSION" {
-  default = "26.13.0-r1"
+  default = "26.13.1-r0"
 }
 
 # ==========================================
@@ -84,7 +84,7 @@ variable "PYTHON_3_10_FULL_VERSION" { default = "3.10.22-r6" }
 variable "PYTHON_3_11_FULL_VERSION" { default = "3.11.18-r1" }
 variable "PYTHON_3_12_FULL_VERSION" { default = "3.12.16_git20261030-r0" }
 variable "PYTHON_3_13_FULL_VERSION" { default = "3.13.18_git20261030-r0" }
-variable "PYTHON_3_14_FULL_VERSION" { default = "3.14.10_git20261104-r1" }
+variable "PYTHON_3_14_FULL_VERSION" { default = "3.14.10_git20261111-r0" }
 
 # ==========================================
 # Bun Versions
