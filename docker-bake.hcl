@@ -37,11 +37,11 @@ variable "NODE_22_FULL_VERSION" {
 }
 
 variable "NODE_24_FULL_VERSION" {
-  default = "24.22.3-r0"
+  default = "24.22.3-r2"
 }
 
 variable "NODE_26_FULL_VERSION" {
-  default = "26.13.1-r0"
+  default = "26.13.1-r1"
 }
 
 # ==========================================
@@ -104,8 +104,8 @@ variable "JAVA_REPO" {
   default = "java"
 }
 
-variable "JAVA_17_FULL_VERSION" { default = "17.0.21.0.3-r0" }
-variable "JAVA_21_FULL_VERSION" { default = "21.0.13.0.3-r0" }
+variable "JAVA_17_FULL_VERSION" { default = "17.0.21.0.3-r1" }
+variable "JAVA_21_FULL_VERSION" { default = "21.0.13.0.3-r1" }
 variable "JAVA_23_FULL_VERSION" { default = "23.0.2-r8" }
 
 # ==========================================
