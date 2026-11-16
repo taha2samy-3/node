@@ -64,10 +64,10 @@ variable "PHP_REPO" {
   default = "php"
 }
 
-variable "PHP_8_2_FULL_VERSION" { default = "8.2.35-r1" }
-variable "PHP_8_3_FULL_VERSION" { default = "8.3.36-r1" }
-variable "PHP_8_4_FULL_VERSION" { default = "8.4.27-r1" }
-variable "PHP_8_5_FULL_VERSION" { default = "8.5.12-r1" }
+variable "PHP_8_2_FULL_VERSION" { default = "8.2.35-r2" }
+variable "PHP_8_3_FULL_VERSION" { default = "8.3.36-r2" }
+variable "PHP_8_4_FULL_VERSION" { default = "8.4.27-r2" }
+variable "PHP_8_5_FULL_VERSION" { default = "8.5.12-r2" }
 
 # Composer for the PHP dev images, checked against getcomposer.org's published SHA-256
 variable "COMPOSER_VERSION" { default = "2.11.2" }
@@ -80,10 +80,10 @@ variable "PYTHON_REPO" {
   default = "python"
 }
 
-variable "PYTHON_3_10_FULL_VERSION" { default = "3.10.22-r6" }
+variable "PYTHON_3_10_FULL_VERSION" { default = "3.10.22-r7" }
 variable "PYTHON_3_11_FULL_VERSION" { default = "3.11.18-r1" }
 variable "PYTHON_3_12_FULL_VERSION" { default = "3.12.16_git20261030-r0" }
-variable "PYTHON_3_13_FULL_VERSION" { default = "3.13.18_git20261030-r0" }
+variable "PYTHON_3_13_FULL_VERSION" { default = "3.13.18_git20261115-r1" }
 variable "PYTHON_3_14_FULL_VERSION" { default = "3.14.10_git20261111-r0" }
 
 # ==========================================
