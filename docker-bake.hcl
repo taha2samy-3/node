@@ -181,7 +181,7 @@ variable "OPENSSL_STATIC_IMAGE" {
 }
 variable "OPENSSL_BUILD_BASE_VER" { default = "1-r10" }
 variable "OPENSSL_PERL_VER" { default = "5.44.0-r5" }
-variable "OPENSSL_LINUX_HEADERS_VER" { default = "7.3.4-r0" }
+variable "OPENSSL_LINUX_HEADERS_VER" { default = "7.3.5-r0" }
 variable "OPENSSL_WGET_VER" { default = "1.25.0-r21" }
 variable "OPENSSL_CA_CERTIFICATES_VER" { default = "20261020-r0" }
 variable "OPENSSL_LIBSTDC_PLUS_PLUS_VER" { default = "16.2.0-r4" }
@@ -193,7 +193,7 @@ variable "OPENSSL_PCRE_DEV_VER" { default = "8.45-r12" }
 variable "OPENSSL_ZLIB_DEV_VER" { default = "1.4-r0" }
 variable "OPENSSL_BASH_VER" { default = "5.3-r14" }
 variable "OPENSSL_CURL_VER" { default = "8.23.0-r3" }
-variable "OPENSSL_JQ_VER" { default = "1.8.2-r4" }
+variable "OPENSSL_JQ_VER" { default = "1.8.2-r5" }
 variable "OPENSSL_UNZIP_VER" { default = "6.0-r9" }
 variable "OPENSSL_APK_TOOLS_VER" { default = "2.14.13-r1" }
 variable "OPENSSL_BUSYBOX_VER" { default = "1.38.0-r3" }
@@ -203,7 +203,7 @@ variable "OPENSSL_LD_LINUX_VER" { default = "2.43-r13" }
 variable "OPENSSL_LIBCRYPT1_VER" { default = "2.43-r13" }
 variable "OPENSSL_LIBXCRYPT_VER" { default = "4.5.2-r8" }
 variable "OPENSSL_LIBGCC_VER" { default = "16.2.0-r4" }
-variable "OPENSSL_WOLFI_BASE_VER" { default = "1-r7" }
+variable "OPENSSL_WOLFI_BASE_VER" { default = "1-r8" }
 variable "OPENSSL_WOLFI_BASELAYOUT_VER" { default = "20230201-r31" }
 variable "OPENSSL_WOLFI_KEYS_VER" { default = "1-r14" }
 
