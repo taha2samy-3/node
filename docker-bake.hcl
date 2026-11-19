@@ -104,7 +104,7 @@ variable "JAVA_REPO" {
   default = "java"
 }
 
-variable "JAVA_17_FULL_VERSION" { default = "17.0.21.1-r0" }
+variable "JAVA_17_FULL_VERSION" { default = "17.0.21.1-r1" }
 variable "JAVA_21_FULL_VERSION" { default = "21.0.13.1-r0" }
 variable "JAVA_23_FULL_VERSION" { default = "23.0.2-r8" }
 
