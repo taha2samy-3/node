@@ -15,7 +15,7 @@ variable "SOURCE_REPO" {
 }
 
 variable "BASE_IMAGE" {
-  default = "cgr.dev/chainguard/wolfi-base@sha256:2c12da5496e21e99003b3db3b9246f025e53d533c4df334205391260f1e8f85b"
+  default = "cgr.dev/chainguard/wolfi-base@sha256:71f52fd289650f1d021d60ba11235550b1b5ce124f3797bd254ca70c4cef39f9"
 }
 
 # ==========================================
