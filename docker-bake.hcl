@@ -179,14 +179,14 @@ variable "OPENSSL_FIPS_SHA256" {
 variable "OPENSSL_STATIC_IMAGE" {
   default = "cgr.dev/chainguard/static@sha256:fc42af33e643f20d08baf03cddcc1c02ba57052dfb02edb0d79f3fc47bcea8d9"
 }
-variable "OPENSSL_BUILD_BASE_VER" { default = "1-r10" }
+variable "OPENSSL_BUILD_BASE_VER" { default = "1-r11" }
 variable "OPENSSL_PERL_VER" { default = "5.44.0-r5" }
 variable "OPENSSL_LINUX_HEADERS_VER" { default = "7.3.5-r0" }
 variable "OPENSSL_WGET_VER" { default = "1.25.0-r21" }
 variable "OPENSSL_CA_CERTIFICATES_VER" { default = "20261020-r0" }
-variable "OPENSSL_LIBSTDC_PLUS_PLUS_VER" { default = "16.2.0-r4" }
+variable "OPENSSL_LIBSTDC_PLUS_PLUS_VER" { default = "16.2.0-r5" }
 variable "OPENSSL_ZLIB_VER" { default = "1.4-r0" }
-variable "OPENSSL_TZDATA_VER" { default = "2026f-r0" }
+variable "OPENSSL_TZDATA_VER" { default = "2026f-r1" }
 variable "OPENSSL_POSIX_LIBC_UTILS_VER" { default = "2.43-r13" }
 variable "OPENSSL_PKGCONF_VER" { default = "3.0.11-r1" }
 variable "OPENSSL_PCRE_DEV_VER" { default = "8.45-r12" }
@@ -202,10 +202,10 @@ variable "OPENSSL_GLIBC_LOCALE_POSIX_VER" { default = "2.43-r13" }
 variable "OPENSSL_LD_LINUX_VER" { default = "2.43-r13" }
 variable "OPENSSL_LIBCRYPT1_VER" { default = "2.43-r13" }
 variable "OPENSSL_LIBXCRYPT_VER" { default = "4.5.2-r8" }
-variable "OPENSSL_LIBGCC_VER" { default = "16.2.0-r4" }
+variable "OPENSSL_LIBGCC_VER" { default = "16.2.0-r5" }
 variable "OPENSSL_WOLFI_BASE_VER" { default = "1-r8" }
 variable "OPENSSL_WOLFI_BASELAYOUT_VER" { default = "20230201-r31" }
-variable "OPENSSL_WOLFI_KEYS_VER" { default = "1-r14" }
+variable "OPENSSL_WOLFI_KEYS_VER" { default = "1-r15" }
 
 # ==========================================
 # OpenJDK FIPS Versions
