@@ -527,7 +527,7 @@ runtimes:
           - id: "dev"
             name: "Development Builder (PHP-FPM + Composer)"
             policy_header: "PHP 8.5 Developer Image"
-            policy_text: "PHP 8.5 CLI and PHP-FPM with common extensions, Composer (checksum-verified), build-base, git and unzip, running as UID 1000. Hardened php.ini: no version disclosure, errors logged not shown, strict session cookies, request size limits, and session upload progress off. Fixed for PHP2Shell (CVE-2026-109618, CVE-2026-109619) from 8.5.12; php.net support: active support until 31 Dec 2027, security fixes until 31 Dec 2029."
+            policy_text: "PHP 8.5 CLI and PHP-FPM with common extensions, Composer (checksum-verified), build-base, git and unzip, running as UID 1000. Hardened php.ini: no version disclosure, errors logged not shown, strict session cookies, request size limits, and session upload progress off. Fixed for PHP2Shell (CVE-2026-109618, CVE-2026-109619) and phpAfterShell (CVE-2026-126714) from 8.5.13; php.net support: active support until 31 Dec 2027, security fixes until 31 Dec 2029."
             tags:
               - "ghcr.io/taha2samy-3/php:8.5-dev"
             reports:
@@ -538,7 +538,7 @@ runtimes:
           - id: "prod"
             name: "Production PHP-FPM (no shell)"
             policy_header: "Hardened PHP 8.5 FPM Runtime"
-            policy_text: "PHP-FPM 8.5 listening on port 9000, built from scratch with no shell, no busybox and no package manager, running as UID 1000. The package database is kept so scanners see every package. Adds to the dev hardening: exec/system/shell functions disabled, allow_url_fopen off, OPcache without timestamp checks, and pool-level php_admin_value settings a front end cannot override per request. Fixed for PHP2Shell from 8.5.12."
+            policy_text: "PHP-FPM 8.5 listening on port 9000, built from scratch with no shell, no busybox and no package manager, running as UID 1000. The package database is kept so scanners see every package. Adds to the dev hardening: exec/system/shell functions disabled, allow_url_fopen off, OPcache without timestamp checks, and pool-level php_admin_value settings a front end cannot override per request. Fixed for PHP2Shell and phpAfterShell from 8.5.13."
             tags:
               - "ghcr.io/taha2samy-3/php:8.5"
             reports:
@@ -551,7 +551,7 @@ runtimes:
           - id: "dev"
             name: "Development Builder (PHP-FPM + Composer)"
             policy_header: "PHP 8.4 Developer Image"
-            policy_text: "PHP 8.4 CLI and PHP-FPM with common extensions, Composer (checksum-verified), build-base, git and unzip, running as UID 1000. Hardened php.ini: no version disclosure, errors logged not shown, strict session cookies, request size limits, and session upload progress off. Fixed for PHP2Shell (CVE-2026-109618, CVE-2026-109619) from 8.4.27; php.net support: active support until 31 Dec 2026, security fixes until 31 Dec 2028."
+            policy_text: "PHP 8.4 CLI and PHP-FPM with common extensions, Composer (checksum-verified), build-base, git and unzip, running as UID 1000. Hardened php.ini: no version disclosure, errors logged not shown, strict session cookies, request size limits, and session upload progress off. Fixed for PHP2Shell (CVE-2026-109618, CVE-2026-109619) and phpAfterShell (CVE-2026-126714) from 8.4.28; php.net support: active support until 31 Dec 2026, security fixes until 31 Dec 2028."
             tags:
               - "ghcr.io/taha2samy-3/php:8.4-dev"
             reports:
@@ -562,7 +562,7 @@ runtimes:
           - id: "prod"
             name: "Production PHP-FPM (no shell)"
             policy_header: "Hardened PHP 8.4 FPM Runtime"
-            policy_text: "PHP-FPM 8.4 listening on port 9000, built from scratch with no shell, no busybox and no package manager, running as UID 1000. The package database is kept so scanners see every package. Adds to the dev hardening: exec/system/shell functions disabled, allow_url_fopen off, OPcache without timestamp checks, and pool-level php_admin_value settings a front end cannot override per request. Fixed for PHP2Shell from 8.4.27."
+            policy_text: "PHP-FPM 8.4 listening on port 9000, built from scratch with no shell, no busybox and no package manager, running as UID 1000. The package database is kept so scanners see every package. Adds to the dev hardening: exec/system/shell functions disabled, allow_url_fopen off, OPcache without timestamp checks, and pool-level php_admin_value settings a front end cannot override per request. Fixed for PHP2Shell and phpAfterShell from 8.4.28."
             tags:
               - "ghcr.io/taha2samy-3/php:8.4"
             reports:
@@ -575,7 +575,7 @@ runtimes:
           - id: "dev"
             name: "Development Builder (PHP-FPM + Composer)"
             policy_header: "PHP 8.3 Developer Image"
-            policy_text: "PHP 8.3 CLI and PHP-FPM with common extensions, Composer (checksum-verified), build-base, git and unzip, running as UID 1000. Hardened php.ini: no version disclosure, errors logged not shown, strict session cookies, request size limits, and session upload progress off. Fixed for PHP2Shell (CVE-2026-109618, CVE-2026-109619) from 8.3.36; php.net support: security fixes only, until 31 Dec 2027."
+            policy_text: "PHP 8.3 CLI and PHP-FPM with common extensions, Composer (checksum-verified), build-base, git and unzip, running as UID 1000. Hardened php.ini: no version disclosure, errors logged not shown, strict session cookies, request size limits, and session upload progress off. Fixed for PHP2Shell (CVE-2026-109618, CVE-2026-109619) and phpAfterShell (CVE-2026-126714) from 8.3.37; php.net support: security fixes only, until 31 Dec 2027."
             tags:
               - "ghcr.io/taha2samy-3/php:8.3-dev"
             reports:
@@ -586,7 +586,7 @@ runtimes:
           - id: "prod"
             name: "Production PHP-FPM (no shell)"
             policy_header: "Hardened PHP 8.3 FPM Runtime"
-            policy_text: "PHP-FPM 8.3 listening on port 9000, built from scratch with no shell, no busybox and no package manager, running as UID 1000. The package database is kept so scanners see every package. Adds to the dev hardening: exec/system/shell functions disabled, allow_url_fopen off, OPcache without timestamp checks, and pool-level php_admin_value settings a front end cannot override per request. Fixed for PHP2Shell from 8.3.36."
+            policy_text: "PHP-FPM 8.3 listening on port 9000, built from scratch with no shell, no busybox and no package manager, running as UID 1000. The package database is kept so scanners see every package. Adds to the dev hardening: exec/system/shell functions disabled, allow_url_fopen off, OPcache without timestamp checks, and pool-level php_admin_value settings a front end cannot override per request. Fixed for PHP2Shell and phpAfterShell from 8.3.37."
             tags:
               - "ghcr.io/taha2samy-3/php:8.3"
             reports:
@@ -599,7 +599,7 @@ runtimes:
           - id: "dev"
             name: "Development Builder (PHP-FPM + Composer)"
             policy_header: "PHP 8.2 Developer Image"
-            policy_text: "PHP 8.2 CLI and PHP-FPM with common extensions, Composer (checksum-verified), build-base, git and unzip, running as UID 1000. Hardened php.ini: no version disclosure, errors logged not shown, strict session cookies, request size limits, and session upload progress off. Fixed for PHP2Shell (CVE-2026-109618, CVE-2026-109619) from 8.2.35; php.net support: security fixes only, until 31 Dec 2026."
+            policy_text: "PHP 8.2 CLI and PHP-FPM with common extensions, Composer (checksum-verified), build-base, git and unzip, running as UID 1000. Hardened php.ini: no version disclosure, errors logged not shown, strict session cookies, request size limits, and session upload progress off. Fixed for PHP2Shell (CVE-2026-109618, CVE-2026-109619) and phpAfterShell (CVE-2026-126714) from 8.2.36; php.net support: security fixes only, until 31 Dec 2026."
             tags:
               - "ghcr.io/taha2samy-3/php:8.2-dev"
             reports:
@@ -610,7 +610,7 @@ runtimes:
           - id: "prod"
             name: "Production PHP-FPM (no shell)"
             policy_header: "Hardened PHP 8.2 FPM Runtime"
-            policy_text: "PHP-FPM 8.2 listening on port 9000, built from scratch with no shell, no busybox and no package manager, running as UID 1000. The package database is kept so scanners see every package. Adds to the dev hardening: exec/system/shell functions disabled, allow_url_fopen off, OPcache without timestamp checks, and pool-level php_admin_value settings a front end cannot override per request. Fixed for PHP2Shell from 8.2.35."
+            policy_text: "PHP-FPM 8.2 listening on port 9000, built from scratch with no shell, no busybox and no package manager, running as UID 1000. The package database is kept so scanners see every package. Adds to the dev hardening: exec/system/shell functions disabled, allow_url_fopen off, OPcache without timestamp checks, and pool-level php_admin_value settings a front end cannot override per request. Fixed for PHP2Shell and phpAfterShell from 8.2.36."
             tags:
               - "ghcr.io/taha2samy-3/php:8.2"
             reports:

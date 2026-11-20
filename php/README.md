@@ -2,12 +2,12 @@
 
 PHP **8.2, 8.3, 8.4 and 8.5**, the branches [php.net supports](https://www.php.net/supported-versions.php), on Wolfi for `linux/amd64` and `linux/arm64`, with a hardened `php.ini`.
 
-| Branch | php.net support | Image release | PHP2Shell fix |
+| Branch | php.net support | Image release | Fix level |
 | :--- | :--- | :--- | :--- |
-| 8.5 | Active until 31 Dec 2027, security until 31 Dec 2029 | 8.5.12 | 8.5.12 |
-| 8.4 | Active until 31 Dec 2026, security until 31 Dec 2028 | 8.4.27 | 8.4.27 |
-| 8.3 | Security fixes only, until 31 Dec 2027 | 8.3.36 | 8.3.36 |
-| 8.2 | Security fixes only, until 31 Dec 2026 | 8.2.35 | 8.2.35 |
+| 8.5 | Active until 31 Dec 2027, security until 31 Dec 2029 | 8.5.13 | 8.5.13 |
+| 8.4 | Active until 31 Dec 2026, security until 31 Dec 2028 | 8.4.28 | 8.4.28 |
+| 8.3 | Security fixes only, until 31 Dec 2027 | 8.3.37 | 8.3.37 |
+| 8.2 | Security fixes only, until 31 Dec 2026 | 8.2.36 | 8.2.36 |
 
 PHP 8.1 and older are end of life and not built. The Daily Dependency Update moves each branch to Wolfi's newest release.
 
@@ -20,9 +20,9 @@ PHP 8.1 and older are end of life and not built. The Daily Dependency Update mov
 
 Both include: bcmath, ctype, curl, dom, fileinfo, gd, iconv, intl, mbstring, mysqlnd, OPcache, openssl, PDO (MySQL, PostgreSQL, SQLite), phar, session, SimpleXML, sodium, sockets, tokenizer, XML, XMLReader, XMLWriter, zip.
 
-## PHP2Shell (CVE-2026-109618, CVE-2026-109619)
+## PHP2Shell (CVE-2026-109618, CVE-2026-109619) & phpAfterShell (CVE-2026-126714)
 
-Two unauthenticated remote code execution flaws in PHP's request handling, affecting every SAPI that serves web requests (PHP-FPM, mod_php, CGI). Updating is the only complete fix; PHP fixed them in 8.5.12, 8.4.27, 8.3.36 and 8.2.35.
+Critical unauthenticated remote code execution flaws in PHP's request handling, affecting every SAPI that serves web requests (PHP-FPM, mod_php, CGI). Updating is the only complete fix; PHP fixed them in 8.5.13, 8.4.28, 8.3.37 and 8.2.36.
 
 - Every image ships a fixed release. The prod build fails if the PHP version predates the fix.
 - On top of the fix, the images apply PHP's interim guidance as defence in depth: `session.upload_progress.enabled = 0`, `fatal_error_backtraces = Off` (8.5), smaller request bodies and input nesting, FPM workers recycled with `pm.max_requests`, and the critical settings set with `php_admin_value` in the FPM pool so a front end cannot change them per request with `PHP_VALUE`.

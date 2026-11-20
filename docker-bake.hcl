@@ -57,17 +57,17 @@ variable "NODE_FIPS_PROVIDER_IMAGE" {
 }
 
 # ==========================================
-# PHP Versions (the branches php.net supports; each pin is at or above the PHP2Shell fix:
-# 8.2.35, 8.3.36, 8.4.27, 8.5.12)
+# PHP Versions (the branches php.net supports; each pin is at or above the PHP2Shell & phpAfterShell fix:
+# 8.2.36, 8.3.37, 8.4.28, 8.5.13)
 # ==========================================
 variable "PHP_REPO" {
   default = "php"
 }
 
-variable "PHP_8_2_FULL_VERSION" { default = "8.2.35-r2" }
-variable "PHP_8_3_FULL_VERSION" { default = "8.3.36-r2" }
-variable "PHP_8_4_FULL_VERSION" { default = "8.4.27-r2" }
-variable "PHP_8_5_FULL_VERSION" { default = "8.5.12-r2" }
+variable "PHP_8_2_FULL_VERSION" { default = "8.2.36-r1" }
+variable "PHP_8_3_FULL_VERSION" { default = "8.3.37-r1" }
+variable "PHP_8_4_FULL_VERSION" { default = "8.4.28-r0" }
+variable "PHP_8_5_FULL_VERSION" { default = "8.5.13-r1" }
 
 # Composer for the PHP dev images, checked against getcomposer.org's published SHA-256
 variable "COMPOSER_VERSION" { default = "2.11.2" }

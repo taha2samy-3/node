@@ -33,11 +33,11 @@ foreach (['shell_exec', 'exec', 'system', 'proc_open'] as $function) {
     }
 }
 
-// Releases that contain the PHP2Shell fixes (CVE-2026-109618, CVE-2026-109619)
-$fixed = ['8.2' => '8.2.35', '8.3' => '8.3.36', '8.4' => '8.4.27', '8.5' => '8.5.12'];
+// Releases that contain the PHP2Shell (CVE-2026-109618, CVE-2026-109619) and phpAfterShell (CVE-2026-126714) fixes
+$fixed = ['8.2' => '8.2.36', '8.3' => '8.3.37', '8.4' => '8.4.28', '8.5' => '8.5.13'];
 $branch = PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION;
 if (!isset($fixed[$branch]) || version_compare(PHP_VERSION, $fixed[$branch], '<')) {
-    $fail(PHP_VERSION . ' predates the PHP2Shell fix for ' . $branch);
+    $fail(PHP_VERSION . ' predates the PHP2Shell / phpAfterShell fix for ' . $branch);
 }
 
 echo 'PHP ', PHP_VERSION, " prod hardening verified\n";
