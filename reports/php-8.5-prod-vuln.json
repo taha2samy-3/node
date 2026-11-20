@@ -1,95 +1,95 @@
 {
   "SchemaVersion": 2,
-  "CreatedAt": "2026-10-28T12:22:07.64979925Z",
+  "CreatedAt": "2026-11-20T02:17:46.413549031Z",
   "ArtifactName": "ghcr.io/taha2samy-3/php:8.5",
   "ArtifactType": "container_image",
   "Metadata": {
-    "Size": 171637248,
+    "Size": 171194368,
     "OS": {
       "Family": "wolfi",
       "Name": "20230201"
     },
-    "ImageID": "sha256:6decfa4c00ab9974a5e1040672e8a96dc1bb7cdcaf2c607437313af66c427b01",
+    "ImageID": "sha256:174a088a18ff2f8873bd6ee3ad7e5f16a55cfb3158b52a299770687bf719760d",
     "DiffIDs": [
-      "sha256:98c706fe108a142efb072788f224566b402020d949bb60623243ec14f586e68b",
-      "sha256:55685afc94737e7cf63be535b2c9d4c8127c1ad0e1e8eb410dd354648ac4cbe5",
+      "sha256:f4bd2f39f957135ca8c98498e435d47dfdaf5790c6990c7a5c8cd4c271cc87d5",
+      "sha256:addcc251813ff05f1657275ddf0f06467a8b69d807a58cee8ed1d55fd6c00292",
       "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
-      "sha256:76c315a6f69ceae9b3b1b28c73f70b509915785ff558d2257164dc62c6f72902",
-      "sha256:4fad6ca207f5cf882098fa477caea88753c1b06a3514aef0f851ae1da2f9c7c4",
+      "sha256:cd63f9728860eac02a934a50b82e10cc01d863050a358d41c34bc6d495cb612e",
+      "sha256:e2fca7135b4390c0fee6785052d7ac6afc4e42b75c645a37d4f22b1ecffe6b7a",
       "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
     ],
     "RepoTags": [
       "ghcr.io/taha2samy-3/php:8.5"
     ],
     "RepoDigests": [
-      "ghcr.io/taha2samy-3/php@sha256:3ea47abbfa1bcadd757d89a60358e30692a0295f47c9394ac709673f40a49071"
+      "ghcr.io/taha2samy-3/php@sha256:3fdc8fe6f075ee75c750c7f1d70ed097b02ebb8e17f86551350ba200c165709c"
     ],
     "ImageConfig": {
       "architecture": "amd64",
-      "created": "2026-10-28T12:18:05.708448946Z",
+      "created": "2026-11-20T02:13:07.082167946Z",
       "history": [
         {
-          "created": "2026-10-28T12:18:05.324688008Z",
+          "created": "2026-11-20T02:13:06.670368085Z",
           "created_by": "COPY /rootfs / # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-28T12:18:05.525060209Z",
+          "created": "2026-11-20T02:13:06.879608582Z",
           "created_by": "COPY /out/ /usr/bin/ # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-28T12:18:05.535758249Z",
+          "created": "2026-11-20T02:13:06.887872266Z",
           "created_by": "ENV SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt PHP_INI_SCAN_DIR=/etc/php/conf.d",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-28T12:18:05.535758249Z",
+          "created": "2026-11-20T02:13:06.887872266Z",
           "created_by": "WORKDIR /app",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-28T12:18:05.535758249Z",
+          "created": "2026-11-20T02:13:06.887872266Z",
           "created_by": "USER 1000:1000",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-28T12:18:05.544692945Z",
+          "created": "2026-11-20T02:13:06.89696633Z",
           "created_by": "COPY php/conf/verify-prod.php /tmp/verify-prod.php # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-28T12:18:05.623926871Z",
+          "created": "2026-11-20T02:13:06.986209365Z",
           "created_by": "RUN /usr/bin/php /tmp/verify-prod.php # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-28T12:18:05.708448946Z",
+          "created": "2026-11-20T02:13:07.082167946Z",
           "created_by": "RUN /usr/sbin/php-fpm --test # buildkit",
           "comment": "buildkit.dockerfile.v0"
         },
         {
-          "created": "2026-10-28T12:18:05.708448946Z",
+          "created": "2026-11-20T02:13:07.082167946Z",
           "created_by": "EXPOSE map[9000/tcp:{}]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-28T12:18:05.708448946Z",
+          "created": "2026-11-20T02:13:07.082167946Z",
           "created_by": "HEALTHCHECK \u0026{[\"CMD\" \"/usr/bin/php\" \"-n\" \"-r\" \"exit(@fsockopen('127.0.0.1', 9000) ? 0 : 1);\"] \"30s\" \"5s\" \"10s\" \"0s\" '\\x03'}",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-28T12:18:05.708448946Z",
+          "created": "2026-11-20T02:13:07.082167946Z",
           "created_by": "ENTRYPOINT [\"/sbin/tini\" \"--\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
         },
         {
-          "created": "2026-10-28T12:18:05.708448946Z",
+          "created": "2026-11-20T02:13:07.082167946Z",
           "created_by": "CMD [\"/usr/sbin/php-fpm\" \"--nodaemonize\" \"--force-stderr\"]",
           "comment": "buildkit.dockerfile.v0",
           "empty_layer": true
@@ -99,11 +99,11 @@
       "rootfs": {
         "type": "layers",
         "diff_ids": [
-          "sha256:98c706fe108a142efb072788f224566b402020d949bb60623243ec14f586e68b",
-          "sha256:55685afc94737e7cf63be535b2c9d4c8127c1ad0e1e8eb410dd354648ac4cbe5",
+          "sha256:f4bd2f39f957135ca8c98498e435d47dfdaf5790c6990c7a5c8cd4c271cc87d5",
+          "sha256:addcc251813ff05f1657275ddf0f06467a8b69d807a58cee8ed1d55fd6c00292",
           "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
-          "sha256:76c315a6f69ceae9b3b1b28c73f70b509915785ff558d2257164dc62c6f72902",
-          "sha256:4fad6ca207f5cf882098fa477caea88753c1b06a3514aef0f851ae1da2f9c7c4",
+          "sha256:cd63f9728860eac02a934a50b82e10cc01d863050a358d41c34bc6d495cb612e",
+          "sha256:e2fca7135b4390c0fee6785052d7ac6afc4e42b75c645a37d4f22b1ecffe6b7a",
           "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef"
         ]
       },
@@ -136,9 +136,9 @@
           "PHP_INI_SCAN_DIR=/etc/php/conf.d"
         ],
         "Labels": {
-          "io.github.taha2samy-3.build.fingerprint": "b9b332f2510dba8a745852763dae856b",
+          "io.github.taha2samy-3.build.fingerprint": "326c3ec558bfc92aa2ebc58ca7ef5e22",
           "org.opencontainers.image.authors": "Taha Samy",
-          "org.opencontainers.image.description": "PHP 8.5 (8.5.12-r0) PHP-FPM production image without shell or package manager, hardened php.ini, based on Chainguard Wolfi",
+          "org.opencontainers.image.description": "PHP 8.5 (8.5.13-r1) PHP-FPM production image without shell or package manager, hardened php.ini, based on Chainguard Wolfi",
           "org.opencontainers.image.licenses": "MIT",
           "org.opencontainers.image.source": "https://github.com/taha2samy-3/node"
         },
@@ -152,14 +152,14 @@
     },
     "Layers": [
       {
-        "Size": 165395456,
-        "Digest": "sha256:774fbfe53bae1d30b5ebd09ddcbb80e2f776698b81aee50b32b90e069bf85cf8",
-        "DiffID": "sha256:98c706fe108a142efb072788f224566b402020d949bb60623243ec14f586e68b"
+        "Size": 164952576,
+        "Digest": "sha256:7885135757e86afb9d0c9a17ed4438b6c85da3291fa17faa157cc04044b13e0a",
+        "DiffID": "sha256:f4bd2f39f957135ca8c98498e435d47dfdaf5790c6990c7a5c8cd4c271cc87d5"
       },
       {
         "Size": 6233600,
-        "Digest": "sha256:7588c4c86698d84658889a9ba02e3d1dca4381387e4af15568b27a79aabc34c1",
-        "DiffID": "sha256:55685afc94737e7cf63be535b2c9d4c8127c1ad0e1e8eb410dd354648ac4cbe5"
+        "Digest": "sha256:353d42c63360794764f53586264fd22db46d7973d47cd2c2a2ceaddf8add42b2",
+        "DiffID": "sha256:addcc251813ff05f1657275ddf0f06467a8b69d807a58cee8ed1d55fd6c00292"
       },
       {
         "Size": 1024,
@@ -168,13 +168,13 @@
       },
       {
         "Size": 4096,
-        "Digest": "sha256:5799dacb915f57f72771dd821319a625159b5ca163bfe0a9ae1213e39fb93aeb",
-        "DiffID": "sha256:76c315a6f69ceae9b3b1b28c73f70b509915785ff558d2257164dc62c6f72902"
+        "Digest": "sha256:cc87b5583a18c22dd077defd574fb4156ea0a893e47da4c470cb3dffec391b62",
+        "DiffID": "sha256:cd63f9728860eac02a934a50b82e10cc01d863050a358d41c34bc6d495cb612e"
       },
       {
         "Size": 2048,
-        "Digest": "sha256:6955c2fa2e6945b7ac3d9ec4f17c20d1d1186d75d31087dbe86835201aad70f2",
-        "DiffID": "sha256:4fad6ca207f5cf882098fa477caea88753c1b06a3514aef0f851ae1da2f9c7c4"
+        "Digest": "sha256:86ed350ef4a1d258d189d376c7a842a6425c4212a009d6da62bb6ccf3d67f608",
+        "DiffID": "sha256:e2fca7135b4390c0fee6785052d7ac6afc4e42b75c645a37d4f22b1ecffe6b7a"
       },
       {
         "Size": 1024,
@@ -192,7 +192,49 @@
     {
       "Target": "usr/bin/secrets-entrypoint",
       "Class": "lang-pkgs",
-      "Type": "gobinary"
+      "Type": "gobinary",
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2026-97054",
+          "PkgID": "stdlib@v1.26.10",
+          "PkgName": "stdlib",
+          "PkgIdentifier": {
+            "PURL": "pkg:golang/stdlib@v1.26.10",
+            "UID": "d29196e81b59faff"
+          },
+          "InstalledVersion": "v1.26.10",
+          "FixedVersion": "1.26.11, 1.27.4",
+          "Status": "fixed",
+          "Layer": {
+            "Digest": "sha256:353d42c63360794764f53586264fd22db46d7973d47cd2c2a2ceaddf8add42b2",
+            "DiffID": "sha256:addcc251813ff05f1657275ddf0f06467a8b69d807a58cee8ed1d55fd6c00292"
+          },
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-97054",
+          "DataSource": {
+            "ID": "govulndb",
+            "Name": "The Go Vulnerability Database",
+            "URL": "https://pkg.go.dev/vuln/"
+          },
+          "Title": "For HTTP/1 servers, when MaxBytesReader's limit is exceeded, \"Connecti ...",
+          "Description": "For HTTP/1 servers, when MaxBytesReader's limit is exceeded, \"Connection: close\" header is automatically set without synchronization, which might race with another header being set explicitly in the server handler. As a result, an HTTP/1 server that utilizes MaxBytesReader or MaxBytesHandler can crash due to runtime panic if its handler reads the request body concurrently with writing the response header.",
+          "Severity": "HIGH",
+          "CweIDs": [
+            "CWE-362",
+            "CWE-820"
+          ],
+          "VendorSeverity": {
+            "amazon": 3
+          },
+          "References": [
+            "https://go.dev/cl/862185",
+            "https://go.dev/issue/82563",
+            "https://groups.google.com/g/golang-announce/c/iY8TY0wWgbM",
+            "https://pkg.go.dev/vuln/GO-2026-6859"
+          ],
+          "PublishedDate": "2026-11-11T05:19:58.943Z",
+          "LastModifiedDate": "2026-11-16T16:17:56.29Z"
+        }
+      ]
     }
   ]
 }
