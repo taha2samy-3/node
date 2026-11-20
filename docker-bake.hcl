@@ -81,7 +81,7 @@ variable "PYTHON_REPO" {
 }
 
 variable "PYTHON_3_10_FULL_VERSION" { default = "3.10.22-r7" }
-variable "PYTHON_3_11_FULL_VERSION" { default = "3.11.18-r1" }
+variable "PYTHON_3_11_FULL_VERSION" { default = "3.11.18-r2" }
 variable "PYTHON_3_12_FULL_VERSION" { default = "3.12.16_git20261116-r0" }
 variable "PYTHON_3_13_FULL_VERSION" { default = "3.13.18_git20261115-r1" }
 variable "PYTHON_3_14_FULL_VERSION" { default = "3.14.10_git20261118-r0" }
@@ -94,7 +94,7 @@ variable "BUN_REPO" {
 }
 
 variable "BUN_1_FULL_VERSION" {
-  default = "1.4.4-r1"
+  default = "1.4.5-r0"
 }
 
 # ==========================================
