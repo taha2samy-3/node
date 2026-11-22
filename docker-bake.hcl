@@ -242,15 +242,15 @@ variable "OPENJDK_17_JRE_ARM64_URL" { default = "https://github.com/adoptium/tem
 variable "OPENJDK_17_JRE_ARM64_SHA" { default = "ed968eb2cde06ba38c3d957956cab7faced9181aaeebed4904f89e2e6efa8d11" }
 
 # Eclipse Temurin 21
-variable "OPENJDK_21_FULL_VERSION" { default = "21.0.13+9-LTS" }
-variable "OPENJDK_21_JDK_AMD64_URL" { default = "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.13%2B9/OpenJDK21U-jdk_x64_linux_hotspot_21.0.13_9.tar.gz" }
-variable "OPENJDK_21_JDK_AMD64_SHA" { default = "d7f5d5cf865a2902b70ff549b97586a7d3f234e016f041ab447ea740c7d66d1c" }
-variable "OPENJDK_21_JDK_ARM64_URL" { default = "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.13%2B9/OpenJDK21U-jdk_aarch64_linux_hotspot_21.0.13_9.tar.gz" }
-variable "OPENJDK_21_JDK_ARM64_SHA" { default = "e3522e707fc7dbe2a72c30746b1e7068301a0213ecd213d4491f35a14eb55578" }
-variable "OPENJDK_21_JRE_AMD64_URL" { default = "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.13%2B9/OpenJDK21U-jre_x64_linux_hotspot_21.0.13_9.tar.gz" }
-variable "OPENJDK_21_JRE_AMD64_SHA" { default = "a535a1df9c6284d9618872984e026ae0352d1f7e9e0605425c0e6114f47351dd" }
-variable "OPENJDK_21_JRE_ARM64_URL" { default = "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.13%2B9/OpenJDK21U-jre_aarch64_linux_hotspot_21.0.13_9.tar.gz" }
-variable "OPENJDK_21_JRE_ARM64_SHA" { default = "b1734db7ade49c3f6acc6ae06233b8c2dd90e3e2f00f67000ae1c972aaa64d8c" }
+variable "OPENJDK_21_FULL_VERSION" { default = "21.0.13.1+2-LTS" }
+variable "OPENJDK_21_JDK_AMD64_URL" { default = "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.13.1%2B2/OpenJDK21U-jdk_x64_linux_hotspot_21.0.13.1_2.tar.gz" }
+variable "OPENJDK_21_JDK_AMD64_SHA" { default = "bb8a93f9ae6e7a693b2b721e85dbeff26ae1a77447985a8d7afcdd9c7cf6222e" }
+variable "OPENJDK_21_JDK_ARM64_URL" { default = "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.13.1%2B2/OpenJDK21U-jdk_aarch64_linux_hotspot_21.0.13.1_2.tar.gz" }
+variable "OPENJDK_21_JDK_ARM64_SHA" { default = "8c72816a6b308842d5ed1f13e5826b69c567da4784f7238d7e800efa71fe54b1" }
+variable "OPENJDK_21_JRE_AMD64_URL" { default = "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.13.1%2B2/OpenJDK21U-jre_x64_linux_hotspot_21.0.13.1_2.tar.gz" }
+variable "OPENJDK_21_JRE_AMD64_SHA" { default = "18f44fab9065217f3ba61d0eef8a7b5f3c3713aa7293001b0d4ac10ede3850f0" }
+variable "OPENJDK_21_JRE_ARM64_URL" { default = "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.13.1%2B2/OpenJDK21U-jre_aarch64_linux_hotspot_21.0.13.1_2.tar.gz" }
+variable "OPENJDK_21_JRE_ARM64_SHA" { default = "52bc58323d9266538a6361a3cf8365fc1186dd9510d7f33f623681c4aabb7e72" }
 
 # Eclipse Temurin 25
 variable "OPENJDK_25_FULL_VERSION" { default = "25.0.5.1+2-LTS" }
@@ -282,7 +282,7 @@ variable "OPENJDK_KEYSTORE_PWD" { default = "changeit" }
 variable "OPENJDK_ALPINE_IMAGE" { default = "alpine@sha256:f59abe656b692d901e184be3445e084786602108599d2a51d229c0f5a48c71bf" }
 variable "OPENJDK_LIBCRYPTO3_VER" { default = "3.6.5-r5" }
 variable "OPENJDK_LIBSSL3_VER" { default = "3.6.5-r5" }
-variable "OPENJDK_NCURSES_VER" { default = "6.6.20261114-r0" }
+variable "OPENJDK_NCURSES_VER" { default = "6.6.20261121-r0" }
 
 
 # ==========================================
