@@ -70,8 +70,8 @@ variable "PHP_8_4_FULL_VERSION" { default = "8.4.28-r0" }
 variable "PHP_8_5_FULL_VERSION" { default = "8.5.13-r1" }
 
 # Composer for the PHP dev images, checked against getcomposer.org's published SHA-256
-variable "COMPOSER_VERSION" { default = "2.11.2" }
-variable "COMPOSER_SHA256" { default = "dd158c0afd41d15fac89e1b4e47b5d42911fe316c3687cd5edac98319b25d028" }
+variable "COMPOSER_VERSION" { default = "2.11.3" }
+variable "COMPOSER_SHA256" { default = "04f8b003da4e3a2459056591fbfebd02b4dc3e5adeb158616b90cf55a65113ec" }
 
 # ==========================================
 # Python Versions
