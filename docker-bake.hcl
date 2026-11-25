@@ -177,7 +177,7 @@ variable "OPENSSL_FIPS_SHA256" {
 }
 
 variable "OPENSSL_STATIC_IMAGE" {
-  default = "cgr.dev/chainguard/static@sha256:54b5f14edad6f2554774d499539e837588a501bd5bf22ac6cd97b1068c35d44d"
+  default = "cgr.dev/chainguard/static@sha256:599c3cd7597b84aa149c4282beecc8c6d4e1cb5c95dc8d982e70cd0a2a9147a2"
 }
 variable "OPENSSL_BUILD_BASE_VER" { default = "1-r11" }
 variable "OPENSSL_PERL_VER" { default = "5.44.0-r5" }
