@@ -220,15 +220,15 @@ variable "OPENJDK_LATEST_VERSION" {
 }
 
 # Eclipse Temurin 8
-variable "OPENJDK_8_FULL_VERSION" { default = "1.8.0_512-b09" }
-variable "OPENJDK_8_JDK_AMD64_URL" { default = "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u512-b09/OpenJDK8U-jdk_x64_linux_hotspot_8u512b09.tar.gz" }
-variable "OPENJDK_8_JDK_AMD64_SHA" { default = "fb3bfa869012419b562bb4235d0d83ec4f8c1dda62ae432ba20c6c3a7e43f7e4" }
-variable "OPENJDK_8_JDK_ARM64_URL" { default = "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u512-b09/OpenJDK8U-jdk_aarch64_linux_hotspot_8u512b09.tar.gz" }
-variable "OPENJDK_8_JDK_ARM64_SHA" { default = "01263df22c4553f63146bbae807e70cd4628dd0d9ec7582f01cb2453f7c69aaa" }
-variable "OPENJDK_8_JRE_AMD64_URL" { default = "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u512-b09/OpenJDK8U-jre_x64_linux_hotspot_8u512b09.tar.gz" }
-variable "OPENJDK_8_JRE_AMD64_SHA" { default = "57468dc8bfd71dd0578d9717e63a8c13b9efe0a2f2c85c2a13966d1c0f9b1e5f" }
-variable "OPENJDK_8_JRE_ARM64_URL" { default = "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u512-b09/OpenJDK8U-jre_aarch64_linux_hotspot_8u512b09.tar.gz" }
-variable "OPENJDK_8_JRE_ARM64_SHA" { default = "9b45f49bc6e54cf9170aebe0ee45f48a833222325cb3b2d6d21220eee4c5207b" }
+variable "OPENJDK_8_FULL_VERSION" { default = "1.8.0_514-b01" }
+variable "OPENJDK_8_JDK_AMD64_URL" { default = "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u514-b01/OpenJDK8U-jdk_x64_linux_hotspot_8u514b01.tar.gz" }
+variable "OPENJDK_8_JDK_AMD64_SHA" { default = "27eda854481d20806d918b30cdd417c6bed4fd15882e24f3595dc8ae7fb5d095" }
+variable "OPENJDK_8_JDK_ARM64_URL" { default = "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u514-b01/OpenJDK8U-jdk_aarch64_linux_hotspot_8u514b01.tar.gz" }
+variable "OPENJDK_8_JDK_ARM64_SHA" { default = "41e3284f630ba8d3543e7f7395ae433406bedff926c23ce70a97373aa8930f92" }
+variable "OPENJDK_8_JRE_AMD64_URL" { default = "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u514-b01/OpenJDK8U-jre_x64_linux_hotspot_8u514b01.tar.gz" }
+variable "OPENJDK_8_JRE_AMD64_SHA" { default = "b3e38dc60261a548fe83d297bf6faf7880f1b84f7d48e5741f3c6f3c3021cd4d" }
+variable "OPENJDK_8_JRE_ARM64_URL" { default = "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u514-b01/OpenJDK8U-jre_aarch64_linux_hotspot_8u514b01.tar.gz" }
+variable "OPENJDK_8_JRE_ARM64_SHA" { default = "5669548cd06075421e2c1f8c9e9430f4f5c25179f1a72ed3bb25358f8070ad74" }
 
 # Eclipse Temurin 17
 variable "OPENJDK_17_FULL_VERSION" { default = "17.0.21.1+2" }
